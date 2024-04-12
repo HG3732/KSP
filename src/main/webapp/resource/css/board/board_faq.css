@@ -1,0 +1,78 @@
+.contents{
+    min-height: 300px;
+}
+.board-faq{
+    margin-top: 100px;
+}
+.board-faq dl {
+    border: solid 1px #dbdbdb;
+    margin-bottom: 10px
+}
+.board-faq dl dt{
+    background-color: #f8f8f8;
+}
+.board-faq dl dt .text{
+    display: inlie-block;
+    vertical-align: top;
+    background-color: #503396;
+}
+
+.board-faq dl dt .icon{
+    display: inline-block;
+    width: 51px;
+    text-align: left;
+    padding-left: 9px;
+}
+.board-faq dl dt .icon img{
+    height: 32px;
+}
+.board-faq dl dt .text .title{
+    display: inline-block;
+    font-size: 16px;
+    line-height: 49px;
+}
+.board-faq dl dt .text .title a{
+    display: inline-block;
+    width: 100%;
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.board-faq dl dt .text .title.on > span{
+    font-weight: bold;
+}
+.board-faq dt .open{
+    float: right;
+    width: 50px;
+    height: 49px;
+    line-height: 32px;
+    cursor: pointer;
+    text-align: center;
+    
+}
+.board-faq dl dd{
+    border-top: solid 1px #dbdbdb;
+}
+.board-faq dl dd .faq_detail{
+    display: none;
+    background-position: 9px 20px;
+    background-size: 32px 32px;
+    padding: 20px 20px 25px 65px;
+    font-size: 16px;
+    line-height: 1.6em;
+}
+
+.pageno .flexpage{
+    width: 420px;
+    display: flex;
+    flex-flow: nowrap row;
+    justify-content: space-evenly;
+    text-align: center;
+    margin: 0 auto;
+}
+.pageno .flexpage .no button{
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+}

@@ -1,0 +1,79 @@
+body {
+    background-color: black;
+    background-image: url('../../image/heaven.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+header div.wrap-header {
+    width: 1100px;
+    margin: 0 auto;
+    font-size: 24px;
+}
+
+/* Top-bar 영역 */
+.wrap-header > .top-bar {
+    font-size: 14px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.wrap-header > .top-bar div {
+    padding: 20px;
+}
+
+.wrap-header > .top-bar div > a{
+    color: #ccc;
+}
+
+/*  로고 영역   */
+div.logo{
+    width: fit-content;
+    margin: 0 auto;
+    padding: 30px;
+    font-weight: bold;
+}
+div.logo a{
+    font-size: 40px;
+}
+
+/*  nav메뉴 영역    */
+.wrap-header .nav{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 20px;
+}
+
+.wrap-header .nav > div{
+    padding-bottom: 8px;
+    border-bottom: 2px solid transparent;
+}
+
+.wrap-header > nav .a {
+    color: white;
+}
+
+.wrap-header .a:hover{
+    color: white;
+    text-decoration: underline;
+    text-decoration-color: white;
+}
+
+.wrap-header .nav > div:hover{
+    border: solid white;
+    border-width: 0 0 2px 0;
+    transition: all 1s;
+}
+
+/* bottom-info 영역 */
+.wrap-header > .bottom-info {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.wrap-header > .bottom-info > div {
+    color: white;
+    font-size: 20px;
+    background-color: rgba(255,255,255, .2);
+    padding: 5px;
+}

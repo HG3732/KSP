@@ -1,0 +1,28 @@
+/* 보라색 컬러코드 = #503396 */
+* {
+    font-family: 나눔바른고딕OTF;
+    box-sizing: border-box;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+a:visited{
+    text-decoration: none;
+}
+
+h1 {
+	font-size: 40px;
+	font-weight: 700;
+}
+h2 {
+	font-size: 24px;
+}
+h3 {
+	font-size: 20px;
+}
+h4{
+	font-size: 14px;
+}

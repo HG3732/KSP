@@ -1,0 +1,113 @@
+
+.contents{
+    min-height: 300px;
+    margin-top: 25px 10px 0 10px;
+}
+.board-view{
+    border-top: 2px solid #403e70;
+    margin-top: 100px;
+}
+.board-view .view-header{
+    background: #fff;
+    border-bottom: 1px solid #cccfd5;
+}
+.board-view .view-header div{
+    padding: 25px;
+}
+.board-view .title{
+    font-size: 2.2rem;
+    border-bottom: 2px solid #403e70;
+}
+.board-view .view-header div:first-child{
+    border-top: none;
+}
+
+.board-view .view-header .info{
+    font-size: 2.2rem;
+    border-bottom: 2px solid #403e70;
+    width: 100%;
+    /* display: inline-block; */
+}
+.board-view .view-header .info dl{
+    display: inline-block;
+    width: 32%;
+    margin-right: 0;
+}
+.board-view .view-header .info dl dt{
+    float: left;
+    width: 80px;
+    font-size: 15px;
+    /* display: table-cell; */
+    position: relative;
+    vertical-align: middle;
+}
+
+.board-view .view-header .info dl dt::after{
+content: "|";
+color: #221f1f;
+position: absolute;
+top: 50%;
+right: 0;
+margin-top: -11px;
+}
+
+.board-view .view-header .info dl dd{
+    font-size: 16px;
+    padding-left: 120px;
+    color: #221f1f;
+    font-weight: bold;
+}
+.board-view .view-header .file{
+    display: inline-block;
+    width: 100%;
+}
+.board-view .view-header .file dl{
+    display: inline-block;
+    width: 100%;
+    margin-right: 0;
+}
+.board-view .view-header .file dl dt{
+    float: left;
+    width: 80px;
+    font-size: 15px;
+    position: relative;
+    vertical-align: middle;
+}
+.board-view .view-header .file dl dt::after{
+content: "|";
+color: #221f1f;
+position: absolute;
+top: 50%;
+right: 0;
+margin-top: -11px;
+}
+.board-view .view-header .file dl dd{
+    font-size: 16px;
+    padding-left: 120px;
+    color: #221f1f;
+    font-weight: bold;
+}
+
+.board-view .view-content{
+    padding: 35px 30px;
+    border-bottom: 1px solid #403e70;
+    min-height: 150px;
+}
+.board-view .view-content .memo{
+    font-size: 16px;
+    line-height: 30px;
+}
+.board-view .view-btn{
+    text-align: center;
+    margin: 40px 0;
+}
+.board-view .view-btn button{
+    background-color: #fff;
+    border: 1px solid #c3c3c3;
+    font-size: 15px;
+    line-height: 35px;
+    color: #544e4e;
+    margin: 0 8px;
+    cursor: pointer;
+}
+

@@ -19,12 +19,27 @@
 <link
 	href="${pageContext.request.contextPath}/resource/css/board/board_community.css"
 	rel="stylesheet">
+	<style>
+
+	.pagelist ul{
+		width: 100%;
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: center;
+	}
+	.pagelist ul li{
+		padding: 0 10px;
+		display: inline-block;
+	}
+</style>
 </head>
 <body>
-
-	[[${dtolist }]]
-	
-	<br> [[<%=request.getAttribute("dtolist")%>]]
+	[[ 로그인 정보 : ${sssLogin} ]]
+	<br> [[ map : ${map.dtolist }]]
+	<br> [[ totalPageCount : ${map.totalPageCount }]]
+	<br> [[ startPageNum : ${map.startPageNum }]]
+	<br> [[ endPageNum : ${map.endPageNum }]]
+	<br>
 	<div class="wrap-header">
 		<header>
 			<%@include file="/WEB-INF/views/common/header.jsp"%>
@@ -40,8 +55,9 @@
 			</div>
 			<div class="location">
 				<div class="location main">
-					<a href="${pageContext.request.contextPath}/home"> 
-					<img alt="메인" src="${pageContext.request.contextPath}/resource/image/home_icon.png">
+					<a href="${pageContext.request.contextPath}/home"> <img
+						alt="메인"
+						src="${pageContext.request.contextPath}/resource/image/home_icon.png">
 					</a>
 				</div>
 				<div class="l">|</div>
@@ -84,14 +100,15 @@
 							<th class="hits">조회수</th>
 						</tr>
 						<tbody class="table-body">
-							<c:forEach items="${dtolist}" var="board">
+							<c:forEach items="${map.dtolist }" var="vo" varStatus="vs">
 								<tr>
-									<td>${board.boardNo }</td>
-									<td>${board.boardTitle }</td>
-									<td>${board.fileId }</td>
-									<td>${board.boardWriter }</td>
-									<td>${board.boardWriteTime }</td>
-									<td>${board.hit }</td>
+									<td>${vo.boardNo }</td>
+									<td><a href="{pgaeContext.request.contextPath}/board/view?id=${vo.boardNo }">
+									${vo.boardTitle }</a></td>
+									<td>${vo.fileId }</td>
+									<td>${vo.boardWriter }</td>
+									<td>${vo.boardWriteTime }</td>
+									<td>${vo.hit }</td>
 								</tr>
 							</c:forEach>
 
@@ -100,7 +117,32 @@
 					</table>
 				</div>
 
+				<div class="pagelist">
+					<ul>
+						<c:if test="${map.startPageNum > 1}">
+							<li><a
+								href="${pageContext.request.contextPath }/board/community?page=${map.startPageNum-1 }">
+									&lt;&lt; </a></li>
+						</c:if>
+						<c:forEach begin="${map.startPageNum }" end="${map.endPageNum }"
+							var="page">
+							<c:if test="${map.currentPageNum == page }">
+								<li><strong>${page }</strong></li>
+							</c:if>
+							<c:if test="${map.currentPageNum != page }">
+								<li><a
+									href="${pageContext.request.contextPath }/board/community?page=${page }">${page }</a></li>
+							</c:if>
+						</c:forEach>
+						<c:if test="${map.endPageNum < map.totalPageCount }">
+							<li><a
+								href="${pageContext.request.contextPath }/board/community?page=${map.endPageNum+1 }">
+									&gt;&gt; </a></li>
+						</c:if>
+					</ul>
+				</div>
 
+				<!-- 
 				<div class="pageno">
 					<div class="flexpage">
 						<div class="no 1">
@@ -138,6 +180,7 @@
 						</div>
 					</div>
 				</div>
+				 -->
 			</div>
 		</div>
 	</div>

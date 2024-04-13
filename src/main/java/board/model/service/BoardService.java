@@ -3,7 +3,9 @@ package board.model.service;
 import static common.SemiTemplate.*;
 
 import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import board.model.dao.BoardDao;
 import board.model.dto.BoardInsertDto;
@@ -13,6 +15,56 @@ public class BoardService {
 
 	private BoardDao dao = new BoardDao();
 
+	// select totalCount - conn을 재연결 하지 않도록 함.
+//	public int selectTotalCount() {
+//		int result = 0;
+//		Connection conn = getSemiConnection(true);
+//		result = dao.selectTotalCount(conn);
+//		close(conn);
+//		return result;
+//	}
+	
+	//selectAllList
+	public Map<String, Object> selectPageList(int pageSize, int pageBlockSize, int currentPageNum){
+		Map<String,Object> result= null;
+		
+		Connection conn = getConnection(true);
+		System.out.println("currentPageNum : " + currentPageNum);
+		int start = pageSize * (currentPageNum-1)+1;
+		int end = pageSize*currentPageNum;
+//		"SELECT T2.* FROM (SELECT T1.*ROWNUM RN FROM"
+//		" (SELECT board_no, board_title, file_id, board_writer, board_write_time, hit "
+//		" from board_community left join board_file on b_no = board_no order by 1 desc)T1)T2 "
+//		" WHERE RN BETWEEN ? AND ?";
+		
+//		총 글 개수 
+//		select count(*) cnt from board;
+		int totalCount = dao.selectTotalCount(conn);
+		System.out.println("totalCount : " + totalCount);
+//		전체 페이지수 = ceil(총글개수/한페이지당글수) = (총글개수%한페이지당글수== 0)?(총글개수/한페이지당글수):(총글개수/한페이지당글수+1)
+		int totalPageCount = (totalCount % pageSize == 0 )? totalCount/pageSize : totalCount/pageSize+1;
+		
+//		시작페이지 startPageNum = (현재페이지%페이지수 == 0) ? ((현재페이지/페이지수)-1)*페이지수 + 1  :((현재페이지/페이지수))*페이지수 + 1
+//		끝페이지 endPageNum =  (endPageNum > 전체페이지수) ? 전체페이지수 : startPageNum+페이지수 - 1;
+		int startPageNum = (currentPageNum%pageBlockSize == 0) ? 
+						   ((currentPageNum/pageBlockSize)-1)*pageBlockSize+1 : 
+						   ((currentPageNum/pageBlockSize))*pageBlockSize+1;
+		int endPageNum = (startPageNum+pageBlockSize > totalCount) ? totalCount : startPageNum+pageBlockSize-1;
+		
+		List<BoardListDto> dtolist = dao.selectPageList(conn, start, end);
+		close(conn);
+		
+		result = new HashMap<String, Object>();
+		result.put("dtolist", dtolist);
+		result.put("totalPageCount", totalPageCount);
+		result.put("startPageNum", startPageNum);
+		result.put("endPageNum", endPageNum);
+		result.put("currentPageNum", currentPageNum);
+		System.out.println("selectPageList() : "+result);
+		System.out.println("여긴 서비스"+dtolist);
+		return result;
+	}
+	
 	// selecAllList
 	public List<BoardListDto> selectAllList() {
 		List<BoardListDto> result = null;

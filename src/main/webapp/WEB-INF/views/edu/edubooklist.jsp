@@ -103,9 +103,16 @@
                 <div> &nbsp; | 행사 및 교육 | 행사 및 교육신청</div>
             </div>
             <hr>
-            <div class="edu-book-list">
-                <div id="calendar" style="width: 900px; height: 740px;"></div>
-            </div>
+            <c:choose>
+            	<c:when test="${empty eduBook }">
+            		예약된 내역이 없습니다.
+            	</c:when>
+            	<c:otherwise>
+		            <div class="edu-book-list">
+		                <div id="calendar" style="width: 900px; height: 740px;"></div>
+		            </div>
+            	</c:otherwise>
+            </c:choose>
         </div>
     </div>
     <div class="wrap-footer">
@@ -151,9 +158,10 @@
                 		for(EduBookDto dto : eduBookList){
                 	%>
                 	{
-                		color: 'transparent'
-                		, title: '<%=dto.getEduPartSchool()%>'
-                		, start: '2024-04-10'
+                		color : 'blue'
+                		, title : '<%=dto.getEduPartSchool()%>'
+                		, start : '<%=dto.getEduStart()%>'
+                		, end : '<%=dto.getEduEnd()%>'
                 	},
                 	<%
             			}

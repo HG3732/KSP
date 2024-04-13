@@ -157,7 +157,7 @@
                 </div>
 	            <c:choose>
 	            	<c:when test="${empty map.dtolist }">
-	            	등록된 교육이 없습니다.
+	            		등록된 교육이 없습니다.
 	            	</c:when>
 		            <c:otherwise>
 			            <div class="edu-list-detail">

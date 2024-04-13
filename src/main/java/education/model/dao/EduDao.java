@@ -17,9 +17,9 @@ public class EduDao {
 	// selectTotalCount
 	public int selectTotalCount(Connection con, String searchSubject) {
 		int result = 0;
-		String sql = "select count(*) cnt from edu_list ";
+		String sql = "SELECT COUNT(*) CNT FROM EDU_LIST ";
 		if(searchSubject != null) {
-			sql += " where edu_subject like '%" + searchSubject + "%'";
+			sql += " WHERE EDU_SUBJECT LIKE '%" + searchSubject + "%'";
 		}
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -30,7 +30,7 @@ public class EduDao {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				result = rs.getInt("cnt");
+				result = rs.getInt("CNT");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -58,7 +58,7 @@ public class EduDao {
 		if(searchSubject != null) {
 			sql += " WHERE EDU_SUBJECT LIKE '%" + searchSubject + "%' ";
 		}
-		sql +=  " ORDER BY EDU_ID) E1) E2 WHERE RN BETWEEN ? AND ?";
+		sql +=  " ORDER BY EDU_ID DESC) E1) E2 WHERE RN BETWEEN ? AND ?";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
@@ -98,7 +98,7 @@ public class EduDao {
 	// selectRecent
 	public EduRecentDto selectRecent(Connection con) {
 		EduRecentDto result = null;
-		String sql = "select t1.* from (select edu_subject from edu_list order by edu_id desc) t1 where rownum = 1";
+		String sql = "SELECT T1.* FROM (SELECT EDU_SUBJECT FROM EDU_LIST ORDER BY EDU_ID DESC) T1 WHERE ROWNUM = 1";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
@@ -109,7 +109,32 @@ public class EduDao {
 			
 			// ResultSet 처리
 			if(rs.next()) {
-				result = new EduRecentDto(rs.getString("edu_subject"));
+				result = new EduRecentDto(rs.getString("EDU_SUBJECT"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		close(rs);
+		close(pstmt);
+		return result;
+	}
+	
+	// selectDetail
+	public EduRecentDto selectDetail(Connection con) {
+		EduRecentDto result = null;
+		String sql = "SELECT T1.* FROM (SELECT EDU_SUBJECT FROM EDU_LIST ORDER BY EDU_ID DESC) T1 WHERE ROWNUM = 1";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			// ResultSet 처리
+			if(rs.next()) {
+				result = new EduRecentDto(rs.getString("EDU_SUBJECT"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -189,9 +214,9 @@ public class EduDao {
 	// calendarBookList
 	public List<EduBookDto> calendarBookList(Connection con) {
 		List<EduBookDto> result = null;
-		String sql = "select el.edu_subject, m.member_name, eb.edu_part_school from edu_book eb "
-				+ " join edu_list el on eb.edu_id = el.edu_id "
-				+ " join member m on eb.edu_book_id = m.member_id ";
+		String sql = "SELECT EL.EDU_SUBJECT, M.MEMBER_NAME, EB.EDU_PART_SCHOOL, TO_CHAR(EL.EDU_START, 'YYYY-MM-DD') ES, TO_CHAR(EL.EDU_END, 'YYYY-MM-DD') EE FROM EDU_BOOK EB "
+				+ " JOIN EDU_LIST EL ON EB.EDU_ID = EL.EDU_ID "
+				+ " JOIN MEMBER M ON EB.EDU_BOOK_ID = M.MEMBER_ID ";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
@@ -204,9 +229,11 @@ public class EduDao {
 				result = new ArrayList<EduBookDto>();
 				do {
 					EduBookDto dto = new EduBookDto(
-							rs.getString("edu_subject")
-							, rs.getString("member_name")
-							, rs.getString("edu_part_school")
+							rs.getString("EDU_SUBJECT")
+							, rs.getString("MEMBER_NAME")
+							, rs.getString("EDU_PART_SCHOOL")
+							, rs.getString("ES")
+							, rs.getString("EE")
 							);
 					result.add(dto);
 				}while(rs.next());

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -164,7 +165,7 @@
                                     <td>신청기간</td><td>시작날짜</td><td>~</td><td>종료날짜</td><td>운영기간</td><td>시작날짜</td><td>~</td><td>종료날짜</td>
                                 </tr>
                                 <tr>
-                                    <td>운영요일</td><td>요일</td><td colspan="6"></td>
+                                    <td>운영요일</td><td>요일</td><td>교육장소</td><td colspan="5">장소</td>
                                 </tr>
                                 <tr>
                                     <td colspan="8">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium iure placeat odio ullam perferendis, nostrum, vel quas modi aut recusandae id, sapiente voluptas facere quibusdam autem et natus. Velit, nulla.</td>
@@ -175,7 +176,6 @@
                     <div class="edu-book">
                         <a href="http://localhost:8080/star/edu/book/form">신청하기</a>
                     </div>
-                    
                 </div>
             </div>
         </div>

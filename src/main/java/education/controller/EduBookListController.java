@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import education.model.dto.EduBookDto;
+import education.model.dto.EduRecentDto;
 import education.model.service.EduService;
 
 /**
@@ -32,6 +33,10 @@ public class EduBookListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		EduRecentDto dto = service.selectRecent();
+		Object recentEdu = (dto != null) ? dto.getEduSubject() : "등록된 교육이 없습니다";
+		request.setAttribute("recentEdu", recentEdu);
+		
 		List<EduBookDto> eduBookList = service.calendarBookList();
 		request.setAttribute("eduBook", eduBookList);
 		request.getRequestDispatcher("/WEB-INF/views/edu/edubooklist.jsp").forward(request, response);

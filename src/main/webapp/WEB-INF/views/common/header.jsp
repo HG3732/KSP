@@ -65,9 +65,16 @@ $(loadedHandler)
 	            <div><a href="#" class="board">게시판</a></div>
 	        </div>
 	        <div class="bottom-info">
-                <div class="recent-edu">
-                    ${recentEdu }
-                </div>
+	        	<c:choose>
+	        		<c:when test="${empty recentEdu }">
+	        			등록된 교육이 없습니다.
+	        		</c:when>
+	        		<c:otherwise>
+		                <div class="recent-edu">
+		                    ${recentEdu }
+		                </div>
+	        		</c:otherwise>
+	        	</c:choose>
                 <div class="wether-box">
                     오늘의 날씨 간단 표시
                 </div>

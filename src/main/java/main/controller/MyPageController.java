@@ -26,17 +26,22 @@ public class MyPageController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String pwd = request.getParameter("pwd");
+		String pwd = request.getParameter("pw");
+		//새 로그인 객체 생성 후 전달받은 비밀번호 입력
 		MemberLoginDto dto = new MemberLoginDto();
-		MemberInfoDto currentDto =	(MemberInfoDto)request.getSession().getAttribute("ssslogin"); 
 		dto.setMem_pwd(pwd);
+		//기존에 로그인 돼있던 유저 정보에서 id만 추출
+		MemberInfoDto currentDto =	(MemberInfoDto)request.getSession().getAttribute("ssslogin"); 
 		dto.setMem_id(currentDto.getMem_id());
+		
+		int checkResult = 0;
 		MemberInfoDto result = null;
 		result = service.loginGetInfo(dto);
 		if(result != null) {
 			request.getSession().setAttribute("ssslogin", result);
+			checkResult = 1;
 		}
-		response.getWriter().append(String.valueOf(result));
+		response.getWriter().append(String.valueOf(checkResult));
 	}
 
 }

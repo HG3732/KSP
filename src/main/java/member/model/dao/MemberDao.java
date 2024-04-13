@@ -14,7 +14,7 @@ import member.model.dto.MemberInfoDto;
 import member.model.dto.MemberLoginDto;
 
 public class MemberDao {
-
+	
 	//select one login
 		public MemberInfoDto loginGetInfo(Connection conn, MemberLoginDto dto) {
 			MemberInfoDto result = null;
@@ -115,14 +115,21 @@ public class MemberDao {
 		}
 		
 		
-	//select list - All
-		public List<MemberDto> selectMemberList(Connection conn, int start, int end) {
+	//select list - All + search
+		public List<MemberDto> selectMemberList(Connection conn, int start, int end, String category, String keyword) {
 			List<MemberDto> result = null;
 			String sql = "select m2.* "
-					+ " from (select m1.*, rownum rn"
+					+ " from (select m1.*, rownum rn "
 					+ "    from (select MEMBER_ID, MEMBER_ADMIN, MEMBER_NAME, MEMBER_PWD, MEMBER_EMAIL, MEMBER_ADDRESS "
 					+ "        from MEMBER order by member_id) m1) m2 "
-					+ " where rn between ? and ? ";
+					+ " where (rn between ? and ? ) ";
+//			if(keyword != null && !(keyword.equals(""))) {
+//				sql += " and (" + category + " like '%" + keyword + "%')";
+//			}
+			if(keyword != null && !(keyword.equals(""))) {
+				sql += " and (? like '%?%')";
+			}
+			
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			
@@ -130,12 +137,22 @@ public class MemberDao {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, start);
 				pstmt.setInt(2, end);
+				
+				//검색기능을 썼다면
+				if(keyword != null && !(keyword.equals(""))) {
+					//sql += " and ( ? like '%?%')";
+					pstmt.setString(3, category);
+					pstmt.setString(4, keyword);
+				}
+				
+					
 				rs = pstmt.executeQuery();
 				if(rs.next()) {
 					result = new ArrayList<MemberDto>();
 					do {
-						MemberDto dto = new MemberDto(rs.getString("MEMBER_ID"), rs.getInt("MEMBER_ADMIN"), rs.getString("MEMBER_NAME"), rs.getString("MEMBER_PWD"), rs.getString("MEMBER_EMAIL")
-										, rs.getString("MEMBER_ADDRESS"));
+						MemberDto dto = new MemberDto(rs.getString("MEMBER_ID"), rs.getInt("MEMBER_ADMIN")
+								, rs.getString("MEMBER_NAME"), rs.getString("MEMBER_PWD")
+								, rs.getString("MEMBER_EMAIL") , rs.getString("MEMBER_ADDRESS"));
 						result.add(dto);
 					} while (rs.next());
 				}

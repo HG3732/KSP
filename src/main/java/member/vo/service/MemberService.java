@@ -42,7 +42,7 @@ public class MemberService {
 	}
 	
 	
-	public Map<String, Object> selectMemberList(int pageSize, int pageBlockSize, int currentPageNum) {
+	public Map<String, Object> selectMemberList(int pageSize, int pageBlockSize, int currentPageNum, String category, String keyword) {
 		Map<String, Object> result = null;
 		Connection conn = getConnection(true);
 		int start = pageSize*(currentPageNum-1)+1;
@@ -54,7 +54,7 @@ public class MemberService {
 		int startPageNum = (currentPageNum%pageBlockSize == 0) ? ((currentPageNum/pageBlockSize)-1)*pageBlockSize + 1 : ((currentPageNum/pageBlockSize))*pageBlockSize + 1;
 		int endPageNum = (startPageNum+pageBlockSize > totalPageCount) ? totalPageCount : startPageNum + pageBlockSize - 1;
 		
-		List<MemberDto> dtoList = dao.selectMemberList(conn, start, end);
+		List<MemberDto> dtoList = dao.selectMemberList(conn, start, end, category, keyword);
 		
 		result = new HashMap<String, Object>();
 		result.put("dtoList", dtoList);

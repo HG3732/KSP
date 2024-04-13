@@ -25,7 +25,11 @@ public class MemberSearchController extends HttpServlet {
 		int pageBlockSize = 7;
 		int currentPageNum = 1;
 		String pageNum = request.getParameter("page");
+
+		String category = request.getParameter("category");
+		String keyword = request.getParameter("keyword");
 		
+		//페이지 번호 url로 입력해서 들어갈 때 공란/null 체크
 		if(pageNum != null && !pageNum.equals("")) {
 			try {
 				currentPageNum = Integer.parseInt(pageNum);
@@ -34,12 +38,8 @@ public class MemberSearchController extends HttpServlet {
 			}
 		}
 		
-		request.setAttribute("map", service.selectMemberList(pageSize, pageBlockSize, currentPageNum));
+		request.setAttribute("map", service.selectMemberList(pageSize, pageBlockSize, currentPageNum, category, keyword));
 		request.getRequestDispatcher("/WEB-INF/views/home/memberlist.jsp").forward(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 	}
 
 }

@@ -5,7 +5,7 @@ body {
 /* 회원 조회 */
 section.search-member {
     width: 1100px;
-    margin: 0 auto;
+    margin: 50px auto 0 auto;
     display: flex;
     flex-direction: column;
 }
@@ -14,7 +14,7 @@ section.search-member {
     text-align: center;
     font-size: 24px;
     background-color: #503396;
-    padding: 10px;
+    padding: 15px;
     border-bottom: 2px solid white;
 }
 
@@ -41,9 +41,22 @@ section > .wrap-checkmember > div:not(:first-child) {
     border-bottom: 1px solid #aaa;
 }
 
+section > .wrap-checkmember > div:last-child {
+    border-bottom: 2px solid white;
+}
+
 section > .wrap-checkmember > div > div:not(:last-child) {
     border-right: 1px solid white;
 }
+
+section > .wrap-checkmember > div.check-main > div {
+	padding: 0 10px;
+	text-overflow: ellipsis;
+  	white-space: nowrap;
+  	overflow: hidden;
+}
+
+
 
 /* 페이지 번호 */
 .pagenum {
@@ -68,7 +81,15 @@ section > .wrap-checkmember > div > div:not(:last-child) {
     margin-right: 5px;
 }
 
-.searchbar .search {
+#searchmem-keyword > * {
+	color: black;
+}
+
+#searchmem-keyword > select > option{
+	color: black;	
+}
+
+.searchbar > #searchmem-keyword > .btn-search {
     background-color: #503396;
     border: none;
     padding: 3px 8px;
@@ -76,3 +97,4 @@ section > .wrap-checkmember > div > div:not(:last-child) {
     color: white;
     border-radius: 2px;
 }
+

@@ -18,12 +18,13 @@ $(loadedHandler)
 	}	
 	
 	function sendPwdHandler() {
+		var pwVal = $(".pwd").val();
 		$.ajax({
 			url:"${pageContext.request.contextPath}/mypage"			
 			, method : "post"
-			, data : $(".pwd").serialize()
-			, success : function(result){
-				if(result != null){
+			, data : { pw : pwVal}
+			, success : function(checkResult){
+				if(checkResult != 0){
 					alert("비밀번호가 일치합니다. 변경하실 정보를 입력해주세요")
 					$(".checkpw").prop('disabled', true);
 					$(".changeable").prop('disabled', false);
@@ -120,7 +121,7 @@ $(loadedHandler)
                 </tr>
                 <tr>
                     <td>
-                        <button type="button" name="checkpw" class="checkpw">정보 수정</button>
+                        <button type="button" name="checkpw" class="checkpw">비밀번호 확인</button>
                     </td>
                     <td>
                         <button type="button" name="change-Info" class="change" disabled>정보 수정</button>

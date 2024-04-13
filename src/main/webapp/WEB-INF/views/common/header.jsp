@@ -66,7 +66,7 @@ $(loadedHandler)
 	        </div>
 	        <div class="bottom-info">
                 <div class="recent-edu">
-                    가장 최근 올라온 교육행사 한개 제목 표시하는 곳
+                    ${recentEdu }
                 </div>
                 <div class="wether-box">
                     오늘의 날씨 간단 표시

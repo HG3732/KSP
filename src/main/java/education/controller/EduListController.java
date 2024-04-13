@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import education.model.dto.EduRecentDto;
 import education.model.service.EduService;
 
 /**
@@ -28,6 +29,10 @@ public class EduListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		EduRecentDto dto = service.selectRecent();
+		request.setAttribute("recentEdu", dto.getEduSubject());
+		
+		
 		String searchSubject = request.getParameter("edu-name");
 		request.getSession().setAttribute("ssSearch", searchSubject);
 //		request.setAttribute("eduList", service.selectList());

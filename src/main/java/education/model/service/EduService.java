@@ -10,6 +10,7 @@ import java.util.Map;
 import education.model.dao.EduDao;
 import education.model.dto.EduBookDto;
 import education.model.dto.EduListDto;
+import education.model.dto.EduRecentDto;
 
 public class EduService {
 	private EduDao dao = new EduDao();
@@ -39,6 +40,14 @@ public class EduService {
 			result.put("endPageNum", endPageNum);
 			result.put("currentPageNum", currentPageNum);
 			
+			return result;
+		}
+		// selectRecent
+		public EduRecentDto selectRecent() {
+			EduRecentDto result = null;
+			Connection con = getConnection(true);
+			result = dao.selectRecent(con);
+			close(con);
 			return result;
 		}
 		

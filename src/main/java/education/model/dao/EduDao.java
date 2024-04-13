@@ -9,6 +9,7 @@ import java.util.List;
 
 import education.model.dto.EduBookDto;
 import education.model.dto.EduListDto;
+import education.model.dto.EduRecentDto;
 
 import static common.SemiTemplate.*;
 
@@ -84,6 +85,31 @@ public class EduDao {
 							);
 					result.add(dto);
 				}while(rs.next());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		close(rs);
+		close(pstmt);
+		return result;
+	}
+	
+	// selectRecent
+	public EduRecentDto selectRecent(Connection con) {
+		EduRecentDto result = null;
+		String sql = "select t1.* from (select edu_subject from edu_list order by edu_id desc) t1 where rownum = 1";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			// ResultSet 처리
+			if(rs.next()) {
+				result = new EduRecentDto(rs.getString("edu_subject"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

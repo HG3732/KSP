@@ -21,16 +21,7 @@
 	rel="stylesheet">
 	<style>
 
-	.pagelist ul{
-		width: 100%;
-		display: flex;
-		flex-flow: row nowrap;
-		justify-content: center;
-	}
-	.pagelist ul li{
-		padding: 0 10px;
-		display: inline-block;
-	}
+
 </style>
 </head>
 <body>
@@ -103,7 +94,7 @@
 							<c:forEach items="${map.dtolist }" var="vo" varStatus="vs">
 								<tr>
 									<td>${vo.boardNo }</td>
-									<td><a href="{pgaeContext.request.contextPath}/board/view?id=${vo.boardNo }">
+									<td><a href="${pgaeContext.request.contextPath}/star/board/view?no=${vo.boardNo }">
 									${vo.boardTitle }</a></td>
 									<td>${vo.fileId }</td>
 									<td>${vo.boardWriter }</td>

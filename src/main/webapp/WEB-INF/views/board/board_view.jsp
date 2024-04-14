@@ -51,20 +51,20 @@
 				<div class="board-view">
 					<div class="view-header">
 						<div class="title">
-							<strong>제목 내용..</strong>
+							<strong>${dto.boardTitle }</strong>
 						</div>
 						<div class="info">
 							<dl>
 								<dt>작성자</dt>
-								<dd>memId</dd>
+								<dd>${dto.boardWriter }</dd>
 							</dl>
 							<dl>
 								<dt>작성일</dt>
-								<dd>YYYY-MM-DD</dd>
+								<dd>${dto.boardWriteTime }</dd>
 							</dl>
 							<dl>
 								<dt>조회수</dt>
-								<dd>123</dd>
+								<dd>${dto.hit }</dd>
 							</dl>
 						</div>
 						<div class="file">
@@ -80,15 +80,10 @@
 						</div>
 					</div>
 					<div class="view-content">
-						<div class="memo">글 내용 Lorem ipsum dolor sit amet
-							consectetur adipisicing elit. Voluptatem sapiente voluptates a
-							explicabo doloribus fuga dolore odio fugiat fugit dolor nulla
-							officiis cupiditate neque impedit accusantium reiciendis,
-							eligendi eius rem.</div>
-					</div>
+						<div class="memo">${dto.boardContent }</div>
 					<div class="view-btn">
 						<button type="button" class="lsit-btn"
-							onclick="${pageContext.request.contextPath}/board/comminity">목록</button>
+							onclick="location.href='${pageContext.request.contextPath}/board/community'">목록</button>
 					</div>
 				</div>
 			</div>

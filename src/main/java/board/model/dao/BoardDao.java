@@ -1,6 +1,6 @@
 package board.model.dao;
 
-import static common.SemiTemplate.*;
+import static common.SemiTemplate.close;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +11,7 @@ import java.util.List;
 
 import board.model.dto.BoardInsertDto;
 import board.model.dto.BoardListDto;
+import board.model.dto.BoardViewDto;
 
 //이름               널?       유형             
 //---------------- -------- -------------- 
@@ -89,32 +90,32 @@ public class BoardDao {
 	}
 
 	// selecAllList
-	public List<BoardListDto> selectAllList(Connection conn) {
-		List<BoardListDto> result = null;
-//		String sql = "SELECT BOARD_NO, BOARD_TITLE, BOARD_WRITER, BOARD_WRITE_TIME, HIT FROM BOARD_COMMUNITY";
-		String sql = "select board_no, board_title, file_id, board_writer, board_write_time, hit"
-				+ " from board_community left join board_file on b_no = board_no order by 1 desc";
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			// ResultSet 처리
-			result = new ArrayList<>();
-			while (rs.next()) {
-				BoardListDto dto = new BoardListDto(rs.getInt("BOARD_NO"), rs.getString("BOARD_TITLE"),
-						rs.getInt("FILE_ID"), rs.getString("BOARD_WRITER"), rs.getString("BOARD_WRITE_TIME"),
-						rs.getInt("HIT"));
-				result.add(dto);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-		return result;
-	}
+//	public List<BoardListDto> selectAllList(Connection conn) {
+//		List<BoardListDto> result = null;
+////		String sql = "SELECT BOARD_NO, BOARD_TITLE, BOARD_WRITER, BOARD_WRITE_TIME, HIT FROM BOARD_COMMUNITY";
+//		String sql = "select board_no, board_title, file_id, board_writer, board_write_time, hit"
+//				+ " from board_community left join board_file on b_no = board_no order by 1 desc";
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		try {
+//			pstmt = conn.prepareStatement(sql);
+//			rs = pstmt.executeQuery();
+//			// ResultSet 처리
+//			result = new ArrayList<>();
+//			while (rs.next()) {
+//				BoardListDto dto = new BoardListDto(rs.getInt("BOARD_NO"), rs.getString("BOARD_TITLE"),
+//						rs.getInt("FILE_ID"), rs.getString("BOARD_WRITER"), rs.getString("BOARD_WRITE_TIME"),
+//						rs.getInt("HIT"));
+//				result.add(dto);
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(rs);
+//			close(pstmt);
+//		}
+//		return result;
+//	}
 
 //		try {
 //			pstmt = conn.prepareStatement(sql);
@@ -139,7 +140,32 @@ public class BoardDao {
 //	}
 
 	// selectOne
-
+	public BoardViewDto selectOne(Connection conn, Integer boardNo) {
+		BoardViewDto result = null;
+		String sql = "SELECT BOARD_NO, BOARD_TITLE, BOARD_WRITER, BOARD_WRITE_TIME, HIT, BOARD_CONTENT FROM board_community WHERE BOARD_NO = ?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			System.out.println(boardNo);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = new BoardViewDto(
+						rs.getInt("BOARD_NO"), rs.getString("BOARD_TITLE"), rs.getString("BOARD_WRITER"), rs.getString("BOARD_WRITE_TIME"),
+						rs.getInt("HIT"), rs.getString("BOARD_CONTENT")
+						);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		close(rs);
+		close(pstmt);
+		return result;
+		
+	}
+	
 	// select
 	public int getSequenceNum(Connection conn) {
 		int result = 0;

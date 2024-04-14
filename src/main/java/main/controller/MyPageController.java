@@ -18,7 +18,7 @@ public class MyPageController extends HttpServlet {
 	MemberService service = new MemberService();
        
     public MyPageController() {
-        super();
+        super(); 
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

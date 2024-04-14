@@ -126,9 +126,14 @@ public class MemberDao {
 //			if(keyword != null && !(keyword.equals(""))) {
 //				sql += " and (" + category + " like '%" + keyword + "%')";
 //			}
-			if(keyword != null && !(keyword.equals(""))) {
-				sql += " and (? like '%?%')";
-			}
+			
+//			if(keyword != null && !(keyword.equals(""))) {
+//				sql += " and (? like '%?%')";
+//			}
+			
+		    if(keyword != null && !keyword.trim().isEmpty()) {
+		        sql += " AND " + category + " LIKE ?";
+		    }
 			
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -138,12 +143,16 @@ public class MemberDao {
 				pstmt.setInt(1, start);
 				pstmt.setInt(2, end);
 				
-				//검색기능을 썼다면
-				if(keyword != null && !(keyword.equals(""))) {
-					//sql += " and ( ? like '%?%')";
-					pstmt.setString(3, category);
-					pstmt.setString(4, keyword);
-				}
+//				//검색기능을 썼다면
+//				if(keyword != null && !(keyword.equals(""))) {
+//					//sql += " and ( ? like '%?%')";
+//					pstmt.setString(3, category);
+//					pstmt.setString(4, keyword);
+//				}
+				
+				if(keyword != null && !keyword.isEmpty()) {
+		            pstmt.setString(3, "'%" + keyword + "%'");
+		        }
 				
 					
 				rs = pstmt.executeQuery();

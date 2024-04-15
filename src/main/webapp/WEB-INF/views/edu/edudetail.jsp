@@ -139,6 +139,7 @@
             <hr>
             <div class="edu-list">
                 <div class="edu-detail">
+                	<% %>
                     <div class="edu-detail-content">
                         <table>
                             <colgroup>

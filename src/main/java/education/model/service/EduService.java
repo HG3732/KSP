@@ -9,7 +9,7 @@ import java.util.Map;
 
 import education.model.dao.EduDao;
 import education.model.dto.EduBookDto;
-import education.model.dto.EduListDto;
+import education.model.dto.EduDto;
 import education.model.dto.EduRecentDto;
 
 public class EduService {
@@ -30,7 +30,7 @@ public class EduService {
 			int startPageNum = (currentPageNum % pageBlockSize == 0) ? ((currentPageNum / pageBlockSize) - 1) * pageBlockSize + 1 : (currentPageNum / pageBlockSize) * pageBlockSize + 1;
 			int endPageNum = (startPageNum + pageBlockSize > totalPageCount) ? totalPageCount : startPageNum + pageBlockSize - 1;
 			
-			List<EduListDto> dtolist = dao.selectPageList(con, searchSubject, start, end);
+			List<EduDto> dtolist = dao.selectPageList(con, searchSubject, start, end);
 			close(con);
 			
 			result = new HashMap<String, Object>();

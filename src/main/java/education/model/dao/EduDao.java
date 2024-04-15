@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import education.model.dto.EduBookDto;
-import education.model.dto.EduListDto;
+import education.model.dto.EduDto;
 import education.model.dto.EduRecentDto;
 
 import static common.SemiTemplate.*;
@@ -50,8 +50,8 @@ public class EduDao {
 //	EDU_END         NOT NULL DATE          
 //	EDU_WRITE_TIME  NOT NULL TIMESTAMP(6)
 	// selectPageList
-	public List<EduListDto> selectPageList(Connection con, String searchSubject, int start, int end) {
-		List<EduListDto> result = null;
+	public List<EduDto> selectPageList(Connection con, String searchSubject, int start, int end) {
+		List<EduDto> result = null;
 		String sql = "SELECT E2.*"
 				+ " FROM (SELECT E1.*, ROWNUM RN FROM (SELECT EDU_ID ,EDU_SUBJECT ,EDU_PARTICIPANT ,"
 				+ " TO_CHAR(EDU_BOOK_START, 'YYYY-MM-DD') BS ,TO_CHAR(EDU_BOOK_END, 'YYYY-MM-DD') BE ,TO_CHAR(EDU_START, 'YYYY-MM-DD') ES ,TO_CHAR(EDU_END, 'YYYY-MM-DD') EE ,EDU_WRITE_TIME FROM EDU_LIST ";
@@ -71,9 +71,9 @@ public class EduDao {
 			
 			// ResultSet 처리
 			if(rs.next()) {
-				result = new ArrayList<EduListDto>();
+				result = new ArrayList<EduDto>();
 				do {
-					EduListDto dto = new EduListDto(
+					EduDto dto = new EduDto(
 							rs.getInt("EDU_ID")
 							, rs.getString("EDU_SUBJECT")
 							, rs.getString("EDU_PARTICIPANT")
@@ -121,20 +121,36 @@ public class EduDao {
 	}
 	
 	// selectDetail
-	public EduRecentDto selectDetail(Connection con) {
-		EduRecentDto result = null;
-		String sql = "SELECT T1.* FROM (SELECT EDU_SUBJECT FROM EDU_LIST ORDER BY EDU_ID DESC) T1 WHERE ROWNUM = 1";
+	public EduDto selectDetail(Connection con, Integer eduId) {
+		EduDto result = null;
+		String sql = "SELECT T1.* FROM (SELECT EDU_SUBJECT "
+				+ " , TO_CHAR(EDU_BOOK_START, 'YYYY-MM-DD') BS "
+				+ " ,TO_CHAR(EDU_BOOK_END, 'YYYY-MM-DD') BE "
+				+ " ,TO_CHAR(EDU_START, 'YYYY-MM-DD') ES "
+				+ " ,TO_CHAR(EDU_END, 'YYYY-MM-DD') EE "
+				+ " ,EDU_ADDRESS "
+				+ " ,EDU_CONTENT "
+				+ " FROM EDU_LIST ORDER BY EDU_ID DESC) T1 WHERE EDU_ID = ?";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
 			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, eduId);
 			
 			rs = pstmt.executeQuery();
 			
 			// ResultSet 처리
 			if(rs.next()) {
-				result = new EduRecentDto(rs.getString("EDU_SUBJECT"));
+				result = new EduDto(
+						rs.getString("EDU_SUBJECT")
+						, rs.getString("BS")
+						, rs.getString("BE")
+						, rs.getString("ES")
+						, rs.getString("EE")
+						, rs.getString("EDU_ADDRESS")
+						, rs.getString("EDU_CONTENT")
+						);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

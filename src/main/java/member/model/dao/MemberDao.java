@@ -122,17 +122,9 @@ public class MemberDao {
 					+ " from (select m1.*, rownum rn "
 					+ "    from (select MEMBER_ID, MEMBER_ADMIN, MEMBER_NAME, MEMBER_PWD, MEMBER_EMAIL, MEMBER_ADDRESS "
 					+ "        from MEMBER order by member_id) m1) m2 "
-					+ " where (rn between ? and ? ) ";
-//			if(keyword != null && !(keyword.equals(""))) {
-//				sql += " and (" + category + " like '%" + keyword + "%')";
-//			}
-			
-//			if(keyword != null && !(keyword.equals(""))) {
-//				sql += " and (? like '%?%')";
-//			}
-			
+					+ " where (rn between ? and ? ) ";			
 		    if(keyword != null && !keyword.trim().isEmpty()) {
-		        sql += " AND " + category + " LIKE ?";
+		        sql += " AND " + category + " LIKE '%" + keyword + "%'";
 		    }
 			
 			PreparedStatement pstmt = null;
@@ -142,19 +134,6 @@ public class MemberDao {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, start);
 				pstmt.setInt(2, end);
-				
-//				//검색기능을 썼다면
-//				if(keyword != null && !(keyword.equals(""))) {
-//					//sql += " and ( ? like '%?%')";
-//					pstmt.setString(3, category);
-//					pstmt.setString(4, keyword);
-//				}
-				
-				if(keyword != null && !keyword.isEmpty()) {
-		            pstmt.setString(3, "'%" + keyword + "%'");
-		        }
-				
-					
 				rs = pstmt.executeQuery();
 				if(rs.next()) {
 					result = new ArrayList<MemberDto>();

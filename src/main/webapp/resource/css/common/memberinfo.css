@@ -1,0 +1,47 @@
+body {
+    background-color: black;
+    background-image: url('../../image/heaven.jpg');
+    background-repeat: no-repeat;
+    background-size: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:600px;
+    height: 600px;
+}
+
+.wrap-changeinfo {
+    color: white;
+    font-size: 24px;
+    width: 700px;
+    background-color: rgba(255,255,255, .2);
+    padding-bottom: 20px;
+}
+
+.wrap-changeinfo table {
+    width: 100%;
+}
+
+.wrap-changeinfo table {
+    text-align: center;
+}
+
+.wrap-changeinfo table td {
+    padding-top: 20px;
+}
+
+.wrap-changeinfo input {
+    font-size: 18px;
+    color: black;
+}
+
+.wrap-changeinfo table tr:last-child button { 
+    width: 200px;
+    padding: 12px;
+    border-radius: 5px;
+    border: none;
+    background-color: #503396;
+    color: white;
+    font-size: 18px;
+}
+

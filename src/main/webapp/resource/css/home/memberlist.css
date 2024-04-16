@@ -98,3 +98,12 @@ section > .wrap-checkmember > div.check-main > div {
     border-radius: 2px;
 }
 
+/* 권한 부족하면 표시*/
+.alert {
+	width: fit-content;
+	margin: 50px auto;
+	background-color: rgba(0, 0, 0, .5);
+	text-align: center;
+	font-size: 40px;
+	color: red;
+}

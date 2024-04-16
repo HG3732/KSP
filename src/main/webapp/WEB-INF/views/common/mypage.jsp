@@ -1,3 +1,6 @@
+	<link href="${pageContext.request.contextPath}/resource/css/reset.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resource/css/core.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resource/css/common/mypage.css" rel="stylesheet">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -6,9 +9,6 @@
 <meta charset="UTF-8">
 <title>MyPage</title>
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-	<link href="${pageContext.request.contextPath}/resource/css/reset.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resource/css/core.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resource/css/common/mypage.css" rel="stylesheet">
 <script>
 $(loadedHandler)
 

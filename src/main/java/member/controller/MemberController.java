@@ -46,7 +46,7 @@ public class MemberController extends HttpServlet {
 		request.setAttribute("searchStatus", searchStatus);
 		request.setAttribute("map", service.selectMemberSearch(pageSize, pageBlockSize, currentPageNum, category, keyword));
 		
-		request.getRequestDispatcher("/WEB-INF/views/home/memberlist.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/member/memberlist.jsp").forward(request, response);
 	}
 
 

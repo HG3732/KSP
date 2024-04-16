@@ -1,45 +1,66 @@
 package education.model.dto;
 
 public class EduBookDto {
-	private String eduSubject;
-	private String eduBookName;
+//	EDU_BOOK_ID     NOT NULL VARCHAR2(15) 
+//	EDU_ID          NOT NULL NUMBER       
+//	EDU_BOOK_PHONE  NOT NULL VARCHAR2(11) 
+//	EDU_PART_LEVEL  NOT NULL VARCHAR2(10) 
+//	EDU_PART_NAME   NOT NULL VARCHAR2(10) 
+//	EDU_PART_GEN    NOT NULL CHAR(2)      
+//	EDU_PART_SCHOOL NOT NULL VARCHAR2(30)
+	private String eduBookId;
+	private Integer eduId;
+	private String eduBookPhone;
+	private String eduPartLevel;
+	private String eduPartName;
+	private char eduPartGen;
 	private String eduPartSchool;
-	private String eduStart;
-	private String eduEnd;
 
 	@Override
 	public String toString() {
-		return "EduBookDto [eduSubject=" + eduSubject + ", eduBookName=" + eduBookName + ", eduPartSchool="
-				+ eduPartSchool + ", eduStart=" + eduStart + ", eduEnd=" + eduEnd + "]";
+		return "EduBookDto [eduBookId=" + eduBookId + ", eduId=" + eduId + ", eduBookPhone=" + eduBookPhone
+				+ ", eduPartLevel=" + eduPartLevel + ", eduPartName=" + eduPartName + ", eduPartGen=" + eduPartGen
+				+ ", eduPartSchool=" + eduPartSchool + "]";
 	}
 
-	public EduBookDto(String eduSubject, String eduBookName, String eduPartSchool, String eduStart, String eduEnd) {
+	public EduBookDto(String eduBookId, Integer eduId, String eduBookPhone, String eduPartLevel, String eduPartName,
+			char eduPartGen, String eduPartSchool) {
 		super();
-		this.eduSubject = eduSubject;
-		this.eduBookName = eduBookName;
+		this.eduBookId = eduBookId;
+		this.eduId = eduId;
+		this.eduBookPhone = eduBookPhone;
+		this.eduPartLevel = eduPartLevel;
+		this.eduPartName = eduPartName;
+		this.eduPartGen = eduPartGen;
 		this.eduPartSchool = eduPartSchool;
-		this.eduStart = eduStart;
-		this.eduEnd = eduEnd;
 	}
 
-	public String getEduSubject() {
-		return eduSubject;
+	public String getEduBookId() {
+		return eduBookId;
 	}
 
-	public String getEduBookName() {
-		return eduBookName;
+	public Integer getEduId() {
+		return eduId;
+	}
+
+	public String getEduBookPhone() {
+		return eduBookPhone;
+	}
+
+	public String getEduPartLevel() {
+		return eduPartLevel;
+	}
+
+	public String getEduPartName() {
+		return eduPartName;
+	}
+
+	public char getEduPartGen() {
+		return eduPartGen;
 	}
 
 	public String getEduPartSchool() {
 		return eduPartSchool;
-	}
-
-	public String getEduStart() {
-		return eduStart;
-	}
-
-	public String getEduEnd() {
-		return eduEnd;
 	}
 
 }

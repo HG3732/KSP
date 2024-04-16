@@ -9,7 +9,10 @@ import java.util.Map;
 
 import education.model.dao.EduDao;
 import education.model.dto.EduBookDto;
+import education.model.dto.EduBookListDto;
+import education.model.dto.EduDetailDto;
 import education.model.dto.EduDto;
+import education.model.dto.EduListDto;
 import education.model.dto.EduRecentDto;
 
 public class EduService {
@@ -30,7 +33,7 @@ public class EduService {
 			int startPageNum = (currentPageNum % pageBlockSize == 0) ? ((currentPageNum / pageBlockSize) - 1) * pageBlockSize + 1 : (currentPageNum / pageBlockSize) * pageBlockSize + 1;
 			int endPageNum = (startPageNum + pageBlockSize > totalPageCount) ? totalPageCount : startPageNum + pageBlockSize - 1;
 			
-			List<EduDto> dtolist = dao.selectPageList(con, searchSubject, start, end);
+			List<EduListDto> dtolist = dao.selectPageList(con, searchSubject, start, end);
 			close(con);
 			
 			result = new HashMap<String, Object>();
@@ -42,6 +45,7 @@ public class EduService {
 			
 			return result;
 		}
+		
 		// selectRecent
 		public EduRecentDto selectRecent() {
 			EduRecentDto result = null;
@@ -51,37 +55,46 @@ public class EduService {
 			return result;
 		}
 		
-//		// insert
-//		public int insert(EduListDto dto) {
-//			int result = -1;
-//			Connection con = getConnection(true);
-//			result = dao.insert(con, dto);
-//			close(con);
-//			return result;
-//		}
-//		
-//		// update
-//		public int update(EduListDto dto) {
-//			int result = -1;
-//			Connection con = getConnection(true);
-//			result = dao.update(con, dto);
-//			close(con);
-//			return result;
-//		}
-//		// delete
-//		public int delete(int eduId) {
-//			int result = 0;
-//			Connection con = getConnection(true);
-//			result = dao.delete(con, eduId);
-//			close(con);
-//			return result;
-//		}
+		// selectDetail
+		public EduDetailDto selectDetail(Integer eduId) {
+			EduDetailDto result = null;
+			Connection con = getConnection(true);
+			result = dao.selectDetail(con, eduId);
+			close(con);
+			return result;
+		}
+		
+		// insertDetail
+		public int insertDetail(EduDetailDto dto) {
+			int result = 0;
+			Connection con = getConnection(true);
+			result = dao.insertDetail(con, dto);
+			close(con);
+			return result;
+		}
+		
+		// update
+		public int update(EduDetailDto dto) {
+			int result = -1;
+			Connection con = getConnection(true);
+			result = dao.update(con, dto);
+			close(con);
+			return result;
+		}
+		// delete
+		public int delete(int eduId) {
+			int result = 0;
+			Connection con = getConnection(true);
+			result = dao.delete(con, eduId);
+			close(con);
+			return result;
+		}
 		
 		
 		
 		// calendarBookList
-		public List<EduBookDto> calendarBookList() {
-			List<EduBookDto> result = null;
+		public List<EduBookListDto> calendarBookList() {
+			List<EduBookListDto> result = null;
 			Connection con = getConnection(true);
 			result = dao.calendarBookList(con);
 			close(con);

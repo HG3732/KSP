@@ -163,7 +163,7 @@
 			            <div class="edu-list-detail">
 			            	<c:forEach items="${map.dtolist }" var="edu" varStatus="vs">
 				                    <div>
-				                        <a href="${pageContext }/edu/detail?id=${edu.eduId}">
+				                        <a href="${pageContext.request.contextPath }/edu/detail?id=${edu.eduId}">
 				                        	<div class="edu-content">
 					                            <table style="line-height: 4em; padding-right: 10px;">
 					                                <colgroup>

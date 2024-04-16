@@ -6,7 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+	<link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<link href="${pageContext.request.contextPath}/resource/css/reset.css" type="text/css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resource/css/core.css" type="text/css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resource/css/common/header.css?ver=1" type="text/css" rel="stylesheet">

@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import education.model.dto.EduDto;
 import education.model.dto.EduRecentDto;
 import education.model.service.EduService;
 
@@ -34,16 +33,22 @@ public class EduDetailController extends HttpServlet {
 		Object recentEdu = (dtoRecent != null) ? dtoRecent.getEduSubject() : "등록된 교육이 없습니다";
 		request.setAttribute("recentEdu", recentEdu);
 		
+		String eduIdStr = request.getParameter("id");
+		try {
+			Integer eduId = Integer.parseInt(eduIdStr);
+			request.setAttribute("detail", service.selectDetail(eduId));
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			response.sendRedirect(request.getContextPath() + "home");
+		}
 		
 		request.getRequestDispatcher("/WEB-INF/views/edu/edudetail.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+//	/**
+//	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+//	 */
+//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//	}
 
 }

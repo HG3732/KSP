@@ -135,12 +135,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>수강자명</td><td><input type="text" id="book-part-name" name="book-part-name"></td>
-                        <td>성별</td>
-                        <td>
-                            <input type="radio" id="book-gen-m" name="book-gen" value="m"><label for="book-gen-m">남</label>
-                            <input type="radio" id="book-gen-f" name="book-gen" value="f"><label for="book-gen-f">여</label>
-                        </td>
+                        <td>수강자명</td><td><input type="text" id="book-part-name" name="book-part-name"></td><td colspan="2"></td>
                     </tr>
                     <tr>
                         <td>학교명</td><td><input type="text" id="book-school" name="book-school"></td>

@@ -1,3 +1,4 @@
+<%@page import="education.model.dto.EduBookListDto"%>
 <%@page import="education.model.dto.EduBookDto"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -154,11 +155,12 @@
                 dayMaxEvents: false,
                 events: [
                 	<%
-                		List<EduBookDto> eduBookList = (List<EduBookDto>)request.getAttribute("eduBook");
-                		for(EduBookDto dto : eduBookList){
+                		List<EduBookListDto> eduBookList = (List<EduBookListDto>)request.getAttribute("eduBook");
+                		for(EduBookListDto dto : eduBookList){
                 	%>
                 	{
-                		color : 'blue'
+                		color : '#503396'
+                		, borderColor : 'white'
                 		, title : '<%=dto.getEduPartSchool()%>'
                 		, start : '<%=dto.getEduStart()%>'
                 		, end : '<%=dto.getEduEnd()%>'

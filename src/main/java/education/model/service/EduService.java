@@ -73,11 +73,11 @@ public class EduService {
 			return result;
 		}
 		
-		// update
-		public int update(EduDetailDto dto) {
-			int result = -1;
+		// updateDetail
+		public int updateDetail(EduDetailDto dto) {
+			int result = 0;
 			Connection con = getConnection(true);
-			result = dao.update(con, dto);
+			result = dao.updateDetail(con, dto);
 			close(con);
 			return result;
 		}

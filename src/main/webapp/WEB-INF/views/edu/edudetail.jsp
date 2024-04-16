@@ -1,3 +1,5 @@
+<link href="${pageContext.request.contextPath}/resource/css/reset.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resource/css/core.css" rel="stylesheet">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -8,8 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KimParkSeo</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <link href="${pageContext.request.contextPath}/resource/css/reset.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resource/css/core.css" rel="stylesheet">
     <style>
         .wrap-main,
         .wrap-footer{
@@ -43,12 +43,12 @@
         }
         .wrap-main>.content>.edu-list {
             clear: both;
-            line-height: 3em;
         }
         .wrap-main>.content>.edu-list>.edu-detail{
         	padding: 30px;
         }
         .wrap-main>.content>.edu-list>.edu-detail>.edu-detail-content>table{
+            line-height: 3em;
             width: 100%;
         }
 		.wrap-main>.content>.edu-list>.edu-detail>.edu-detail-content>table>tbody>tr>td>.edu-edit-del{
@@ -56,6 +56,13 @@
 		    float: right;
 		    column-gap: 10px;
 		    justify-content: flex-end;
+		    align-items: center;
+		}
+		.wrap-main>.content>.edu-list>.edu-detail>.edu-detail-content>table>tbody>tr>td>.edu-edit-del>div>form>button{
+			background-color: transparent;
+			border: 0;
+			cursor: pointer;
+			font-size: 16px;
 		}
         .wrap-main>.content>.edu-list>.edu-detail>.edu-book{
             text-align: center;
@@ -100,8 +107,12 @@
                             		<td colspan="7">${detail.eduSubject }</td>
                             		<td>
 	                            		<div class="edu-edit-del">
-                        				<a href="http://localhost:8080/star/edu/detail/update?id=${detail.eduId }">수정</a>
-	                        			<a href="해당 글 삭제 doGet">삭제</a>
+	                            			<div>
+		                        				<a href="http://localhost:8080/star/edu/detail/update?id=${detail.eduId }">수정</a>
+	                            			</div>
+	                            			<div>
+			                        			<form action="${pageContext.request.contextPath }/edu/delete" method="post"><input type="hidden" name="eduId" value="${detail.eduId }" ><button type="submit">삭제</button></form>
+	                            			</div>
 	                    				</div>
 	                    			</td>
                             	</tr>

@@ -50,26 +50,26 @@
         .wrap-main>.content>.edu-list>.edu-detail{
         	padding: 30px;
         }
-        .wrap-main>.content>.edu-list>.edu-detail>.edu-detail-content>table{
+        .wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table{
             width: 100%;
         }
-        .wrap-main>.content>.edu-list>.edu-detail>.edu-detail-content>table>tbody>tr>td>input{
+        .wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table>tbody>tr>td>input{
         	background-color: transparent;
         	border: 0;
         }
-		.wrap-main>.content>.edu-list>.edu-detail>.edu-detail-content>table>tbody>tr>td>.edu-edit-del{
+		.wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table>tbody>tr>td>.edu-edit-del{
 		    display: flex;
 		    float: right;
 		    column-gap: 10px;
 		    justify-content: flex-end;
 		}
-		.wrap-main>.content>.edu-list>.edu-detail>.edu-detail-content>table>tbody>tr>td>textarea{
+		.wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table>tbody>tr>td>textarea{
 			resize: none;
 			width: 100%;
 			background-color: transparent;
 			border: 0;
 		}
-        .wrap-main>.content>.edu-list>.edu-detail>.edu-book{
+        .wrap-main>.content>.edu-list>.edu-detail>form>.edu-book{
             text-align: center;
         }
 
@@ -77,12 +77,6 @@
         .wrap-footer {
             clear: both;
         }
-        
-        .ui-datepicker-calendar .ui-state-active {
-        	background-color: red;
-			color: black;
-		}
-        
     </style>
 </head>
 
@@ -101,7 +95,9 @@
             <hr>
             <div class="edu-list">
                 <div class="edu-detail">
+					<form id="frm-edudetail" action="${pageContext.request.contextPath}/edu/detail/update" method="post">
                     <div class="edu-detail-content">
+                	<input type="hidden" name="eduId" value="${detail.eduId }" >
                         <table>
                             <colgroup>
                                 <col style="width: 10%;">
@@ -118,20 +114,24 @@
                             		<td colspan="8"><input type="text" name="eduSubject" value="${detail.eduSubject }" required></td>
                             	</tr>
                                 <tr>
-                                    <td>신청기간</td><td><input type="text" name="eduBookStart" id="eduBookStart" class="datePicker" value="${detail.eduBookStart }"></td><td>~</td><td>${detail.eduBookEnd }</td><td>운영기간</td><td>${detail.eduStart }</td><td>~</td><td>${detail.eduEnd }</td>
+                                    <td>신청기간</td><td><input type="text" name="eduBookStart" id="eduBookStart" class="datePicker" value="${detail.eduBookStart }"></td><td>~</td><td><input type="text" name="eduBookEnd" id="eduBookEnd" class="datePicker" value="${detail.eduBookEnd }"></td><td>운영기간</td><td><input type="text" name="eduStart" id="eduStart" class="datePicker" value="${detail.eduStart }"></td><td>~</td><td><input type="text" name="eduEnd" id="eduEnd" class="datePicker" value="${detail.eduEnd }"></td>
                                 </tr>
                                 <tr>
-                                    <td>운영요일</td><td colspan="3">${detail.eduDay }</td><td>교육장소</td><td colspan="3">${detail.eduAddress }</td>
+                                    <td>운영요일</td><td colspan="3"><input type="text" name="eduDay" value="${detail.eduDay }"></td><td>교육장소</td><td colspan="3"><input type="text" name="eduAddress" value="${detail.eduAddress }"></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="8">${detail.eduContent }</td>
+                                	<td>교육대상</td><td colspan="7"><input type="text" name="eduParticipant" value="${detail.eduParticipant }"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8"><textarea name="eduContent">${detail.eduContent }</textarea></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="edu-book">
-                        <a href="http://localhost:8080/star/edu/book/detail/update">수정하기</a>
+                        <button type="submit">수정하기</button>
                     </div>
+					</form>
                 </div>
             </div>
         </div>
@@ -153,8 +153,8 @@
 	        dateFormat: 'yy-mm-dd' //달력 날짜 형태
 	        ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
 	        ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
-	        ,changeYear: true //option값 년 선택 가능
-	        ,changeMonth: true //option값  월 선택 가능                
+	        ,changeYear: false //option값 년 선택 가능
+	        ,changeMonth: false //option값  월 선택 가능                
 	        ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
 	        ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
 	        ,buttonImageOnly: false //버튼 이미지만 깔끔하게 보이게함
@@ -166,10 +166,11 @@
 	        ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
 	        ,minDate: "-5Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
 	        ,maxDate: "+5y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
+	    , color: "black"
 	    });                    
 	    
 	    //초기값을 오늘 날짜로 설정해줘야 합니다.
-	    $('#datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)            
+	    //$('.datePicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)            
 	});
 </script>
 </body>

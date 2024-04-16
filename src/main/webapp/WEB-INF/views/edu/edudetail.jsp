@@ -112,6 +112,9 @@
                                     <td>운영요일</td><td colspan="3">${detail.eduDay }</td><td>교육장소</td><td colspan="3">${detail.eduAddress }</td>
                                 </tr>
                                 <tr>
+                                	<td>교육대상</td><td colspan="7">${detail.eduParticipant }</td>
+                                </tr>
+                                <tr>
                                     <td colspan="8">${detail.eduContent }</td>
                                 </tr>
                             </tbody>

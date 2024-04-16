@@ -64,6 +64,8 @@ public class EduDetailUpdateController extends HttpServlet {
 		try {
 			EduDetailDto detail = new EduDetailDto(eduId, eduSubject, eduContent, eduAddress, eduParticipant, eduDay, eduBookStart, eduBookEnd, eduStart, eduEnd, service.selectDetail(eduId).getEduWriteTime());
 			service.updateDetail(detail);
+			response.sendRedirect(request.getContextPath() + "/edu/detail?id=" + eduId);
+			
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 			response.sendRedirect(request.getContextPath() + "home");

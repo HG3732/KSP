@@ -94,9 +94,12 @@ public class MemberDao {
 		}
 		
 		
-		public int selectTotalCount(Connection conn) {
+		public int selectTotalCount(Connection conn, String category, String keyword) {
 			int result = 0;
-			String sql = "select count(*) C from Member";
+			String sql = " select count(*) C from Member ";
+			if(keyword != null && !keyword.trim().isEmpty()) {
+				sql += " WHERE " + category + " LIKE '%" + keyword + "%'";
+			}
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			
@@ -114,18 +117,17 @@ public class MemberDao {
 			return result;
 		}
 		
-		
-	//select list - All + search
-		public List<MemberDto> selectMemberList(Connection conn, int start, int end, String category, String keyword) {
+		//select list - All + search
+		public List<MemberDto> selectMemberSearch(Connection conn, int start, int end, String category, String keyword) {
 			List<MemberDto> result = null;
 			String sql = "select m2.* "
 					+ " from (select m1.*, rownum rn "
 					+ "    from (select MEMBER_ID, MEMBER_ADMIN, MEMBER_NAME, MEMBER_PWD, MEMBER_EMAIL, MEMBER_ADDRESS "
-					+ "        from MEMBER order by member_id) m1) m2 "
-					+ " where (rn between ? and ? ) ";			
-		    if(keyword != null && !keyword.trim().isEmpty()) {
-		        sql += " AND " + category + " LIKE '%" + keyword + "%'";
-		    }
+					+ "        from MEMBER ";
+			if(keyword != null && keyword.trim().length() != 0) {
+				sql += " WHERE " + category + " LIKE '%" + keyword + "%'";
+			}
+			sql += " order by member_id) m1) m2 WHERE rn between ? and ?  ";			
 			
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -147,7 +149,6 @@ public class MemberDao {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
 			close(rs);
 			close(pstmt);
 			return result;

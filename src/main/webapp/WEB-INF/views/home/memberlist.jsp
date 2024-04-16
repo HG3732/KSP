@@ -24,6 +24,7 @@
                 <div>비밀번호</div>
                 <div>이메일 주소</div>
                 <div>주소</div>
+                <div>등급</div>
             </div>
         <c:choose>
         	<c:when test="${empty map.dtoList}">
@@ -33,73 +34,79 @@
 	        	<c:forEach items="${map.dtoList }" var="member">
 	   				<div class="check-main">
 		                <div>${member.mem_name}</div>
-		                <div>${member.mem_id}</div>
+		                <div><a href="#">${member.mem_id}</a></div>
 		                <div>${member.mem_pwd}</div>
 		                <div>${member.mem_email}</div>
 		                <div>${member.mem_address}</div>
+		                <div>${member.mem_admin}</div>
             		</div>
 	        	</c:forEach>
         	</c:otherwise>
         </c:choose>
         </div>
+        <c:choose>
+        	<c:when test="${searchStatus == 0}">
+        		<div class="pagenum">
+		        	<c:if test="${map.startPageNum > 1}">
+			            <div><a href="${pageContext.request.contextPath}/member/list?page=${map.startPageNum-1}"> &lt; &lt; </a></div>
+		        	</c:if>
+		        	<c:forEach begin="${map.startPageNum }" end="${map.endPageNum}" var="page">
+		        		<c:if test="${map.currentPageNum == page}">
+			            	<div style="color: red; font-weight: bold;">${page}</div>
+		        		</c:if>
+		        		<c:if test="${map.currentPageNum != page}">
+			            	<div><a href="${pageContext.request.contextPath}/member/list?page=${page}">${page}</a></div>
+		        		</c:if>
+		        	</c:forEach>
+		        	<c:if test="${map.startPageNum < map.totalPageCount}">
+			            <div><a href="${pageContext.request.contextPath}/member/list?page=${map.endPageNum+1}"> &gt; &gt; </a></div>
+		        	</c:if>
+        		</div>
+        	</c:when>
+        <c:otherwise>
         <div class="pagenum">
         	<c:if test="${map.startPageNum > 1}">
-	            <div><a href="${pageContext.request.contextPath}/member/search?page=${map.startPageNum-1}"> &lt; &lt; </a></div>
+	            <div><a href="${pageContext.request.contextPath}/member/list?${searchword}&page=${map.startPageNum-1}"> &lt; &lt; </a></div>
         	</c:if>
         	<c:forEach begin="${map.startPageNum }" end="${map.endPageNum}" var="page">
         		<c:if test="${map.currentPageNum == page}">
 	            	<div style="color: red; font-weight: bold;">${page}</div>
         		</c:if>
         		<c:if test="${map.currentPageNum != page}">
-	            	<div><a href="${pageContext.request.contextPath}/member/search?page=${page}">${page}</a></div>
+	            	<div><a href="${pageContext.request.contextPath}/member/list?${searchword}&page=${page}">${page}</a></div>
         		</c:if>
         	</c:forEach>
         	<c:if test="${map.startPageNum < map.totalPageCount}">
-	            <div><a href="${pageContext.request.contextPath}/member/search?page=${map.endPageNum+1}"> &gt; &gt; </a></div>
+	            <div><a href="${pageContext.request.contextPath}/member/list?${searchword}&page=${map.endPageNum+1}"> &gt; &gt; </a></div>
         	</c:if>
         </div>
+        </c:otherwise>
+        </c:choose>
         <div class="searchbar">
-            <form id="searchmem-keyword">
-                <select class="category">
+            <form id="searchmem-keyword" method="get" action="${pageContext.request.contextPath}/member/list">
+                <select class="category" name="category">
                     <option value="MEMBER_NAME" selected>이름</option>
                     <option value="MEMBER_ID">아이디</option>
                     <option value="MEMBER_PWD">비밀번호</option>
                     <option value="MEMBER_EMAIL">이메일 주소</option>
                     <option value="MEMBER_ADDRESS">주소</option>
+                    <option value="MEMBER_GRADE">등급</option>
                 </select>
                 <input type="text" name="search" class="search">
-                <input type="button" name="btn-search" class="btn-search" value="검색">
+                <button type="submit" name="btn-search" class="btn-search">검색</button>
             </form>
         </div>
     </section>
 </body>
 <script>
-$(loadedHandler)
+$(loadedHandler);
 	function loadedHandler() {
-		$(".btn-search").on('click', searchMemberHandler);
 	}
 	
-	//카테고리 선택 후 회원 검색 함수
-	function searchMemberHandler() {
-		var categoryVal = $(".category option:selected").val();
-		var keywordVal = $(".search").val();
-		$.ajax({
-			type: 'get'
-			, url: "${pageContext.request.contextPath}/member/search"
-			, data : { category : categoryVal
-					, keyword : keywordVal}
-			,success : function() {
-				//검색결과 표현해주는 함수 기능부
-			}
-			, error : function(request, status, error) {
-				alert("code:"  + request.status + "\n" + "message : "
-						+ request.responseText + "\n"
-						+"error : " + error);
-				}
-			
-			
-		})
-		
+ 	function memberInfoHandler(){
+ 		let options2 = "width=600, height=500, menubar=no, toolbar=no, scrollbars=no, resizable=no";
+ 		window.open("${pageContext.request.contextPath }/member/info?id=${member.mem_id}", "_blank", options2);
 	}
+		
 </script>
 </html>

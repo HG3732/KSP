@@ -1,4 +1,4 @@
-package main.controller;
+package member.model.dto;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.model.dto.MemberInfoDto;
-import member.model.dto.MemberLoginDto;
 import member.vo.service.MemberService;
 
 @WebServlet("/mypage")

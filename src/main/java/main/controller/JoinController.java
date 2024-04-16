@@ -28,7 +28,6 @@ public class JoinController extends HttpServlet {
 		String memPwd = request.getParameter("pw");
 		String memEmail = request.getParameter("mail");
 		String memAddress = request.getParameter("address");
-		System.out.println(memId+ ", " + memName+ ", " + memPwd+ ", " + memEmail+ ", " + memAddress);
 		MemberDto dto = new MemberDto(memId, 0, memName, memPwd, memEmail, memAddress);
 		int result = new MemberService().insert(dto);
 		if(result < 0) {	//회원가입 실패 시

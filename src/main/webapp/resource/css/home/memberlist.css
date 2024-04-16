@@ -28,14 +28,14 @@ section > div {
     background-color: rgba(255,255,255, .2);
     margin: 0;
     display: grid;
-    grid-template-columns: 1fr 2fr 2fr 3fr 4fr;
+    grid-template-columns: 1fr 2fr 2fr 2fr 4fr 1fr;
     padding: 10px;
     border-bottom: 1px solid #aaa;
 }
 
 section > .wrap-checkmember > div:not(:first-child) {
     display: grid;
-    grid-template-columns: 1fr 2fr 2fr 3fr 4fr;
+    grid-template-columns: 1fr 2fr 2fr 2fr 4fr 1fr;
     padding: 10px;
     margin: 2px 0;
     border-bottom: 1px solid #aaa;
@@ -81,15 +81,15 @@ section > .wrap-checkmember > div.check-main > div {
     margin-right: 5px;
 }
 
-#searchmem-keyword > * {
+.searchbar * {
 	color: black;
 }
 
-#searchmem-keyword > select > option{
+.searchbar select > option{
 	color: black;	
 }
 
-.searchbar > #searchmem-keyword > .btn-search {
+.searchbar .btn-search {
     background-color: #503396;
     border: none;
     padding: 3px 8px;

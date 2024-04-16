@@ -12,7 +12,7 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 <body>
-    <div class="wrap-mypage">
+    <div class="wrap-changeinfo">
         <form id="change-info" method="post" action="${pageContext.request.contextPath}/member/info">
             <table>
                 <tr>
@@ -20,7 +20,7 @@
                         아이디      
                     </td>
                     <td>
-                        <input type="text" name="name" class="name" value="${member.mem_id}" disabled>
+                        <input type="text" name="name" class="name" disabled>
                     </td>
                 </tr>
                 <tr>
@@ -28,19 +28,30 @@
                         회원 등급       
                     </td>
                     <td>
-                        <input type="text" name="member_admin" class="member_admin" value="${member.mem_admin}">
+                        <input type="text" name="member_admin" class="member_admin">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <button type="button" name="change-mem-Info" class="change">정보 수정</button>
+                        <button type="button" name="change-mem-Info" class="change">등급 변경</button>
                     </td>
-                    <td>    
-                        <button type="button" name="stop-mem" class="change">회원 정지</button>
+                    <td>   
+                        <button type="button" name="stop-mem" class="change">회원 삭제</button>
                     </td>
+                </tr>
+                <tr>
+	                <td>
+	                	<button type="button" name="change-mem-Info" class="change">신청 교육 목록</button>
+	                </td>
                 </tr>
        		</table>
        </form>
     </div>
 </body>
+<script>
+		var member_id = new URLSearchParams(window.location.search).get("memberid");
+		var member_admin = new URLSearchParams(window.location.search).get("memberadmin");
+		$(".name").prop("value", member_id);
+		$(".member_admin").prop("value", member_admin);
+</script>
 </html>

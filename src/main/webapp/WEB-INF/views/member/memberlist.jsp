@@ -35,7 +35,7 @@
 			        	<c:forEach items="${map.dtoList }" var="member">
 			   				<div class="check-main">
 				                <div>${member.mem_name}</div>
-				                <div><a href="#" class="change-mem-info">${member.mem_id}</a></div>
+				                <div><a href="${pageContext.request.contextPath}/member/info?memberid=${member.mem_id}&memberadmin=${member.mem_admin}" class="change-mem-id" target="_blank">${member.mem_id}</a></div>
 				                <div>${member.mem_pwd}</div>
 				                <div>${member.mem_email}</div>
 				                <div>${member.mem_address}</div>
@@ -108,21 +108,11 @@
 		<c:otherwise>
 	    </c:otherwise>
     </c:choose> --%>
-    <div>
-    	<div><span>아이디</span>${member.mem_id}</div>
-        <div><span>등급</span>${member.mem_admin}</div>
-    </div>
 </body>
 <script>
 $(loadedHandler);
 	function loadedHandler() {
-		$(".change-mem-info").on("click", memberInfoHandler);
 	}
-	
- 	function memberInfoHandler(){
- 		let options2 = "width=600, height=500, menubar=no, toolbar=no, scrollbars=no, resizable=no";
- 		window.open("${pageContext.request.contextPath}/member/info", "_blank", options2);
-	}
-		
+
 </script>
 </html>

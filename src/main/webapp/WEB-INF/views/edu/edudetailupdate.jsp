@@ -1,3 +1,5 @@
+<link href="${pageContext.request.contextPath}/resource/css/reset.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resource/css/core.css" rel="stylesheet">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -10,8 +12,6 @@
 	<link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link href="${pageContext.request.contextPath}/resource/css/reset.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resource/css/core.css" rel="stylesheet">
     <style>
         .wrap-main,
         .wrap-footer{
@@ -45,13 +45,13 @@
         }
         .wrap-main>.content>.edu-list {
             clear: both;
-            line-height: 3em;
         }
         .wrap-main>.content>.edu-list>.edu-detail{
         	padding: 30px;
         }
         .wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table{
             width: 100%;
+            line-height: 3em;
         }
         .wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table>tbody>tr>td>input{
         	background-color: transparent;
@@ -63,6 +63,9 @@
 		    column-gap: 10px;
 		    justify-content: flex-end;
 		}
+		.wrap-main .ui-datepicker-trigger{
+			display: none;
+		}
 		.wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table>tbody>tr>td>textarea{
 			resize: none;
 			width: 100%;
@@ -71,6 +74,11 @@
 		}
         .wrap-main>.content>.edu-list>.edu-detail>form>.edu-book{
             text-align: center;
+        }
+        .wrap-main>.content>.edu-list>.edu-detail>form>.edu-book>button{
+            background-color: transparent;
+            border: 0;
+            cursor: pointer;
         }
 
 
@@ -111,7 +119,7 @@
                             </colgroup>
                             <tbody>
                             	<tr>
-                            		<td colspan="8"><input type="text" name="eduSubject" value="${detail.eduSubject }" required></td>
+                            		<td>교육제목</td><td colspan="7"><input type="text" name="eduSubject" value="${detail.eduSubject }" required></td>
                             	</tr>
                                 <tr>
                                     <td>신청기간</td><td><input type="text" name="eduBookStart" id="eduBookStart" class="datePicker" value="${detail.eduBookStart }"></td><td>~</td><td><input type="text" name="eduBookEnd" id="eduBookEnd" class="datePicker" value="${detail.eduBookEnd }"></td><td>운영기간</td><td><input type="text" name="eduStart" id="eduStart" class="datePicker" value="${detail.eduStart }"></td><td>~</td><td><input type="text" name="eduEnd" id="eduEnd" class="datePicker" value="${detail.eduEnd }"></td>
@@ -166,7 +174,6 @@
 	        ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
 	        ,minDate: "-5Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
 	        ,maxDate: "+5y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
-	    , color: "black"
 	    });                    
 	    
 	    //초기값을 오늘 날짜로 설정해줘야 합니다.

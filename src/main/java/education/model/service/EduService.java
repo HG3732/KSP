@@ -81,11 +81,11 @@ public class EduService {
 			close(con);
 			return result;
 		}
-		// delete
-		public int delete(int eduId) {
+		// deleteDetail
+		public int deleteDetail(Integer eduId) {
 			int result = 0;
 			Connection con = getConnection(true);
-			result = dao.delete(con, eduId);
+			result = dao.deleteDetail(con, eduId);
 			close(con);
 			return result;
 		}

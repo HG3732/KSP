@@ -215,10 +215,55 @@ public class EduDao {
 		return result;
 	}
 	
-	// 
-	public int update(Connection con, EduDetailDto dto) {
-		int result = -1;
-		String sql = "UPDATE EDU_LIST SET EDU_SUBJECT = ?, EDU_BOOK_PERIOD = ?, EDU_PERIOD = ?"; // TODO
+	// insertEduBook
+	public int insertEduBook(Connection con, EduBookDto dto) {
+//		EDU_BOOK_ID     NOT NULL VARCHAR2(15) 
+//		EDU_ID          NOT NULL NUMBER       
+//		EDU_BOOK_PHONE  NOT NULL VARCHAR2(11) 
+//		EDU_PART_LEVEL  NOT NULL VARCHAR2(10) 
+//		EDU_PART_NAME   NOT NULL VARCHAR2(10) 
+//		EDU_PART_SCHOOL NOT NULL VARCHAR2(30)
+		int result = 0;
+//		INSERT INTO MEMBER VALUES('kh'||K, 'pwd'||K, 'kh'||K||'@a.com', '이름'||K);
+		String sql = "INSERT INTO EDU_BOOK VALUES (?, ?, ?, ?, ?, ?, ?)";
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			// ? 자리
+			pstmt.setString(1, dto.getEduBookId());
+			pstmt.setInt(2, dto.getEduId());
+			pstmt.setString(3, dto.getEduBookPhone());
+			pstmt.setString(4, dto.getEduPartLevel());
+			pstmt.setString(5, dto.getEduPartLevel());
+			pstmt.setString(6, dto.getEduPartName());
+			pstmt.setString(7, dto.getEduPartSchool());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		close(pstmt);
+		return result;
+	}
+	
+	// updateDetail
+	public int updateDetail(Connection con, EduDetailDto dto) {
+//		EDU_ID          NOT NULL NUMBER         
+//		EDU_SUBJECT     NOT NULL VARCHAR2(100)  
+//		EDU_CONTENT     NOT NULL VARCHAR2(4000) 
+//		EDU_ADDRESS     NOT NULL VARCHAR2(300)
+//		EDU_PARTICIPANT NOT NULL VARCHAR2(30)
+//		EDU_DAY         NOT NULL VARCHAR2(6)    
+//		EDU_BOOK_START  NOT NULL DATE           
+//		EDU_BOOK_END    NOT NULL DATE           
+//		EDU_START       NOT NULL DATE           
+//		EDU_END         NOT NULL DATE           
+//		EDU_WRITE_TIME  NOT NULL TIMESTAMP(6) 
+		int result = 0;
+		String sql = "UPDATE EDU_LIST SET EDU_SUBJECT = ?, EDU_CONTENT = ?, EDU_ADDRESS = ?, EDU_PARTICIPANT = ?, "
+				+ " EDU_DAY = ?, EDU_BOOK_START = ?, EDU_BOOK_END = ?, EDU_START = ?, EDU_END = ? WHERE EDU_ID = ? ";
 		PreparedStatement pstmt = null;
 		
 		try {

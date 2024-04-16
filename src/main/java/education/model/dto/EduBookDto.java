@@ -6,32 +6,29 @@ public class EduBookDto {
 //	EDU_BOOK_PHONE  NOT NULL VARCHAR2(11) 
 //	EDU_PART_LEVEL  NOT NULL VARCHAR2(10) 
 //	EDU_PART_NAME   NOT NULL VARCHAR2(10) 
-//	EDU_PART_GEN    NOT NULL CHAR(2)      
 //	EDU_PART_SCHOOL NOT NULL VARCHAR2(30)
 	private String eduBookId;
 	private Integer eduId;
 	private String eduBookPhone;
 	private String eduPartLevel;
 	private String eduPartName;
-	private char eduPartGen;
 	private String eduPartSchool;
 
 	@Override
 	public String toString() {
 		return "EduBookDto [eduBookId=" + eduBookId + ", eduId=" + eduId + ", eduBookPhone=" + eduBookPhone
-				+ ", eduPartLevel=" + eduPartLevel + ", eduPartName=" + eduPartName + ", eduPartGen=" + eduPartGen
-				+ ", eduPartSchool=" + eduPartSchool + "]";
+				+ ", eduPartLevel=" + eduPartLevel + ", eduPartName=" + eduPartName + ", eduPartSchool=" + eduPartSchool
+				+ "]";
 	}
 
 	public EduBookDto(String eduBookId, Integer eduId, String eduBookPhone, String eduPartLevel, String eduPartName,
-			char eduPartGen, String eduPartSchool) {
+			String eduPartSchool) {
 		super();
 		this.eduBookId = eduBookId;
 		this.eduId = eduId;
 		this.eduBookPhone = eduBookPhone;
 		this.eduPartLevel = eduPartLevel;
 		this.eduPartName = eduPartName;
-		this.eduPartGen = eduPartGen;
 		this.eduPartSchool = eduPartSchool;
 	}
 
@@ -53,10 +50,6 @@ public class EduBookDto {
 
 	public String getEduPartName() {
 		return eduPartName;
-	}
-
-	public char getEduPartGen() {
-		return eduPartGen;
 	}
 
 	public String getEduPartSchool() {

@@ -31,7 +31,7 @@ public class EduListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EduRecentDto dto = service.selectRecent();
 		Object recentEdu = (dto == null) ? "등록된 교육이 없습니다" : dto.getEduSubject();
-		request.setAttribute("recentEdu", recentEdu);
+		request.getSession().setAttribute("recentEdu", recentEdu);
 		
 		
 		String searchSubject = request.getParameter("edu-name");

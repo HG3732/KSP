@@ -25,6 +25,16 @@ public class EduBookFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		EduRecentDto dto = service.selectRecent();
+		String recentEdu = dto.getEduSubject();
+		request.setAttribute("recentEdu", recentEdu);
+		
+		String eduIdStr = request.getParameter("id");
+		Integer eduId = Integer.parseInt(eduIdStr);
+		request.setAttribute("detail", service.selectDetail(eduId));
+
+		
+		
 		request.getRequestDispatcher("/WEB-INF/views/edu/edubookform.jsp").forward(request, response);
 	}
 
@@ -32,7 +42,16 @@ public class EduBookFormController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+//		EDU_BOOK_ID     NOT NULL VARCHAR2(15) 
+//		EDU_ID          NOT NULL NUMBER       
+//		EDU_BOOK_PHONE  NOT NULL VARCHAR2(11) 
+//		EDU_PART_LEVEL  NOT NULL VARCHAR2(10) 
+//		EDU_PART_NAME   NOT NULL VARCHAR2(10) 
+//		EDU_PART_SCHOOL NOT NULL VARCHAR2(30)
+		
+		
+		
+		
 	}
 
 }

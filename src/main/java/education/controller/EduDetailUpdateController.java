@@ -32,9 +32,9 @@ public class EduDetailUpdateController extends HttpServlet {
 		EduRecentDto dtoRecent = service.selectRecent();
 		Object recentEdu = (dtoRecent != null) ? dtoRecent.getEduSubject() : "등록된 교육이 없습니다";
 		request.setAttribute("recentEdu", recentEdu);
-		
 		String eduIdStr = request.getParameter("id");
 		try {
+			String eduIdStr = request.getParameter("id");
 			Integer eduId = Integer.parseInt(eduIdStr);
 			request.setAttribute("detail", service.selectDetail(eduId));
 		} catch (NumberFormatException e) {

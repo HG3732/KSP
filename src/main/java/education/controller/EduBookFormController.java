@@ -7,12 +7,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import education.model.dto.EduRecentDto;
+import education.model.service.EduService;
+
 /**
  * Servlet implementation class EduBookFormController
  */
 @WebServlet("/edu/book/form")
 public class EduBookFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private EduService service = new EduService();
        
     /**
      * @see HttpServlet#HttpServlet()

@@ -34,7 +34,6 @@ public class EduDetailUpdateController extends HttpServlet {
 		request.setAttribute("recentEdu", recentEdu);
 		String eduIdStr = request.getParameter("id");
 		try {
-			String eduIdStr = request.getParameter("id");
 			Integer eduId = Integer.parseInt(eduIdStr);
 			request.setAttribute("detail", service.selectDetail(eduId));
 		} catch (NumberFormatException e) {

@@ -1,5 +1,7 @@
 package board.model.dto;
 
+import java.util.List;
+
 //이름               널?       유형             
 //---------------- -------- -------------- 
 //BOARD_NO         NOT NULL NUMBER         
@@ -15,9 +17,10 @@ public class BoardInsertDto {
 	private String boardWriter;
 	private String boardTitle;
 	private String boardContent;
+	private List<FileWriteDto> fileList;
 	@Override
 	public String toString() {
-		return "BoardInsertDto [boardWriter=" + boardWriter + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent + "]";
+		return "BoardInsertDto [boardWriter=" + boardWriter + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent + ", fileList=" + fileList+"]";
 	}
 	
 	public BoardInsertDto() {
@@ -25,11 +28,12 @@ public class BoardInsertDto {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public BoardInsertDto(String boardWriter, String boardTitle, String boardContent) {
+	public BoardInsertDto(String boardWriter, String boardTitle, String boardContent, List<FileWriteDto> fileList) {
 		super();
 		this.boardWriter = boardWriter;
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
+		this.fileList = fileList;
 	}
 	
 	
@@ -53,7 +57,9 @@ public class BoardInsertDto {
 	public void setBoardContent(String boardContent) {
 		this.boardContent = boardContent;
 	}
-	
+	public List<FileWriteDto> getFileList() {
+		return fileList;
+	}
 	
 }
 

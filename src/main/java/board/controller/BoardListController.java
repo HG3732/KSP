@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
+import education.model.service.EduService;
 
 /**
  * Servlet implementation class BoardListController
@@ -30,6 +31,11 @@ public class BoardListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("연결 확인 두 겟");
+//		request.getSession().setAttribute("recentEdu", new EduService().selectRecent().getEduSubject());
+		String searchSubject = request.getParameter("search-list");
+		request.getSession().setAttribute("ssSearch", searchSubject);
+		System.out.println(searchSubject);
+		
 //		한페이지당 글 수 10개
 		int pageSize = 10;
 //		하단에 나타탤 페이지 버튼 수
@@ -45,8 +51,8 @@ public class BoardListController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		request.setAttribute("map",service.selectPageList(pageSize, pageBlockSize, currentPageNum));
-		System.out.println("셀렉트페이지리스트 : " + service.selectPageList(pageSize, pageBlockSize, currentPageNum));
+		request.setAttribute("map",service.selectPageList(searchSubject, pageSize, pageBlockSize, currentPageNum));
+		System.out.println("셀렉트페이지리스트 : " + service.selectPageList(searchSubject, pageSize, pageBlockSize, currentPageNum));
 //		request.setAttribute("dtolist", service.selectAllList());
 //		System.out.println("컨트롤러 selectAllList" + service.selectAllList());
 		request.getRequestDispatcher("/WEB-INF/views/board/board_community.jsp").forward(request, response);

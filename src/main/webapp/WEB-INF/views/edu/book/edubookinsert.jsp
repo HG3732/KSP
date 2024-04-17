@@ -64,6 +64,7 @@
     <div class="wrap-main">
         <div class="edu-book-info">
             <form id="frm-edubook" action="${pageContext.request.contextPath }/edu/book/insert" method="post">
+            <input type="hidden" name="id" value="${detail.eduId }">
                 <table>
                     <caption><h2>신청 정보</h2></caption>
                     <colgroup>
@@ -83,10 +84,10 @@
 	                        <td>인증번호</td><td><input type="text" id="book-email-no" name="book-email-no"></td><td colspan="2"><button type="button" class="btn confMail">확인</button></td>
 	                    </tr>
 	                    <tr>
-	                        <td>휴대전화</td><td><input type="tel" id="book-phone" name="book-phone"></td>
+	                        <td>휴대전화</td><td><input type="tel" id="book-phone" name="book-phone" ></td>
 	                        <td>참여대상</td>
 	                        <td>
-	                            <select name="group">
+	                            <select name="book-level">
 	                                <optgroup label="초등">
 	                                    <option value="e1">초등1</option>
 	                                    <option value="e2">초등2</option>
@@ -136,9 +137,6 @@
             </footer>
         </div>
     </div>
-<script>
-$("").url
-</script>
 </body>
 
 </html>

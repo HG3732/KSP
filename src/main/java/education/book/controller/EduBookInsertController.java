@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import education.book.model.dto.EduBookDto;
 import education.book.model.service.EduBookService;
 import education.model.dto.EduRecentDto;
 import education.model.service.EduService;
@@ -36,12 +37,12 @@ public class EduBookInsertController extends HttpServlet {
 		request.setAttribute("recentEdu", recentEdu);
 		
 		String eduIdStr = request.getParameter("id");
-		Integer eduId = Integer.parseInt(eduIdStr);
+		int eduId = Integer.parseInt(eduIdStr);
 		request.setAttribute("detail", es.selectOne(eduId));
 
 		
 		
-		request.getRequestDispatcher("/WEB-INF/views/edu/edubookinsert.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/edu/book/edubookinsert.jsp").forward(request, response);
 	}
 
 	/**
@@ -54,10 +55,17 @@ public class EduBookInsertController extends HttpServlet {
 //		EDU_PART_LEVEL  NOT NULL VARCHAR2(10) 
 //		EDU_PART_NAME   NOT NULL VARCHAR2(10) 
 //		EDU_PART_SCHOOL NOT NULL VARCHAR2(30)
+		String eduBookId = request.getParameter("book-id");
+		String eduIdStr = request.getParameter("id");
+		Integer eduId = Integer.parseInt(eduIdStr);
+		String eduBookPhone = request.getParameter("book-phone");
+		String eduPartLevel = request.getParameter("book-level");
+		String eduPartName = request.getParameter("book-part-name");
+		String eduPartSchool = request.getParameter("book-school");
 		
+		ebs.insert(new EduBookDto(eduBookId, eduId, eduBookPhone, eduPartLevel, eduPartName, eduPartSchool));
 		
-		
-		
+		response.sendRedirect(request.getContextPath() + "/edu/one?id=" + eduId);
 	}
 
 }

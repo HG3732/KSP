@@ -35,9 +35,10 @@ public class EduBookService {
 	// insert
 	public int insert(EduBookDto dto) {
 		int result = 0;
-		Connection con = getConnection(true);
-		result = dao.insert(con, dto);
-		close(con);
+//		Connection con = getConnection(true);
+		SqlSession session = MybatisTemplate.getSqlSession();
+		result = dao.insert(session, dto);
+		session.close();
 		return result;
 	}
 

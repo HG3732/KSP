@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -21,34 +23,16 @@ public class EduBookDao {
 	}
 	
 	// insert
-	public int insert(Connection con, EduBookDto dto) {
-//		EDU_BOOK_ID     NOT NULL VARCHAR2(15) 
-//		EDU_ID          NOT NULL NUMBER       
-//		EDU_BOOK_PHONE  NOT NULL VARCHAR2(11) 
-//		EDU_PART_LEVEL  NOT NULL VARCHAR2(10) 
-//		EDU_PART_NAME   NOT NULL VARCHAR2(10) 
-//		EDU_PART_SCHOOL NOT NULL VARCHAR2(30)
-		int result = 0;
-		String sql = "INSERT INTO EDU_BOOK VALUES (?, ?, ?, ?, ?, ?, ?)";
-		PreparedStatement pstmt = null;
-		
-		try {
-			pstmt = con.prepareStatement(sql);
-			// ? 자리
-			pstmt.setString(1, dto.getEduBookId());
-			pstmt.setInt(2, dto.getEduId());
-			pstmt.setString(3, dto.getEduBookPhone());
-			pstmt.setString(4, dto.getEduPartLevel());
-			pstmt.setString(5, dto.getEduPartLevel());
-			pstmt.setString(6, dto.getEduPartName());
-			pstmt.setString(7, dto.getEduPartSchool());
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		close(pstmt);
+	public int insert(SqlSession session, EduBookDto dto) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("eduBookId", dto.getEduBookId());
+		param.put("eduId", dto.getEduId());
+		param.put("eduBookPhone", dto.getEduBookPhone());
+		param.put("eduPartLevel", dto.getEduPartLevel());
+		param.put("eduPartName", dto.getEduPartName());
+		param.put("eduPartSchool", dto.getEduPartSchool());
+		int result = session.insert("edubook.insert", param);
+		session.commit();
 		return result;
 	}
 	

@@ -14,6 +14,14 @@
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp"%>
 
+ 		    	<c:choose>
+	<c:when test="${ssslogin.mem_admin < 2 }">
+		<div class="alert">열람 권한이 없습니다.</div>
+	</c:when>
+	<c:when test="${empty ssslogin}">
+		<div class="alert">열람 권한이 없습니다.</div>
+	</c:when>
+		<c:otherwise>
 		    <section class="search-member">
 		        <div class="check-title">
 		            회원 관리
@@ -26,6 +34,7 @@
 		                <div>이메일 주소</div>
 		                <div>주소</div>
 		                <div>등급</div>
+		                <div>비고</div>
 		            </div>
 		        <c:choose>
 		        	<c:when test="${empty map.dtoList}">
@@ -34,12 +43,15 @@
 		        	<c:otherwise>
 			        	<c:forEach items="${map.dtoList }" var="member">
 			   				<div class="check-main">
+			   				<form class="plz" method="post" action="${pageContext.request.contextPath}/member/info">
 				                <div>${member.mem_name}</div>
-				                <div><a href="${pageContext.request.contextPath}/member/info?memberid=${member.mem_id}&memberadmin=${member.mem_admin}" class="change-mem-id" target="_blank">${member.mem_id}</a></div>
+				                <div><input type="text" name="memberid" value="${member.mem_id}" readonly></div>
 				                <div>${member.mem_pwd}</div>
 				                <div>${member.mem_email}</div>
 				                <div>${member.mem_address}</div>
-				                <div>${member.mem_admin}</div>
+				                <div><input type="text" name="memberadmin" value="${member.mem_admin}" readonly></div>
+				                <div><button type="submit" name="goinfo" class="goinfo">등급 관리</button></div>
+				            </form>
 		            		</div>
 			        	</c:forEach>
 		        	</c:otherwise>
@@ -98,21 +110,7 @@
 		            </form>
 		        </div>
 		    </section>
-<%-- 		    	<c:choose>
-	<c:when test="${ssslogin.mem_admin < 2 }">
-		<div class="alert">열람 권한이 없습니다.</div>
-	</c:when>
-	<c:when test="${empty ssslogin}">
-		<div class="alert">열람 권한이 없습니다.</div>
-	</c:when>
-		<c:otherwise>
 	    </c:otherwise>
-    </c:choose> --%>
+    </c:choose>
 </body>
-<script>
-$(loadedHandler);
-	function loadedHandler() {
-	}
-
-</script>
 </html>

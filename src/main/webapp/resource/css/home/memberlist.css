@@ -2,6 +2,26 @@ body {
     color: white;
 }
 
+input {
+	border: none;
+	background-color: transparent;
+	text-align: center;
+}
+
+input[name=memberadmin]{
+	width: 12px;
+}
+
+input:focus{
+	outline: none;
+}
+
+button.goinfo{
+	border: none;
+	background-color: #503396;
+	border-radius: 2px;
+}
+
 /* 회원 조회 */
 section.search-member {
     width: 1100px;
@@ -28,14 +48,14 @@ section > div {
     background-color: rgba(255,255,255, .2);
     margin: 0;
     display: grid;
-    grid-template-columns: 1fr 2fr 2fr 2fr 4fr 1fr;
+    grid-template-columns: 2fr 2fr 2fr 2fr 4fr 1fr 1fr;
     padding: 10px;
     border-bottom: 1px solid #aaa;
 }
 
-section > .wrap-checkmember > div:not(:first-child) {
+section > .wrap-checkmember > div.check-main > form {
     display: grid;
-    grid-template-columns: 1fr 2fr 2fr 2fr 4fr 1fr;
+    grid-template-columns: 2fr 2fr 2fr 2fr 4fr 1fr 1fr;
     padding: 10px;
     margin: 2px 0;
     border-bottom: 1px solid #aaa;
@@ -49,7 +69,7 @@ section > .wrap-checkmember > div > div:not(:last-child) {
     border-right: 1px solid white;
 }
 
-section > .wrap-checkmember > div.check-main > div {
+section > .wrap-checkmember  div.check-main  div:not(:first-child) {
 	padding: 0 10px;
 	text-overflow: ellipsis;
   	white-space: nowrap;
@@ -87,6 +107,13 @@ section > .wrap-checkmember > div.check-main > div {
 
 .searchbar select > option{
 	color: black;	
+}
+
+.searchbar .search {
+	font-size: 16px;
+	background-color: white;
+	color: black;
+	
 }
 
 .searchbar .btn-search {

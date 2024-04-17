@@ -231,7 +231,7 @@ public class MemberDao {
 		//adminUpdate
 		public int adminUpdate(Connection conn, String mem_id, int admin) {
 			int result = 0;
-			String sql = "UPDATE MEMBER SET MEMBER_ADMIN = ?, "
+			String sql = "UPDATE MEMBER SET MEMBER_ADMIN = ? "
 					+ " WHERE MEMBER_ID = ? "
 					;
 			PreparedStatement pstmt = null;

@@ -31,9 +31,6 @@ public class MemberSearchController extends HttpServlet {
 		String category = request.getParameter("category");
 		String keyword = request.getParameter("keyword");
 		
-		System.out.println(category);
-		System.out.println(keyword);
-		
 		//페이지 번호 url로 입력해서 들어갈 때 공란/null 체크
 		if(pageNum != null && !pageNum.equals("")) {
 			try {
@@ -42,7 +39,6 @@ public class MemberSearchController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
 		request.setAttribute("map", service.selectMemberSearch(pageSize, pageBlockSize, currentPageNum, category, keyword));
 		request.getRequestDispatcher("/WEB-INF/views/home/memberlist.jsp").forward(request, response);
 	}

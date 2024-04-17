@@ -31,7 +31,7 @@
                        	<input type="text" name="grade" class="member_admin" value="${mem_admin }">
                     </td>
                     <td>
-	                    <button type="submit" name="change-mem-Info" class="change-mem-Info">등급 변경</button>
+	                    <button type="submit" name="change-mem-Info" class="change-mem-Info">회원 관리</button>
                     </td>
                 </tr>
        		</table>

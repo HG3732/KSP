@@ -151,7 +151,7 @@
     <div class="wrap-signUp">
         <header>
             <div class="top">
-                <a href="http://localhost:8080/star/home" target="_blank"></a>
+                <a href="${pageContext.request.contextPath}/home" target="_blank"></a>
             </div>
         </header>
         <main>

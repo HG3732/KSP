@@ -50,21 +50,24 @@ $(loadedHandler)
 	    	<div class="top-bar">
 	    		<c:choose>
 		    		<c:when test="${empty ssslogin}">
-		                <div><a href="http://localhost:8080/star/login">로그인</a></div>
-		                <div><a href="http://localhost:8080/star/star/join" target="_blank">회원가입</a></div>
+		                <div><a href="${pageContext.request.contextPath}/login">로그인</a></div>
+		                <div><a href="${pageContext.request.contextPath}/star/join" target="_blank">회원가입</a></div>
 	                </c:when>
 	                <c:otherwise>
 	                	<form id="logout">
 		                	<div><a href="#" class="logout">로그아웃</a></div>
 		                </form>
 		                <div><a href="#" class="mypage">${ssslogin.mem_name}님의 페이지</a></div>
+		                <c:if test="${ssslogin.mem_admin == 2}">
+		                	<div><a href="${pageContext.request.contextPath}/member/list" class="memberlist" style="color: yellow;">회원 관리</a></div>
+		                </c:if>
 	                </c:otherwise>
 	            </c:choose>
             </div>
-	        <div class="logo"><a href="http://localhost:8080/star/home">김서박</a></div>
+	        <div class="logo"><a href="${pageContext.request.contextPath}/home">김서박</a></div>
 	        <div class="nav">
-	            <div><a href="http://localhost:8080/star/edu/list" class="edu">교육 신청</a></div>
-	            <div><a href="#" class="board">게시판</a></div>
+	            <div><a href="${pageContext.request.contextPath}/edu/list" class="edu">교육 신청</a></div>
+	            <div><a href="${pageContext.request.contextPath}/board/community" class="board">게시판</a></div>
 	        </div>
 	        <div class="bottom-info">
 	        	<c:choose>

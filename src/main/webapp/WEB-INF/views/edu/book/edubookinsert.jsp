@@ -63,7 +63,7 @@
 	</div>
     <div class="wrap-main">
         <div class="edu-book-info">
-            <form id="frm-edubook" action="${pageContext.request.contextPath }/edu/book/form" method="post">
+            <form id="frm-edubook" action="${pageContext.request.contextPath }/edu/book/insert" method="post">
                 <table>
                     <caption><h2>신청 정보</h2></caption>
                     <colgroup>

@@ -132,7 +132,7 @@
                         </table>
                     </div>
                     <div class="edu-book">
-                        <a href="http://localhost:8080/star/edu/book/form?id=${detail.eduId }">신청하기</a>
+                        <a href="http://localhost:8080/star/edu/book/insert?id=${detail.eduId }">신청하기</a>
                     </div>
                 </div>
             </div>

@@ -39,7 +39,7 @@ public class EduBookListController extends HttpServlet {
 		
 		List<EduBookListDto> eduBookList = service.calendarBookList();
 		request.setAttribute("eduBook", eduBookList);
-		request.getRequestDispatcher("/WEB-INF/views/edu/edubooklist.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/edu/book/edubooklist.jsp").forward(request, response);
 	}
 
 	/**

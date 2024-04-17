@@ -7,54 +7,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
 import education.book.model.dto.EduBookDto;
 import education.book.model.dto.EduBookListDto;
-import education.model.dto.EduOneDto;
 
 import static common.SemiTemplate.*;
 
 public class EduBookDao {
 	// selectList
-	public List<EduBookListDto> selectList(Connection con) {
-//		EDU_PART_SCHOOL NOT NULL VARCHAR2(30)
-//		EDU_SUBJECT     NOT NULL VARCHAR2(15) 
-//		MEMBER_NAME    NOT NULL VARCHAR2(10)  
-//		EDU_ADDRESS     NOT NULL VARCHAR2(300) 
-//		EDU_START       NOT NULL DATE           
-//		EDU_END         NOT NULL DATE    
-		List<EduBookListDto> result = null;
-		String sql = "SELECT EB.EDU_PART_SCHOOL, EL.EDU_SUBJECT, M.MEMBER_NAME, EL.EDU_ADDRESS, TO_CHAR(EL.EDU_START, 'YYYY-MM-DD') ES, TO_CHAR(EL.EDU_END, 'YYYY-MM-DD') EE FROM EDU_BOOK EB "
-				+ " JOIN EDU_LIST EL ON EB.EDU_ID = EL.EDU_ID "
-				+ " JOIN MEMBER M ON EB.EDU_BOOK_ID = M.MEMBER_ID ";
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			
-			// ResultSet 처리
-			if(rs.next()) {
-				result = new ArrayList<EduBookListDto>();
-				do {
-					EduBookListDto dto = new EduBookListDto(
-							rs.getString("EDU_PART_SCHOOL")
-							, rs.getString("EDU_SUBJECT")
-							, rs.getString("MEMBER_NAME")
-							, rs.getString("EDU_ADDRESS")
-							, rs.getString("ES")
-							, rs.getString("EE")
-							);
-					result.add(dto);
-				}while(rs.next());
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		close(rs);
-		close(pstmt);
-		return result;
+	public List<EduBookListDto> selectList(SqlSession session) {
+		return session.selectList("edubook.selectList");
 	}
 	
 	// insert

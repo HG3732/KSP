@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+
+import common.MybatisTemplate;
 import education.book.model.dao.EduBookDao;
 import education.book.model.dto.EduBookDto;
 import education.book.model.dto.EduBookListDto;
@@ -22,9 +25,10 @@ public class EduBookService {
 	// selectList
 	public List<EduBookListDto> selectList() {
 		List<EduBookListDto> result = null;
-		Connection con = getConnection(true);
-		result = dao.selectList(con);
-		close(con);
+//		Connection con = getConnection(true);
+		SqlSession session = MybatisTemplate.getSqlSession();
+		result = dao.selectList(session);
+		session.close();
 		return result;
 	}
 

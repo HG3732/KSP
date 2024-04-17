@@ -1,4 +1,4 @@
-package education.model.dto;
+package education.book.model.dto;
 
 public class EduBookListDto {
 //	EDU_PART_SCHOOL NOT NULL VARCHAR2(30)

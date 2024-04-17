@@ -1,4 +1,4 @@
-package education.model.dto;
+package education.book.model.dto;
 
 public class EduBookDto {
 //	EDU_BOOK_ID     NOT NULL VARCHAR2(15) 

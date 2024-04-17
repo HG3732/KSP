@@ -7,106 +7,107 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import education.book.model.dto.EduBookListDto;
 import education.model.dao.EduDao;
-import education.model.dto.EduBookDto;
-import education.model.dto.EduBookListDto;
-import education.model.dto.EduDetailDto;
-import education.model.dto.EduDto;
+import education.model.dto.EduOneDto;
 import education.model.dto.EduListDto;
 import education.model.dto.EduRecentDto;
 
 public class EduService {
+	
 	private EduDao dao = new EduDao();
-		// selectPageList
-		public Map<String, Object> selectPageList(String searchSubject, int pageSize, int pageBlockSize, int currentPageNum) {
-			Map<String, Object> result = null;
-			Connection con = getConnection(true);
+	
+	// selectPageList
+	public Map<String, Object> selectPageList(String searchSubject, int pageSize, int pageBlockSize, int currentPageNum) {
+		Map<String, Object> result = null;
+		Connection con = getConnection(true);
+		
+		int start = pageSize * (currentPageNum - 1) + 1;
+		int end = pageSize * currentPageNum;
 			
-			int start = pageSize * (currentPageNum - 1) + 1;
-			int end = pageSize * currentPageNum;
-			
-			// 총글수 289
-			int totalCount = dao.selectTotalCount(con, searchSubject);
-			
-			int totalPageCount = (totalCount % pageSize == 0) ? totalCount / pageSize : totalCount / pageSize + 1;
-			
-			int startPageNum = (currentPageNum % pageBlockSize == 0) ? ((currentPageNum / pageBlockSize) - 1) * pageBlockSize + 1 : (currentPageNum / pageBlockSize) * pageBlockSize + 1;
-			int endPageNum = (startPageNum + pageBlockSize > totalPageCount) ? totalPageCount : startPageNum + pageBlockSize - 1;
-			
-			List<EduListDto> dtolist = dao.selectPageList(con, searchSubject, start, end);
-			close(con);
-			
-			result = new HashMap<String, Object>();
-			result.put("dtolist", dtolist);
-			result.put("totalPageCount", totalPageCount);
-			result.put("startPageNum", startPageNum);
-			result.put("endPageNum", endPageNum);
-			result.put("currentPageNum", currentPageNum);
-			
-			return result;
-		}
+		// 총글수 289
+		int totalCount = dao.selectTotalCount(con, searchSubject);
 		
-		// selectRecent
-		public EduRecentDto selectRecent() {
-			EduRecentDto result = null;
-			Connection con = getConnection(true);
-			result = dao.selectRecent(con);
-			close(con);
-			return result;
-		}
+		int totalPageCount = (totalCount % pageSize == 0) ? totalCount / pageSize : totalCount / pageSize + 1;
 		
-		// selectDetail
-		public EduDetailDto selectDetail(Integer eduId) {
-			EduDetailDto result = null;
-			Connection con = getConnection(true);
-			result = dao.selectDetail(con, eduId);
-			close(con);
-			return result;
-		}
+		int startPageNum = (currentPageNum % pageBlockSize == 0) ? ((currentPageNum / pageBlockSize) - 1) * pageBlockSize + 1 : (currentPageNum / pageBlockSize) * pageBlockSize + 1;
+		int endPageNum = (startPageNum + pageBlockSize > totalPageCount) ? totalPageCount : startPageNum + pageBlockSize - 1;
 		
-		// insertDetail
-		public int insertDetail(EduDetailDto dto) {
-			int result = 0;
-			Connection con = getConnection(true);
-			result = dao.insertDetail(con, dto);
-			close(con);
-			return result;
-		}
+		List<EduListDto> dtolist = dao.selectPageList(con, searchSubject, start, end);
+		close(con);
 		
-		// insertEduBook
-		public int insertEduBook(EduBookDto dto) {
-			int result = 0;
-			Connection con = getConnection(true);
-			result = dao.insertEduBook(con, dto);
-			close(con);
-			return result;
-		}
+		result = new HashMap<String, Object>();
+		result.put("dtolist", dtolist);
+		result.put("totalPageCount", totalPageCount);
+		result.put("startPageNum", startPageNum);
+		result.put("endPageNum", endPageNum);
+		result.put("currentPageNum", currentPageNum);
 		
-		// updateDetail
-		public int updateDetail(EduDetailDto dto) {
-			int result = 0;
-			Connection con = getConnection(true);
-			result = dao.updateDetail(con, dto);
-			close(con);
-			return result;
-		}
-		// deleteDetail
-		public int deleteDetail(Integer eduId) {
-			int result = 0;
-			Connection con = getConnection(true);
-			result = dao.deleteDetail(con, eduId);
-			close(con);
-			return result;
-		}
+		return result;
+	}
 		
+	// selectRecent
+	public EduRecentDto selectRecent() {
+		EduRecentDto result = null;
+		Connection con = getConnection(true);
+		result = dao.selectRecent(con);
+		close(con);
+		return result;
+	}
 		
-		
-		// calendarBookList
-		public List<EduBookListDto> calendarBookList() {
-			List<EduBookListDto> result = null;
-			Connection con = getConnection(true);
-			result = dao.calendarBookList(con);
-			close(con);
-			return result;
-		}
+	// selectOne
+	public EduOneDto selectOne(Integer eduId) {
+		EduOneDto result = null;
+		Connection con = getConnection(true);
+		result = dao.selectOne(con, eduId);
+		close(con);
+		return result;
+	}
+	
+	// selectMemList
+	public List<EduListDto> selectMemList(String mem_id){
+		List<EduListDto> result = null;
+		Connection con = getConnection(true);
+		result = dao.selectMemList(con, mem_id);
+		close(con);
+		return result;
+	}
+	
+	// insert
+	public int insert(EduOneDto dto) {
+		int result = 0;
+		Connection con = getConnection(true);
+		result = dao.insert(con, dto);
+		close(con);
+		return result;
+	}
+	
+	// update
+	public int update(EduOneDto dto) {
+		int result = 0;
+		Connection con = getConnection(true);
+		result = dao.update(con, dto);
+		close(con);
+		return result;
+	}
+	
+	// delete
+	public int delete(Integer eduId) {
+		int result = 0;
+		Connection con = getConnection(true);
+		result = dao.delete(con, eduId);
+		close(con);
+		return result;
+	}
+	
+	
+	
+	// calendarBookList
+	public List<EduBookListDto> calendarBookList() {
+		List<EduBookListDto> result = null;
+		Connection con = getConnection(true);
+		result = dao.calendarBookList(con);
+		close(con);
+		return result;
+	}
 }

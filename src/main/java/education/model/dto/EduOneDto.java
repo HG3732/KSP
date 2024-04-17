@@ -1,6 +1,6 @@
 package education.model.dto;
 
-public class EduDetailDto {
+public class EduOneDto {
 //	EDU_ID          NOT NULL NUMBER         
 //	EDU_SUBJECT     NOT NULL VARCHAR2(100)  
 //	EDU_CONTENT     NOT NULL VARCHAR2(4000) 
@@ -32,7 +32,7 @@ public class EduDetailDto {
 				+ ", eduEnd=" + eduEnd + ", eduWriteTime=" + eduWriteTime + "]";
 	}
 
-	public EduDetailDto(Integer eduId, String eduSubject, String eduContent, String eduAddress, String eduParticipant,
+	public EduOneDto(Integer eduId, String eduSubject, String eduContent, String eduAddress, String eduParticipant,
 			String eduDay, String eduBookStart, String eduBookEnd, String eduStart, String eduEnd,
 			String eduWriteTime) {
 		super();

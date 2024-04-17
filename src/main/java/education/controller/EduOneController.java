@@ -13,15 +13,15 @@ import education.model.service.EduService;
 /**
  * Servlet implementation class EduDetailController
  */
-@WebServlet("/edu/detail")
-public class EduDetailController extends HttpServlet {
+@WebServlet("/edu/one")
+public class EduOneController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private EduService service = new EduService();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EduDetailController() {
+    public EduOneController() {
         super();
     }
 
@@ -36,13 +36,13 @@ public class EduDetailController extends HttpServlet {
 		String eduIdStr = request.getParameter("id");
 		try {
 			Integer eduId = Integer.parseInt(eduIdStr);
-			request.setAttribute("detail", service.selectDetail(eduId));
+			request.setAttribute("detail", service.selectOne(eduId));
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 			response.sendRedirect(request.getContextPath() + "home");
 		}
 		
-		request.getRequestDispatcher("/WEB-INF/views/edu/edudetail.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/edu/eduone.jsp").forward(request, response);
 	}
 
 //	/**

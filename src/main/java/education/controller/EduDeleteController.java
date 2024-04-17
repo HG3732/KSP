@@ -37,7 +37,7 @@ public class EduDeleteController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String eduIdStr = request.getParameter("eduId");
 		Integer eduId = Integer.parseInt(eduIdStr);
-		service.deleteDetail(eduId);
+		service.delete(eduId);
 		response.sendRedirect(request.getContextPath() + "/edu/list");
 	}
 

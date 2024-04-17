@@ -7,22 +7,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import education.model.dto.EduDetailDto;
+import education.model.dto.EduOneDto;
 import education.model.dto.EduRecentDto;
 import education.model.service.EduService;
 
 /**
  * Servlet implementation class EduDetailEditController
  */
-@WebServlet("/edu/detail/update")
-public class EduDetailUpdateController extends HttpServlet {
+@WebServlet("/edu/update")
+public class EduUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private EduService service = new EduService();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EduDetailUpdateController() {
+    public EduUpdateController() {
         super();
     }
 
@@ -37,13 +37,13 @@ public class EduDetailUpdateController extends HttpServlet {
 		try {
 			String eduIdStr = request.getParameter("id");
 			Integer eduId = Integer.parseInt(eduIdStr);
-			request.setAttribute("detail", service.selectDetail(eduId));
+			request.setAttribute("detail", service.selectOne(eduId));
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 			response.sendRedirect(request.getContextPath() + "home");
 		}
 		
-		request.getRequestDispatcher("/WEB-INF/views/edu/edudetailupdate.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/edu/eduupdate.jsp").forward(request, response);
 	}
 
 	/**
@@ -62,9 +62,9 @@ public class EduDetailUpdateController extends HttpServlet {
 		String eduEnd = request.getParameter("eduEnd");
 		Integer eduId = Integer.parseInt(eduIdStr);
 		try {
-			EduDetailDto detail = new EduDetailDto(eduId, eduSubject, eduContent, eduAddress, eduParticipant, eduDay, eduBookStart, eduBookEnd, eduStart, eduEnd, service.selectDetail(eduId).getEduWriteTime());
-			service.updateDetail(detail);
-			response.sendRedirect(request.getContextPath() + "/edu/detail?id=" + eduId);
+			EduOneDto detail = new EduOneDto(eduId, eduSubject, eduContent, eduAddress, eduParticipant, eduDay, eduBookStart, eduBookEnd, eduStart, eduEnd, service.selectOne(eduId).getEduWriteTime());
+			service.update(detail);
+			response.sendRedirect(request.getContextPath() + "/edu/one?id=" + eduId);
 			
 		} catch (NumberFormatException e) {
 			e.printStackTrace();

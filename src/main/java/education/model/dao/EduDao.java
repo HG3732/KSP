@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import education.model.dto.EduBookDto;
-import education.model.dto.EduBookListDto;
-import education.model.dto.EduDetailDto;
+import education.book.model.dto.EduBookDto;
+import education.book.model.dto.EduBookListDto;
+import education.model.dto.EduOneDto;
 import education.model.dto.EduDto;
 import education.model.dto.EduListDto;
 import education.model.dto.EduRecentDto;
@@ -17,6 +17,7 @@ import education.model.dto.EduRecentDto;
 import static common.SemiTemplate.*;
 
 public class EduDao {
+	
 	// selectTotalCount
 	public int selectTotalCount(Connection con, String searchSubject) {
 		int result = 0;
@@ -90,6 +91,48 @@ public class EduDao {
 		return result;
 	}
 	
+	// selectMemList
+	public List<EduListDto> selectMemList(Connection con, String mem_id) {
+		List<EduListDto> result = null;
+		String sql = "SELECT EDU_ID ,EDU_SUBJECT ,EDU_PARTICIPANT ,TO_CHAR(EDU_BOOK_START, 'YYYY-MM-DD') BS ,TO_CHAR(EDU_BOOK_END, 'YYYY-MM-DD') BE ,TO_CHAR(EDU_START, 'YYYY-MM-DD') ES ,TO_CHAR(EDU_END, 'YYYY-MM-DD') EE ,EDU_WRITE_TIME FROM EDU_LIST "
+				+ " WHERE EDU_ID = (SELECT EDU_ID FROM EDU_BOOK WHERE EDU_BOOK_ID = ?)";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, mem_id);
+			
+			rs = pstmt.executeQuery();
+			
+			// ResultSet 처리
+			if(rs.next()) {
+				result = new ArrayList<EduListDto>();
+				do {
+					EduListDto dto = new EduListDto(
+							rs.getInt("EDU_ID")
+							, rs.getString("EDU_SUBJECT")
+							, rs.getString("EDU_PARTICIPANT")
+							, rs.getString("BS")
+							, rs.getString("BE")
+							, rs.getString("ES")
+							, rs.getString("EE")
+							, rs.getString("EDU_WRITE_TIME")
+							);
+					result.add(dto);
+				}while(rs.next());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		close(rs);
+		close(pstmt);
+		return result;
+	}
+	
+	
+	
 	// selectRecent
 	public EduRecentDto selectRecent(Connection con) {
 		EduRecentDto result = null;
@@ -115,9 +158,9 @@ public class EduDao {
 		return result;
 	}
 	
-	// selectDetail
-	public EduDetailDto selectDetail(Connection con, Integer eduId) {
-		EduDetailDto result = null;
+	// selectOne
+	public EduOneDto selectOne(Connection con, Integer eduId) {
+		EduOneDto result = null;
 		String sql = "SELECT EDU_ID "
 				+ " , EDU_SUBJECT "
 				+ " , EDU_CONTENT "
@@ -141,7 +184,7 @@ public class EduDao {
 			
 			// ResultSet 처리
 			if(rs.next()) {
-				result = new EduDetailDto(
+				result = new EduOneDto(
 						rs.getInt("EDU_ID")
 						, rs.getString("EDU_SUBJECT")
 						, rs.getString("EDU_CONTENT")
@@ -164,21 +207,9 @@ public class EduDao {
 		return result;
 	}
 	
-	// insertDetail
-	public int insertDetail(Connection con, EduDetailDto dto) {
-//		EDU_ID          NOT NULL NUMBER         
-//		EDU_SUBJECT     NOT NULL VARCHAR2(100)  
-//		EDU_CONTENT     NOT NULL VARCHAR2(4000) 
-//		EDU_ADDRESS     NOT NULL VARCHAR2(300)
-//		EDU_PARTICIPANT NOT NULL VARCHAR2(30)
-//		EDU_DAY         NOT NULL VARCHAR2(6)    
-//		EDU_BOOK_START  NOT NULL DATE           
-//		EDU_BOOK_END    NOT NULL DATE           
-//		EDU_START       NOT NULL DATE           
-//		EDU_END         NOT NULL DATE           
-//		EDU_WRITE_TIME  NOT NULL TIMESTAMP(6) 
+	// insert
+	public int insert(Connection con, EduOneDto dto) {
 		int result = 0;
-//		INSERT INTO MEMBER VALUES('kh'||K, 'pwd'||K, 'kh'||K||'@a.com', '이름'||K);
 		String sql = "INSERT INTO EDU_LIST "
 				+ " VALUES( "
 				+ " (SELECT NVL(MAX(EDU_ID), 0) + 1 FROM EDU_LIST)"
@@ -208,52 +239,8 @@ public class EduDao {
 		return result;
 	}
 	
-	// insertEduBook
-	public int insertEduBook(Connection con, EduBookDto dto) {
-//		EDU_BOOK_ID     NOT NULL VARCHAR2(15) 
-//		EDU_ID          NOT NULL NUMBER       
-//		EDU_BOOK_PHONE  NOT NULL VARCHAR2(11) 
-//		EDU_PART_LEVEL  NOT NULL VARCHAR2(10) 
-//		EDU_PART_NAME   NOT NULL VARCHAR2(10) 
-//		EDU_PART_SCHOOL NOT NULL VARCHAR2(30)
-		int result = 0;
-//		INSERT INTO MEMBER VALUES('kh'||K, 'pwd'||K, 'kh'||K||'@a.com', '이름'||K);
-		String sql = "INSERT INTO EDU_BOOK VALUES (?, ?, ?, ?, ?, ?, ?)";
-		PreparedStatement pstmt = null;
-		
-		try {
-			pstmt = con.prepareStatement(sql);
-			// ? 자리
-			pstmt.setString(1, dto.getEduBookId());
-			pstmt.setInt(2, dto.getEduId());
-			pstmt.setString(3, dto.getEduBookPhone());
-			pstmt.setString(4, dto.getEduPartLevel());
-			pstmt.setString(5, dto.getEduPartLevel());
-			pstmt.setString(6, dto.getEduPartName());
-			pstmt.setString(7, dto.getEduPartSchool());
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		close(pstmt);
-		return result;
-	}
-	
-	// updateDetail
-	public int updateDetail(Connection con, EduDetailDto dto) {
-//		EDU_ID          NOT NULL NUMBER         
-//		EDU_SUBJECT     NOT NULL VARCHAR2(100)  
-//		EDU_CONTENT     NOT NULL VARCHAR2(4000) 
-//		EDU_ADDRESS     NOT NULL VARCHAR2(300)
-//		EDU_PARTICIPANT NOT NULL VARCHAR2(30)
-//		EDU_DAY         NOT NULL VARCHAR2(6)    
-//		EDU_BOOK_START  NOT NULL DATE           
-//		EDU_BOOK_END    NOT NULL DATE           
-//		EDU_START       NOT NULL DATE           
-//		EDU_END         NOT NULL DATE           
-//		EDU_WRITE_TIME  NOT NULL TIMESTAMP(6) 
+	// update
+	public int update(Connection con, EduOneDto dto) {
 		int result = 0;
 		String sql = "UPDATE EDU_LIST SET EDU_SUBJECT = ?, EDU_CONTENT = ?, EDU_ADDRESS = ?, EDU_PARTICIPANT = ?, "
 				+ " EDU_DAY = ?, EDU_BOOK_START = ?, EDU_BOOK_END = ?, EDU_START = ?, EDU_END = ? WHERE EDU_ID = ? ";
@@ -282,8 +269,8 @@ public class EduDao {
 		return result;
 	}
 	
-	// deleteDetail
-	public int deleteDetail(Connection con, Integer eduId) {
+	// delete
+	public int delete(Connection con, Integer eduId) {
 		int result = 0;
 		String sql = "DELETE FROM EDU_LIST WHERE EDU_ID = ?";
 		PreparedStatement pstmt = null;

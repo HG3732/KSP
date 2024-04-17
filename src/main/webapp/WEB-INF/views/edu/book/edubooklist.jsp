@@ -1,7 +1,7 @@
 <link href="${pageContext.request.contextPath}/resource/css/reset.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resource/css/core.css" rel="stylesheet">
-<%@page import="education.model.dto.EduBookListDto"%>
-<%@page import="education.model.dto.EduBookDto"%>
+<%@page import="education.book.model.dto.EduBookListDto"%>
+<%@page import="education.book.model.dto.EduBookDto"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

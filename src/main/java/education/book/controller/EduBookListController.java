@@ -1,27 +1,31 @@
-package education.controller;
+package education.book.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import education.book.model.dto.EduBookListDto;
 import education.model.dto.EduRecentDto;
 import education.model.service.EduService;
 
 /**
- * Servlet implementation class EduBookFormController
+ * Servlet implementation class EduDetailController
  */
-@WebServlet("/edu/book/form")
-public class EduBookFormController extends HttpServlet {
+@WebServlet("/edu/book/list")
+public class EduBookListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private EduService service = new EduService();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EduBookFormController() {
+    public EduBookListController() {
         super();
     }
 
@@ -30,32 +34,20 @@ public class EduBookFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EduRecentDto dto = service.selectRecent();
-		String recentEdu = dto.getEduSubject();
+		Object recentEdu = (dto != null) ? dto.getEduSubject() : "등록된 교육이 없습니다";
 		request.setAttribute("recentEdu", recentEdu);
 		
-		String eduIdStr = request.getParameter("id");
-		Integer eduId = Integer.parseInt(eduIdStr);
-		request.setAttribute("detail", service.selectDetail(eduId));
-
-		
-		
-		request.getRequestDispatcher("/WEB-INF/views/edu/edubookform.jsp").forward(request, response);
+		List<EduBookListDto> eduBookList = service.calendarBookList();
+		request.setAttribute("eduBook", eduBookList);
+		request.getRequestDispatcher("/WEB-INF/views/edu/edubooklist.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		EDU_BOOK_ID     NOT NULL VARCHAR2(15) 
-//		EDU_ID          NOT NULL NUMBER       
-//		EDU_BOOK_PHONE  NOT NULL VARCHAR2(11) 
-//		EDU_PART_LEVEL  NOT NULL VARCHAR2(10) 
-//		EDU_PART_NAME   NOT NULL VARCHAR2(10) 
-//		EDU_PART_SCHOOL NOT NULL VARCHAR2(30)
-		
-		
-		
-		
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

@@ -26,7 +26,7 @@ public class BoardService {
 //	}
 	
 	//selectAllList
-	public Map<String, Object> selectPageList(int pageSize, int pageBlockSize, int currentPageNum){
+	public Map<String, Object> selectPageList(String searchSubject, int pageSize, int pageBlockSize, int currentPageNum){
 		Map<String,Object> result= null;
 		
 		Connection conn = getConnection(true);
@@ -40,7 +40,7 @@ public class BoardService {
 		
 //		총 글 개수 
 //		select count(*) cnt from board;
-		int totalCount = dao.selectTotalCount(conn);
+		int totalCount = dao.selectTotalCount(conn, searchSubject);
 		System.out.println("totalCount : " + totalCount);
 //		전체 페이지수 = ceil(총글개수/한페이지당글수) = (총글개수%한페이지당글수== 0)?(총글개수/한페이지당글수):(총글개수/한페이지당글수+1)
 		int totalPageCount = (totalCount % pageSize == 0 )? totalCount/pageSize : totalCount/pageSize+1;
@@ -52,7 +52,7 @@ public class BoardService {
 						   ((currentPageNum/pageBlockSize))*pageBlockSize+1;
 		int endPageNum = (startPageNum+pageBlockSize > totalCount) ? totalCount : startPageNum+pageBlockSize-1;
 		
-		List<BoardListDto> dtolist = dao.selectPageList(conn, start, end);
+		List<BoardListDto> dtolist = dao.selectPageList(conn, searchSubject, start, end);
 		close(conn);
 		
 		result = new HashMap<String, Object>();
@@ -102,7 +102,6 @@ public class BoardService {
 		if(result != null) {
 			dao.updateHit(conn, boardNo);
 		}
-		System.out.println("조회수 + : " + dao.updateHit(conn, boardNo));
 		close(conn);
 		return result;
 		

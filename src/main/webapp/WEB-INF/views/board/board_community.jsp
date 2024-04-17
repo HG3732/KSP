@@ -66,7 +66,7 @@
 			<div class="search">
 				<form action="">
 					<div class="flexsearch">
-						<input type="text" name="" id="" class="search text">
+						<input type="text" name="search-list" id="search-list" placeholder="제목을 입력해 주세요." class="search text">
 						<button type="submit" class="search btn">검색</button>
 					</div>
 				</form>
@@ -96,7 +96,11 @@
 									<td>${vo.boardNo }</td>
 									<td><a href="${pgaeContext.request.contextPath}/star/board/view?no=${vo.boardNo }">
 									${vo.boardTitle }</a></td>
-									<td>${vo.fileId }</td>
+									<c:choose>
+										<c:when test="${vo.fileId == null || vo.fileId == 0}"><td>X</td></c:when>
+										<c:when test="${vo.fileId != null || vo.fileId != 0}"><td>${vo.fileId }</td></c:when>
+									</c:choose>
+									<%-- <td>${vo.fileId }</td> --%>
 									<td>${vo.boardWriter }</td>
 									<td>${vo.boardWriteTime }</td>
 									<td>${vo.hit }</td>
@@ -111,9 +115,8 @@
 				<div class="pagelist">
 					<ul>
 						<c:if test="${map.startPageNum > 1}">
-							<li><a
-								href="${pageContext.request.contextPath }/board/community?page=${map.startPageNum-1 }">
-									&lt;&lt; </a></li>
+							<%-- <li><a href="${pageContext.request.contextPath }/board/community?search-list${ssSearch }&page=${page = 1 }"> &lt;&lt;&nbsp;&nbsp; </a></li> --%>
+							<li><a href="${pageContext.request.contextPath }/board/community?search-list${ssSearch }&page=${map.startPageNum-1 }"> &lt;&lt; </a></li>
 						</c:if>
 						<c:forEach begin="${map.startPageNum }" end="${map.endPageNum }"
 							var="page">
@@ -122,13 +125,12 @@
 							</c:if>
 							<c:if test="${map.currentPageNum != page }">
 								<li><a
-									href="${pageContext.request.contextPath }/board/community?page=${page }">${page }</a></li>
+									href="${pageContext.request.contextPath }/board/community?search-list${ssSearch }&page=${page }">${page }</a></li>
 							</c:if>
 						</c:forEach>
 						<c:if test="${map.endPageNum < map.totalPageCount }">
-							<li><a
-								href="${pageContext.request.contextPath }/board/community?page=${map.endPageNum+1 }">
-									&gt;&gt; </a></li>
+							<li><a href="${pageContext.request.contextPath }/board/community?search-list${ssSearch }&page=${map.endPageNum+1 }"> &gt;&gt; </a></li>
+						<%-- 	<li><a href="${pageContext.request.contextPath }/board/community?search-list${ssSearch }&page=${page = map.totalPageCount }"> &nbsp;&nbsp;&gt;&gt; </a></li> --%>
 						</c:if>
 					</ul>
 				</div>

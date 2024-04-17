@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import education.book.model.dto.EduBookDto;
+import education.book.model.service.EduBookService;
 import education.model.dto.EduRecentDto;
 import education.model.service.EduService;
 
@@ -14,14 +16,15 @@ import education.model.service.EduService;
  * Servlet implementation class EduBookFormController
  */
 @WebServlet("/edu/book/insert")
-public class EduBookFormController extends HttpServlet {
+public class EduBookInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private EduService service = new EduService();
+	private EduService es = new EduService();
+	private EduBookService ebs = new EduBookService();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EduBookFormController() {
+    public EduBookInsertController() {
         super();
     }
 
@@ -29,17 +32,17 @@ public class EduBookFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		EduRecentDto dto = service.selectRecent();
+		EduRecentDto dto = es.selectRecent();
 		String recentEdu = dto.getEduSubject();
 		request.setAttribute("recentEdu", recentEdu);
 		
 		String eduIdStr = request.getParameter("id");
-		Integer eduId = Integer.parseInt(eduIdStr);
-		request.setAttribute("detail", service.selectOne(eduId));
+		int eduId = Integer.parseInt(eduIdStr);
+		request.setAttribute("detail", es.selectOne(eduId));
 
 		
 		
-		request.getRequestDispatcher("/WEB-INF/views/edu/edubookinsert.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/edu/book/edubookinsert.jsp").forward(request, response);
 	}
 
 	/**
@@ -52,10 +55,17 @@ public class EduBookFormController extends HttpServlet {
 //		EDU_PART_LEVEL  NOT NULL VARCHAR2(10) 
 //		EDU_PART_NAME   NOT NULL VARCHAR2(10) 
 //		EDU_PART_SCHOOL NOT NULL VARCHAR2(30)
+		String eduBookId = request.getParameter("book-id");
+		String eduIdStr = request.getParameter("id");
+		Integer eduId = Integer.parseInt(eduIdStr);
+		String eduBookPhone = request.getParameter("book-phone");
+		String eduPartLevel = request.getParameter("book-level");
+		String eduPartName = request.getParameter("book-part-name");
+		String eduPartSchool = request.getParameter("book-school");
 		
+		ebs.insert(new EduBookDto(eduBookId, eduId, eduBookPhone, eduPartLevel, eduPartName, eduPartSchool));
 		
-		
-		
+		response.sendRedirect(request.getContextPath() + "/edu/one?id=" + eduId);
 	}
 
 }

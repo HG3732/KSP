@@ -103,7 +103,7 @@
             <hr>
             <div class="edu-list">
                 <div class="edu-detail">
-					<form id="frm-edudetail" action="${pageContext.request.contextPath}/edu/detail/update" method="post">
+					<form id="frm-edudetail" action="${pageContext.request.contextPath}/edu/update" method="post">
                     <div class="edu-detail-content">
                 	<input type="hidden" name="eduId" value="${detail.eduId }" >
                         <table>

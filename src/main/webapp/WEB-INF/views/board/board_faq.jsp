@@ -1,3 +1,13 @@
+<link href="${pageContext.request.contextPath}/resource/css/reset.css"
+	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resource/css/core.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resource/css/board/board_core.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resource/css/board/board_faq.css"
+	rel="stylesheet">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,16 +19,6 @@
 <title>Document</title>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="https:/code.jquery.com/jquery-3.7.1.js"></script>
-<link href="${pageContext.request.contextPath}/resource/css/reset.css"
-	rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resource/css/core.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resource/css/board/board_core.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resource/css/board/board_faq.css"
-	rel="stylesheet">
 </head>
 
 <body>

@@ -1,3 +1,13 @@
+<link href="${pageContext.request.contextPath}/resource/css/reset.css"
+	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resource/css/core.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resource/css/board/board_core.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resource/css/board/board_view.css"
+	rel="stylesheet">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,29 +19,21 @@
 <title>Board View</title>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="https:/code.jquery.com/jquery-3.7.1.js"></script>
-<link href="${pageContext.request.contextPath}/resource/css/reset.css"
-	rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resource/css/core.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resource/css/board/board_core.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resource/css/board/board_view.css"
-	rel="stylesheet">
 </head>
 
 <body>
 	<div class="wrap-header">
 		<header>
-		<%@include file="/WEB-INF/views/common/header.jsp"%>
-		 </header>
+			<%@include file="/WEB-INF/views/common/header.jsp"%>
+		</header>
 	</div>
 	<div class="wrap-main">
 		<div class="container">
 			<div class="flexnav">
-				<a href="${pageContext.request.contextPath}/board/community" class="flex community">게시판</a>
-                <a href="${pageContext.request.contextPath}/board/faq" class="flex faq">FAQ</a>
+				<a href="${pageContext.request.contextPath}/board/community"
+					class="flex community">게시판</a> <a
+					href="${pageContext.request.contextPath}/board/faq"
+					class="flex faq">FAQ</a>
 			</div>
 			<div class="location">
 				<div class="location notice">
@@ -81,9 +83,10 @@
 					</div>
 					<div class="view-content">
 						<div class="memo">${dto.boardContent }</div>
-					<div class="view-btn">
-						<button type="button" class="lsit-btn"
-							onclick="location.href='${pageContext.request.contextPath}/board/community'">목록</button>
+						<div class="view-btn">
+							<button type="button" class="lsit-btn"
+								onclick="location.href='${pageContext.request.contextPath}/board/community'">목록</button>
+						</div>
 					</div>
 				</div>
 			</div>

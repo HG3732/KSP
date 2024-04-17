@@ -9,14 +9,14 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class MybatisTemplate {
-	public static SqlSession getSqlSession() {
+	public static SqlSession getSqlSession(boolean autoCommit) {
 		String resource = "mybatis-config.xml";
 		SqlSession sqlSession = null;
 		InputStream inputStream;
 		try {
 			inputStream = Resources.getResourceAsStream(resource);
 			SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-			sqlSession = sqlSessionFactory.openSession();
+			sqlSession = sqlSessionFactory.openSession(autoCommit);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

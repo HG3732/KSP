@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.vo.service.MemberService;
+import education.model.service.EduService;
+import member.service.MemberService;
 
 @WebServlet("/member/list")
 public class MemberController extends HttpServlet {
@@ -20,6 +21,7 @@ public class MemberController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getSession().setAttribute("recentEdu", new EduService().selectRecent().getEduSubject());
 		int pageSize = 8;
 		int pageBlockSize = 7;
 		int currentPageNum = 1;

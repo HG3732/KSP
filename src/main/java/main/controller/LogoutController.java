@@ -6,9 +6,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import education.model.service.EduService;
 import member.model.dto.MemberInfoDto;
 import member.model.dto.MemberLoginDto;
-import member.vo.service.MemberService;
+import member.service.MemberService;
 @WebServlet("/logout")
 public class LogoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;

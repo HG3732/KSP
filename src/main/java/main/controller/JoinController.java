@@ -6,8 +6,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import education.model.service.EduService;
 import member.model.dto.MemberDto;
-import member.vo.service.MemberService;
+import member.service.MemberService;
 
 
 @WebServlet("/star/join")
@@ -19,6 +21,7 @@ public class JoinController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getSession().setAttribute("recentEdu", new EduService().selectRecent().getEduSubject());
 		request.getRequestDispatcher("/WEB-INF/views/member/join.jsp").forward(request, response);
 	}
 

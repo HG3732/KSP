@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import member.model.dto.MemberInfoDto;
 import member.model.dto.MemberLoginDto;
-import member.vo.service.MemberService;
+import member.service.MemberService;
 
 @WebServlet("/changeinfo")
 public class ChangeMyInfoController extends HttpServlet {

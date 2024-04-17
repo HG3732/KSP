@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.vo.service.MemberService;
+import education.model.service.EduService;
+import member.service.MemberService;
 
 @WebServlet("/star/checkid")
 public class CheckIdContoller extends HttpServlet {
@@ -18,6 +19,7 @@ public class CheckIdContoller extends HttpServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getSession().setAttribute("recentEdu", new EduService().selectRecent().getEduSubject());
 		String id = request.getParameter("cid");
 		int result = new MemberService().selectCheckId(id);
 		response.getWriter().append(String.valueOf(result));

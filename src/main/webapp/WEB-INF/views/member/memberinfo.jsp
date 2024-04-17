@@ -20,8 +20,7 @@
                         아이디      
                     </td>
                     <td>
-                    	<form class="adminupdate" method="post" action="${pageContext.request.contextPath}/member/info">
-                        <input type="text" name="name" class="name" disabled>
+                        <input type="text" name="mem_id" class="mem_id" disabled>
                     </td>
                 </tr>
                 <tr>
@@ -29,16 +28,15 @@
                         회원 등급       
                     </td>
                     <td>
-                       	<input type="text" name="member_admin" class="member_admin">
-                       	</td>
-                       	<td>
-	                       	<button type="submit" name="change-mem-Info" class="change-mem-Info">등급 변경</button>
-                       	</form>
+                       	<input type="text" name="grade" class="member_admin">
+                    </td>
+                    <td>
+	                    <button type="submit" name="change-mem-Info" class="change-mem-Info">등급 변경</button>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <form class="memberdelete" method="post" action="${pageContext.request.contextPath}/member/info"><button type="button" name="delete-mem" class="change" style="background-color: red;">회원 삭제</button></form>
+                        <button type="button" name="delete-mem" class="change" style="background-color: red;">회원 삭제</button>
                     </td>
                     <td>   
 	                	<button type="button" name="change-mem-Info" class="change">신청 교육 목록</button>
@@ -47,11 +45,42 @@
        		</table>
        </form>
     </div>
-</body>
 <script>
 		var member_id = new URLSearchParams(window.location.search).get("memberid");
 		var member_admin = new URLSearchParams(window.location.search).get("memberadmin");
-		$(".name").prop("value", member_id);
+		$(".mem_id").prop("value", member_id);
 		$(".member_admin").prop("value", member_admin);
+		
+/* $(loadedHandler);
+	function loadedHandler(){
+		$(".change-mem-Info").on("click", changeAdminHandler)
+	}
+	
+	function changeAdminHandler() {
+		var gradeVal = ${".member_admin"}.val();
+		
+		$.ajax({
+		url:"${pageContext.request.contextPath}/member/info"
+    		,method:"post"
+    		,data : {memberid : member_id,
+    				grade : gradeVal}
+    		,success : function(result){
+    			if(result > 0){
+    				//등급 변경 성공했을 때
+    				 alert("해당 회원의 등급이 변경되었습니다.");
+    			} else {
+    				//실패했을 때
+    				alert("해당 회원의 등급 변경에 실패하였습니다.");
+    			}
+    				window.close();
+    		}
+    		,error : function(request, status, error){
+    			alert("code:"  + request.status + "\n" + "message : "
+    					+ request.responseText + "\n"
+    					+"error : " + error);
+    		}
+    	});
+	} */
 </script>
+</body>
 </html>

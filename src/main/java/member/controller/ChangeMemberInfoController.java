@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.vo.service.MemberService;
+import education.model.service.EduService;
+import member.service.MemberService;
 
 @WebServlet("/member/info")
 public class ChangeMemberInfoController extends HttpServlet {
@@ -21,13 +22,17 @@ public class ChangeMemberInfoController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getSession().setAttribute("recentEdu", new EduService().selectRecent().getEduSubject());
 		request.getRequestDispatcher("/WEB-INF/views/member/memberinfo.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String adminStr = request.getParameter("member_admin");
+		String mem_id = request.getParameter("memberid");
+		String adminStr = request.getParameter("grade");
 		int admin = Integer.parseInt(adminStr);
+		System.out.println("controller : mem_id = " + mem_id);
 		System.out.println("controller : admin = " + admin);
+		
 		
 	}
 

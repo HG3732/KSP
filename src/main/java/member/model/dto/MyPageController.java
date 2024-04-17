@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.vo.service.MemberService;
+import member.service.MemberService;
 
 @WebServlet("/mypage")
 public class MyPageController extends HttpServlet {

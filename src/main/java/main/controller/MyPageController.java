@@ -7,9 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import education.model.service.EduService;
 import member.model.dto.MemberInfoDto;
 import member.model.dto.MemberLoginDto;
-import member.vo.service.MemberService;
+import member.service.MemberService;
 
 @WebServlet("/star/mypage")
 public class MyPageController extends HttpServlet {
@@ -22,6 +23,7 @@ public class MyPageController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getSession().setAttribute("recentEdu", new EduService().selectRecent().getEduSubject());
 		request.getRequestDispatcher("/WEB-INF/views/common/mypage.jsp").forward(request, response);
 	}
 

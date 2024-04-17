@@ -30,7 +30,7 @@
 	<br> [[ totalPageCount : ${map.totalPageCount }]]
 	<br> [[ startPageNum : ${map.startPageNum }]]
 	<br> [[ endPageNum : ${map.endPageNum }]]
-	<br> [[ 조회수 : ${hit }]]	
+	<br>
 	<div class="wrap-header">
 		<header>
 			<%@include file="/WEB-INF/views/common/header.jsp"%>

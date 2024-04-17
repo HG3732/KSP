@@ -1,3 +1,6 @@
+<link href="${pageContext.request.contextPath}/resource/css/reset.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resource/css/core.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resource/css/common/header.css" rel="stylesheet">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -8,9 +11,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KimParkSeo</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <link href="${pageContext.request.contextPath}/resource/css/reset.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resource/css/core.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resource/css/common/header.css" rel="stylesheet">
     <style>
         .wrap-main
         , .wrap-footer{
@@ -106,27 +106,6 @@
         .wrap-main>.content>.edu-paging>li>a{
             text-decoration: none;
         }
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         .wrap-footer{
             clear: both;
         }

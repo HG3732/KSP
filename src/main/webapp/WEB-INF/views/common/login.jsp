@@ -20,7 +20,7 @@ function loadedHandler() {
 
 function loginSubmitHandler() {
 	$.ajax({
-		url:"${pageContext.request.contextPath}/star/login"
+		url:"${pageContext.request.contextPath}/login"
 		,method : "post"
 		,data : $("#login-form").serialize()
 		,success : function(result){

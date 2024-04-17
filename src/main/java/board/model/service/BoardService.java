@@ -99,9 +99,6 @@ public class BoardService {
 		BoardViewDto result = null;
 		Connection conn = getConnection(true);
 		result = dao.selectOne(conn, boardNo);
-		if(result != null) {
-			dao.updateHit(conn, boardNo);
-		}
 		close(conn);
 		return result;
 		
@@ -111,8 +108,8 @@ public class BoardService {
 	public int insert(BoardInsertDto dto) {
 		int result = 0;
 		Connection conn = getConnection(true);
-//		int sequenceNum = dao.getSequenceNum(conn);
-		result = dao.insert(conn, dto);
+		int sequenceNum = dao.getSequenceNum(conn);
+		result = dao.insert(conn, dto, sequenceNum);
 		System.out.println(result);
 		close(conn);
 		return result;

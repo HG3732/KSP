@@ -1,3 +1,5 @@
+<link href="${pageContext.request.contextPath}/resource/css/reset.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resource/css/core.css" rel="stylesheet">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,67 +10,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KimParkSeo</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <link href="${pageContext.request.contextPath}/resource/css/reset.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resource/css/core.css" rel="stylesheet">
     <style>
         .wrap-main,
         .wrap-footer {
             margin: 10px auto;
             width: 1100px;
         }
-        .wrap-main .edu-book-info{
+        .wrap-main>.edu-book-info{
             width: fit-content;
             margin: 0 auto;
         }
-        .wrap-main input{
-            border: 0;
+        .wrap-main>.edu-book-info>form>table>tbody>tr>td>input{
+        	background-color: transparent;
+            border: 1px solid white;
+            width: auto;
         }
-        .wrap-main input:focus
-        , .wrap-main select{
+        .wrap-main>.edu-book-info>form>table>tbody>tr>td>input:focus
+        , .wrap-main>.edu-book-info>form>table>tbody>tr>td>select{
             outline: 0;
         }
-        .wrap-main select{
+        .wrap-main>.edu-book-info>form>table>tbody>tr>td>select{
             width: 100%;
             border: 0;
         }
-        .wrap-main table{
+        .wrap-main>.edu-book-info>form>table{
+            line-height: 3em;
             border-collapse: collapse;
         }
-        .wrap-main tr:last-of-type{
+        .wrap-main>.edu-book-info>form>table button{
+            cursor: pointer;
+            background-color: transparent;
+            border: 1px solid white;
+        }
+        .wrap-main>.edu-book-info>form>table>tbody>tr:last-of-type{
             text-align: center;
         }
-        .wrap-main input[type=submit]
-        , .wrap-main button{
-            cursor: pointer;
-        }
-        .wrap-main button{
-            background-color: transparent;
-        }
-        
-
-
-
-
-
-
-
-
-
-
-
-        .wrap-main .edu-book-info>form{
-            line-height: 3em;
-        }
-        .wrap-main .edu-book-info>form input[type=text]
-        , .wrap-main .edu-book-info>form input[type=email]
-        , .wrap-main .edu-book-info>form input[type=tel]{
-            background-color: transparent;
-        }
-        .wrap-main .edu-book-info>form optgroup
-        , .wrap-main .edu-book-info>form option
-        , .wrap-main .edu-book-info>form select{
+        .wrap-main>.edu-book-info>form>table>tbody>tr>td>select>optgroup
+        , .wrap-main>.edu-book-info>form>table>tbody>tr>td>select>optgroup>option
+        , .wrap-main>.edu-book-info>form>table>tbody>tr>td>select{
         	color: black;
         }
+
         .wrap-footer {
             clear: both;
         }
@@ -81,7 +63,7 @@
 	</div>
     <div class="wrap-main">
         <div class="edu-book-info">
-            <form>
+            <form id="frm-edubook" action="${pageContext.request.contextPath }/edu/book/form" method="post">
                 <table>
                     <caption><h2>신청 정보</h2></caption>
                     <colgroup>
@@ -144,9 +126,6 @@
 	                    </tr>
                     </tbody>
                 </table>
-                <div>
-                    
-                </div>
             </form>
         </div>
         <div class="wrap-footer">

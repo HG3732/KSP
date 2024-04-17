@@ -89,7 +89,6 @@
 			</div>
 		</div>
 	</div>
-</div>	
 	<div class="wrap-footer">
 		<footer> </footer>
 	</div>

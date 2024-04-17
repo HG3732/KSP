@@ -146,8 +146,8 @@ public class EduDao {
 						, rs.getString("EDU_SUBJECT")
 						, rs.getString("EDU_CONTENT")
 						, rs.getString("EDU_ADDRESS")
-						, rs.getString("EDU_DAY")
 						, rs.getString("EDU_PARTICIPANT")
+						, rs.getString("EDU_DAY")
 						, rs.getString("BS")
 						, rs.getString("BE")
 						, rs.getString("ES")
@@ -169,29 +169,21 @@ public class EduDao {
 //		EDU_ID          NOT NULL NUMBER         
 //		EDU_SUBJECT     NOT NULL VARCHAR2(100)  
 //		EDU_CONTENT     NOT NULL VARCHAR2(4000) 
-//		EDU_ADDRESS     NOT NULL VARCHAR2(300)  
+//		EDU_ADDRESS     NOT NULL VARCHAR2(300)
+//		EDU_PARTICIPANT NOT NULL VARCHAR2(30)
 //		EDU_DAY         NOT NULL VARCHAR2(6)    
 //		EDU_BOOK_START  NOT NULL DATE           
 //		EDU_BOOK_END    NOT NULL DATE           
 //		EDU_START       NOT NULL DATE           
 //		EDU_END         NOT NULL DATE           
 //		EDU_WRITE_TIME  NOT NULL TIMESTAMP(6) 
-		int result = -1;
+		int result = 0;
 //		INSERT INTO MEMBER VALUES('kh'||K, 'pwd'||K, 'kh'||K||'@a.com', '이름'||K);
-		String sql = "INSERT INTO EDU_LIST ( "
-				+ " EDU_ID "
-				+ " , EDU_SUBJECT "
-				+ " , EDU_CONTENT "
-				+ " , EDU_ADDRESS "
-				+ " , EDU_DAY "
-				+ " , TO_CHAR(EDU_BOOK_START, 'YYYY-MM-DD') BS "
-				+ " , TO_CHAR(EDU_BOOK_END, 'YYYY-MM-DD') BE "
-				+ " , TO_CHAR(EDU_START, 'YYYY-MM-DD') ES "
-				+ " , TO_CHAR(EDU_END, 'YYYY-MM-DD') EE "
-				+ " , EDU_WRITE_TIME "
-				+ " ) "
+		String sql = "INSERT INTO EDU_LIST "
 				+ " VALUES( "
-				+ " (SELECT NVL(MAX(EDU_ID), 0) + 1), ?, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT)";
+				+ " (SELECT NVL(MAX(EDU_ID), 0) + 1 FROM EDU_LIST)"
+				+ " , ?, ?, ?, ?, ?, ?, ?, ?, ? "
+				+ " , DEFAULT) ";
 		PreparedStatement pstmt = null;
 		
 		try {
@@ -200,11 +192,12 @@ public class EduDao {
 			pstmt.setString(1, dto.getEduSubject());
 			pstmt.setString(2, dto.getEduContent());
 			pstmt.setString(3, dto.getEduAddress());
-			pstmt.setString(4, dto.getEduDay());
-			pstmt.setString(5, dto.getEduBookStart());
-			pstmt.setString(6, dto.getEduBookEnd());
-			pstmt.setString(7, dto.getEduEnd());
-			pstmt.setString(8, dto.getEduEnd());
+			pstmt.setString(4, dto.getEduParticipant());
+			pstmt.setString(5, dto.getEduDay());
+			pstmt.setString(6, dto.getEduBookStart());
+			pstmt.setString(7, dto.getEduBookEnd());
+			pstmt.setString(8, dto.getEduStart());
+			pstmt.setString(9, dto.getEduEnd());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -268,7 +261,18 @@ public class EduDao {
 		
 		try {
 			pstmt = con.prepareStatement(sql);
-			// TODO
+			pstmt.setString(1, dto.getEduSubject());
+			pstmt.setString(2, dto.getEduContent());
+			pstmt.setString(3, dto.getEduAddress());
+			pstmt.setString(4, dto.getEduParticipant());
+			pstmt.setString(5, dto.getEduDay());
+			pstmt.setString(6, dto.getEduBookStart());
+			pstmt.setString(7, dto.getEduBookEnd());
+			pstmt.setString(8, dto.getEduStart());
+			pstmt.setString(9, dto.getEduEnd());
+			pstmt.setInt(10, dto.getEduId());
+			
+			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -278,8 +282,8 @@ public class EduDao {
 		return result;
 	}
 	
-	// delete
-	public int delete(Connection con, int eduId) {
+	// deleteDetail
+	public int deleteDetail(Connection con, Integer eduId) {
 		int result = 0;
 		String sql = "DELETE FROM EDU_LIST WHERE EDU_ID = ?";
 		PreparedStatement pstmt = null;

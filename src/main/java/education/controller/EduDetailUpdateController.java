@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import education.model.dto.EduDetailDto;
 import education.model.dto.EduRecentDto;
 import education.model.service.EduService;
 
@@ -32,8 +33,9 @@ public class EduDetailUpdateController extends HttpServlet {
 		EduRecentDto dtoRecent = service.selectRecent();
 		Object recentEdu = (dtoRecent != null) ? dtoRecent.getEduSubject() : "등록된 교육이 없습니다";
 		request.setAttribute("recentEdu", recentEdu);
-		String eduIdStr = request.getParameter("id");
+
 		try {
+			String eduIdStr = request.getParameter("id");
 			Integer eduId = Integer.parseInt(eduIdStr);
 			request.setAttribute("detail", service.selectDetail(eduId));
 		} catch (NumberFormatException e) {
@@ -48,8 +50,27 @@ public class EduDetailUpdateController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
+		String eduIdStr = request.getParameter("eduId");
+		String eduSubject = request.getParameter("eduSubject");
+		String eduContent = request.getParameter("eduContent");
+		String eduAddress = request.getParameter("eduAddress");
+		String eduParticipant = request.getParameter("eduParticipant");
+		String eduDay = request.getParameter("eduDay");
+		String eduBookStart = request.getParameter("eduBookStart");
+		String eduBookEnd = request.getParameter("eduBookEnd");
+		String eduStart = request.getParameter("eduStart");
+		String eduEnd = request.getParameter("eduEnd");
+		Integer eduId = Integer.parseInt(eduIdStr);
+		try {
+			EduDetailDto detail = new EduDetailDto(eduId, eduSubject, eduContent, eduAddress, eduParticipant, eduDay, eduBookStart, eduBookEnd, eduStart, eduEnd, service.selectDetail(eduId).getEduWriteTime());
+			service.updateDetail(detail);
+			response.sendRedirect(request.getContextPath() + "/edu/detail?id=" + eduId);
+			
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			response.sendRedirect(request.getContextPath() + "home");
+		}
+
 	}
 
 }

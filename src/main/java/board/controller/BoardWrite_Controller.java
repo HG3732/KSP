@@ -47,10 +47,8 @@ public class BoardWrite_Controller extends HttpServlet {
 		System.out.println(title);
 		System.out.println(content);
 		BoardInsertDto dto = new BoardInsertDto("test1", title, content);
-//		int sequenceNum = service.insert(dto);
-		int result = service.insert(dto);
-		System.out.println(result);
-		response.sendRedirect(request.getContextPath() + "/board/community");
+		int sequenceNum = service.insert(dto);
+		response.sendRedirect(request.getContextPath() + "/board/community?num=" + sequenceNum);
 		System.out.println("되냐고");
 	}
 

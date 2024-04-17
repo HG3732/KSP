@@ -1,3 +1,5 @@
+<link href="${pageContext.request.contextPath}/resource/css/reset.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resource/css/core.css" rel="stylesheet">
 <%@page import="education.model.dto.EduBookListDto"%>
 <%@page import="education.model.dto.EduBookDto"%>
 <%@page import="java.util.List"%>
@@ -12,8 +14,6 @@
     <title>KimParkSeo</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
-    <link href="${pageContext.request.contextPath}/resource/css/reset.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resource/css/core.css" rel="stylesheet">
     <style>
         .wrap-main
         , .wrap-footer{
@@ -21,65 +21,36 @@
             width: 1100px;
             height: fit-content;
         }
-        .wrap-main ul{
-            text-align: center;
-        }
-        .wrap-main li{
-            list-style-type: none;
-            display: inline-block;
-        }
-        .wrap-main li > a{
-            text-decoration: none;
-        }
-        .wrap-main .content{
+        .wrap-main>.content{
             overflow: hidden;
         }
-        .wrap-main .content > a {
+        .wrap-main>.content>a{
             float: left;
             width: 50%;
             box-sizing: border-box;
             cursor: pointer;
             text-align: center;
         }
-        .wrap-main .home-menu{
+        .wrap-main>.content>.home-menu{
             display: flex;
             float: right;
             align-items: center;
             margin: 10px 0;
         }
-        .wrap-main hr{
-            clear: both;
-        }
-        .wrap-main .home-menu img{
+        .wrap-main>.content>.home-menu>a>img{
             width: 1em;
             height: 1em;
             background-color: white;
         }
-
-
-
-
-
-
-
-
-
-
-        .wrap-main .edu-book-list{
+        .wrap-main>.content>hr{
+            clear: both;
+        }
+        .wrap-main>.content>.edu-book-list{
             height: fit-content;
         }
-        .wrap-main #calendar{
+        .wrap-main>.content>.edu-book-list>#calendar{
             margin: 20px auto;
         }
-        .wrap-main #calendar a{
-            cursor: pointer;
-        }
-
-
-
-
-
-
 
         .wrap-footer{
             clear: both;
@@ -93,9 +64,6 @@
 		<%@include file="/WEB-INF/views/common/header.jsp" %>
 	</div>
     <div class="wrap-main">
-        <div>
-
-        </div>
         <div class="content">
             <a href="http://localhost:8080/star/edu/list"><h3>교육 목록</h3></a>
             <a href="http://localhost:8080/star/edu/book/list"><h3>교육 예약 현황</h3></a>
@@ -105,14 +73,14 @@
             </div>
             <hr>
             <c:choose>
-            	<c:when test="${empty eduBook }">
-            		예약된 내역이 없습니다.
-            	</c:when>
-            	<c:otherwise>
-		            <div class="edu-book-list">
-		                <div id="calendar" style="width: 900px; height: 740px;"></div>
-		            </div>
-            	</c:otherwise>
+           	<c:when test="${empty eduBook }">
+           		예약된 내역이 없습니다.
+           	</c:when>
+            <c:otherwise>
+            <div class="edu-book-list">
+                <div id="calendar" style="width: 900px; height: 740px;"></div>
+            </div>
+            </c:otherwise>
             </c:choose>
         </div>
     </div>

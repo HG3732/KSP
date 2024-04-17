@@ -4,7 +4,8 @@ public class EduDetailDto {
 //	EDU_ID          NOT NULL NUMBER         
 //	EDU_SUBJECT     NOT NULL VARCHAR2(100)  
 //	EDU_CONTENT     NOT NULL VARCHAR2(4000) 
-//	EDU_ADDRESS     NOT NULL VARCHAR2(300)  
+//	EDU_ADDRESS     NOT NULL VARCHAR2(300)
+//	EDU_PARTICIPANT NOT NULL VARCHAR2(30)
 //	EDU_DAY         NOT NULL VARCHAR2(6)    
 //	EDU_BOOK_START  NOT NULL DATE           
 //	EDU_BOOK_END    NOT NULL DATE           
@@ -15,8 +16,8 @@ public class EduDetailDto {
 	private String eduSubject;
 	private String eduContent;
 	private String eduAddress;
-	private String eduDay;
 	private String eduParticipant;
+	private String eduDay;
 	private String eduBookStart;
 	private String eduBookEnd;
 	private String eduStart;
@@ -26,13 +27,13 @@ public class EduDetailDto {
 	@Override
 	public String toString() {
 		return "EduDetailDto [eduId=" + eduId + ", eduSubject=" + eduSubject + ", eduContent=" + eduContent
-				+ ", eduAddress=" + eduAddress + ", eduDay=" + eduDay + ", eduParticipant=" + eduParticipant
+				+ ", eduAddress=" + eduAddress + ", eduParticipant=" + eduParticipant + ", eduDay=" + eduDay
 				+ ", eduBookStart=" + eduBookStart + ", eduBookEnd=" + eduBookEnd + ", eduStart=" + eduStart
 				+ ", eduEnd=" + eduEnd + ", eduWriteTime=" + eduWriteTime + "]";
 	}
 
-	public EduDetailDto(Integer eduId, String eduSubject, String eduContent, String eduAddress, String eduDay,
-			String eduParticipant, String eduBookStart, String eduBookEnd, String eduStart, String eduEnd,
+	public EduDetailDto(Integer eduId, String eduSubject, String eduContent, String eduAddress, String eduParticipant,
+			String eduDay, String eduBookStart, String eduBookEnd, String eduStart, String eduEnd,
 			String eduWriteTime) {
 		super();
 		this.eduId = eduId;
@@ -41,6 +42,7 @@ public class EduDetailDto {
 		this.eduAddress = eduAddress;
 		this.eduDay = eduDay;
 		this.eduParticipant = eduParticipant;
+		this.eduDay = eduDay;
 		this.eduBookStart = eduBookStart;
 		this.eduBookEnd = eduBookEnd;
 		this.eduStart = eduStart;
@@ -64,12 +66,12 @@ public class EduDetailDto {
 		return eduAddress;
 	}
 
-	public String getEduDay() {
-		return eduDay;
-	}
-
 	public String getEduParticipant() {
 		return eduParticipant;
+	}
+
+	public String getEduDay() {
+		return eduDay;
 	}
 
 	public String getEduBookStart() {

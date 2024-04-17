@@ -10,7 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class MybatisTemplate {
 	public static SqlSession getSqlSession() {
-		String resource = "mybatis/mybatis-config.xml";
+		String resource = "mybatis-config.xml";
 		SqlSession sqlSession = null;
 		InputStream inputStream;
 		try {

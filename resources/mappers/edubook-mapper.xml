@@ -8,6 +8,8 @@
 	JOIN MEMBER M ON EB.EDU_BOOK_ID = M.MEMBER_ID 
 	</select>
 	
-	<select id="select"></select>
+	<insert id="insert" parameterType="education.book.model.dto.EduBookDto">
+	INSERT INTO EDU_BOOK VALUES (#{eduBookId}, #{eduId}, #{eduBookPhone}, #{eduPartLevel}, #{eduPartName}, #{eduPartSchool})
+	</insert>
 	
 </mapper>

@@ -35,7 +35,7 @@ body {
     color: black;
 }
 
-.wrap-changeinfo table tr:last-child button { 
+.wrap-changeinfo table tr button { 
     width: 200px;
     padding: 12px;
     border-radius: 5px;
@@ -43,5 +43,15 @@ body {
     background-color: #503396;
     color: white;
     font-size: 18px;
+}
+
+.wrap-changeinfo table tr button.change-mem-info { 
+    width: 100px;
+    padding: 12px;
+    border-radius: 5px;
+    border: none;
+    background-color: #503396;
+    color: white;
+    font-size: 12px;
 }
 

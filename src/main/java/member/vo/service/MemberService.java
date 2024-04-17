@@ -82,11 +82,19 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
-	//update
+	//회원 개인정보 update
 	public int mypageUpdate(String mem_id, String mem_pwd, String mem_email, String mem_address, String currentId) {
 		int result = 0;
 		Connection conn = getConnection(true);
 		result = dao.update(conn, mem_id, mem_pwd, mem_email, mem_address, currentId);
+		close(conn);
+		return result;
+	}
+	//회원 등급 update
+	public int adminUpdate(String mem_id, int admin) {
+		int result = 0;
+		Connection conn = getConnection(true);
+		result = dao.adminUpdate(conn, mem_id, admin);
 		close(conn);
 		return result;
 	}

@@ -8,11 +8,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.vo.service.MemberService;
+
 @WebServlet("/member/info")
-public class ChangeMemberInfo extends HttpServlet {
+public class ChangeMemberInfoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public ChangeMemberInfo() {
+	MemberService service = new MemberService();
+	
+    public ChangeMemberInfoController() {
         super();
     }
 
@@ -21,6 +25,9 @@ public class ChangeMemberInfo extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String adminStr = request.getParameter("member_admin");
+		int admin = Integer.parseInt(adminStr);
+		System.out.println("controller : admin = " + admin);
 		
 	}
 

@@ -228,6 +228,24 @@ public class MemberDao {
 			close(pstmt);
 			return result;
 		}
+		//adminUpdate
+		public int adminUpdate(Connection conn, String mem_id, int admin) {
+			int result = 0;
+			String sql = "UPDATE MEMBER SET MEMBER_ADMIN = ?, "
+					+ " WHERE MEMBER_ID = ? "
+					;
+			PreparedStatement pstmt = null;
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, admin);
+				pstmt.setString(2, mem_id);
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			close(pstmt);
+			return result;
+		}
 		
 		//deletes
 		public int delete(Connection conn, String memId) {

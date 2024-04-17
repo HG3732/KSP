@@ -20,6 +20,7 @@
                         아이디      
                     </td>
                     <td>
+                    	<form class="adminupdate" method="post" action="${pageContext.request.contextPath}/member/info">
                         <input type="text" name="name" class="name" disabled>
                     </td>
                 </tr>
@@ -28,21 +29,20 @@
                         회원 등급       
                     </td>
                     <td>
-                        <input type="text" name="member_admin" class="member_admin">
+                       	<input type="text" name="member_admin" class="member_admin">
+                       	</td>
+                       	<td>
+	                       	<button type="submit" name="change-mem-Info" class="change-mem-Info">등급 변경</button>
+                       	</form>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <button type="button" name="change-mem-Info" class="change">등급 변경</button>
+                        <form class="memberdelete" method="post" action="${pageContext.request.contextPath}/member/info"><button type="button" name="delete-mem" class="change" style="background-color: red;">회원 삭제</button></form>
                     </td>
                     <td>   
-                        <button type="button" name="stop-mem" class="change">회원 삭제</button>
-                    </td>
-                </tr>
-                <tr>
-	                <td>
 	                	<button type="button" name="change-mem-Info" class="change">신청 교육 목록</button>
-	                </td>
+                    </td>
                 </tr>
        		</table>
        </form>

@@ -78,7 +78,7 @@ public class BoardWrite_Controller extends HttpServlet {
 			String filePath = uploadPath + File.separator + fileName;
 			String originFileName = multireq.getOriginalFileName(name);
 			String type = multireq.getContentType(name); // 전송된 파일의 타입
-			System.out.println("파일 타입 : " + type);
+//			System.out.println("파일 타입 : " + type);
 			
 			File f1 = multireq.getFile(name); // name을 이용해서 파일 객체 생성 여부 확인 작업
 			if(f1==null) { 
@@ -95,7 +95,7 @@ public class BoardWrite_Controller extends HttpServlet {
 		String title = multireq.getParameter("title");
 		String content = multireq.getParameter("content");
 		
-//		String filePath = multireq.getFilesystemName("uploadFiles");
+		String filePath = multireq.getFilesystemName("uploadFiles");
 		System.out.println("컨트롤러 title : " + title);
 		System.out.println("컨트롤러 content : " + content);
 		

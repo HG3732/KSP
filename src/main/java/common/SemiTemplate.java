@@ -19,7 +19,7 @@ public class SemiTemplate {
 			String currentPath = SemiTemplate.class.getResource("").getPath();
 			prop.load(new FileReader(currentPath + "driver.properties"));
 			Class.forName(prop.getProperty("jdbc.driver"));
-			if(isLocalhost) {
+			if(!isLocalhost) {
 				conn = DriverManager.getConnection(prop.getProperty("jdbc.url"), prop.getProperty("jdbc.name"), prop.getProperty("jdbc.password"));
 			}else {
 				conn = DriverManager.getConnection(prop.getProperty("jdbc.semi.url"), prop.getProperty("jdbc.semi.name"), prop.getProperty("jdbc.semi.password"));

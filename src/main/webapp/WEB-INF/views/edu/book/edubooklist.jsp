@@ -14,6 +14,10 @@
     <title>KimParkSeo</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+    <jsp:include page="/WEB-INF/views/common/common_star.jsp"/>
+    <script>
+	loginPermission();
+    </script>
     <style>
         .wrap-main
         , .wrap-footer{
@@ -65,10 +69,10 @@
 	</div>
     <div class="wrap-main">
         <div class="content">
-            <a href="http://localhost:8080/star/edu/list"><h3>교육 목록</h3></a>
-            <a href="http://localhost:8080/star/edu/book/list"><h3>교육 예약 현황</h3></a>
+            <a href="${pageContext.request.contextPath }/edu/list"><h3>교육 목록</h3></a>
+            <a href="${pageContext.request.contextPath }/edu/book/list"><h3>교육 예약 현황</h3></a>
             <div class="home-menu">
-                <a href="#"><img src="https://www.jejusi.go.kr/images/star/icon/home_icon01.png"></a>
+                <a href="${pageContext.request.contextPath }/home"><img src="https://www.jejusi.go.kr/images/star/icon/home_icon01.png"></a>
                 <div> &nbsp; | 행사 및 교육 | 행사 및 교육신청</div>
             </div>
             <hr>
@@ -136,6 +140,10 @@
                 	<%
             			}
                 	%>
+                	{
+                		title : 'preventNull'
+                		, start : '1900-01-01'
+                	}
                 ]
             });
             calendar.render();

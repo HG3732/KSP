@@ -1,5 +1,7 @@
 package education.controller;
 
+import static common.controller.AlertController.*;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,6 +37,7 @@ public class EduDeleteController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		adminPermission(request, response, "관리자만 접근 가능합니다.", "/edu/list");
 		String eduIdStr = request.getParameter("eduId");
 		Integer eduId = Integer.parseInt(eduIdStr);
 		service.delete(eduId);

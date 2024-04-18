@@ -30,7 +30,7 @@ public class EduOneController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		loginPermission(request, response, "로그인", "/WEB-INF/views/edu/eduone.jsp");
+		loginPermission(request, response, "교육 정보를 보시려면 로그인 해주세요.");
 		
 		EduRecentDto dtoRecent = service.selectRecent();
 		Object recentEdu = (dtoRecent != null) ? dtoRecent.getEduSubject() : "등록된 교육이 없습니다";

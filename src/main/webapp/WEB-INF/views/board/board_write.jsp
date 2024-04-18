@@ -14,39 +14,46 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Board Write</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Board Write</title>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="https:/code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 <style>
-
 </style>
 
 <body>
-    <div class="wrap-header">
-        <header>
-<%@include file="/WEB-INF/views/common/header.jsp"%>
-        </header>
-    </div>
-    <div class="wrap-main">
-        <div class="container">
-            <div class="flexnav">
-                <a href="${pageContext.request.contextPath}/board/community" class="flex community">게시판</a>
-                <a href="${pageContext.request.contextPath}/board/faq" class="flex faq">FAQ</a>
-            </div>
-            <div class="location">
-                <div class="location notice"><span>게시판</span></div>
-                <div class="location community"><span>커뮤니티 > </span></div>
-                <div class="location main"><span>메인이미지 > </span></div>
-            </div>
-            <div class="subject">
-                <div>게시판</div>
-            </div>
-            <div class="contents">
-                <div class="board-write">
-					<form name="notice" id="frm-write">
+	<div class="wrap-header">
+		<header>
+			<%@include file="/WEB-INF/views/common/header.jsp"%>
+		</header>
+	</div>
+	<div class="wrap-main">
+		<div class="container">
+			<div class="flexnav">
+				<a href="${pageContext.request.contextPath}/board/community"
+					class="flex community">게시판</a> <a
+					href="${pageContext.request.contextPath}/board/faq"
+					class="flex faq">FAQ</a>
+			</div>
+			<div class="location">
+				<div class="location notice">
+					<span>게시판</span>
+				</div>
+				<div class="location community">
+					<span>커뮤니티 > </span>
+				</div>
+				<div class="location main">
+					<span>메인이미지 > </span>
+				</div>
+			</div>
+			<div class="subject">
+				<div>게시판</div>
+			</div>
+			<div class="contents">
+				<div class="board-write">
+					<form id="frm-write">
 						<div class="insert-form">
 							<table>
 								<tr>
@@ -67,9 +74,9 @@
 									<th>첨부파일</th>
 									<td>
 										<ul>
-											<li><input type="file" name="" id="file_1"></li>
-											<li><input type="file" name="" id="file_2"></li>
-											<li><input type="file" name="" id="file_3"></li>
+											<li><input type="file" name="uploadfiles" id="file_1"></li>
+											<li><input type="file" name="uploadfiles" id="file_2"></li>
+											<li><input type="file" name="uploadfiles" id="file_3"></li>
 										</ul>
 									</td>
 								</tr>
@@ -101,75 +108,76 @@
 						</div>
 					</form>
 				</div>
-            </div>
-        </div>
-    </div>
-    <div class="wrap-footer">
-        <footer>
+			</div>
+		</div>
+	</div>
+	<div class="wrap-footer">
+		<footer> </footer>
+	</div>
 
-        </footer>
-    </div>
+	<script>
+		$(loadedHandler);
+		function loadedHandler() {
+			$("#btn-submit").on("click", btnUpModalClickHandler);
+			$("#btn-update-modalok").on("click", btnUpModalOkClickHandler);
+			$("#btn-update-modalcancel").on("click",
+					btnUpModalCancleClickHandler);
 
-    <script>
-        $(loadedHandler);
-        function loadedHandler() {
-            $("#btn-submit").on("click", btnUpModalClickHandler);
-            $("#btn-update-modalok").on("click", btnUpModalOkClickHandler);
-            $("#btn-update-modalcancel").on("click", btnUpModalCancleClickHandler);
+			$("#btn-list").on("click", btnListModalClickHandler);
+			$("#btn-list-modalok").on("click", btnListModalOkClickHandler);
+			$("#btn-list-modalcancel").on("click",
+					btnListModalCancleClickHandler);
+		}
 
-            $("#btn-list").on("click", btnListModalClickHandler);
-            $("#btn-list-modalok").on("click", btnListModalOkClickHandler);
-            $("#btn-list-modalcancel").on("click", btnListModalCancleClickHandler);
-        }
+		function btnUpModalClickHandler() {
+			console.log("모달창 오픈");
+			if ($("[name=title]").val().trim().lenght == 0
+					|| $("[name=content]").val().trim().length == 0) {
+				alert("공백란 없이 입력해주세요.");
+			} else {
+				$(".modal.update").css("display", "block");
+			}
 
-        function btnUpModalClickHandler() {
-            console.log("모달창 오픈");
-            if($("[name=title]").val().trim().lenght == 0 || $("[name=content]").val().trim().length == 0){
-            	alert("공백란 없이 입력해주세요.");
-            }else{
-            $(".modal.update").css("display", "block");
-            }
-            	
-            
-        }
-        function btnUpModalOkClickHandler() {
-            console.log("눌림");
-            var frm = document.getElementById("frm-write");
-            frm.method = "post";
-            frm.submit();
-            /* frm.action = "${pageContext.request.contextPath}/board/community"; */
-/*             location.href = "${pageContext.request.contextPath}/board/community";
+		}
+		function btnUpModalOkClickHandler() {
+			console.log("눌림");
+			var frm = document.getElementById("frm-write");
+			frm.method = "post";
+			frm.enctype = "multipart/form-data"; // form 태그 내부에 input type="file"이 있다면
+			frm.submit();
+			/* frm.action = "${pageContext.request.contextPath}/board/community"; */
+			/*             location.href = "${pageContext.request.contextPath}/board/community";
 
-            var htmlVal = '<tr>' +
-                '<td class="td no">번호</td>' +
-                '<td class="td title">제목</td>' +
-                '<td class="td file"></td>' +
-                '<td class="td writer">작성자</td>' +
-      
-					'<td class="td date">YYYY-MM-DD</td>' +
-						 '<td class="td hits">5</td>' +
-						 '<tr>';
-						 $(".table-body").append(htmlVal); */
-					}
-					function btnUpModalCancleClickHandler() {
-						console.log("모달창 닫기");
-						$(".modal.update").css("display", "none");
-					}
+			 var htmlVal = '<tr>' +
+			 '<td class="td no">번호</td>' +
+			 '<td class="td title">제목</td>' +
+			 '<td class="td file"></td>' +
+			 '<td class="td writer">작성자</td>' +
+			
+			 '<td class="td date">YYYY-MM-DD</td>' +
+			 '<td class="td hits">5</td>' +
+			 '<tr>';
+			 $(".table-body").append(htmlVal); */
+		}
+		function btnUpModalCancleClickHandler() {
+			console.log("모달창 닫기");
+			$(".modal.update").css("display", "none");
+		}
 
-					// 목록 모달
-					function btnListModalClickHandler() {
-						console.log("모달창 오픈");
-						$(".modal.list").css("display", "block");
-					}
-					function btnListModalOkClickHandler() {
-						console.log("눌림");
-						location.href = "${pageContext.request.contextPath}/board/community";
-					}
-					function btnListModalCancleClickHandler() {
-						console.log("모달창 닫기");
-						$(".modal.list").css("display", "none");
-					}
-				</script>
+		// 목록 모달
+		function btnListModalClickHandler() {
+			console.log("모달창 오픈");
+			$(".modal.list").css("display", "block");
+		}
+		function btnListModalOkClickHandler() {
+			console.log("눌림");
+			location.href = "${pageContext.request.contextPath}/board/community";
+		}
+		function btnListModalCancleClickHandler() {
+			console.log("모달창 닫기");
+			$(".modal.list").css("display", "none");
+		}
+	</script>
 </body>
 
 </html>

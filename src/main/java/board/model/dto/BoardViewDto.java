@@ -1,5 +1,7 @@
 package board.model.dto;
 
+import java.util.List;
+
 //이름               널?       유형             
 //---------------- -------- -------------- 
 //BOARD_NO         NOT NULL NUMBER         
@@ -18,11 +20,12 @@ public class BoardViewDto {
 	private Integer hit;
 //	private String fileOriginalName;
 	private String boardContent;
+	private List<FileDto> filedtolist;
 
 	@Override
 	public String toString() {
 		return "BoardViewDto [boardNo=" + boardNo + ",boardTitle=" + boardTitle + ", boardWriter=" + boardWriter + ", boardWriteTime="
-				+ boardWriteTime + ", hit=" + hit + ", boardContent=" + boardContent + "]";
+				+ boardWriteTime + ", hit=" + hit + ", boardContent=" + boardContent + ",filedtolist=" + filedtolist + "]";
 
 	}
 
@@ -61,4 +64,12 @@ public class BoardViewDto {
 		return boardContent;
 	}
 
+	public List<FileDto> getFiledtolist() {
+		return filedtolist;
+	}
+
+	public void setFiledtolist(List<FileDto> filedtolist) {
+		this.filedtolist = filedtolist;
+	}
+	
 }

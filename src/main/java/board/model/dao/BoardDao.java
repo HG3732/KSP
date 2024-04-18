@@ -177,7 +177,7 @@ public class BoardDao {
 		ResultSet rs = null;
 		
 		try {
-			System.out.println(boardNo);
+			System.out.println("boardDao boardNo"+boardNo);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, boardNo);
 			rs = pstmt.executeQuery();
@@ -255,7 +255,7 @@ public class BoardDao {
 			   sql += " VALUES(SEQ_BOARD_ID.NEXTVAL, ?, ?, ?, DEFAULT, DEFAULT, DEFAULT)";
 			  if(dto.getFileList() != null && dto.getFileList().size()>0) {
 				  for(FileWriteDto filedto : dto.getFileList()) {
-			   sql += " INTO BOARD_FILE (B_NO, FILE_ID, FILE_PATH, ORIGINAL_FILE_NAME)"; 
+			   sql += " INTO BOARD_FILE (B_NO, FILE_ID, FILE_PATH, FILE_ORIGINAL_NAME)"; 
 			   sql += " VALUES(SEQ_BOARD_ID.NEXTVAL, ?, ?, ?)"; 
 				  }
 			  }
@@ -282,7 +282,7 @@ public class BoardDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		System.out.println("boardDado title" + dto.getBoardTitle());
 		close(pstmt);
 		System.out.println("boardDao insert() return : " + result);
 		return result;

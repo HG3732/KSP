@@ -11,6 +11,7 @@ import board.model.dao.BoardDao;
 import board.model.dto.BoardInsertDto;
 import board.model.dto.BoardListDto;
 import board.model.dto.BoardViewDto;
+import board.model.dto.FileDto;
 
 public class BoardService {
 
@@ -61,8 +62,8 @@ public class BoardService {
 		result.put("startPageNum", startPageNum);
 		result.put("endPageNum", endPageNum);
 		result.put("currentPageNum", currentPageNum);
-		System.out.println("selectPageList() : "+result);
-		System.out.println("여긴 서비스"+dtolist);
+//		System.out.println("selectPageList() : "+result);
+//		System.out.println("여긴 서비스"+dtolist);
 		return result;
 	}
 	
@@ -102,6 +103,10 @@ public class BoardService {
 		if(result != null) {
 			dao.updateHit(conn, boardNo);
 		}
+		List<FileDto> filelist = dao.selectFileList(conn, boardNo);
+		result.setFiledtolist(filelist);
+//		result = selectOne(boardNo);
+		
 		close(conn);
 		return result;
 		

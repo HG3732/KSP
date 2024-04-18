@@ -34,7 +34,7 @@ public class BoardListController extends HttpServlet {
 //		request.getSession().setAttribute("recentEdu", new EduService().selectRecent().getEduSubject());
 		String searchSubject = request.getParameter("search-list");
 		request.getSession().setAttribute("ssSearch", searchSubject);
-		System.out.println(searchSubject);
+		System.out.println("컨트롤러 serachSubject : " + searchSubject);
 		
 //		한페이지당 글 수 10개
 		int pageSize = 10;
@@ -52,7 +52,7 @@ public class BoardListController extends HttpServlet {
 			}
 		}
 		request.setAttribute("map",service.selectPageList(searchSubject, pageSize, pageBlockSize, currentPageNum));
-		System.out.println("셀렉트페이지리스트 : " + service.selectPageList(searchSubject, pageSize, pageBlockSize, currentPageNum));
+//		System.out.println("셀렉트페이지리스트 : " + service.selectPageList(searchSubject, pageSize, pageBlockSize, currentPageNum));
 //		request.setAttribute("dtolist", service.selectAllList());
 //		System.out.println("컨트롤러 selectAllList" + service.selectAllList());
 		request.getRequestDispatcher("/WEB-INF/views/board/board_community.jsp").forward(request, response);
@@ -62,7 +62,6 @@ public class BoardListController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

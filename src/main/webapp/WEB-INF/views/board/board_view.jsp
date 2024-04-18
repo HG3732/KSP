@@ -74,8 +74,11 @@
 								<dt>첨부파일</dt>
 								<dd>
 									<ul>
-										<li>파일명..... <a href="#">다운로드</a>
+									<c:forEach items="${dto.filedtolist }" var="filedto">
+										<li>
+											${filedto.fileOriginalName }<a href="${pageContext.request.contextPath}/files/${filedto.filePath}" download="${filedto.fileOriginalName }">다운로드</a>
 										</li>
+										</c:forEach>
 									</ul>
 								</dd>
 							</dl>

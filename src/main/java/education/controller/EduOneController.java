@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static common.controller.AlertController.*;
 import education.model.dto.EduRecentDto;
 import education.model.service.EduService;
 
@@ -29,6 +30,8 @@ public class EduOneController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		loginPermission(request, response, "로그인", "/WEB-INF/views/edu/eduone.jsp");
+		
 		EduRecentDto dtoRecent = service.selectRecent();
 		Object recentEdu = (dtoRecent != null) ? dtoRecent.getEduSubject() : "등록된 교육이 없습니다";
 		request.setAttribute("recentEdu", recentEdu);
@@ -39,7 +42,7 @@ public class EduOneController extends HttpServlet {
 			request.setAttribute("detail", service.selectOne(eduId));
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
-			response.sendRedirect(request.getContextPath() + "home");
+			response.sendRedirect(request.getContextPath() + "/home");
 		}
 		
 		request.getRequestDispatcher("/WEB-INF/views/edu/eduone.jsp").forward(request, response);

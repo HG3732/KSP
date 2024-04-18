@@ -10,6 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KimParkSeo</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <jsp:include page="/WEB-INF/views/common/common_star.jsp"/>
+    <script>
+	loginPermission();
+    </script>
     <style>
         .wrap-main,
         .wrap-footer{
@@ -108,6 +112,9 @@
                             		<td>
 	                            		<div class="edu-edit-del">
 	                            			<div>
+			                        			<form action="${pageContext.request.contextPath }/edu/book/delete" method="post"><input type="hidden" name="eduId" value="${detail.eduId }" ><button type="submit">취소</button></form>
+	                            			</div>
+	                            			<div>
 		                        				<a href="http://localhost:8080/star/edu/detail/update?id=${detail.eduId }">수정</a>
 	                            			</div>
 	                            			<div>
@@ -146,5 +153,9 @@
         </div>
     </div>
 </body>
+<script>
+
+
+</script>
 
 </html>

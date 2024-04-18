@@ -79,4 +79,5 @@ public class SemiTemplate {
 			e.printStackTrace();
 		}
 	}
+
 }

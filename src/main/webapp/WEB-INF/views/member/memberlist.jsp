@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원 조회</title>
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 <body>
@@ -50,7 +50,7 @@
 				                <div>${member.mem_email}</div>
 				                <div>${member.mem_address}</div>
 				                <div><input type="text" name="memberadmin" value="${member.mem_admin}" readonly></div>
-				                <div><button type="submit" name="goinfo" class="goinfo">등급 관리</button></div>
+				                <div><button type="submit" name="goinfo" class="goinfo">상세 조회</button></div>
 				            </form>
 		            		</div>
 			        	</c:forEach>

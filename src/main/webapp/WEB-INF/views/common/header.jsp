@@ -34,7 +34,7 @@ $(loadedHandler)
  	function myPageHandler(){
 		
  		let options = "width=600, height=500, menubar=no, toolbar=no, scrollbars=no, resizable=no";
- 		window.open("http://localhost:8080/star/mypage", "_blank", options);
+ 		window.open("${pageContext.request.contextPath}/star/mypage", "_blank", options);
  		
 	}
  	
@@ -57,7 +57,7 @@ $(loadedHandler)
 	                	<form id="logout">
 		                	<div><a href="#" class="logout">로그아웃</a></div>
 		                </form>
-		                <div><a href="#" class="mypage">${ssslogin.mem_name}님의 페이지</a></div>
+		                <div><a href="${pageContext.request.contextPath}/star/mypage" class="mypage" target="_blank">${ssslogin.mem_name}님의 페이지</a></div>
 		                <c:if test="${ssslogin.mem_admin == 2}">
 		                	<div><a href="${pageContext.request.contextPath}/member/list" class="memberlist" style="color: yellow;">회원 관리</a></div>
 		                </c:if>

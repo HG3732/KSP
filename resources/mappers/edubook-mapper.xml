@@ -10,18 +10,14 @@
 	</select>
 	
 	<!-- 회원 신청 교육 목록 -->
-	<select id="selectMemList" resultType="EduListDto">
-<!-- //	EDU_ID          NOT NULL NUMBER         
-//	EDU_SUBJECT     NOT NULL VARCHAR2(100)  
-//	EDU_PARTICIPANT NOT NULL VARCHAR2(30)   
-//	EDU_BOOK_START  NOT NULL DATE           
-//	EDU_BOOK_END    NOT NULL DATE           
-//	EDU_START       NOT NULL DATE           
-//	EDU_END         NOT NULL DATE           
-//	EDU_WRITE_TIME  NOT NULL TIMESTAMP(6) 
- -->	SELECT EL.EDU_ID, EL.EDU_SUBJECT, EL.EDU_PARTICIPANT, TO_CHAR(EL.EDU_BOOK_START, 'YYYY-MM-DD') BS, TO_CHAR(EL.EDU_BOOK_END, 'YYYY-MM-DD') BE
-	, TO_CHAR(EL.EDU_START, 'YYYY-MM-DD') ES, TO_CHAR(EL.EDU_END, 'YYYY-MM-DD') EE
-	FROM EDU_LIST EL JOIN EDU_BOOK EB ON EL.EDU_ID = (SELECT EB.EDU_ID FROM EDU_BOOK EB JOIN MEMBER M ON EB.EDU_BOOK_ID = M.MEMBER_ID ) WHERE EDU
+	<select id="selectMemList" parameterType="string" resultType="EduListDto">
+	SELECT * FROM EDU_LIST
+	WHERE EDU_ID IN (	
+					SELECT EDU_ID
+					FROM EDU_BOOK EB
+					JOIN MEMBER M ON EB.EDU_BOOK_ID = M.MEMBER_ID
+					WHERE M.MEMBER_ID = #{abcd}
+					)
 	</select>
 	
 	<!-- 교육 신청 -->

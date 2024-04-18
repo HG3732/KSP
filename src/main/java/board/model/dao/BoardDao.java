@@ -260,7 +260,7 @@ public class BoardDao {
 				  }
 			  }
 			   sql += " SELECT * FROM DUAL";
-			   System.out.println("sql : "  + sql);
+//			   System.out.println("sql : "  + sql);
 		PreparedStatement pstmt = null;
 
 		try {

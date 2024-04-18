@@ -74,7 +74,8 @@ public class BoardWrite_Controller extends HttpServlet {
 		Enumeration<?> fileNames = multireq.getFileNames();
 		while(fileNames.hasMoreElements()) {
 			String name = (String)fileNames.nextElement(); // input type="file" name="xxx" ,xxx_0, xxx_!
-			String fileName = multireq.getOriginalFileName(name); // 서버에 저장된 파일 이름
+			String fileName = multireq.getFilesystemName(name); // 서버에 저장된 파일 이름
+			String filePath = uploadPath + File.separator + fileName;
 			String originFileName = multireq.getOriginalFileName(name);
 			String type = multireq.getContentType(name); // 전송된 파일의 타입
 			System.out.println("파일 타입 : " + type);
@@ -84,7 +85,7 @@ public class BoardWrite_Controller extends HttpServlet {
 				System.out.println("파일 업로드 실패");
 			}else {
 				System.out.println("파일 업로드 성공");
-				FileWriteDto filedto = new FileWriteDto(fileName, originFileName);
+				FileWriteDto filedto = new FileWriteDto(filePath, originFileName);
 				fileList.add(filedto);
 			}
 		}

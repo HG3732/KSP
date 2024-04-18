@@ -65,6 +65,9 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+	//select one's applied edu
+//	public Map<String, Object> selectMemberEduList()
+	
 	//select one
 	public MemberDto selectOne(String memId) {
 		MemberDto result = null;

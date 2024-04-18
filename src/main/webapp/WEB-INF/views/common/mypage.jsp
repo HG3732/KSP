@@ -15,6 +15,7 @@ $(loadedHandler)
 	function loadedHandler() {
 			$(".checkpw").on("click", sendPwdHandler);
 			$(".change").on("click", changeInfoHandler);
+			$(".quit").on("click", quitHandler);
 	}	
 	
 	function sendPwdHandler() {
@@ -53,6 +54,27 @@ $(loadedHandler)
 						$(".checkpw").prop('disabled', false);
 						$(".changeable").prop('disabled', true);
 						$(".change").prop('disabled', true);
+						window.close();
+					} else {
+						alert("서버 오류로 개인정보 변경에 실패하였습니다. 잠시 후 다시 시도해주세요.");
+					}
+				}
+				, error : function(request, status, error) {
+					alert("code:"  + request.status + "\n" + "message : "
+							+ request.responseText + "\n"
+							+"error : " + error);
+				}
+			})
+		}
+	
+	function quitHandler(){
+			$.ajax({
+				url:"${pageContext.request.contextPath}/quit/member"
+				, method : "post"
+				, data : $("#quit-info").serialize()
+				, success : function(quitResult){
+					if(quitResult > 0){
+						alert("성공적으로 탈퇴하였습니다. 그동안 이용해주셔서 감사합니다.");
 						window.close();
 					} else {
 						alert("서버 오류로 개인정보 변경에 실패하였습니다. 잠시 후 다시 시도해주세요.");
@@ -127,15 +149,12 @@ $(loadedHandler)
                         <button type="button" name="change-Info" class="change" disabled>정보 수정</button>
                     </td>
                 </tr>
-	                <tr>
-	                	<td>
-	                	</td>
-	                </tr>
        		</table>
        </form>
        <div class="wrap-quit">
-	       <form method="post" action="${pageContext.request.contextPath}/quit/member">
-	      		<button type="submit" name="quit" class="quit" value="${ssslogin.mem_id}" style="background-color: red;">회원 탈퇴</button>
+	       <form id="quit-info" method="post" action="${pageContext.request.contextPath}/quit/member">
+	       		<input type="hidden" name="member_id" value="${ssslogin.mem_id}">
+	      		<button type="button" name="quit" class="quit" style="background-color: red;">회원 탈퇴</button>
 		   </form>
 	   </div>
     </div>

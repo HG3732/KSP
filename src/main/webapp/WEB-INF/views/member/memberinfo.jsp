@@ -44,13 +44,13 @@
        </div>
     </div>
 <script>
-$(loadedHnadler);
+$(loadedHandler);
 	function loadedHandler() {
 		$(".apply-edu-list").on("click", eduListClickHandler);
 	}
 	
 	function eduListClickHandler(){
-		location.href("${pageContext.request.contextPath}/edu/mem/list");
+		location.href="${pageContext.request.contextPath}/edu/mem/list";
 	}
 </script>
 </body>

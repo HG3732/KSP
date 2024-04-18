@@ -50,6 +50,10 @@ body {
     color: white;
 }
 
+#quit-info {
+	text-align: center;
+}
+
 button.quit {
-	margin: 0 auto;
+	margin: 15px auto;
 }

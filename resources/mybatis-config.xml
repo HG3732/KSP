@@ -9,10 +9,11 @@
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	<typeAliases>
+		<typeAlias type="education.model.dto.EduListDto" alias="EduListDto"/>
 		<typeAlias type="education.book.model.dto.EduBookDto" alias="EduBookDto"/>
 		<typeAlias type="education.book.model.dto.EduBookListDto" alias="EduBookListDto"/>
 	</typeAliases>
-	<environments default="development1">
+	<environments default="development2">
 		<environment id="development1">
 			<transactionManager type="JDBC"></transactionManager>
 			<dataSource type="POOLED">
@@ -27,7 +28,7 @@
 			<dataSource type="POOLED">
 				<property name="driver" value="${jdbc.driver}"/>
 				<property name="url" value="${jdbc.semi.url}"/>
-				<property name="username" value="${jdbc.semi.username}"/>
+				<property name="username" value="${jdbc.semi.name}"/>
 				<property name="password" value="${jdbc.semi.password}"/>
 			</dataSource>
 		</environment>

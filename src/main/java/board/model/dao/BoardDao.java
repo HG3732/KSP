@@ -57,12 +57,10 @@ public class BoardDao {
 	public List<BoardListDto> selectPageList(Connection conn, String searchSubject, int start, int end) {
 		List<BoardListDto> result = null;
 		String sql = "        select t2.*" + "        from (select t1.*, rownum as rn"
-				+ "        from (select board_no, board_title, file_id, board_writer, board_write_time, hit"
-				+ "        from board_community left join board_file on b_no = board_no";
-//		String sql = "        select t2.*\r\n" + "        from (select t1.*, rownum rn\r\n"
-//				+ "        from (select board_no, board_title, file_id, board_writer, board_write_time, hit\r\n"
-//				+ "        from board_community left join board_file on b_no = board_no order by 1 desc) t1 ) t2\r\n"
-//				+ "        where rn between ?   and ?\r\n";
+				+ "        from (SELECT board_no, board_title, COUNT(file_id) AS FILE_CNT, board_writer, board_write_time, hit"
+				+ " FROM board_community "
+				+ " LEFT JOIN board_file ON b_no = board_no"
+				+ " GROUP BY board_no, board_title, board_writer, board_write_time, hit";
 		if(searchSubject != null) {
 			sql += " WHERE BOARD_TITLE LIKE '%" + searchSubject + "%' ";
 		}
@@ -90,7 +88,7 @@ public class BoardDao {
 			result = new ArrayList<BoardListDto>();
 			while (rs.next()) {
 				BoardListDto dto = new BoardListDto(rs.getInt("BOARD_NO"), rs.getString("BOARD_TITLE"),
-						rs.getInt("FILE_ID"), rs.getString("BOARD_WRITER"), rs.getString("BOARD_WRITE_TIME"),
+						rs.getInt("FILE_CNT"), rs.getString("BOARD_WRITER"), rs.getString("BOARD_WRITE_TIME"),
 						rs.getInt("HIT"));
 				result.add(dto);
 			}
@@ -273,7 +271,7 @@ public class BoardDao {
 			if(dto.getFileList() != null && dto.getFileList().size()>0) {
 				int fileId = 1;
 				for(FileWriteDto fileDto : dto.getFileList()) {
-					pstmt.setInt(i++, fileId);
+					pstmt.setInt(i++, fileId++);
 					pstmt.setString(i++, fileDto.getFilePath());
 					pstmt.setString(i++, fileDto.getFileOriginalName());
 				}

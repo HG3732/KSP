@@ -83,6 +83,7 @@ public class BoardWrite_Controller extends HttpServlet {
 			if(f1==null) { 
 				System.out.println("파일 업로드 실패");
 			}else {
+				System.out.println("파일 업로드 성공");
 				FileWriteDto filedto = new FileWriteDto(fileName, originFileName);
 				fileList.add(filedto);
 			}

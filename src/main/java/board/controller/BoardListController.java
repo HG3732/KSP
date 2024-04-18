@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
+import common.controller.AlertController;
 import education.model.service.EduService;
 import member.model.dto.MemberInfoDto;
 
@@ -32,6 +33,7 @@ public class BoardListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("연결 확인 두 겟");
+		AlertController.loginPermission(request, response, "로그인 후 글 작성이 가능합니다.");
 		MemberInfoDto memberInfoDto = (MemberInfoDto) request.getSession().getAttribute("ssslogin");
 //		request.getSession().setAttribute("recentEdu", new EduService().selectRecent().getEduSubject());
 		String searchSubject = request.getParameter("search-list");
@@ -53,12 +55,16 @@ public class BoardListController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+	
 		request.setAttribute("map",service.selectPageList(searchSubject, pageSize, pageBlockSize, currentPageNum));
 //		System.out.println("셀렉트페이지리스트 : " + service.selectPageList(searchSubject, pageSize, pageBlockSize, currentPageNum));
 //		request.setAttribute("dtolist", service.selectAllList());
 //		System.out.println("컨트롤러 selectAllList" + service.selectAllList());
 		request.getRequestDispatcher("/WEB-INF/views/board/board_community.jsp").forward(request, response);
 	}
+
+		
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

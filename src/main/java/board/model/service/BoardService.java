@@ -51,7 +51,7 @@ public class BoardService {
 		int startPageNum = (currentPageNum%pageBlockSize == 0) ? 
 						   ((currentPageNum/pageBlockSize)-1)*pageBlockSize+1 : 
 						   ((currentPageNum/pageBlockSize))*pageBlockSize+1;
-		int endPageNum = (startPageNum+pageBlockSize > totalCount) ? totalCount : startPageNum+pageBlockSize-1;
+		int endPageNum = (startPageNum+pageBlockSize > totalPageCount) ? totalPageCount : startPageNum+pageBlockSize-1;
 		
 		List<BoardListDto> dtolist = dao.selectPageList(conn, searchSubject, start, end);
 		close(conn);

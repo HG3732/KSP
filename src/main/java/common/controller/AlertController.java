@@ -15,12 +15,11 @@ public class AlertController {
 			return;
 		}
 	}
-	public static void adminPermission(HttpServletRequest request, HttpServletResponse response, String msg, String jspPath, String servletMapping) throws ServletException, IOException {
+	public static void adminPermission(HttpServletRequest request, HttpServletResponse response, String msg, String servletMapping) throws ServletException, IOException {
 		MemberInfoDto dto = (MemberInfoDto) request.getSession().getAttribute("ssslogin");
-		if(dto.getMem_admin() < 1 || dto == null) {
+		if(dto == null || dto.getMem_admin() < 1) {
 			request.setAttribute("alertMsg", msg);
 			request.setAttribute("servletMapping", servletMapping);
-			request.getRequestDispatcher(jspPath).forward(request, response);
 			return;
 		}
 	}

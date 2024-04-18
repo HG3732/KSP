@@ -12,6 +12,10 @@
 	<link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <jsp:include page="/WEB-INF/views/common/common_star.jsp"/>
+    <script>
+	adminPermission();
+    </script>	
     <style>
         .wrap-main,
         .wrap-footer{
@@ -94,8 +98,8 @@
 	</div>
     <div class="wrap-main">
         <div class="content">
-            <a href="http://localhost:8080/star/edu/list"><h3>교육 목록</h3></a>
-            <a href="http://localhost:8080/star/edu/book/list"><h3>교육 예약 현황</h3></a>
+            <a href="${pageContext.request.contextPath }/edu/list"><h3>교육 목록</h3></a>
+            <a href="${pageContext.request.contextPath }/edu/book/list"><h3>교육 예약 현황</h3></a>
             <div class="home-menu">
                 <a href="#"><img src="https://www.jejusi.go.kr/images/star/icon/home_icon01.png"></a>
                 <div> &nbsp; | 행사 및 교육 | 행사 및 교육신청</div>

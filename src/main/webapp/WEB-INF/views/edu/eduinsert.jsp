@@ -10,6 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KimParkSeo</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <jsp:include page="/WEB-INF/views/common/common_star.jsp"/>
+    <script>
+	adminPermission();
+    </script>
     <style>
 		.wrap-main,
         .wrap-footer{
@@ -98,10 +102,10 @@
 
         </div>
         <div class="content">
-            <a href="http://localhost:8080/star/edu/list"><h3>교육 목록</h3></a>
-            <a href="http://localhost:8080/star/edu/book/list"><h3>교육 예약 현황</h3></a>
+            <a href="${pageContext.request.contextPath }/edu/list"><h3>교육 목록</h3></a>
+            <a href="${pageContext.request.contextPath }/edu/book/list"><h3>교육 예약 현황</h3></a>
             <div class="home-menu">
-                <a href="#"><img src="https://www.jejusi.go.kr/images/star/icon/home_icon01.png"></a>
+                <a href="${pageContext.request.contextPath }/home"><img src="https://www.jejusi.go.kr/images/star/icon/home_icon01.png"></a>
                 <div> &nbsp; | 행사 및 교육 | 행사 및 교육신청</div>
             </div>
             <hr>

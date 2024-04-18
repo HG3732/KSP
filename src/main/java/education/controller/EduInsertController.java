@@ -1,5 +1,7 @@
 package education.controller;
 
+import static common.controller.AlertController.adminPermission;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,6 +32,7 @@ public class EduInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		adminPermission(request, response, "관리자만 접근 가능합니다. 메인 페이지로 이동합니다.", "/home");
 		EduRecentDto dto = service.selectRecent();
 		Object recentEdu = (dto == null) ? "등록된 교육이 없습니다" : dto.getEduSubject();
 		request.setAttribute("recentEdu", recentEdu);

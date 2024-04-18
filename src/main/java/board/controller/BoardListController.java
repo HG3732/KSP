@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
 import education.model.service.EduService;
+import member.model.dto.MemberInfoDto;
 
 /**
  * Servlet implementation class BoardListController
@@ -31,6 +32,7 @@ public class BoardListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("연결 확인 두 겟");
+		MemberInfoDto memberInfoDto = (MemberInfoDto) request.getSession().getAttribute("ssslogin");
 //		request.getSession().setAttribute("recentEdu", new EduService().selectRecent().getEduSubject());
 		String searchSubject = request.getParameter("search-list");
 		request.getSession().setAttribute("ssSearch", searchSubject);

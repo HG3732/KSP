@@ -19,6 +19,8 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import board.model.dto.BoardInsertDto;
 import board.model.dto.FileWriteDto;
 import board.model.service.BoardService;
+import member.model.dto.MemberInfoDto;
+import member.model.dto.MemberLoginDto;
 
 /**
  * Servlet implementation class BoardWrite_Controller
@@ -86,6 +88,7 @@ public class BoardWrite_Controller extends HttpServlet {
 			}
 		}
 		
+		MemberInfoDto memberInfoDto = (MemberInfoDto) request.getSession().getAttribute("ssslogin");
 		
 		String title = multireq.getParameter("title");
 		String content = multireq.getParameter("content");
@@ -94,7 +97,8 @@ public class BoardWrite_Controller extends HttpServlet {
 		System.out.println("컨트롤러 title : " + title);
 		System.out.println("컨트롤러 content : " + content);
 		
-		BoardInsertDto dto = new BoardInsertDto("test1", title, content, fileList);
+		BoardInsertDto dto = new BoardInsertDto(memberInfoDto.getMem_id(), title, content, fileList);
+//		BoardInsertDto dto = new BoardInsertDto(mdto.getMem_id(), title, content, fileList);
 		int result = service.insert(dto);
 //		int sequenceNum = service.insert(dto);
 		response.sendRedirect(request.getContextPath() + "/board/community");

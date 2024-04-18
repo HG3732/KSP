@@ -58,7 +58,7 @@
 							<table>
 								<tr>
 									<th>작성자</th>
-									<td>memId</td>
+									<td>${dto.boardWriter }</td>
 								</tr>
 								<tr>
 									<th>제목</th>

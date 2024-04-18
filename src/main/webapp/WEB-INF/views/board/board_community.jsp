@@ -25,7 +25,7 @@
 </style>
 </head>
 <body>
-	[[ 로그인 정보 : ${sssLogin} ]]
+	[[ 로그인 정보 : ${ssslogin} ]]
 	<br> [[ map : ${map.dtolist }]]
 	<br> [[ totalPageCount : ${map.totalPageCount }]]
 	<br> [[ startPageNum : ${map.startPageNum }]]

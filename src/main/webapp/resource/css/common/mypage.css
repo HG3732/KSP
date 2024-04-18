@@ -2,7 +2,7 @@ body {
     background-color: black;
     background-image: url('../../image/heaven.jpg');
     background-repeat: no-repeat;
-    background-size: 800px;
+    background-size: 1000px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,7 +35,7 @@ body {
     color: black;
 }
 
-.wrap-mypage table tr:last-child button { 
+.wrap-mypage button { 
     width: 200px;
     padding: 12px;
     border-radius: 5px;
@@ -45,8 +45,11 @@ body {
     font-size: 18px;
 }
 
-.wrap-mypage table tr:last-child button:disabled { 
+.wrap-mypage button:disabled { 
     background-color: #aaa;
     color: white;
+}
 
+button.quit {
+	margin: 0 auto;
 }

@@ -127,8 +127,17 @@ $(loadedHandler)
                         <button type="button" name="change-Info" class="change" disabled>정보 수정</button>
                     </td>
                 </tr>
+	                <tr>
+	                	<td>
+	                	</td>
+	                </tr>
        		</table>
        </form>
+       <div class="wrap-quit">
+	       <form method="post" action="${pageContext.request.contextPath}/quit/member">
+	      		<button type="submit" name="quit" class="quit" value="${ssslogin.mem_id}" style="background-color: red;">회원 탈퇴</button>
+		   </form>
+	   </div>
     </div>
 </body>
 </html>

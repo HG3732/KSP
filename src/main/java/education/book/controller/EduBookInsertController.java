@@ -12,6 +12,8 @@ import education.book.model.service.EduBookService;
 import education.model.dto.EduRecentDto;
 import education.model.service.EduService;
 
+import static common.controller.AlertController.*;
+
 /**
  * Servlet implementation class EduBookFormController
  */
@@ -32,6 +34,7 @@ public class EduBookInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		loginPermission(request, response, "교육을 신청하시려면 로그인 해주세요.");
 		EduRecentDto dto = es.selectRecent();
 		String recentEdu = dto.getEduSubject();
 		request.setAttribute("recentEdu", recentEdu);

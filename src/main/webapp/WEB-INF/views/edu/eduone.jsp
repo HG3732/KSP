@@ -85,8 +85,8 @@
 	</div>
     <div class="wrap-main">
         <div class="content">
-            <a href="http://localhost:8080/star/edu/list"><h3>교육 목록</h3></a>
-            <a href="http://localhost:8080/star/edu/book/list"><h3>교육 예약 현황</h3></a>
+            <a href="${pageContext.request.contextPath }/edu/list"><h3>교육 목록</h3></a>
+            <a href="${pageContext.request.contextPath }/edu/book/list"><h3>교육 예약 현황</h3></a>
             <div class="home-menu">
                 <a href="#"><img src="https://www.jejusi.go.kr/images/star/icon/home_icon01.png"></a>
                 <div> &nbsp; | 행사 및 교육 | 행사 및 교육신청</div>
@@ -115,7 +115,7 @@
 			                        			<form action="${pageContext.request.contextPath }/edu/book/delete" method="post"><input type="hidden" name="eduId" value="${detail.eduId }" ><button type="submit">취소</button></form>
 	                            			</div>
 	                            			<div>
-		                        				<a href="http://localhost:8080/star/edu/detail/update?id=${detail.eduId }">수정</a>
+		                        				<a href="http://192.168.10.11:8080/star/edu/detail/update?id=${detail.eduId }">수정</a>
 	                            			</div>
 	                            			<div>
 			                        			<form action="${pageContext.request.contextPath }/edu/delete" method="post"><input type="hidden" name="eduId" value="${detail.eduId }" ><button type="submit">삭제</button></form>
@@ -139,7 +139,7 @@
                         </table>
                     </div>
                     <div class="edu-book">
-                        <a href="http://localhost:8080/star/edu/book/insert?id=${detail.eduId }">신청하기</a>
+                        <a href="${pageContext.request.contextPath }/edu/book/insert?id=${detail.eduId }">신청하기</a>
                     </div>
                 </div>
             </div>
@@ -153,9 +153,4 @@
         </div>
     </div>
 </body>
-<script>
-
-
-</script>
-
 </html>

@@ -119,10 +119,10 @@
 	</div>
     <div class="wrap-main">
     	<div class="content">
-            <a href="http://localhost:8080/star/edu/list"><h3>교육 목록</h3></a>
-            <a href="http://localhost:8080/star/edu/book/list"><h3>교육 예약 현황</h3></a>
+            <a href="${pageContext.request.contextPath }/edu/list"><h3>교육 목록</h3></a>
+            <a href="${pageContext.request.contextPath }/edu/book/list"><h3>교육 예약 현황</h3></a>
             <div class="home-menu">
-                <a href="http://localhost:8080/star/home"><img src="https://www.jejusi.go.kr/images/star/icon/home_icon01.png"></a>
+                <a href="${pageContext.request.contextPath }/home"><img src="https://www.jejusi.go.kr/images/star/icon/home_icon01.png"></a>
                 <div> &nbsp; | 행사 및 교육 | 행사 및 교육신청</div>
             </div>
             <hr>
@@ -131,7 +131,7 @@
                 	<div>
                         <input type="text" name="edu-name" id="edu-name" onkeyup="searchSubjectEnterHandler()" placeholder="제목 키워드를 입력해주세요">
                         <input type="image" src="https://www.jejusi.go.kr/images/star/btn/search-typeA.png" class="btn search-edu">
-                        <a href="http://localhost:8080/star/edu/insert"><button type="button" class="btn eduIns">등록</button></a>
+                        <a href="${pageContext.request.contextPath }/edu/insert"><button type="button" class="btn eduIns">등록</button></a>
                 	</div>
                 </div>
 	            <c:choose>
@@ -231,7 +231,6 @@ $(loadedHandler);
 function loadedHandler(){
 	$(".btn.search-edu").on("click", searchSubjectHandler);
 }
-
 function searchSubjectHandler(){
 	location.href="${pageContext.request.contextPath}/edu/list?edu-name=" + $("#edu-name").val() ;
 }

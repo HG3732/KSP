@@ -1,5 +1,7 @@
 package education.book.controller;
 
+import static common.controller.AlertController.loginPermission;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,7 @@ public class EduBookListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		loginPermission(request, response, "신청내역을 보시려면 로그인 해주세요.");
 		EduRecentDto dto = es.selectRecent();
 		Object recentEdu = (dto != null) ? dto.getEduSubject() : "등록된 교육이 없습니다";
 		request.setAttribute("recentEdu", recentEdu);

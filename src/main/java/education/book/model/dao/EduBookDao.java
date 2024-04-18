@@ -24,16 +24,7 @@ public class EduBookDao {
 	
 	// insert
 	public int insert(SqlSession session, EduBookDto dto) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("eduBookId", dto.getEduBookId());
-		param.put("eduId", dto.getEduId());
-		param.put("eduBookPhone", dto.getEduBookPhone());
-		param.put("eduPartLevel", dto.getEduPartLevel());
-		param.put("eduPartName", dto.getEduPartName());
-		param.put("eduPartSchool", dto.getEduPartSchool());
-		int result = session.insert("edubook.insert", param);
-		session.commit();
-		return result;
+		return session.insert("edubook.insert", dto);
 	}
 	
 	// delete

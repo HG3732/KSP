@@ -26,7 +26,7 @@ public class EduBookService {
 	public List<EduBookListDto> selectList() {
 		List<EduBookListDto> result = null;
 //		Connection con = getConnection(true);
-		SqlSession session = MybatisTemplate.getSqlSession();
+		SqlSession session = MybatisTemplate.getSqlSession(true);
 		result = dao.selectList(session);
 		session.close();
 		return result;
@@ -36,7 +36,7 @@ public class EduBookService {
 	public int insert(EduBookDto dto) {
 		int result = 0;
 //		Connection con = getConnection(true);
-		SqlSession session = MybatisTemplate.getSqlSession();
+		SqlSession session = MybatisTemplate.getSqlSession(true);
 		result = dao.insert(session, dto);
 		session.close();
 		return result;

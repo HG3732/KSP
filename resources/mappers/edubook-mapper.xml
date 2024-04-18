@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edubook">
-	<select id="selectList" resultType="education.book.model.dto.EduBookListDto">
+	<!-- 신청 내역 -->
+	<select id="selectList" resultType="EduBookListDto">
 	SELECT EB.EDU_PART_SCHOOL, EL.EDU_SUBJECT, M.MEMBER_NAME, EL.EDU_ADDRESS, TO_CHAR(EL.EDU_START, 'YYYY-MM-DD') ES, TO_CHAR(EL.EDU_END, 'YYYY-MM-DD') EE
 	FROM EDU_BOOK EB
 	JOIN EDU_LIST EL ON EB.EDU_ID = EL.EDU_ID
 	JOIN MEMBER M ON EB.EDU_BOOK_ID = M.MEMBER_ID 
 	</select>
 	
-	<insert id="insert" parameterType="education.book.model.dto.EduBookDto">
+	<!-- 회원 신청 교육 목록 -->
+	<select id="selectMemList" resultType="EduListDto">
+<!-- //	EDU_ID          NOT NULL NUMBER         
+//	EDU_SUBJECT     NOT NULL VARCHAR2(100)  
+//	EDU_PARTICIPANT NOT NULL VARCHAR2(30)   
+//	EDU_BOOK_START  NOT NULL DATE           
+//	EDU_BOOK_END    NOT NULL DATE           
+//	EDU_START       NOT NULL DATE           
+//	EDU_END         NOT NULL DATE           
+//	EDU_WRITE_TIME  NOT NULL TIMESTAMP(6) 
+ -->	SELECT EL.EDU_ID, EL.EDU_SUBJECT, EL.EDU_PARTICIPANT, TO_CHAR(EL.EDU_BOOK_START, 'YYYY-MM-DD') BS, TO_CHAR(EL.EDU_BOOK_END, 'YYYY-MM-DD') BE
+	, TO_CHAR(EL.EDU_START, 'YYYY-MM-DD') ES, TO_CHAR(EL.EDU_END, 'YYYY-MM-DD') EE
+	FROM EDU_LIST EL JOIN EDU_BOOK EB ON EL.EDU_ID = (SELECT EB.EDU_ID FROM EDU_BOOK EB JOIN MEMBER M ON EB.EDU_BOOK_ID = M.MEMBER_ID ) WHERE EDU
+	</select>
+	
+	<!-- 교육 신청 -->
+	<insert id="insert" parameterType="EduBookDto">
 	INSERT INTO EDU_BOOK VALUES (#{eduBookId}, #{eduId}, #{eduBookPhone}, #{eduPartLevel}, #{eduPartName}, #{eduPartSchool})
 	</insert>
 	

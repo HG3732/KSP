@@ -20,7 +20,7 @@
         $(".pw").on("keyup", pwAlertHandler);
         $(".pw").on("keyup", confpwAlertHandler);
         $(".confpw").on("keyup", confpwAlertHandler);
-        $(".step2input").on("focusout", checkStep2);
+        $(".step2input").on("keyup", checkStep2);
         $(".submit2").on("click", stepForward2Handler);
         $(".submit3").on("click", stepEndHandler);
         $(".idcheck").on("click", idCheckHandler);

@@ -16,6 +16,7 @@ $(loadedHandler)
 function loadedHandler() {
 	$("#login-form .login-submit").on("click", loginSubmitHandler);
 	$(".login").on("keyup", loginBtnHandler);
+	$(".join").on("click", joinHandler);
 }
 
 function loginSubmitHandler() {
@@ -51,6 +52,11 @@ function loginBtnHandler() {
 	}
 }
 
+//회원가입창 이동
+function joinHandler(){
+	let options = "width=600, height=500, menubar=no, toolbar=no, scrollbars=no, resizable=no";
+	window.open("${pageContext.request.contextPath}/star/join", options);
+}
 
 </script>
 </head>

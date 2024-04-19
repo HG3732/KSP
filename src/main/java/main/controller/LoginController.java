@@ -38,9 +38,14 @@ public class LoginController extends HttpServlet {
 		int result = 0;
 		MemberInfoDto resultInfo = service.loginGetInfo(dto);
 		if(resultInfo != null) {
-			//성공
+			//성공은 했으나 정지회원일 때
+			if(resultInfo.getMem_admin() == -1) {
+				result = -1;
+			} else {
+			//성공, 정지 회원 아님
 			request.getSession().setAttribute("ssslogin", resultInfo);
 			result = 1;
+			}
 		}
 		response.getWriter().append(String.valueOf(result));
 	

@@ -25,10 +25,12 @@ function loginSubmitHandler() {
 		,method : "post"
 		,data : $("#login-form").serialize()
 		,success : function(result){
-			if(result == 1){
-				
-				alert("어서오세요");
-				
+			if(result == '-1'){
+				alert("이용이 정지된 계정입니다. 다른 계정으로 접속해주세요.")
+				console.log(result);
+			}
+			else if(result == '1'){
+				alert("반갑습니다");
 				location.href="${pageContext.request.contextPath}/home";
 			} else {
 				alert("아이디 또는 비밀번호를 확인해주세요");

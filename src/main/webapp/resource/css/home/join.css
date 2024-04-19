@@ -127,10 +127,6 @@ div.checkAll h2{
     display: flex;
 }
 
-.terms > div.check > *{
-    
-}
-
 .terms > div {
     width: 100%;
     margin: 10px 0;
@@ -208,6 +204,39 @@ label h2 {
         background-color: #ddd;
         color: #666;
     }
+
+.mainbox .wrap-step2 .wrap-file {
+	display:grid;
+	grid-template-columns: 130px auto;
+	height:50px;
+	border-bottom: 1px solid #ccc;
+	align-items:center;
+}
+
+.mainbox .wrap-step2 .wrap-file div:first-child{
+	background-color: #eee;
+	height: 100%;
+	font-weight: bold;
+	padding: 18px 0 0 15px;
+	font-size: 15px;
+}
+
+.mainbox .wrap-step2 .wrap-file div:last-child{
+	margin-left: 15px;
+}
+
+.mainbox .wrap-step2 input[type=file] {
+	padding-top: 3px;
+}
+
+.mainbox .wrap-step2 input[type=file]::file-selector-button {
+	background-color: #503396;
+	border: none;
+	color:white;
+	border-radius: 5px;
+	padding: 3px 10px;
+	margin-right: 10px;
+}
 
 .alert {
 	display: none;

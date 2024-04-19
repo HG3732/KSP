@@ -9,6 +9,20 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+	<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+	<script type="text/javascript">  
+		var myWidget = cloudinary.createUploadWidget({
+		  cloudName: 'ksp-practice', 
+		  uploadPreset: 'zad3d9ug'}, (error, result) => { 
+		    if (!error && result && result.event === "success") { 
+		      console.log('Done! Here is the image info: ', result.info); 
+		    }
+		  }
+		)
+		document.getElementById("upload_widget").addEventListener("click", function(){
+		    myWidget.open();
+		  }, false);
+	</script>
 <script>
     $(loadedHandler)
     
@@ -197,6 +211,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet diam in li
                 <div class="wrap-step2">
                     <p>&nbsp;회원정보를 입력해주세요.</p>
                     <div class="wrap-form">
+                    	<form method="post" action="https://api.cloudinary.com/v1_1/ksp-practice/image/upload">
+                            <div class="wrap-file">
+                        		<div>사진 첨부</div>
+                        		<div>
+                        			<input type="file" name="mem_pic" class="mem_pic" style="border: none;">
+                       			</div>
+                            </div>
+                        </form>
                         <form action="${pageContext.request.contextPath}/star/join" method="post">
                             <table>
                                 <colgroup>

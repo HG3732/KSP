@@ -296,7 +296,7 @@ public class BoardDao {
 		List<BoardReplyListDto> result = null;
 		String sql = "		select B_REPLY_ID, BOARD_NO,"
 				+ "		B_REPLY_WRITER ,B_REPLY_CONTENT,"
-				+ "		B_REPLY_WRITE_TIME,"
+				+ "		to_char(b_reply_write_time, 'MM.DD HH24:MI') AS B_REPLY_WRITE_TIME,"
 				+ "		B_REPLY_LEVEL, B_REPLY_REF, B_REPLY_STEP"
 				+ "		from board_reply"
 				+ "		where BOARD_NO = ? order by B_REPLY_ref desc,"

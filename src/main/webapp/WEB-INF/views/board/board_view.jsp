@@ -154,6 +154,7 @@
                 alert("댓글을 입력해 주세요.");
                 return;
             }
+            
             console.log($("#frm-reply").serialize());
 
             $.ajax({
@@ -178,6 +179,8 @@
                     displayReplyWrap(result);
                 }
             });
+         	// 댓글 등록 후 댓글란 비우기
+            $(this).prev().val("");
         }
         // 대댓글
         function btnReReplyClickHandler() {
@@ -186,6 +189,7 @@
         	 
         	 alert("대댓글 댓글이 작성되지 않았습니다");
          }
+         
          console.log($(this).parents(".frm-rereply").serialize());
          
          $.ajax({
@@ -254,6 +258,7 @@
         		$(this).text("취소");
         	}
 			$(this).parent().next().toggle();
+			/* $(this).prev().html(""); */
 		}
     </script>
 </body>

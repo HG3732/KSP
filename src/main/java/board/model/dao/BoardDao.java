@@ -13,6 +13,9 @@ import javax.naming.spi.DirStateFactory.Result;
 
 import board.model.dto.BoardInsertDto;
 import board.model.dto.BoardListDto;
+import board.model.dto.BoardReplyDto;
+import board.model.dto.BoardReplyListDto;
+import board.model.dto.BoardReplyWriteDto;
 import board.model.dto.BoardViewDto;
 import board.model.dto.FileDto;
 import board.model.dto.FileWriteDto;
@@ -286,6 +289,116 @@ public class BoardDao {
 		return result;
 
 	}
+	
+	// -------board reply 댓글
+	// select list - board reply : board_id
+	public List<BoardReplyListDto> selectBoardReplyList(Connection conn, Integer boardNo){
+		List<BoardReplyListDto> result = null;
+		String sql = "		select B_REPLY_ID, BOARD_NO,"
+				+ "		B_REPLY_WRITER ,B_REPLY_CONTENT,"
+				+ "		B_REPLY_WRITE_TIME,"
+				+ "		B_REPLY_LEVEL, B_REPLY_REF, B_REPLY_STEP"
+				+ "		from board_reply"
+				+ "		where BOARD_NO = ? order by B_REPLY_ref desc,"
+				+ "		B_REPLY_step";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			// ? 처리
+			pstmt.setInt(1, boardNo);
+			rs = pstmt.executeQuery();
+			// rs 처리
+			result = new ArrayList<BoardReplyListDto>();
+			while(rs.next()) {
+				BoardReplyListDto dto = new BoardReplyListDto(rs.getInt("B_REPLY_ID"),
+						rs.getString("B_REPLY_WRITER"), rs.getString("B_REPLY_CONTENT"),
+						rs.getString("B_REPLY_WRITE_TIME"), rs.getInt("B_REPLY_LEVEL"),
+						rs.getInt("B_REPLY_REF"), rs.getInt("B_REPLY_STEP")
+						);
+				result.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		close(rs);
+		close(pstmt);
+		
+		return result;
+		
+	}
+	
+	// insert - reply 댓글 원본글
+	public int insertReply(Connection conn, BoardReplyWriteDto dto) {
+		int result = 0;
+		String sql = "INSERT INTO BOARD_REPLY VALUES ((SELECT NVL(MAX(B_REPLY_ID),0)+1 FROM BOARD_REPLY),"
+				+ " ?, ?, ?, DEFAULT, 1,"
+				+ " (SELECT NVL(MAX(B_REPLY_ID),0)+1 FROM BOARD_REPLY), 1, DEFAULT)";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			// ? 처리
+			pstmt.setInt(1,dto.getBoardNo());
+			pstmt.setString(2, dto.getBReplyWriter());
+			pstmt.setString(3, dto.getBReplyContent());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		close(pstmt);
+		return result;
+		
+	}
+	
+	// insert - reply 댓글 대댓글
+	public int insertReReply(Connection conn, BoardReplyWriteDto dto) {
+		int result = 0; // 1 정상 : 0 비정상
+		String sql = "INSERT INTO BOARD_REPLY VALUES((SELECT NVL(MAX(B_REPLY_ID),0)+1 FROM BOARD_REPLY),"
+				+ " ?, ?, ?, DEFAULT,"
+				+ " (SELECT B_REPLY_LEVEL+1 FROM BOARD_REPLY WHERE B_REPLY_ID = ?) ,"
+				+ " (SELECT B_REPLY_REF FROM BOARD_REPLY WHERE B_REPLY_ID = ?) ,"
+				+ " (SELECT B_REPLY_STEP+1 FROM BOARD_REPLY WHERE B_REPLY_ID = ?), DEFAULT )";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			// ? 처리
+			pstmt.setInt(1, dto.getBoardNo());
+			pstmt.setString(2, dto.getBReplyWriter());
+			pstmt.setString(3, dto.getBReplyContent());
+			pstmt.setInt(4, dto.getBReplyId());
+			pstmt.setInt(5, dto.getBReplyId());
+			pstmt.setInt(6, dto.getBReplyId());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		close(pstmt);
+		return result;
+	}
+	
+	// update - reply step
+	public int updateReplySetp(Connection conn, Integer bReplyId) {
+		int result = -1; // 0~n 정상이므로 비정상인 경우 -1
+		String sql = "UPDATE BOARD_REPLY SET B_REPLY_STEP = B_REPLY_STEP+1 WHERE"
+				+ " B_REPLY_REF = (SELECT B_REPLY_REF FROM BOARD_REPLY WHERE B_REPLY_ID = ?)"
+				+ "	AND"
+				+ "	B_REPLY_STEP > (SELECT B_REPLY_STEP FROM BOARD_REPLY WHERE B_REPLY_ID = ?)";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			// ? 처리
+			pstmt.setInt(1, bReplyId);
+			pstmt.setInt(2, bReplyId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		close(pstmt);
+		return result;
+		
+	}
+	
+	
 	// listContent
 
 	// deleteList

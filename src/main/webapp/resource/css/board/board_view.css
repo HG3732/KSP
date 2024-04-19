@@ -110,4 +110,59 @@ margin-top: -11px;
     margin: 0 8px;
     cursor: pointer;
 }
+.boardreply.grid{
+	margin-top:20px;
+}
+
+.comment{
+    margin-top: 50px;
+}
+    
+.comment-box{
+    display: flex;
+    width: 100%;
+    margin-top: 40px;
+    justify-content: center;
+}
+.comment-box input{
+	background: transparent;
+    width: 90%;
+    border-width: 0 0 1px;
+    border-color: white;
+}
+
+.comment-box button{
+    border: none;
+    margin-left: 100px;
+    width: 5%;
+    color: black;
+}
+/* body > div.wrap-main > div > div.reply-wrap > form:nth-child(1) > div > div.rereplycontent.span */
+.rereplycontent.span{
+	display: flex;
+    width: 100%;
+    margin-top: 10px;
+    justify-content: center;
+}
+.rereplycontent.span input{
+	background: transparent;
+    width: 90%;
+    border-width: 0 0 1px;
+    border-color: white;
+    color: white;
+}
+
+.boardreply.grid .btn.show.rereplycontent {
+	border: none;
+    margin-left: 100px;
+    width: 53px;
+    color: black;
+} 
+
+.boardreply.grid .rereplycontent.span .btn.rereply {
+	border: none;
+    margin-left: 53px;
+    width: 53px;
+    color: black;
+}  
 

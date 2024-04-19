@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+
+import common.MybatisTemplate;
 import education.book.model.dto.EduBookListDto;
 import education.model.dao.EduDao;
 import education.model.dto.EduOneDto;
@@ -16,6 +19,14 @@ import education.model.dto.EduRecentDto;
 public class EduService {
 	
 	private EduDao dao = new EduDao();
+	
+	// selectAllList
+	public List<EduListDto> selectAllList(){
+		List<EduListDto> result = null;
+		SqlSession session = MybatisTemplate.getSqlSession(true);
+		result = dao.selectAllList(session);
+		return result;
+	}
 	
 	// selectPageList
 	public Map<String, Object> selectPageList(String searchSubject, int pageSize, int pageBlockSize, int currentPageNum) {
@@ -60,15 +71,6 @@ public class EduService {
 		EduOneDto result = null;
 		Connection con = getConnection(true);
 		result = dao.selectOne(con, eduId);
-		close(con);
-		return result;
-	}
-	
-	// selectMemList
-	public List<EduListDto> selectMemList(String mem_id){
-		List<EduListDto> result = null;
-		Connection con = getConnection(true);
-		result = dao.selectMemList(con, mem_id);
 		close(con);
 		return result;
 	}

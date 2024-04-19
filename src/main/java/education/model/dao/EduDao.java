@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
 import education.book.model.dto.EduBookDto;
 import education.book.model.dto.EduBookListDto;
 import education.model.dto.EduOneDto;
@@ -17,6 +19,11 @@ import education.model.dto.EduRecentDto;
 import static common.SemiTemplate.*;
 
 public class EduDao {
+	
+	// selectAllList
+	public List<EduListDto> selectAllList(SqlSession session){
+		return session.selectList("edu.selectAllList");
+	}
 	
 	// selectTotalCount
 	public int selectTotalCount(Connection con, String searchSubject) {
@@ -92,43 +99,8 @@ public class EduDao {
 	}
 	
 	// selectMemList
-	public List<EduListDto> selectMemList(Connection con, String mem_id) {
-		List<EduListDto> result = null;
-		String sql = "SELECT EDU_ID ,EDU_SUBJECT ,EDU_PARTICIPANT ,TO_CHAR(EDU_BOOK_START, 'YYYY-MM-DD') BS ,TO_CHAR(EDU_BOOK_END, 'YYYY-MM-DD') BE ,TO_CHAR(EDU_START, 'YYYY-MM-DD') ES ,TO_CHAR(EDU_END, 'YYYY-MM-DD') EE ,EDU_WRITE_TIME FROM EDU_LIST "
-				+ " WHERE EDU_ID = (SELECT EDU_ID FROM EDU_BOOK WHERE EDU_BOOK_ID = ?)";
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, mem_id);
-			
-			rs = pstmt.executeQuery();
-			
-			// ResultSet 처리
-			if(rs.next()) {
-				result = new ArrayList<EduListDto>();
-				do {
-					EduListDto dto = new EduListDto(
-							rs.getInt("EDU_ID")
-							, rs.getString("EDU_SUBJECT")
-							, rs.getString("EDU_PARTICIPANT")
-							, rs.getString("BS")
-							, rs.getString("BE")
-							, rs.getString("ES")
-							, rs.getString("EE")
-							, rs.getString("EDU_WRITE_TIME")
-							);
-					result.add(dto);
-				}while(rs.next());
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		close(rs);
-		close(pstmt);
-		return result;
+	public List<EduListDto> selectMemList(SqlSession session, String mem_id) {
+		return session.selectList("edubook.selectMemList", mem_id);
 	}
 	
 	

@@ -7,12 +7,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.controller.AlertController;
 import education.book.model.dto.EduBookDto;
 import education.book.model.service.EduBookService;
 import education.model.dto.EduRecentDto;
 import education.model.service.EduService;
-
-import static common.controller.AlertController.*;
 
 /**
  * Servlet implementation class EduBookFormController
@@ -34,7 +33,7 @@ public class EduBookInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		loginPermission(request, response, "교육을 신청하시려면 로그인 해주세요.");
+		AlertController.loginPermission(request, response, "교육 신청하시려면 로그인 해주세요.");
 		EduRecentDto dto = es.selectRecent();
 		String recentEdu = dto.getEduSubject();
 		request.setAttribute("recentEdu", recentEdu);
@@ -52,23 +51,7 @@ public class EduBookInsertController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		EDU_BOOK_ID     NOT NULL VARCHAR2(15) 
-//		EDU_ID          NOT NULL NUMBER       
-//		EDU_BOOK_PHONE  NOT NULL VARCHAR2(11) 
-//		EDU_PART_LEVEL  NOT NULL VARCHAR2(10) 
-//		EDU_PART_NAME   NOT NULL VARCHAR2(10) 
-//		EDU_PART_SCHOOL NOT NULL VARCHAR2(30)
-		String eduBookId = request.getParameter("book-id");
-		String eduIdStr = request.getParameter("id");
-		Integer eduId = Integer.parseInt(eduIdStr);
-		String eduBookPhone = request.getParameter("book-phone");
-		String eduPartLevel = request.getParameter("book-level");
-		String eduPartName = request.getParameter("book-part-name");
-		String eduPartSchool = request.getParameter("book-school");
 		
-		ebs.insert(new EduBookDto(eduBookId, eduId, eduBookPhone, eduPartLevel, eduPartName, eduPartSchool));
-		
-		response.sendRedirect(request.getContextPath() + "/edu/one?id=" + eduId);
 	}
 
 }

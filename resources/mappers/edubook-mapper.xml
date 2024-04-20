@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edubook">
+
+	<!-- 로그인한 회원의 해당 교육 신청 여부 -->
+	<select id="selectBookCnt" parameterType="hashmap" resultType="int">
+	SELECT COUNT(*) CNT FROM EDU_BOOK WHERE EDU_BOOK_ID = #{mem_id} AND EDU_ID = #{eduId} 
+	</select>
+	
 	<!-- 신청 내역 -->
 	<select id="selectList" resultType="EduBookListDto">
 	SELECT EB.EDU_PART_SCHOOL, EL.EDU_SUBJECT, M.MEMBER_NAME, EL.EDU_ADDRESS, TO_CHAR(EL.EDU_START, 'YYYY-MM-DD') ES, TO_CHAR(EL.EDU_END, 'YYYY-MM-DD') EE
@@ -21,7 +27,7 @@
 	 TO_CHAR(EL.EDU_END, 'YYYY-MM-DD') EE, 
 	 EL.EDU_WRITE_TIME 
 	 FROM EDU_LIST EL 
-	 WHERE EDU_ID IN (SELECT EDU_ID FROM EDU_BOOK EB JOIN MEMBER M ON EB.EDU_BOOK_ID = M.MEMBER_ID WHERE M.MEMBER_ID = #{abcd})
+	 WHERE EDU_ID IN (SELECT EDU_ID FROM EDU_BOOK EB JOIN MEMBER M ON EB.EDU_BOOK_ID = M.MEMBER_ID WHERE M.MEMBER_ID = #{mem_id})
 	</select>
 	
 	<!-- 교육 신청 -->
@@ -29,8 +35,4 @@
 	INSERT INTO EDU_BOOK VALUES (#{eduBookId}, #{eduId}, #{eduBookPhone}, #{eduPartLevel}, #{eduPartName}, #{eduPartSchool})
 	</insert>
 	
-	<!-- 로그인한 회원의 해당 교육 신청 여부 -->
-	<select id="selectBookCnt" resultType="int">
-	SELECT COUNT(EDU_ID) CNT FROM EDU_BOOK WHERE EDU_BOOK_ID = #{mem_id} AND EDU_ID = #{eduId} 
-	</select>
 </mapper>

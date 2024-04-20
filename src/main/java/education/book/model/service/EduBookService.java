@@ -19,7 +19,12 @@ public class EduBookService {
 	private EduDao ed = new EduDao();
 
 	// selectBookCnt
-	public int selectBookCnt(String mem_id, )
+	public int selectBookCnt(String mem_id, Integer eduId) {
+		int result = -1;
+		SqlSession session = MybatisTemplate.getSqlSession(true);
+		result = ebd.selectBookCnt(session, mem_id, eduId);
+		return result;
+	}
 	
 	// selectMemList
 	public List<EduListDto> selectMemList(String mem_id) {

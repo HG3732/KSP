@@ -62,7 +62,8 @@
 		    justify-content: flex-end;
 		    align-items: center;
 		}
-		.wrap-main>.content>.edu-list>.edu-detail>.edu-detail-content>table>tbody>tr>td>.edu-edit-del>div>form>button{
+		.wrap-main>.content>.edu-list>.edu-detail>.edu-detail-content>table>tbody>tr>td>.edu-edit-del>div>form>button
+		, .wrap-main>.content>.edu-list>.edu-detail>.edu-detail-content>table>tbody>tr>td>.edu-edit-del>div>button{
 			background-color: transparent;
 			border: 0;
 			cursor: pointer;
@@ -112,14 +113,17 @@
                             		<td>
 	                            		<div class="edu-edit-del">
 	                            			<div>
-			                        			<form action="${pageContext.request.contextPath }/edu/book/delete" method="post"><input type="hidden" name="eduId" value="${detail.eduId }" ><button type="submit">취소</button></form>
+			                        			<input type="hidden" name="eduId" id="eduId" value="${detail.eduId }" >
+			                        			<c:if test="${cnt > 0 }">
+			                        			<button type="submit" class="btn bookdel">취소</button>
+			                        			</c:if>
 	                            			</div>
 	                            			<c:if test="${ssslogin.mem_admin > 0 }">
 	                            			<div>
-		                        				<a href="${pageContext.request.contextPath }/edu/update?id=${detail.eduId }">수정</a>
+		                        				<a href="${pageContext.request.contextPath }/edu/update?id=${detail.eduId }"><button type="button" class="btn eduup">수정</button></a>
 	                            			</div>
 	                            			<div>
-			                        			<form action="${pageContext.request.contextPath }/edu/delete" method="post"><input type="hidden" name="eduId" value="${detail.eduId }" ><button type="submit">삭제</button></form>
+			                        			<form action="${pageContext.request.contextPath }/edu/delete" method="post"><input type="hidden" name="eduId" value="${detail.eduId }" ><button type="submit" class="btn edudel">삭제</button></form>
 	                            			</div>
 	                            			</c:if>
 	                    				</div>
@@ -178,9 +182,32 @@
     </div>
 </body>
 <script>
+$(loadedHandler);
+function loadedHandler(){
+	$(".btn.bookdel").on("click", bookDelHandler);
+}
+function bookDelHandler(){
+	$.ajax({
+		url : "${pageContext.request.contextPath}/edu/book/form"
+		, method : "post"
+		, data : $("#eduId").val()
+		, success : function(result){
+			if(result == 1){
+				
+			}else{
+				
+			}
+		}
+		, error : function(request, status, error){
+			alert("code : " + request.status + "\n" + "message : " + request.responseText + "\n"
+					+ "error : " + error);
+		}
+	});
+}
 (function border(){
 	$("tr:first-of-type").css("border-bottom", "1px solid white");
 	$("tr:last-of-type").css("border-top", "1px solid white");
 })();
+
 </script>
 </html>

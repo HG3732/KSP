@@ -17,6 +17,15 @@ import education.book.model.dto.EduBookListDto;
 import static common.SemiTemplate.*;
 
 public class EduBookDao {
+	
+	// selectBookCnt
+	public int selectBookCnt(SqlSession session, String mem_id, Integer eduId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mem_id", mem_id);
+		map.put("eduId", eduId);
+		return session.selectOne("edubook.selectBookCnt", map);
+	}
+	
 	// selectList
 	public List<EduBookListDto> selectList(SqlSession session) {
 		return session.selectList("edubook.selectList");

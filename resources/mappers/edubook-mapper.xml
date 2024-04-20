@@ -35,4 +35,8 @@
 	INSERT INTO EDU_BOOK VALUES (#{eduBookId}, #{eduId}, #{eduBookPhone}, #{eduPartLevel}, #{eduPartName}, #{eduPartSchool})
 	</insert>
 	
+	<!-- 교육 신청 취소 -->
+	<delete id="delete" parameterType="hashmap">
+	DELETE FROM EDU_BOOK WHERE EDU_BOOK_ID = #{mem_id} AND EDU_ID = #{eduId}
+	</delete>
 </mapper>

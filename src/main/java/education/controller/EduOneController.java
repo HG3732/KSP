@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static common.controller.AlertController.*;
 import education.model.dto.EduRecentDto;
 import education.model.service.EduService;
 
@@ -44,15 +43,7 @@ public class EduOneController extends HttpServlet {
 				e.printStackTrace();
 				response.sendRedirect(request.getContextPath() + "/home");
 			}
-			
 			request.getRequestDispatcher("/WEB-INF/views/edu/eduone.jsp").forward(request, response);
 		
 	}
-
-//	/**
-//	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-//	 */
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//	}
-
 }

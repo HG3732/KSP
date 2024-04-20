@@ -7,6 +7,7 @@ function loginPermission(){
     if(alertMsg){
     	alert(alertMsg);
     	location.href="${pageContext.request.contextPath }/login";
+    	return;
     }
 }
 function adminPermission(){

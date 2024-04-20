@@ -20,24 +20,37 @@ public class EduBookDao {
 	
 	// selectBookCnt
 	public int selectBookCnt(SqlSession session, String mem_id, Integer eduId) {
+		System.out.println("EduBookDao selectBookCnt()");
+		int result = -1;
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("mem_id", mem_id);
 		map.put("eduId", eduId);
-		return session.selectOne("edubook.selectBookCnt", map);
+		result = session.selectOne("edubook.selectBookCnt", map);
+		System.out.println("result : " + result);
+		return result;
 	}
 	
 	// selectList
 	public List<EduBookListDto> selectList(SqlSession session) {
-		return session.selectList("edubook.selectList");
+		System.out.println("EduBookDao selectList()");
+		List<EduBookListDto> result = null;
+		result = session.selectList("edubook.selectList");
+		System.out.println("result : " + result);
+		return result;
 	}
 	
 	// insert
 	public int insert(SqlSession session, EduBookDto dto) {
-		return session.insert("edubook.insert", dto);
+		System.out.println("EduBookDao insert()");
+		int result = 0;
+		result = session.insert("edubook.insert", dto);
+		System.out.println("result : " + result);
+		return result;
 	}
 	
 	// delete
 	public int delete(Connection con, String mem_id) {
+		System.out.println("EduBookDao delete()");
 		int result = 0;
 		String sql = "DELETE FROM EDU_BOOK WHERE EDU_BOOK_ID = ?";
 		PreparedStatement pstmt = null;
@@ -53,6 +66,7 @@ public class EduBookDao {
 		}
 		
 		close(pstmt);
+		System.out.println("result : " + result);
 		return result;
 	}
 	

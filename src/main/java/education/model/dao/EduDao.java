@@ -22,11 +22,15 @@ public class EduDao {
 	
 	// selectAllList
 	public List<EduListDto> selectAllList(SqlSession session){
-		return session.selectList("edu.selectAllList");
+		System.out.println("EduDao selectAllList()");
+		List<EduListDto> result = session.selectList("edu.selectAllList");
+		System.out.println("result : " + result);
+		return result;
 	}
 	
 	// selectTotalCount
 	public int selectTotalCount(Connection con, String searchSubject) {
+		System.out.println("EduDao selectTotalCount()");
 		int result = 0;
 		String sql = "SELECT COUNT(*) CNT FROM EDU_LIST ";
 		if(searchSubject != null) {
@@ -49,11 +53,13 @@ public class EduDao {
 		
 		close(rs);
 		close(pstmt);
+		System.out.println("result : " + result);
 		return result;
 	}
 	
 	// selectPageList
 	public List<EduListDto> selectPageList(Connection con, String searchSubject, int start, int end) {
+		System.out.println("EduDao selectPageList()");
 		List<EduListDto> result = null;
 		String sql = "SELECT E2.*"
 				+ " FROM (SELECT E1.*, ROWNUM RN FROM (SELECT EDU_ID ,EDU_SUBJECT ,EDU_PARTICIPANT ,"
@@ -95,11 +101,14 @@ public class EduDao {
 		
 		close(rs);
 		close(pstmt);
+		System.out.println("result : " + result);
 		return result;
 	}
 	
 	// selectMemList
 	public List<EduListDto> selectMemList(SqlSession session, String mem_id) {
+		System.out.println("EduDao selectMemList()");
+		System.out.println("result : " + session.selectList("edubook.selectMemList", mem_id));
 		return session.selectList("edubook.selectMemList", mem_id);
 	}
 	
@@ -107,6 +116,7 @@ public class EduDao {
 	
 	// selectRecent
 	public EduRecentDto selectRecent(Connection con) {
+		System.out.println("EduDao selectRecent()");
 		EduRecentDto result = null;
 		String sql = "SELECT T1.* FROM (SELECT EDU_SUBJECT FROM EDU_LIST ORDER BY EDU_ID DESC) T1 WHERE ROWNUM = 1";
 		PreparedStatement pstmt = null;
@@ -127,11 +137,13 @@ public class EduDao {
 		
 		close(rs);
 		close(pstmt);
+		System.out.println("result : " + result);
 		return result;
 	}
 	
 	// selectOne
 	public EduOneDto selectOne(Connection con, Integer eduId) {
+		System.out.println("EduDao selectOne()");
 		EduOneDto result = null;
 		String sql = "SELECT EDU_ID "
 				+ " , EDU_SUBJECT "
@@ -176,11 +188,13 @@ public class EduDao {
 		
 		close(rs);
 		close(pstmt);
+		System.out.println("result : " + result);
 		return result;
 	}
 	
 	// insert
 	public int insert(Connection con, EduOneDto dto) {
+		System.out.println("EduDao insert()");
 		int result = 0;
 		String sql = "INSERT INTO EDU_LIST "
 				+ " VALUES( "
@@ -208,11 +222,13 @@ public class EduDao {
 		}
 		
 		close(pstmt);
+		System.out.println("result : " + result);
 		return result;
 	}
 	
 	// update
 	public int update(Connection con, EduOneDto dto) {
+		System.out.println("EduDao update()");
 		int result = 0;
 		String sql = "UPDATE EDU_LIST SET EDU_SUBJECT = ?, EDU_CONTENT = ?, EDU_ADDRESS = ?, EDU_PARTICIPANT = ?, "
 				+ " EDU_DAY = ?, EDU_BOOK_START = ?, EDU_BOOK_END = ?, EDU_START = ?, EDU_END = ? WHERE EDU_ID = ? ";
@@ -238,11 +254,13 @@ public class EduDao {
 		}
 		
 		close(pstmt);
+		System.out.println("result : " + result);
 		return result;
 	}
 	
 	// delete
 	public int delete(Connection con, Integer eduId) {
+		System.out.println("EduDao delete()");
 		int result = 0;
 		String sql = "DELETE FROM EDU_LIST WHERE EDU_ID = ?";
 		PreparedStatement pstmt = null;
@@ -258,49 +276,7 @@ public class EduDao {
 		}
 		
 		close(pstmt);
-		return result;
-	}
-	
-	// calendarBookList
-	public List<EduBookListDto> calendarBookList(Connection con) {
-//		EDU_PART_SCHOOL NOT NULL VARCHAR2(30)
-//		EDU_SUBJECT     NOT NULL VARCHAR2(15) 
-//		MEMBER_NAME    NOT NULL VARCHAR2(10)  
-//		EDU_ADDRESS     NOT NULL VARCHAR2(300) 
-//		EDU_START       NOT NULL DATE           
-//		EDU_END         NOT NULL DATE    
-		List<EduBookListDto> result = null;
-		String sql = "SELECT EB.EDU_PART_SCHOOL, EL.EDU_SUBJECT, M.MEMBER_NAME, EL.EDU_ADDRESS, TO_CHAR(EL.EDU_START, 'YYYY-MM-DD') ES, TO_CHAR(EL.EDU_END, 'YYYY-MM-DD') EE FROM EDU_BOOK EB "
-				+ " JOIN EDU_LIST EL ON EB.EDU_ID = EL.EDU_ID "
-				+ " JOIN MEMBER M ON EB.EDU_BOOK_ID = M.MEMBER_ID ";
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			
-			// ResultSet 처리
-			if(rs.next()) {
-				result = new ArrayList<EduBookListDto>();
-				do {
-					EduBookListDto dto = new EduBookListDto(
-							rs.getString("EDU_PART_SCHOOL")
-							, rs.getString("EDU_SUBJECT")
-							, rs.getString("MEMBER_NAME")
-							, rs.getString("EDU_ADDRESS")
-							, rs.getString("ES")
-							, rs.getString("EE")
-							);
-					result.add(dto);
-				}while(rs.next());
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		close(rs);
-		close(pstmt);
+		System.out.println("result : " + result);
 		return result;
 	}
 }

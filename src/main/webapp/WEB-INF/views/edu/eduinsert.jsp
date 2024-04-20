@@ -16,6 +16,9 @@
 	adminPermission();
     </script>
     <style>
+    	button{
+			cursor: pointer;
+		}
 		.wrap-main,
         .wrap-footer{
             margin: 10px auto;
@@ -50,17 +53,22 @@
             clear: both;
         }
         .wrap-main>.content>.edu-list>.edu-detail{
-        	padding: 30px;
+        	padding: 10px 30px;
         }
         .wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table{
             width: 100%;
             line-height: 3em;
         }
-        .wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table>tbody>tr>td>input{
+        .wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table>tbody>tr>td>input
+        , .wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table>tbody>tr>td>select{
         	background-color: transparent;
         	border: 1px solid white;
         }
-        .wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table>tbody>tr>td>input[type=text]{
+        .wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table>tbody>tr>td>select>option{
+        	color: black;
+        }
+        .wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table>tbody>tr>td>input[type=text]
+        , .wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table>tbody>tr>td>select{
         	width: 100%;
         }
 		.wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table>tbody>tr>td>.edu-edit-del{
@@ -77,6 +85,7 @@
 			width: 100%;
 			background-color: transparent;
 			border: 1px solid white;
+			margin-top: 10px;
 		}
         .wrap-main>.content>.edu-list>.edu-detail>form>.edu-ins{
             text-align: center;
@@ -84,7 +93,7 @@
         .wrap-main>.content>.edu-list>.edu-detail>form>.edu-ins>button{
             background-color: transparent;
             border: 0;
-            cursor: pointer;
+            margin-top: 10px;
         }
 
 
@@ -131,13 +140,43 @@
                             		<td>교육제목</td><td colspan="7"><input type="text" name="eduSubject" required></td>
                             	</tr>
                                 <tr>
-                                    <td>신청기간</td><td><input type="text" name="eduBookStart" id="eduBookStart" class="datePicker" required></td><td>~</td><td><input type="text" name="eduBookEnd" id="eduBookEnd" class="datePicker" required></td><td>운영기간</td><td><input type="text" name="eduStart" id="eduStart" class="datePicker" required></td><td>~</td><td><input type="text" name="eduEnd" id="eduEnd" class="datePicker" required></td>
+                                    <td>신청기간</td>
+                                    <td><input type="text" name="eduBookStart" id="eduBookStart" class="datePicker" required autocomplete="off"></td>
+                                    <td>~</td>
+                                    <td><input type="text" name="eduBookEnd" id="eduBookEnd" class="datePicker" required autocomplete="off"></td>
+                                    <td>운영기간</td>
+                                    <td><input type="text" name="eduStart" id="eduStart" class="datePicker" required autocomplete="off"></td>
+                                    <td>~</td>
+                                    <td><input type="text" name="eduEnd" id="eduEnd" class="datePicker" required autocomplete="off"></td>
                                 </tr>
                                 <tr>
-                                    <td>운영요일</td><td colspan="3"><input type="text" name="eduDay" required></td><td>교육장소</td><td colspan="3"><input type="text" name="eduAddress" required></td>
+                                    <td>운영요일</td>
+                                    <td>
+                                    	<select name="eduDay">
+                                    		<option value="every">매일</option>
+                                    		<option value="mon">월</option>
+                                    		<option value="tue">화</option>
+                                    		<option value="wed">수</option>
+                                    		<option value="thu">목</option>
+                                    		<option value="fri">금</option>
+                                    	</select>
+                                    </td>
+                                    <td colspan="2">
+                                    </td>
+                                    <td>교육장소</td>
+                                    <td colspan="3"><input type="text" name="eduAddress" required></td>
                                 </tr>
                                 <tr>
-                                	<td>교육대상</td><td colspan="3"><input type="text" name="eduParticipant" required></td>
+                                	<td>교육대상</td>
+                                	<td>
+                                    	<select name="eduParticipant">
+                                    		<option value="all">모두</option>
+                                    		<option value="element">초등학생</option>
+                                    		<option value="middle">중학생</option>
+                                    		<option value="high">고등학생</option>
+                                    		<option value="adult">성인</option>
+                                    	</select>
+                                	</td>
                                 </tr>
                                 <tr>
                                     <td colspan="8"><textarea name="eduContent" rows="10" required></textarea></td>
@@ -185,6 +224,10 @@
 	    //초기값을 오늘 날짜로 설정해줘야 합니다.
 	    //$('.datePicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)            
 	});
+	(function border(){
+		$("tr:first-of-type").css("border-bottom", "1px solid white");
+		$("tr:last-of-type").css("border-top", "1px solid white");
+	})();
 </script>
 </body>
 

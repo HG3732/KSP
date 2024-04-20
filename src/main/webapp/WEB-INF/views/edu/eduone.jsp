@@ -85,8 +85,8 @@
 	</div>
     <div class="wrap-main">
         <div class="content">
-            <a href="${pageContext.request.contextPath }/edu/list"><h3>교육 목록</h3></a>
-            <a href="${pageContext.request.contextPath }/edu/book/list"><h3>교육 예약 현황</h3></a>
+            <a href="${pageContext.request.contextPath }/edu"><h3>교육 목록</h3></a>
+            <a href="${pageContext.request.contextPath }/edu/book"><h3>교육 예약 현황</h3></a>
             <div class="home-menu">
                 <a href="#"><img src="https://www.jejusi.go.kr/images/star/icon/home_icon01.png"></a>
                 <div> &nbsp; | 행사 및 교육 | 행사 및 교육신청</div>
@@ -114,12 +114,14 @@
 	                            			<div>
 			                        			<form action="${pageContext.request.contextPath }/edu/book/delete" method="post"><input type="hidden" name="eduId" value="${detail.eduId }" ><button type="submit">취소</button></form>
 	                            			</div>
+	                            			<c:if test="${ssslogin.mem_admin > 0 }">
 	                            			<div>
-		                        				<a href="http://192.168.10.11:8080/star/edu/detail/update?id=${detail.eduId }">수정</a>
+		                        				<a href="${pageContext.request.contextPath }/edu/update?id=${detail.eduId }">수정</a>
 	                            			</div>
 	                            			<div>
 			                        			<form action="${pageContext.request.contextPath }/edu/delete" method="post"><input type="hidden" name="eduId" value="${detail.eduId }" ><button type="submit">삭제</button></form>
 	                            			</div>
+	                            			</c:if>
 	                    				</div>
 	                    			</td>
                             	</tr>
@@ -127,10 +129,32 @@
                                     <td>신청기간</td><td>${detail.eduBookStart }</td><td>~</td><td>${detail.eduBookEnd }</td><td>운영기간</td><td>${detail.eduStart }</td><td>~</td><td>${detail.eduEnd }</td>
                                 </tr>
                                 <tr>
-                                    <td>운영요일</td><td colspan="3">${detail.eduDay }</td><td>교육장소</td><td colspan="3">${detail.eduAddress }</td>
+                                    <td>운영요일</td><td colspan="3">
+                                    <c:choose>
+                                    	<c:when test="${detail.eduDay == 'every' }">매일</c:when>
+                                    	<c:when test="${detail.eduDay == 'mon' }">월요일</c:when>
+                                    	<c:when test="${detail.eduDay == 'tue' }">화요일</c:when>
+                                    	<c:when test="${detail.eduDay == 'wed' }">수요일</c:when>
+                                    	<c:when test="${detail.eduDay == 'thu' }">목요일</c:when>
+                                    	<c:when test="${detail.eduDay == 'fri' }">금요일</c:when>
+                                    </c:choose>
+                                    </td>
+                                    <td>교육장소</td>
+                                    <td colspan="3">
+                                    ${detail.eduAddress }
+                                    </td>
                                 </tr>
                                 <tr>
-                                	<td>교육대상</td><td colspan="7">${detail.eduParticipant }</td>
+                                	<td>교육대상</td>
+                                	<td colspan="7">
+                                    <c:choose>
+                                    	<c:when test="${detail.eduParticipant == 'all' }">모두</c:when>
+                                    	<c:when test="${detail.eduParticipant == 'element' }">초등학생</c:when>
+                                    	<c:when test="${detail.eduParticipant == 'middle' }">중학생</c:when>
+                                    	<c:when test="${detail.eduParticipant == 'high' }">고등학생</c:when>
+                                    	<c:when test="${detail.eduParticipant == 'adult' }">성인</c:when>
+                                    </c:choose>
+                                	</td>
                                 </tr>
                                 <tr>
                                     <td colspan="8">${detail.eduContent }</td>
@@ -153,4 +177,10 @@
         </div>
     </div>
 </body>
+<script>
+(function border(){
+	$("tr:first-of-type").css("border-bottom", "1px solid white");
+	$("tr:last-of-type").css("border-top", "1px solid white");
+})();
+</script>
 </html>

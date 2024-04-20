@@ -2,6 +2,7 @@ package education.book.controller;
 
 import java.io.IOException;
 import java.util.Properties;
+import java.util.Random;
 
 import javax.mail.Address;
 import javax.mail.Authenticator;
@@ -21,14 +22,14 @@ import member.model.dto.MemberInfoDto;
 /**
  * Servlet implementation class EmailController
  */
-@WebServlet("/email/send")
-public class EmailSendController extends HttpServlet {
+@WebServlet("/code/send.ajax")
+public class CodeSendController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EmailSendController() {
+    public CodeSendController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,15 +38,30 @@ public class EmailSendController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 랜덤 문자열
+		int leftLimit = 97; // 'a'
+		int rightLimit = 122; // 'z'
+		int codeLength = 10;
+		Random rand = new Random();
+		StringBuilder sb = new StringBuilder(codeLength);
+		for(int i = 0; i < codeLength; i++) {
+			int randLimitInt = leftLimit + (int)(rand.nextFloat() * (rightLimit - leftLimit + 1));
+			sb.append((char)randLimitInt);
+		}
+		String code = sb.toString();
+		
+		
 		// 사용자 인증 이메일 발송 내용
-		String host = "http://192.168.10.11:8080";
+//		String host = "http://192.168.10.11:8080";
 		String from = "seojw0730@gmail.com";
 		MemberInfoDto dto = (MemberInfoDto)request.getSession().getAttribute("ssslogin");
 		String to = dto.getMem_email();
 		System.out.println(to);
-		String subject = "KSP 교육 신청 양식 메일"; 
-		String content = "링크에 접속해 양식을 작성해주세요.\n"
-		  +	"<a href='" + host + "/star/email/check?code=" + SHA256.getSHA256(to) + "'>교육 신청 양식</a>";
+		String subject = "KSP 교육 신청 인증번호";
+		String content = "인증번호 : " + code;
+//		String subject = "KSP 교육 신청 양식 메일";
+//		String content = "링크에 접속해 양식을 작성해주세요.\n"
+//		  +	"<a href='" + host + "/star/email/check?code=" + SHA256.getSHA256(to) + "'>교육 신청 양식</a>";
 		
 		// 이메일 전송 : SMTP 이용을 위함
 		Properties p = new Properties();
@@ -73,10 +89,10 @@ public class EmailSendController extends HttpServlet {
 		    msg.addRecipient(Message.RecipientType.TO, toAddr);
 		    msg.setContent(content, "text/html;charset=UTF-8");
 		    Transport.send(msg); // 메세지 전송
-		    response.getWriter().append(String.valueOf(1));
+		    response.getWriter().append(code);
 		}catch(Exception e){
 			e.printStackTrace();
-			response.getWriter().append(String.valueOf(0));
+			response.getWriter().append(code);
 		}
 	}
 }

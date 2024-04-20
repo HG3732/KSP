@@ -99,8 +99,8 @@
 	</div>
     <div class="wrap-main">
         <div class="content">
-            <a href="${pageContext.request.contextPath }/edu/list"><h3>교육 목록</h3></a>
-            <a href="${pageContext.request.contextPath }/edu/book/list"><h3>교육 예약 현황</h3></a>
+            <a href="${pageContext.request.contextPath }/edu"><h3>교육 목록</h3></a>
+            <a href="${pageContext.request.contextPath }/edu/book"><h3>교육 예약 현황</h3></a>
             <div class="home-menu">
                 <a href="#"><img src="https://www.jejusi.go.kr/images/star/icon/home_icon01.png"></a>
                 <div> &nbsp; | 행사 및 교육 | 행사 및 교육신청</div>

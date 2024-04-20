@@ -202,7 +202,7 @@ function loadedHandler(){
 	$(".btn.search-edu").on("click", searchSubjectHandler);
 }
 function searchSubjectHandler(){
-	location.href="${pageContext.request.contextPath}/edu/list?edu-name=" + $("#edu-name").val() ;
+	location.href="${pageContext.request.contextPath}/edu?edu-name=" + $("#edu-name").val() ;
 }
 function searchSubjectEnterHandler(){
 	if(window.event.keyCode == 13){

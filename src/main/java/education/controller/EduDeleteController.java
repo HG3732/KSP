@@ -38,7 +38,7 @@ public class EduDeleteController extends HttpServlet {
 		String eduIdStr = request.getParameter("eduId");
 		Integer eduId = Integer.parseInt(eduIdStr);
 		service.delete(eduId);
-		response.sendRedirect(request.getContextPath() + "/edu/list");
+		response.sendRedirect(request.getContextPath() + "/edu");
 	}
 
 }

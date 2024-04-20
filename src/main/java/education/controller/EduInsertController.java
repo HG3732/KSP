@@ -32,7 +32,7 @@ public class EduInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AlertController.loginPermission(request, response, "로그인이 필요한 페이지입니다.");
-		AlertController.adminPermission(request, response, "관리자만 접근 가능합니다. 교육 목록 페이지로 이동합니다.", "/edu/list");
+		AlertController.adminPermission(request, response, "관리자만 접근 가능합니다. 교육 목록 페이지로 이동합니다.", "/edu");
 		EduRecentDto dto = service.selectRecent();
 		Object recentEdu = (dto == null) ? "등록된 교육이 없습니다" : dto.getEduSubject();
 		request.setAttribute("recentEdu", recentEdu);
@@ -57,7 +57,7 @@ public class EduInsertController extends HttpServlet {
 		try {
 			EduOneDto detail = new EduOneDto(null, eduSubject, eduContent, eduAddress, eduParticipant, eduDay, eduBookStart, eduBookEnd, eduStart, eduEnd, null);
 			service.insert(detail);
-			response.sendRedirect(request.getContextPath() + "/edu/list");
+			response.sendRedirect(request.getContextPath() + "/edu");
 			
 		} catch (NumberFormatException e) {
 			e.printStackTrace();

@@ -3,9 +3,7 @@ package education.book.model.service;
 import static common.SemiTemplate.*;
 
 import java.sql.Connection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -14,19 +12,18 @@ import education.book.model.dao.EduBookDao;
 import education.book.model.dto.EduBookDto;
 import education.book.model.dto.EduBookListDto;
 import education.model.dao.EduDao;
-import education.model.dto.EduOneDto;
-import education.model.dto.EduDto;
 import education.model.dto.EduListDto;
-import education.model.dto.EduRecentDto;
 
 public class EduBookService {
-	private EduBookDao dao = new EduBookDao();
+	private EduBookDao ebd = new EduBookDao();
 	private EduDao ed = new EduDao();
 
+	// selectBookCnt
+	public int selectBookCnt(String mem_id, )
+	
 	// selectMemList
 	public List<EduListDto> selectMemList(String mem_id) {
 		List<EduListDto> result = null;
-//		Connection con = getConnection(true);
 		SqlSession session = MybatisTemplate.getSqlSession(true);
 		result = ed.selectMemList(session, mem_id);
 		session.close();
@@ -36,9 +33,8 @@ public class EduBookService {
 	// selectList
 	public List<EduBookListDto> selectList() {
 		List<EduBookListDto> result = null;
-//		Connection con = getConnection(true);
 		SqlSession session = MybatisTemplate.getSqlSession(true);
-		result = dao.selectList(session);
+		result = ebd.selectList(session);
 		session.close();
 		return result;
 	}
@@ -46,9 +42,8 @@ public class EduBookService {
 	// insert
 	public int insert(EduBookDto dto) {
 		int result = 0;
-//		Connection con = getConnection(true);
 		SqlSession session = MybatisTemplate.getSqlSession(true);
-		result = dao.insert(session, dto);
+		result = ebd.insert(session, dto);
 		session.close();
 		return result;
 	}
@@ -58,7 +53,7 @@ public class EduBookService {
 	public int delete(String mem_id) {
 		int result = 0;
 		Connection con = getConnection(true);
-		result = dao.delete(con, mem_id);
+		result = ebd.delete(con, mem_id);
 		close(con);
 		return result;
 	}

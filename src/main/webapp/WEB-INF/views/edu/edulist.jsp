@@ -119,8 +119,8 @@
 	</div>
     <div class="wrap-main">
     	<div class="content">
-            <a href="${pageContext.request.contextPath }/edu/list"><h3>교육 목록</h3></a>
-            <a href="${pageContext.request.contextPath }/edu/book/list"><h3>교육 예약 현황</h3></a>
+            <a href="${pageContext.request.contextPath }/edu"><h3>교육 목록</h3></a>
+            <a href="${pageContext.request.contextPath }/edu/book"><h3>교육 예약 현황</h3></a>
             <div class="home-menu">
                 <a href="${pageContext.request.contextPath }/home"><img src="https://www.jejusi.go.kr/images/star/icon/home_icon01.png"></a>
                 <div> &nbsp; | 행사 및 교육 | 행사 및 교육신청</div>
@@ -131,7 +131,9 @@
                 	<div>
                         <input type="text" name="edu-name" id="edu-name" onkeyup="searchSubjectEnterHandler()" placeholder="제목 키워드를 입력해주세요">
                         <input type="image" src="https://www.jejusi.go.kr/images/star/btn/search-typeA.png" class="btn search-edu">
+                        <c:if test="${ssslogin.mem_grade > 0 }">
                         <a href="${pageContext.request.contextPath }/edu/insert"><button type="button" class="btn eduIns">등록</button></a>
+                        </c:if>
                 	</div>
                 </div>
 	            <c:choose>
@@ -180,20 +182,20 @@
             <div class="edu-paging">
                 <ul>
                 	<c:if test="${map.startPageNum > 1 }">
-                		<li><a href="${pageContext.request.contextPath }/edu/list?edu-name=${ssSearch }&page=${page = 1}"> &lt;&lt;&nbsp;&nbsp; </a></li>
-                		<li><a href="${pageContext.request.contextPath }/edu/list?edu-name=${ssSearch }&page=${map.startPageNum-1}"> &lt; </a></li>
+                		<li><a href="${pageContext.request.contextPath }/edu?edu-name=${ssSearch }&page=${page = 1}"> &lt;&lt;&nbsp;&nbsp; </a></li>
+                		<li><a href="${pageContext.request.contextPath }/edu?edu-name=${ssSearch }&page=${map.startPageNum-1}"> &lt; </a></li>
                 	</c:if>
                 	<c:forEach begin="${map.startPageNum }" end="${map.endPageNum }" var="page">
                 		<c:if test="${map.currentPageNum == page }">
                 			<li><strong>${page }</strong></li>
                 		</c:if>
                 		<c:if test="${map.currentPageNum != page }">
-                			<li><a href="${pageContext.request.contextPath }/edu/list?edu-name=${ssSearch }&page=${page}">${page }</a></li>
+                			<li><a href="${pageContext.request.contextPath }/edu?edu-name=${ssSearch }&page=${page}">${page }</a></li>
                 		</c:if>
                 	</c:forEach>
                 	<c:if test="${map.endPageNum < map.totalPageCount }">
-                		<li><a href="${pageContext.request.contextPath }/edu/list?edu-name=${ssSearch }&page=${map.endPageNum + 1 }"> &gt; </a>
-                		<li><a href="${pageContext.request.contextPath }/edu/list?edu-name=${ssSearch }&page=${page = map.totalPageCount}"> &nbsp;&nbsp;&gt;&gt; </a>
+                		<li><a href="${pageContext.request.contextPath }/edu?edu-name=${ssSearch }&page=${map.endPageNum + 1 }"> &gt; </a>
+                		<li><a href="${pageContext.request.contextPath }/edu?edu-name=${ssSearch }&page=${page = map.totalPageCount}"> &nbsp;&nbsp;&gt;&gt; </a>
                 	</c:if>
                 </ul>
             </div>
@@ -232,7 +234,7 @@ function loadedHandler(){
 	$(".btn.search-edu").on("click", searchSubjectHandler);
 }
 function searchSubjectHandler(){
-	location.href="${pageContext.request.contextPath}/edu/list?edu-name=" + $("#edu-name").val() ;
+	location.href="${pageContext.request.contextPath}/edu?edu-name=" + $("#edu-name").val() ;
 }
 function searchSubjectEnterHandler(){
 	if(window.event.keyCode == 13){

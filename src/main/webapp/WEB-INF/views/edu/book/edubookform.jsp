@@ -150,7 +150,7 @@ function bookMsgHandler(){
 		, success : function(result){
 			if(result == 1){
 				alert("신청이 완료되었습니다.\n교육 목록 페이지로 이동합니다.");
-				location.href = "${pageContext.request.contextPath}/edu/list";
+				location.href = "${pageContext.request.contextPath}/edu";
 				return;
 			}else{
 				alert("신청 중 오류가 발생하였습니다.\n관리자에게 문의해주시기 바랍니다.\n메인 페이지로 이동합니다.");

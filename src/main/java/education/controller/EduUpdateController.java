@@ -32,7 +32,7 @@ public class EduUpdateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AlertController.loginPermission(request, response, "로그인이 필요한 페이지입니다.");
-		AlertController.adminPermission(request, response, "관리자만 접근 가능합니다. 교육 목록 페이지로 돌아갑니다.", "/edu/list");
+		AlertController.adminPermission(request, response, "관리자만 접근 가능합니다. 교육 목록 페이지로 돌아갑니다.", "/edu");
 		EduRecentDto dtoRecent = service.selectRecent();
 		Object recentEdu = (dtoRecent != null) ? dtoRecent.getEduSubject() : "등록된 교육이 없습니다";
 		request.setAttribute("recentEdu", recentEdu);

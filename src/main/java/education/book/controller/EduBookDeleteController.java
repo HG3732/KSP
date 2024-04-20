@@ -37,7 +37,7 @@ public class EduBookDeleteController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AlertController.adminPermission(request, response, "관리자만 취소가 가능합니다.", "/home");
 //		new EduBookService().delete(Integer.parseInt(request.getParameter("eduId")));
-		response.sendRedirect(request.getContextPath() + "/edu/list");
+		response.sendRedirect(request.getContextPath() + "/edu");
 	}
 
 }

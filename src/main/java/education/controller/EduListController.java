@@ -13,7 +13,7 @@ import education.model.service.EduService;
 /**
  * Servlet implementation class EduListController
  */
-@WebServlet("/edu/list")
+@WebServlet("/edu")
 public class EduListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private EduService service = new EduService();

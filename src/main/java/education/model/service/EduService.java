@@ -101,15 +101,4 @@ public class EduService {
 		close(con);
 		return result;
 	}
-	
-	
-	
-	// calendarBookList
-	public List<EduBookListDto> calendarBookList() {
-		List<EduBookListDto> result = null;
-		Connection con = getConnection(true);
-		result = dao.calendarBookList(con);
-		close(con);
-		return result;
-	}
 }

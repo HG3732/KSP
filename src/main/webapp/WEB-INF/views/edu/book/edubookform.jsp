@@ -117,7 +117,7 @@
 	                        </td>
 	                    </tr>
 	                    <tr>
-	                        <td>수강자명</td><td><input type="text" id="book-part-name" name="book-part-name"></td>
+	                        <td>인솔자명</td><td><input type="text" id="book-part-name" name="book-part-name"></td>
 	                        <td>학교명</td><td><input type="text" id="book-school" name="book-school"></td>
 	                    </tr>
 	                    <tr>

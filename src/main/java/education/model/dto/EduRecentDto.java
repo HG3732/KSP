@@ -5,7 +5,7 @@ public class EduRecentDto {
 
 	@Override
 	public String toString() {
-		return "EduRecentDto [eduSubject=" + eduSubject + "]";
+		return "EduRecentDto [eduSubject=" + eduSubject + "]\n";
 	}
 
 	public EduRecentDto(String eduSubject) {

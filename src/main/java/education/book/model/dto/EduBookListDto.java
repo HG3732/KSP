@@ -17,7 +17,7 @@ public class EduBookListDto {
 	@Override
 	public String toString() {
 		return "EduBookListDto [eduPartSchool=" + eduPartSchool + ", eduSubject=" + eduSubject + ", memberName="
-				+ memberName + ", eduAddress=" + eduAddress + ", eduStart=" + eduStart + ", eduEnd=" + eduEnd + "]";
+				+ memberName + ", eduAddress=" + eduAddress + ", eduStart=" + eduStart + ", eduEnd=" + eduEnd + "]\n";
 	}
 
 	public EduBookListDto(String eduPartSchool, String eduSubject, String memberName, String eduAddress,

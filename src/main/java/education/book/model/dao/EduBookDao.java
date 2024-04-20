@@ -49,23 +49,13 @@ public class EduBookDao {
 	}
 	
 	// delete
-	public int delete(Connection con, String mem_id) {
+	public int delete(SqlSession session, String mem_id, Integer eduId) {
 		System.out.println("EduBookDao delete()");
 		int result = 0;
-		String sql = "DELETE FROM EDU_BOOK WHERE EDU_BOOK_ID = ?";
-		PreparedStatement pstmt = null;
-		
-		try {
-			pstmt = con.prepareStatement(sql);
-			// ? 자리
-			pstmt.setString(1, mem_id);
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		close(pstmt);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mem_id", mem_id);
+		map.put("eduId", eduId);
+		result = session.delete("edubook.delete", map);
 		System.out.println("result : " + result);
 		return result;
 	}

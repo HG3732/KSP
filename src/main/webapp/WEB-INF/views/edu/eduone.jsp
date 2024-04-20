@@ -40,7 +40,8 @@
         .wrap-main>.content>.home-menu>a>img{
             width: 1em;
             height: 1em;
-            background-color: white;
+            background-color: transparent;
+            filter: invert(1);
         }
         .wrap-main>.content>hr{
             clear: both;
@@ -188,15 +189,20 @@ function loadedHandler(){
 	$(".btn.bookdel").on("click", bookDelHandler);
 }
 function bookDelHandler(){
+	var eduIdVal = $("#eduId").val();
 	$.ajax({
-		url : "${pageContext.request.contextPath}/edu/book/form"
+		url : "${pageContext.request.contextPath}/edu/book/delete.ajax"
 		, method : "post"
-		, data : $("#eduId").val()
+		, data : {eduId : eduIdVal}
 		, success : function(result){
 			if(result == 1){
-				
+				alert("취소가 완료되었습니다.");
+				location.reload();
+				return;
 			}else{
-				
+				alert("취소 중 오류가 발생했습니다.");
+				location.reload();
+				return;
 			}
 		}
 		, error : function(request, status, error){

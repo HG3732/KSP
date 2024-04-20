@@ -9,13 +9,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.controller.AlertController;
 import education.book.model.service.EduBookService;
+import member.model.dto.MemberInfoDto;
 
 /**
  * Servlet implementation class EduBookDeleteController
  */
-@WebServlet("/edu/book/delete")
+@WebServlet("/edu/book/delete.ajax")
 public class EduBookDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private EduBookService ebs = new EduBookService();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -35,9 +37,16 @@ public class EduBookDeleteController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AlertController.adminPermission(request, response, "관리자만 취소가 가능합니다.", "/home");
-//		new EduBookService().delete(Integer.parseInt(request.getParameter("eduId")));
-		response.sendRedirect(request.getContextPath() + "/edu");
+		try {
+			MemberInfoDto dto = (MemberInfoDto) request.getSession().getAttribute("ssslogin");
+			String mem_id = dto.getMem_id();
+			String eduIdStr = request.getParameter("eduId");
+			Integer eduId = Integer.parseInt(eduIdStr);
+			int result = ebs.delete(mem_id, eduId);
+			response.getWriter().append(String.valueOf(result));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

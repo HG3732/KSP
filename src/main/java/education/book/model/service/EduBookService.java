@@ -55,11 +55,11 @@ public class EduBookService {
 
 
 	// delete
-	public int delete(String mem_id) {
+	public int delete(String mem_id, Integer eduId) {
 		int result = 0;
-		Connection con = getConnection(true);
-		result = ebd.delete(con, mem_id);
-		close(con);
+		SqlSession session = MybatisTemplate.getSqlSession(true);
+		result = ebd.delete(session, mem_id, eduId);
+		session.close();
 		return result;
 	}
 	

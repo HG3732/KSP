@@ -45,9 +45,6 @@ public class EduOneController extends HttpServlet {
 		Integer eduId = Integer.parseInt(eduIdStr);
 		MemberInfoDto dto = (MemberInfoDto)request.getSession().getAttribute("ssslogin");
 		request.setAttribute("cnt", ebs.selectBookCnt(dto.getMem_id(),eduId));
-		System.out.println(dto.getMem_id());
-		System.out.println(eduId);
-		System.out.println(ebs.selectBookCnt(dto.getMem_id(), eduId));
 		request.setAttribute("detail", es.selectOne(eduId));
 		} catch (NumberFormatException | NullPointerException e) {
 			e.printStackTrace();

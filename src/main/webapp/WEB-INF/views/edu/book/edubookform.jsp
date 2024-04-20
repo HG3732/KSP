@@ -51,7 +51,8 @@
         }
         .wrap-main>.edu-book-info>form>table>tbody>tr>td>select>optgroup
         , .wrap-main>.edu-book-info>form>table>tbody>tr>td>select>optgroup>option
-        , .wrap-main>.edu-book-info>form>table>tbody>tr>td>select{
+        , .wrap-main>.edu-book-info>form>table>tbody>tr>td>select
+        , .wrap-main>.edu-book-info>form>table>tbody>tr>td>select>option{
         	color: black;
         }
 

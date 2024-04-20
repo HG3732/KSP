@@ -44,7 +44,8 @@
         .wrap-main>.content>.home-menu>a>img{
             width: 1em;
             height: 1em;
-            background-color: white;
+            background-color: transparent;
+            filter: invert(1);
         }
         .wrap-main>.content>hr{
             clear: both;

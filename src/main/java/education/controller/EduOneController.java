@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static common.controller.AlertController.*;
 import education.model.dto.EduRecentDto;
 import education.model.service.EduService;
 
@@ -30,7 +31,6 @@ public class EduOneController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			loginPermission(request, response, "교육 정보를 보시려면 로그인 해주세요.");
-		
 			EduRecentDto dtoRecent = service.selectRecent();
 			Object recentEdu = (dtoRecent != null) ? dtoRecent.getEduSubject() : "등록된 교육이 없습니다";
 			request.setAttribute("recentEdu", recentEdu);

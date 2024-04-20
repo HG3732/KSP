@@ -131,7 +131,7 @@
                 	<div>
                         <input type="text" name="edu-name" id="edu-name" onkeyup="searchSubjectEnterHandler()" placeholder="제목 키워드를 입력해주세요">
                         <input type="image" src="https://www.jejusi.go.kr/images/star/btn/search-typeA.png" class="btn search-edu">
-                        <c:if test="${ssslogin.mem_grade > 0 }">
+                        <c:if test="${ssslogin.mem_admin > 0 }">
                         <a href="${pageContext.request.contextPath }/edu/insert"><button type="button" class="btn eduIns">등록</button></a>
                         </c:if>
                 	</div>
@@ -167,7 +167,15 @@
 					                                    </tr>
 					                                    <tr>
 					                                        <td>모집대상</td>
-					                                        <td><div>${edu.eduParticipant }</div></td>
+					                                        <td>
+						                                    <c:choose>
+						                                    	<c:when test="${edu.eduParticipant == 'all' }">모두</c:when>
+						                                    	<c:when test="${edu.eduParticipant == 'element' }">초등학생</c:when>
+						                                    	<c:when test="${edu.eduParticipant == 'middle' }">중학생</c:when>
+						                                    	<c:when test="${edu.eduParticipant == 'high' }">고등학생</c:when>
+						                                    	<c:when test="${edu.eduParticipant == 'adult' }">성인</c:when>
+						                                    </c:choose>
+															</td>
 					                                    </tr>
 					                                </tbody>
 					                            </table>

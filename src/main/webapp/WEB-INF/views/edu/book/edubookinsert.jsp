@@ -163,10 +163,8 @@ function sendCodeHandler(){
 					$("#book-code").val(result);
 					console.log($("#book-code").val(result));
 					console.log(result);
-					return;
 				}else{
 					alert("인증번호 발송 중 오류가 발생했습니다. 나중에 다시 시도해주십시오.");
-					return;
 				}
 			}
 			, error : function(request, status, error){
@@ -194,10 +192,8 @@ function checkCodeHandler(){
 				$("#book-email-code").val("인증 완료");
 				$("#book-email-code").prop("disabled", true);
 				$(".btn.checkcode").prop("disabled", true);
-				return;
 			}else{
 				alert("인증번호가 올바르지 않습니다.");
-				return;
 			}
 		}
 		, error : function(request, status, error){
@@ -229,16 +225,13 @@ function bookMsgHandler(){
 		url : "${pageContext.request.contextPath}/edu/book/submit.ajax"
 		, method : "post"
 		, data : $("#frm-edubook").serialize()
-		, async : false
 		, success : function(result){
 			if(result == 1){
 				alert("신청이 완료되었습니다.\n교육 목록 페이지로 이동합니다.");
-				location.href = "${pageContext.request.contextPath}/edu";
-				return;
+				location.href="${pageContext.request.contextPath}/edu";
 			}else{
 				alert("신청 중 오류가 발생하였습니다.\n관리자에게 문의해주시기 바랍니다.\n메인 페이지로 이동합니다.");
-				location.href = "${pageContext.request.contextPath}/home";
-				return;
+				location.href="${pageContext.request.contextPath}/home";
 			}
 		}
 		, error : function(request, status, error){

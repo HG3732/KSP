@@ -21,7 +21,18 @@ import education.model.dto.EduRecentDto;
 
 public class EduBookService {
 	private EduBookDao dao = new EduBookDao();
+	private EduDao ed = new EduDao();
 
+	// selectMemList
+	public List<EduListDto> selectMemList(String mem_id) {
+		List<EduListDto> result = null;
+//		Connection con = getConnection(true);
+		SqlSession session = MybatisTemplate.getSqlSession(true);
+		result = ed.selectMemList(session, mem_id);
+		session.close();
+		return result;
+	}
+	
 	// selectList
 	public List<EduBookListDto> selectList() {
 		List<EduBookListDto> result = null;

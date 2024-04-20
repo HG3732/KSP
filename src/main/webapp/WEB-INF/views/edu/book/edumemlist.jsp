@@ -1,6 +1,5 @@
 <link href="${pageContext.request.contextPath}/resource/css/reset.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resource/css/core.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resource/css/common/header.css" rel="stylesheet">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -11,6 +10,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KimParkSeo</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <jsp:include page="/WEB-INF/views/common/common_star.jsp"/>
+    <script>
+	loginPermission();
+	adminPermission();
+    </script>
     <style>
         .wrap-main
         , .wrap-footer{
@@ -121,12 +125,12 @@
     	<div class="content">
             <div class="edu-list">
 	            <c:choose>
-	            	<c:when test="${empty map.dtolist }">
+	            	<c:when test="${empty edulist }">
 	            		등록된 교육이 없습니다.
 	            	</c:when>
 		            <c:otherwise>
 			            <div class="edu-list-detail">
-			            	<c:forEach items="${map.dtolist }" var="edu" varStatus="vs">
+			            	<c:forEach items="${edulist }" var="edu" varStatus="vs">
 				                    <div>
 				                        <a href="${pageContext.request.contextPath }/edu/one?id=${edu.eduId}">
 				                        	<div class="edu-content">
@@ -163,26 +167,6 @@
 		            </c:otherwise>
 	            </c:choose>
         	</div>
-            <div class="edu-paging">
-                <ul>
-                	<c:if test="${map.startPageNum > 1 }">
-                		<li><a href="${pageContext.request.contextPath }/edu/list?edu-name=${ssSearch }&page=${page = 1}"> &lt;&lt;&nbsp;&nbsp; </a></li>
-                		<li><a href="${pageContext.request.contextPath }/edu/list?edu-name=${ssSearch }&page=${map.startPageNum-1}"> &lt; </a></li>
-                	</c:if>
-                	<c:forEach begin="${map.startPageNum }" end="${map.endPageNum }" var="page">
-                		<c:if test="${map.currentPageNum == page }">
-                			<li><strong>${page }</strong></li>
-                		</c:if>
-                		<c:if test="${map.currentPageNum != page }">
-                			<li><a href="${pageContext.request.contextPath }/edu/list?edu-name=${ssSearch }&page=${page}">${page }</a></li>
-                		</c:if>
-                	</c:forEach>
-                	<c:if test="${map.endPageNum < map.totalPageCount }">
-                		<li><a href="${pageContext.request.contextPath }/edu/list?edu-name=${ssSearch }&page=${map.endPageNum + 1 }"> &gt; </a>
-                		<li><a href="${pageContext.request.contextPath }/edu/list?edu-name=${ssSearch }&page=${page = map.totalPageCount}"> &nbsp;&nbsp;&gt;&gt; </a>
-                	</c:if>
-                </ul>
-            </div>
         </div>
     </div>
     <div class="wrap-footer">

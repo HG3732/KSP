@@ -24,14 +24,12 @@ public class EduBookSubmitController extends HttpServlet {
      */
     public EduBookSubmitController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 	}
 
 	/**
@@ -48,10 +46,7 @@ public class EduBookSubmitController extends HttpServlet {
 		String eduPartSchool = request.getParameter("book-school");
 		
 		int result = ebs.insert(new EduBookDto(eduBookId, eduId, eduBookPhone, eduPartLevel, eduPartName, eduPartSchool));
-		if(result > 0) {
-			result = 1;
-			response.getWriter().append(String.valueOf(result));
-		}
+		response.getWriter().append(String.valueOf(result));
 	}
 
 }

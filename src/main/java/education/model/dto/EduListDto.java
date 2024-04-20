@@ -22,7 +22,7 @@ public class EduListDto {
 	public String toString() {
 		return "EduListDto [eduId=" + eduId + ", eduSubject=" + eduSubject + ", eduParticipant=" + eduParticipant
 				+ ", eduBookStart=" + eduBookStart + ", eduBookEnd=" + eduBookEnd + ", eduStart=" + eduStart
-				+ ", eduEnd=" + eduEnd + ", eduWriteTime=" + eduWriteTime + "]\n";
+				+ ", eduEnd=" + eduEnd + ", eduWriteTime=" + eduWriteTime + "]";
 	}
 
 	public EduListDto(Integer eduId, String eduSubject, String eduParticipant, String eduBookStart, String eduBookEnd,

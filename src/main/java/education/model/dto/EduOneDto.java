@@ -29,7 +29,7 @@ public class EduOneDto {
 		return "EduDetailDto [eduId=" + eduId + ", eduSubject=" + eduSubject + ", eduContent=" + eduContent
 				+ ", eduAddress=" + eduAddress + ", eduParticipant=" + eduParticipant + ", eduDay=" + eduDay
 				+ ", eduBookStart=" + eduBookStart + ", eduBookEnd=" + eduBookEnd + ", eduStart=" + eduStart
-				+ ", eduEnd=" + eduEnd + ", eduWriteTime=" + eduWriteTime + "]\n";
+				+ ", eduEnd=" + eduEnd + ", eduWriteTime=" + eduWriteTime + "]";
 	}
 
 	public EduOneDto(Integer eduId, String eduSubject, String eduContent, String eduAddress, String eduParticipant,

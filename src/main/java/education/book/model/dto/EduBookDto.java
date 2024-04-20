@@ -18,7 +18,7 @@ public class EduBookDto {
 	public String toString() {
 		return "EduBookDto [eduBookId=" + eduBookId + ", eduId=" + eduId + ", eduBookPhone=" + eduBookPhone
 				+ ", eduPartLevel=" + eduPartLevel + ", eduPartName=" + eduPartName + ", eduPartSchool=" + eduPartSchool
-				+ "]\n";
+				+ "]";
 	}
 
 	public EduBookDto(String eduBookId, Integer eduId, String eduBookPhone, String eduPartLevel, String eduPartName,

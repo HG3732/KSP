@@ -34,6 +34,7 @@ public class EduListController extends HttpServlet {
 		
 		String searchSubject = request.getParameter("edu-name");
 		request.getSession().setAttribute("ssSearch", searchSubject);
+		request.getSession().getAttribute("ssslogin");
 //		request.setAttribute("eduList", service.selectList());
 //		request.setAttribute("eduSubject", searchSubject);
 		

@@ -113,7 +113,15 @@ public class BoardService {
 
 		close(conn);
 		return result;
-
+	}
+	
+	public int selectReplyCount(Integer boardNo) {
+		int result = 0;
+		Connection conn = getConnection(true);
+		result = dao.selectTotalReply(conn, boardNo);
+		
+		close(conn);
+		return result;
 	}
 
 	// insertList

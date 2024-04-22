@@ -92,11 +92,13 @@ public class BoardReplyWriteController extends HttpServlet {
 		}
 		
 		
+		
 		BoardReplyWriteDto dto = new BoardReplyWriteDto(boardReplyId, boardNo, boardReplyWriter, boardReplyContent, boardReplyWriteTime);
 		System.out.println("댓글 작성 컨트롤러 dto : " + dto);
 		int result = service.insertReply(dto);
 		if (result > 0) {
 			List<BoardReplyListDto> replydtolist = service.selectBoardReplyList(boardNo);
+			
 			response.getWriter().append(gson.toJson(replydtolist));
 			
 		}

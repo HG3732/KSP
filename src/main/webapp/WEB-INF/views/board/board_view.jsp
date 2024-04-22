@@ -100,7 +100,7 @@
 			<form id="frm-reply">
 				<input type="hidden" name="boardNo" value="${dto.boardNo }">
 				<div class="comment">
-					<div>댓글 댓글 개수</div>
+					 <div>댓글 ${replydto.replyCount} </div> 
 					<div class="comment-box">
 						<input type="text" name="boardReplyContent" required>
 						<button type="button" class="btn reply">등록</button>
@@ -271,7 +271,19 @@
 		$(".btn.rereply").on("click", btnReReplyClickHandler);
         }
         
-        
+       	// 댓글 총 개수
+       	/* 
+       	$.ajax({
+       		url : "${pageContext.request.contextPath}/board/reply/write.ajax",
+       		method : "post",
+       		data : {boardNo:"${dto.boardNo}"},
+       		dataType : "json",
+       		success : function (result){
+       			// 댓글 총 개수를 가져와서 HTML에 표시
+       			$(".comment").html("<div>댓글 ${reply.replyCount} </div>");
+       		}
+       	});
+        */
         // 대댓글
 /*          
         function displayReReplyWrap(datalist) {

@@ -5,14 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
-import education.book.model.dto.EduBookDto;
-import education.book.model.dto.EduBookListDto;
 import education.model.dto.EduOneDto;
-import education.model.dto.EduDto;
+import education.model.dto.EduFileWriteDto;
 import education.model.dto.EduListDto;
 import education.model.dto.EduRecentDto;
 
@@ -193,35 +193,13 @@ public class EduDao {
 	}
 	
 	// insert
-	public int insert(Connection con, EduOneDto dto) {
+	public int insert(SqlSession session, EduOneDto dto, List<EduFileWriteDto> filelist) {
 		System.out.println("EduDao insert()");
 		int result = 0;
-		String sql = "INSERT INTO EDU_LIST "
-				+ " VALUES( "
-				+ " (SELECT NVL(MAX(EDU_ID), 0) + 1 FROM EDU_LIST)"
-				+ " , ?, ?, ?, ?, ?, ?, ?, ?, ? "
-				+ " , DEFAULT) ";
-		PreparedStatement pstmt = null;
-		
-		try {
-			pstmt = con.prepareStatement(sql);
-			// ? 자리
-			pstmt.setString(1, dto.getEduSubject());
-			pstmt.setString(2, dto.getEduContent());
-			pstmt.setString(3, dto.getEduAddress());
-			pstmt.setString(4, dto.getEduParticipant());
-			pstmt.setString(5, dto.getEduDay());
-			pstmt.setString(6, dto.getEduBookStart());
-			pstmt.setString(7, dto.getEduBookEnd());
-			pstmt.setString(8, dto.getEduStart());
-			pstmt.setString(9, dto.getEduEnd());
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		close(pstmt);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("dto", dto);
+		map.put("filelist", filelist);
+		result = session.insert("edu.insert", map);
 		System.out.println("result : " + result);
 		return result;
 	}

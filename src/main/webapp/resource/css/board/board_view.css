@@ -110,9 +110,6 @@ margin-top: -11px;
     margin: 0 8px;
     cursor: pointer;
 }
-.boardreply.grid{
-	margin-top:20px;
-}
 
 .comment{
     margin-top: 50px;
@@ -136,6 +133,7 @@ margin-top: -11px;
     margin-left: 100px;
     width: 5%;
     color: black;
+	cursor:pointer;    
 }
 /* body > div.wrap-main > div > div.reply-wrap > form:nth-child(1) > div > div.rereplycontent.span */
 .rereplycontent.span{
@@ -152,11 +150,26 @@ margin-top: -11px;
     color: white;
 }
 
+.boardreply.grid {
+	display: grid;
+	grid-template-columns: 5fr 2fr 1fr 1fr;
+	/* max-width: 800px; */
+}
+
+.boardreply.grid .rereplycontent.span {
+	grid-column: 1/-1;
+	display: none;
+}
+.boardreply.grid{
+	margin-top:20px;
+}
+
 .boardreply.grid .btn.show.rereplycontent {
 	border: none;
     margin-left: 100px;
     width: 53px;
     color: black;
+    cursor:pointer;
 } 
 
 .boardreply.grid .rereplycontent.span .btn.rereply {
@@ -164,5 +177,45 @@ margin-top: -11px;
     margin-left: 53px;
     width: 53px;
     color: black;
-}  
+    cursor:pointer;
+}
+.boardrereply.grid {
+	display: grid;
+	grid-template-columns: 5fr 2fr 1fr 1fr;
+	/* max-width: 800px; */
+}
 
+.boardrereply.grid .rereplycontent.span {
+	grid-column: 1/-1;
+	display: none;
+}
+.boardrereply.grid{
+	margin-top:20px;
+}
+
+.boardrereply.grid > div:first-child{
+	margin-left : 100px;
+}  
+.boardrereply.grid .btn.show.rereplycontent {
+	border: none;
+    margin-left: 100px;
+    width: 53px;
+    color: black;
+    
+} 
+
+.boardrereply.grid .rereplycontent.span .btn.rereply {
+	border: none;
+    margin-left: 53px;
+    width: 53px;
+    color: black;
+    cursor:pointer;
+}
+
+.boardrereply.grid{
+	background-color : rgb(255,255,255,0.3);
+}
+.boardrereply.grid .rereply-content{
+	font-weight: bold;
+	color: blue;
+}

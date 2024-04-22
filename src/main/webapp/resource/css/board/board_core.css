@@ -13,6 +13,11 @@ input[type="text"]:focus{
 outline: none;
 
 }
+/* 
+button[type="button"]:hover{
+	cursor:pointer;
+}
+ */
 .wrap-main{
     width: 100%;
     min-width: 1100px;

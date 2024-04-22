@@ -20,16 +20,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="https:/code.jquery.com/jquery-3.7.1.js"></script>
 <style>
-.boardreply.grid {
-	display: grid;
-	grid-template-columns: 1fr 5fr 2fr 1fr 1fr;
-	/* max-width: 800px; */
-}
 
-.boardreply.grid .rereplycontent.span {
-	grid-column: 1/-1;
-	display: none;
-}
 </style>
 </head>
 
@@ -182,6 +173,7 @@
          	// 댓글 등록 후 댓글란 비우기
             $(this).prev().val("");
         }
+		
         // 대댓글
         function btnReReplyClickHandler() {
             // login 확인
@@ -212,14 +204,77 @@
                          return;
                      }
                      displayReplyWrap(result);
+                     // displayReReplyWrap(result);
                  }
          });
          
         }
          
-        
-        
+        // 댓글
         function displayReplyWrap(datalist) {
+        	console.log("${dto.boardNo}");
+        	var htmlVal = '';
+        	for(var idx in datalist){
+				var replydto = datalist[idx];
+				if(replydto.bReplyLevel == 1){
+        		htmlVal += `
+        		<form class="frm-rereply">
+        			<input type="hidden" name="boardNo" value="${dto.boardNo}">
+        			<input type="hidden" name="boardReplyId" value="\${replydto.bReplyId}">
+        			<input type="hidden" name="boardReplyLevel" value="\${replydto.bReplyLevel}">
+        			<input type="hidden" name="boardReplyStep" value="\${replydto.bReplyStep}">
+        			<input type="hidden" name="boardReplyRef" value="\${replydto.bReplyRef}">
+        			<div class="boardreply grid">
+        				<div>\${replydto.bReplyContent}</div>
+        				<div>\${replydto.bReplyWriteTime}</div>
+        				<div>\${replydto.bReplyWriter}</div>
+        				<div><button type="button" class="btn show rereplycontent">답글</button></div>
+        				<div class="rereplycontent span">
+        					<input type="text" name="boardReplyContent">
+        					<button type="button" class="btn rereply">등록</button>
+        				</div>
+        			</div>
+        		</form>
+				`;
+				
+			// 대댓글
+			}else{
+				htmlVal += `
+	        		<form class="frm-rereply">
+	        			<input type="hidden" name="boardNo" value="${dto.boardNo}">
+	        			<input type="hidden" name="boardReplyId" value="\${replydto.bReplyId}">
+	        			<input type="hidden" name="boardReplyLevel" value="\${replydto.bReplyLevel}">
+	        			<input type="hidden" name="boardReplyStep" value="\${replydto.bReplyStep}">
+	        			<input type="hidden" name="boardReplyRef" value="\${replydto.bReplyRef}">
+	        			<div class="boardrereply grid">
+	        				<div><span class="rereply-content">ㄴ </span> \${replydto.bReplyContent}</div>
+	        				<div>\${replydto.bReplyWriteTime}</div>
+	        				<div>\${replydto.bReplyWriter}</div>
+	        				<div><button type="button" class="btn show rereplycontent">답글</button></div>
+	        				<div class="rereplycontent span">
+	        					<input type="text" name="boardReplyContent">
+	        					<button type="button" class="btn rereply">등록</button>
+	        				</div>
+	        			</div>
+	        		</form>
+					`;
+				
+			}
+        }
+        	
+        	 
+        	
+		$(".reply-wrap").html(htmlVal);
+		// html(새로운 내용으로 덮어쓰면 기존 event 등록이 사라짐)
+		// event 다시 등록
+		$(".btn.rereplycontent.show").on("click",btnReReplyContentClickHandler);
+		$(".btn.rereply").on("click", btnReReplyClickHandler);
+        }
+        
+        
+        // 대댓글
+/*          
+        function displayReReplyWrap(datalist) {
         	console.log("${dto.boardNo}");
         	var htmlVal = '';
         	for(var idx in datalist){
@@ -231,7 +286,7 @@
         			<input type="hidden" name="boardReplyLevel" value="\${replydto.bReplyLevel}">
         			<input type="hidden" name="boardReplyStep" value="\${replydto.bReplyStep}">
         			<input type="hidden" name="boardReplyRef" value="\${replydto.bReplyRef}">
-        			<div class="boardreply grid">
+        			<div class="boardrereply grid">
         				<div>\${replydto.bReplyId}</div>
         				<div>\${replydto.bReplyContent}</div>
         				<div>\${replydto.bReplyWriteTime}</div>
@@ -245,12 +300,16 @@
         		</form>
 				`;
 			}
-		$(".reply-wrap").html(htmlVal);
-		// html(새로운 내용으로 덮어쓰면 기존 event 등록이 사라짐)
-		// event 다시 등록
-		$(".btn.rereplycontent.show").on("click",btnReReplyContentClickHandler);
-		$(".btn.rereply").on("click", btnReReplyClickHandler);
-        }
+         	
+    		$(".reply-wrap").html(htmlVal);
+    		// html(새로운 내용으로 덮어쓰면 기존 event 등록이 사라짐)
+    		// event 다시 등록
+    		$(".btn.rereplycontent.show").on("click",btnReReplyContentClickHandler);
+    		$(".btn.rereply").on("click", btnReReplyClickHandler);
+            }
+           */
+        
+        	
         function btnReReplyContentClickHandler() {
         	if($(this).text() == "취소"){
         		$(this).text("댓글");

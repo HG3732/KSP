@@ -26,14 +26,14 @@ import member.model.dto.MemberLoginDto;
  * Servlet implementation class BoardWrite_Controller
  */
 @WebServlet("/board/write")
-public class BoardWrite_Controller extends HttpServlet {
+public class BoardWriteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BoardService service = new BoardService();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardWrite_Controller() {
+    public BoardWriteController() {
         super();
         // TODO Auto-generated constructor stub
     }

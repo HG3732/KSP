@@ -17,7 +17,7 @@ public class AlertController {
 	}
 	public static void adminPermission(HttpServletRequest request, HttpServletResponse response, String msg, String servletMapping) throws ServletException, IOException {
 		MemberInfoDto dto = (MemberInfoDto) request.getSession().getAttribute("ssslogin");
-		if(dto.getMem_admin() < 1) {
+		if(dto == null || dto.getMem_admin() < 1) {
 			request.setAttribute("alertMsg", msg);
 			request.setAttribute("servletMapping", servletMapping);
 			return;

@@ -3,13 +3,13 @@ package weather.model.dto;
 public class WeatherPTYDto {
 	private String date;
 	private String time;
-	private double pty;
+	private String pty;
 
 	public WeatherPTYDto() {
 		super();
 	}
 
-	public WeatherPTYDto(String date, String time, double pty) {
+	public WeatherPTYDto(String date, String time, String pty) {
 		super();
 		this.date = date;
 		this.time = time;
@@ -37,11 +37,11 @@ public class WeatherPTYDto {
 		this.time = time;
 	}
 
-	public double getPty() {
+	public String getPty() {
 		return pty;
 	}
 
-	public void setPty(double pty) {
+	public void setPty(String pty) {
 		this.pty = pty;
 	}
 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="weather">
+	<!-- 날씨 종합 정보 조회 -->
+	<select id="selectAllList" resultType="WeatherDto">
+		SELECT T.FCST_DATE, FCST_HOUR, T1H, SKY, PTY FROM WEATHER_T1H T
+			JOIN WEATHER_SKY USING (FCST_HOUR)
+			JOIN WEATHER_PTY USING (FCST_HOUR)
+			ORDER BY T.FCST_DATE, FCST_HOUR
+	</select>
+	
+	<!-- 기존 날씨 정보 삭제 -->
+	<delete id="deleteT1h">
+		DELETE FROM WEATHER_T1H
+	</delete>
+	<delete id="deleteSky">
+		DELETE FROM WEATHER_SKY
+	</delete>
+	<delete id="deletePty">
+		DELETE FROM WEATHER_PTY
+	</delete>
+	
+	<!-- 최신 날씨 정보 입력 -->
+	<insert id="insertT1h" parameterType="WeatherT1HDto">
+		INSERT INTO WEATHER_T1H VALUES(#{time}, #{date}, #{t1h})
+	</insert>
+	<insert id="insertSky" parameterType="WeatherSKYDto">
+		INSERT INTO WEATHER_SKY VALUES(#{time}, #{date}, #{sky})
+	</insert>
+	<insert id="insertPty" parameterType="WeatherPTYDto">
+		INSERT INTO WEATHER_PTY VALUES(#{time}, #{date}, #{pty})
+	</insert>
+</mapper>

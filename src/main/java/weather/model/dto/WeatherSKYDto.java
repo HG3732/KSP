@@ -4,13 +4,13 @@ public class WeatherSKYDto {
 
 	private String date;
     private String time;
-    private double sky;
+    private String sky;
     
 	public WeatherSKYDto() {
 		super();
 	}
 	
-	public WeatherSKYDto(String date, String time, double sky) {
+	public WeatherSKYDto(String date, String time, String sky) {
 		super();
 		this.date = date;
 		this.time = time;
@@ -33,10 +33,10 @@ public class WeatherSKYDto {
 	public void setTime(String time) {
 		this.time = time;
 	}
-	public double getSky() {
+	public String getSky() {
 		return sky;
 	}
-	public void setSky(double sky) {
+	public void setSky(String sky) {
 		this.sky = sky;
 	}
     

@@ -12,6 +12,11 @@
 		<typeAlias type="education.model.dto.EduListDto" alias="EduListDto"/>
 		<typeAlias type="education.book.model.dto.EduBookDto" alias="EduBookDto"/>
 		<typeAlias type="education.book.model.dto.EduBookListDto" alias="EduBookListDto"/>
+		
+		<typeAlias type="weather.model.dto.WeatherDto" alias="WeatherDto"/>
+		<typeAlias type="weather.model.dto.WeatherPTYDto" alias="WeatherPTYDto"/>
+		<typeAlias type="weather.model.dto.WeatherSKYDto" alias="WeatherSKYDto"/>
+		<typeAlias type="weather.model.dto.WeatherT1HDto" alias="WeatherT1HDto"/>
 	</typeAliases>
 	<environments default="development2">
 		<environment id="development1">
@@ -36,6 +41,8 @@
 	<mappers>
 		<mapper resource="mappers/edu-mapper.xml"/>
 		<mapper resource="mappers/edubook-mapper.xml"/>
+		
+		<mapper resource="mappers/weather-mapper.xml"/>
 		<!-- xxx-mapper.xml 생성 후 추가 -->
 	</mappers>
 </configuration>

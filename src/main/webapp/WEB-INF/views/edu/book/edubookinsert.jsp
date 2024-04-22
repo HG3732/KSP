@@ -68,7 +68,7 @@
     <div class="wrap-main">
         <div class="edu-book-info">
         	<input type="hidden" name="email" class="email" value="${ssslogin.mem_email }">
-            <form id="frm-edubook" action="${pageContext.request.contextPath }/edu/book/insert" method="post">
+            <form id="frm-edubook">
             <input type="hidden" name="id" value="${detail.eduId }">
                 <table>
                     <caption><h2>신청 정보</h2></caption>
@@ -127,7 +127,7 @@
 	                        <td>학교명</td><td><input type="text" id="book-school" name="book-school" disabled></td>
 	                    </tr>
 	                    <tr>
-	                        <td colspan="4"><button type="submit" class="btn book" disabled>신청</button></td>
+	                        <td colspan="4"><button type="button" class="btn book" disabled>신청</button></td>
 	                    </tr>
                     </tbody>
                 </table>

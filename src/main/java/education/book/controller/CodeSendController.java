@@ -92,7 +92,6 @@ public class CodeSendController extends HttpServlet {
 		    response.getWriter().append(code);
 		}catch(Exception e){
 			e.printStackTrace();
-			response.getWriter().append(code);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package education.controller;
 
+import java.io.File;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,7 +31,6 @@ public class EduListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().setAttribute("recentEdu", new EduService().selectRecent().getEduSubject());
-		
 		
 		String searchSubject = request.getParameter("edu-name");
 		request.getSession().setAttribute("ssSearch", searchSubject);

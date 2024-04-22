@@ -15,7 +15,7 @@ import education.model.service.EduService;
 /**
  * Servlet implementation class EduDetailEditController
  */
-@WebServlet("/edu/update")
+@WebServlet("/edu/list/update")
 public class EduUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private EduService service = new EduService();

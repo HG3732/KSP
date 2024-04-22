@@ -91,7 +91,7 @@
             <a href="${pageContext.request.contextPath }/edu"><h3>교육 목록</h3></a>
             <a href="${pageContext.request.contextPath }/edu/book"><h3>교육 예약 현황</h3></a>
             <div class="home-menu">
-                <a href="#"><img src="https://www.jejusi.go.kr/images/star/icon/home_icon01.png"></a>
+                <a href="${pageContext.request.contextPath }/home"><img src="https://www.jejusi.go.kr/images/star/icon/home_icon01.png"></a>
                 <div> &nbsp; | 행사 및 교육 | 행사 및 교육신청</div>
             </div>
             <hr>
@@ -122,10 +122,10 @@
 	                            			</div>
 	                            			<c:if test="${ssslogin.mem_admin > 0 }">
 	                            			<div>
-		                        				<a href="${pageContext.request.contextPath }/edu/update?id=${detail.eduId }"><button type="button" class="btn eduup">수정</button></a>
+		                        				<a href="${pageContext.request.contextPath }/edu/list/update?id=${detail.eduId }"><button type="button" class="btn eduup">수정</button></a>
 	                            			</div>
 	                            			<div>
-			                        			<form action="${pageContext.request.contextPath }/edu/delete" method="post"><input type="hidden" name="eduId" value="${detail.eduId }" ><button type="submit" class="btn edudel">삭제</button></form>
+			                        			<button type="submit" class="btn edudel">삭제</button>
 	                            			</div>
 	                            			</c:if>
 	                    				</div>
@@ -169,7 +169,7 @@
                         </table>
                     </div>
                     <div class="edu-book">
-                        <a href="${pageContext.request.contextPath }/edu/book/insert?id=${detail.eduId }">신청하기</a>
+                        <a href="${pageContext.request.contextPath }/edu/form?id=${detail.eduId }">신청하기</a>
                     </div>
                 </div>
             </div>
@@ -187,6 +187,7 @@
 $(loadedHandler);
 function loadedHandler(){
 	$(".btn.bookdel").on("click", bookDelHandler);
+	$(".btn.edudel").on("click", eduDelHandler);
 }
 function bookDelHandler(){
 	var eduIdVal = $("#eduId").val();

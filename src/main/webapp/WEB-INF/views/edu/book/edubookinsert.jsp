@@ -153,7 +153,7 @@ function loadedHandler(){
 // 인증번호 발송 
 function sendCodeHandler(){
 	$.ajax({
-		url : "${pageContext.request.contextPath }/code/send.ajax"
+		url : "${pageContext.request.contextPath }/edu/book/code/send.ajax"
 			, method : "post"
 			, async : false
 			// serialize --> query string(name : value)형태로 나열해줌_{id : $("[name=id]").val(), pwd : $("[name=pwd]").val()}
@@ -180,7 +180,7 @@ function checkCodeHandler(){
 	var sendCodeVal = $("#book-code").val();
 	var inputCodeVal = $("#book-email-code").val();
 	$.ajax({
-		url : "${pageContext.request.contextPath}/code/check.ajax"
+		url : "${pageContext.request.contextPath}/edu/book/code/check.ajax"
 		, method : "post"
 		, data : {sendCode : sendCodeVal, inputCode : inputCodeVal}
 		, async : false
@@ -222,7 +222,7 @@ function checkValHandler(){
 // 신청 완료 여부 메시지 출력
 function bookMsgHandler(){
 	$.ajax({
-		url : "${pageContext.request.contextPath}/edu/book/submit.ajax"
+		url : "${pageContext.request.contextPath}/edu/form"
 		, method : "post"
 		, data : $("#frm-edubook").serialize()
 		, success : function(result){

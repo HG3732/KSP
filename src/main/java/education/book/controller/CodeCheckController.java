@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class CodeCheckController
  */
-@WebServlet("/code/check.ajax")
+@WebServlet("/edu/book/code/check.ajax")
 public class CodeCheckController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

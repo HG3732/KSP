@@ -22,7 +22,7 @@ import member.model.dto.MemberInfoDto;
 /**
  * Servlet implementation class EmailController
  */
-@WebServlet("/code/send.ajax")
+@WebServlet("/edu/book/code/send.ajax")
 public class CodeSendController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

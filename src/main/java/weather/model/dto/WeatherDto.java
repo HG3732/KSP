@@ -1,6 +1,9 @@
 package weather.model.dto;
 
-public class WeatherDto {
+import java.io.Serializable;
+
+public class WeatherDto implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
 	private String fcstDate;
     private String fcstHour;

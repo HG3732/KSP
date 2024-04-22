@@ -10,7 +10,7 @@
 <title>회원가입</title>
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
-	<script type="text/javascript">  
+<!-- 	<script type="text/javascript">  
 		var myWidget = cloudinary.createUploadWidget({
 		  cloudName: 'ksp-practice', 
 		  uploadPreset: 'zad3d9ug'}, (error, result) => { 
@@ -22,7 +22,7 @@
 		document.getElementById("upload_widget").addEventListener("click", function(){
 		    myWidget.open();
 		  }, false);
-	</script>
+	</script> -->
 <script>
     $(loadedHandler)
     
@@ -38,6 +38,7 @@
         $(".submit2").on("click", stepForward2Handler);
         $(".submit3").on("click", stepEndHandler);
         $(".idcheck").on("click", idCheckHandler);
+        $(".upload").on("click", uploadHandler);
     }
     
     //전체 체크시 하위 체크박스 체크 + 버튼 활성화
@@ -123,14 +124,17 @@
     
     //step2에서 step3로 넘어가는 함수
     function stepForward2Handler() {
+    	
+    	$("#meminfo").submit();
+    	
         $(".wrap-step2").css("display", "none");
-        $("li.step2").css("border-color", "#ccc")
-        $("li.step3").css("border-color", "#503396")
+        $("li.step2").css("border-color", "#ccc");
+        $("li.step3").css("border-color", "#503396");
         $(".wrap-step3").css("display", "block");	
     }
     
     function stepEndHandler(){
-        window.close();
+       window.close();
     }
     
     //아이디 중복 체크
@@ -159,9 +163,32 @@
     	});
     }
     
+    //파일 첨부
+    function uploadHandler() {
+	    var form = $('#uploadfile')[0];
+	    var formdata = new FormData(form);
+	    /* frm.method = "post";
+	    frm.action = "${pageContext.request.contextPath}/member/profile";
+	    frm.enctype = "multipart/form-data";
+	    frm.submit(); */
+	    $.ajax({
+	    	url: '${pageContext.request.contextPath}/member/profile.ajax'
+	    	, type: 'post'
+	    	, data : formdata
+	    	, contentType : false
+	    	, processData : false
+	    	, success : function(result){
+	    		
+	    	}
+	    	, error : ajaxErrorHandler
+	    });
+	    
+    }
+    
 </script>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/common/common_star.jsp"/>
     <div class="wrap-signUp">
         <header>
             <div class="top">
@@ -211,15 +238,16 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet diam in li
                 <div class="wrap-step2">
                     <p>&nbsp;회원정보를 입력해주세요.</p>
                     <div class="wrap-form">
-                    	<form method="post" action="https://api.cloudinary.com/v1_1/ksp-practice/image/upload">
+                    	<!-- <form id="uploadfile" method="post" action="https://api.cloudinary.com/v1_1/ksp-practice/image/upload"> -->
+                    	<form id="uploadfile">
                             <div class="wrap-file">
                         		<div>사진 첨부</div>
                         		<div>
-                        			<input type="file" name="mem_pic" class="mem_pic" style="border: none;">
+                        			<input type="file" name="uploadfiles" class="profilepicture" style="border: none;"><button type="button" name="upload" class="upload">첨부</button>
                        			</div>
                             </div>
                         </form>
-                        <form action="${pageContext.request.contextPath}/star/join" method="post">
+                        <form id="meminfo" action="${pageContext.request.contextPath}/star/join" method="post" target="blankifr">
                             <table>
                                 <colgroup>
                                     <col style="width: 130px">
@@ -301,4 +329,5 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet diam in li
         </main>
     </div>
 </body>
+<iframe name='blankifr' style='display:none;'></iframe>
 </html>

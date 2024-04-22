@@ -19,6 +19,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import board.model.dto.BoardInsertDto;
 import board.model.dto.FileWriteDto;
 import board.model.service.BoardService;
+import common.controller.AlertController;
 import member.model.dto.MemberInfoDto;
 import member.model.dto.MemberLoginDto;
 
@@ -42,6 +43,10 @@ public class BoardWriteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("연결 확인 두 겟");
+		AlertController.loginPermission(request, response, "로그인 후 글 작성이 가능합니다.");
+		
+		MemberInfoDto memberInfoDto = (MemberInfoDto) request.getSession().getAttribute("ssslogin");
 		System.out.println("글작성 컨트롤러 doGet");
 		request.getRequestDispatcher("/WEB-INF/views/board/board_write.jsp").forward(request, response);
 	}

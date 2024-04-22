@@ -19,6 +19,7 @@
 <title>Board Write</title>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="https:/code.jquery.com/jquery-3.7.1.js"></script>
+<jsp:include page="/WEB-INF/views/common/common_star.jsp"/>
 </head>
 <style>
 </style>
@@ -116,8 +117,13 @@
 	</div>
 
 	<script>
+	// 로그인상태 확인
+	(function () {
+		loginPermission();
+	})(); //
 		$(loadedHandler);
 		function loadedHandler() {
+			/* $("#btn-list-modalok").on("click", loginPermission); */
 			$("#btn-submit").on("click", btnUpModalClickHandler);
 			$("#btn-update-modalok").on("click", btnUpModalOkClickHandler);
 			$("#btn-update-modalcancel").on("click",
@@ -177,6 +183,9 @@
 			console.log("모달창 닫기");
 			$(".modal.list").css("display", "none");
 		}
+		
+		// 클라우디너리
+
 	</script>
 </body>
 

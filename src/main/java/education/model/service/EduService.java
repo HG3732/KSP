@@ -10,9 +10,9 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import common.MybatisTemplate;
-import education.book.model.dto.EduBookListDto;
 import education.model.dao.EduDao;
 import education.model.dto.EduOneDto;
+import education.model.dto.EduFileWriteDto;
 import education.model.dto.EduListDto;
 import education.model.dto.EduRecentDto;
 
@@ -76,11 +76,11 @@ public class EduService {
 	}
 	
 	// insert
-	public int insert(EduOneDto dto) {
+	public int insert(EduOneDto dto, List<EduFileWriteDto> filelist) {
 		int result = 0;
-		Connection con = getConnection(true);
-		result = dao.insert(con, dto);
-		close(con);
+		SqlSession session = MybatisTemplate.getSqlSession(true);
+		result = dao.insert(session, dto, filelist);
+		session.close();
 		return result;
 	}
 	

@@ -12,7 +12,7 @@ import education.model.service.EduService;
 /**
  * Servlet implementation class EduDeleteController
  */
-@WebServlet("/edu/delete")
+@WebServlet("/edu/delete.ajax")
 public class EduDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private EduService service = new EduService();
@@ -37,7 +37,11 @@ public class EduDeleteController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String eduIdStr = request.getParameter("eduId");
 		Integer eduId = Integer.parseInt(eduIdStr);
-		service.delete(eduId);
+		int result = service.delete(eduId);
+		if(result > 0) {
+			result = 1;
+			response.getWriter().append(String.valueOf(result));
+		}
 		response.sendRedirect(request.getContextPath() + "/edu");
 	}
 

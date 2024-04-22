@@ -1,5 +1,7 @@
 package education.model.dto;
 
+import java.util.List;
+
 public class EduOneDto {
 //	EDU_ID          NOT NULL NUMBER         
 //	EDU_SUBJECT     NOT NULL VARCHAR2(100)  
@@ -23,13 +25,14 @@ public class EduOneDto {
 	private String eduStart;
 	private String eduEnd;
 	private String eduWriteTime;
+	private List<EduFileDto> eduFileDtoList;
 
 	@Override
 	public String toString() {
-		return "EduDetailDto [eduId=" + eduId + ", eduSubject=" + eduSubject + ", eduContent=" + eduContent
+		return "EduOneDto [eduId=" + eduId + ", eduSubject=" + eduSubject + ", eduContent=" + eduContent
 				+ ", eduAddress=" + eduAddress + ", eduParticipant=" + eduParticipant + ", eduDay=" + eduDay
 				+ ", eduBookStart=" + eduBookStart + ", eduBookEnd=" + eduBookEnd + ", eduStart=" + eduStart
-				+ ", eduEnd=" + eduEnd + ", eduWriteTime=" + eduWriteTime + "]";
+				+ ", eduEnd=" + eduEnd + ", eduWriteTime=" + eduWriteTime + ", eduFileDtoList=" + eduFileDtoList + "]";
 	}
 
 	public EduOneDto(Integer eduId, String eduSubject, String eduContent, String eduAddress, String eduParticipant,
@@ -38,9 +41,10 @@ public class EduOneDto {
 		super();
 		this.eduId = eduId;
 		this.eduSubject = eduSubject;
+		eduContent = eduContent.replaceAll("\\n", "<br>");
+		eduContent = eduContent.replaceAll(" ", "&nbsp;");
 		this.eduContent = eduContent;
 		this.eduAddress = eduAddress;
-		this.eduDay = eduDay;
 		this.eduParticipant = eduParticipant;
 		this.eduDay = eduDay;
 		this.eduBookStart = eduBookStart;
@@ -48,6 +52,14 @@ public class EduOneDto {
 		this.eduStart = eduStart;
 		this.eduEnd = eduEnd;
 		this.eduWriteTime = eduWriteTime;
+	}
+
+	public List<EduFileDto> getEduFileDtoList() {
+		return eduFileDtoList;
+	}
+
+	public void setEduFileDtoList(List<EduFileDto> eduFileDtoList) {
+		this.eduFileDtoList = eduFileDtoList;
 	}
 
 	public Integer getEduId() {

@@ -196,19 +196,13 @@ function bookDelHandler(){
 		, data : {eduId : eduIdVal}
 		, success : function(result){
 			if(result == 1){
-				alert("취소가 완료되었습니다.");
+				alert("교육 신청 취소가 완료되었습니다.");
 				location.reload();
-				return;
 			}else{
-				alert("취소 중 오류가 발생했습니다.");
-				location.reload();
-				return;
+				alert("교육 신청 취소 중 오류가 발생했습니다.");
 			}
 		}
-		, error : function(request, status, error){
-			alert("code : " + request.status + "\n" + "message : " + request.responseText + "\n"
-					+ "error : " + error);
-		}
+		, error : ajaxErrorHandler
 	});
 }
 (function border(){

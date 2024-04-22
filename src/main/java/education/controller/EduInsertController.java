@@ -56,9 +56,11 @@ public class EduInsertController extends HttpServlet {
 		String eduEnd = request.getParameter("eduEnd");
 		try {
 			EduOneDto detail = new EduOneDto(null, eduSubject, eduContent, eduAddress, eduParticipant, eduDay, eduBookStart, eduBookEnd, eduStart, eduEnd, null);
-			service.insert(detail);
-			response.sendRedirect(request.getContextPath() + "/edu");
-			
+			int result = service.insert(detail);
+			if(result > 0) {
+				result = 1;
+				response.getWriter().append(String.valueOf(result));
+			}
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 			response.sendRedirect(request.getContextPath() + "home");

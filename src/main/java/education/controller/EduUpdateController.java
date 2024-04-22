@@ -70,12 +70,13 @@ public class EduUpdateController extends HttpServlet {
 		Integer eduId = Integer.parseInt(eduIdStr);
 		try {
 			EduOneDto detail = new EduOneDto(eduId, eduSubject, eduContent, eduAddress, eduParticipant, eduDay, eduBookStart, eduBookEnd, eduStart, eduEnd, service.selectOne(eduId).getEduWriteTime());
-			service.update(detail);
-			response.sendRedirect(request.getContextPath() + "/edu/one?id=" + eduId);
-			
+			int result = service.update(detail);
+			if(result > 0) {
+				result = 1;
+				response.getWriter().append(String.valueOf(result));
+			}
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
-			response.sendRedirect(request.getContextPath() + "home");
 		}
 
 	}

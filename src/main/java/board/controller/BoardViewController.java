@@ -52,8 +52,12 @@ public class BoardViewController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		/*
+		 * int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		 * 
+		 * int replyCount = service.selectReplyCount(boardNo);
+		 * response.getWriter().write("{\"count\":" + replyCount.getCount() + "}");
+		 */
 	}
 
 }

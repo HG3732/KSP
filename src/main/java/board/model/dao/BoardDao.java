@@ -55,6 +55,24 @@ public class BoardDao {
 		close(pstmt);
 		return result;
 	}
+	
+	// 댓글 개수 count
+	public int selectTotalReply(Connection conn, Integer boardNo) {
+		int result = 0;
+		String sql = "SELECT COUNT(*) CNT FROM BOARD_REPLY WHERE BOARD_NO = ?";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			// ? 처리
+			pstmt.setInt(1, boardNo);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		close(pstmt);
+		return result;
+	}
+	
 
 	// 페이징 리스트
 	public List<BoardListDto> selectPageList(Connection conn, String searchSubject, int start, int end) {

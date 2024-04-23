@@ -35,16 +35,28 @@ public class EduOneController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("/edu/one doGet()");
 		loginPermission(request, response, "교육 정보를 보시려면 로그인 해주세요.");
 		try {
-		EduRecentDto dtoRecent = es.selectRecent();
-		Object recentEdu = (dtoRecent != null) ? dtoRecent.getEduSubject() : "등록된 교육이 없습니다";
-		request.setAttribute("recentEdu", recentEdu);
-		String eduIdStr = request.getParameter("id");
-		Integer eduId = Integer.parseInt(eduIdStr);
-		MemberInfoDto dto = (MemberInfoDto)request.getSession().getAttribute("ssslogin");
-		request.setAttribute("cnt", ebs.selectBookCnt(dto.getMem_id(),eduId));
-		request.setAttribute("detail", es.selectOne(eduId));
+			// 최근 교육 제목 출력
+			EduRecentDto dtoRecent = es.selectRecent();
+			if(dtoRecent != null) {
+				request.setAttribute("recentEdu", dtoRecent.getEduSubject());
+			}else {
+				request.setAttribute("recentEdu", "등록된 교육이 없습니다.");
+			}
+			
+			// 교육 번호에 해당하는 정보
+			String eduIdStr = request.getParameter("id");
+			Integer eduId = Integer.parseInt(eduIdStr);
+			request.setAttribute("detail", es.selectOne(eduId));
+			
+			// 로그인 세션 정보
+			MemberInfoDto dto = (MemberInfoDto)request.getSession().getAttribute("ssslogin");
+			
+			// 해당 교육 신청했는지 여부
+			request.setAttribute("cnt", ebs.selectBookCnt(dto.getMem_id(),eduId));
+			
 		} catch (NumberFormatException | NullPointerException e) {
 			e.printStackTrace();
 		}

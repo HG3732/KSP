@@ -73,6 +73,7 @@
 		}
         .wrap-main>.content>.edu-list>.edu-detail>.edu-book{
             text-align: center;
+            margin-top: 10px;
         }
 
 
@@ -162,9 +163,17 @@
                                     </c:choose>
                                 	</td>
                                 </tr>
-                                <tr>
+                                <tr id="content">
                                     <td colspan="8">${detail.eduContent }</td>
                                 </tr>
+                                <c:if test="${not empty detail.eduFileDtoList }">
+                                <c:forEach items="${detail.eduFileDtoList }" var="file">
+                                <tr>
+                                	<td>${file.eduFileId }</td>
+                                	<td>${file.eduOriginalFileName } + 다운로드링크</td>
+                                </tr>
+                                </c:forEach>
+                                </c:if>
                             </tbody>
                         </table>
                     </div>
@@ -195,6 +204,7 @@ function bookDelHandler(){
 		url : "${pageContext.request.contextPath}/edu/book/delete.ajax"
 		, method : "post"
 		, data : {eduId : eduIdVal}
+		, error : ajaxErrorHandler
 		, success : function(result){
 			if(result == 1){
 				alert("교육 신청 취소가 완료되었습니다.");
@@ -203,12 +213,29 @@ function bookDelHandler(){
 				alert("교육 신청 취소 중 오류가 발생했습니다.");
 			}
 		}
+	});
+}
+function eduDelHandler(){
+	$.ajax({
+		url : "${pageContext.request.contextPath}/edu/delete.ajax"
+		, method : "post"
+		, data : "${detail.eduId}"
 		, error : ajaxErrorHandler
+		, success : function(result){
+			if(result == 1){
+				alert("교육이 삭제되었습니다.");
+				location.href = "${pageContext.request.contextPath}/edu";
+			}else{
+				alert("교육 삭제 중 오류가 발생했습니다.");
+			}
+		}
 	});
 }
 (function border(){
 	$("tr:first-of-type").css("border-bottom", "1px solid white");
-	$("tr:last-of-type").css("border-top", "1px solid white");
+	$("#content").css("border-top", "1px solid white");
+	$("#content").css("border-bottom", "1px solid white");
+	$("tr:last-of-type").css("border-bottom", "1px solid white");
 })();
 
 </script>

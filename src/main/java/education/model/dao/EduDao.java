@@ -12,6 +12,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import education.model.dto.EduOneDto;
+import education.model.dto.EduFileDto;
 import education.model.dto.EduFileWriteDto;
 import education.model.dto.EduListDto;
 import education.model.dto.EduRecentDto;
@@ -19,6 +20,14 @@ import education.model.dto.EduRecentDto;
 import static common.SemiTemplate.*;
 
 public class EduDao {
+	
+	// 해당 교육 글의 파일 불러오기
+	public List<EduFileDto> selectFileList(SqlSession session, Integer boardId){
+		System.out.println("EduDao selectFileList()");
+		List<EduFileDto> result = session.selectList("edu.selectFileList", boardId);
+		System.out.println("result : " + result);
+		return result;
+	}
 	
 	// selectAllList
 	public List<EduListDto> selectAllList(SqlSession session){
@@ -112,8 +121,6 @@ public class EduDao {
 		return session.selectList("edubook.selectMemList", mem_id);
 	}
 	
-	
-	
 	// selectRecent
 	public EduRecentDto selectRecent(Connection con) {
 		System.out.println("EduDao selectRecent()");
@@ -141,53 +148,11 @@ public class EduDao {
 		return result;
 	}
 	
-	// selectOne
-	public EduOneDto selectOne(Connection con, Integer eduId) {
+	// 교육 글 세부 정보 읽어오기
+	public EduOneDto selectOne(SqlSession session, Integer eduId) {
 		System.out.println("EduDao selectOne()");
 		EduOneDto result = null;
-		String sql = "SELECT EDU_ID "
-				+ " , EDU_SUBJECT "
-				+ " , EDU_CONTENT "
-				+ " , EDU_ADDRESS "
-				+ " , EDU_PARTICIPANT "
-				+ " , EDU_DAY "
-				+ " , TO_CHAR(EDU_BOOK_START, 'YYYY-MM-DD') BS "
-				+ " , TO_CHAR(EDU_BOOK_END, 'YYYY-MM-DD') BE "
-				+ " , TO_CHAR(EDU_START, 'YYYY-MM-DD') ES "
-				+ " , TO_CHAR(EDU_END, 'YYYY-MM-DD') EE "
-				+ " , EDU_WRITE_TIME "
-				+ " FROM EDU_LIST WHERE EDU_ID = ?";
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, eduId);
-			
-			rs = pstmt.executeQuery();
-			
-			// ResultSet 처리
-			if(rs.next()) {
-				result = new EduOneDto(
-						rs.getInt("EDU_ID")
-						, rs.getString("EDU_SUBJECT")
-						, rs.getString("EDU_CONTENT")
-						, rs.getString("EDU_ADDRESS")
-						, rs.getString("EDU_PARTICIPANT")
-						, rs.getString("EDU_DAY")
-						, rs.getString("BS")
-						, rs.getString("BE")
-						, rs.getString("ES")
-						, rs.getString("EE")
-						, rs.getString("EDU_WRITE_TIME")
-						);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		close(rs);
-		close(pstmt);
+		result = session.selectOne("edu.selectOne", eduId);
 		System.out.println("result : " + result);
 		return result;
 	}

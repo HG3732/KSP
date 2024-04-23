@@ -12,6 +12,7 @@ import org.apache.ibatis.session.SqlSession;
 import common.MybatisTemplate;
 import education.model.dao.EduDao;
 import education.model.dto.EduOneDto;
+import education.model.dto.EduFileDto;
 import education.model.dto.EduFileWriteDto;
 import education.model.dto.EduListDto;
 import education.model.dto.EduRecentDto;
@@ -19,6 +20,14 @@ import education.model.dto.EduRecentDto;
 public class EduService {
 	
 	private EduDao dao = new EduDao();
+
+	// 해당 교육 글의 파일 불러오기
+	public List<EduFileDto> selectFileList(Integer boardId){
+		List<EduFileDto> result = null;
+		SqlSession session = MybatisTemplate.getSqlSession(true);
+		result = dao.selectFileList(session, boardId);
+		return result;
+	}
 	
 	// selectAllList
 	public List<EduListDto> selectAllList(){
@@ -66,12 +75,13 @@ public class EduService {
 		return result;
 	}
 		
-	// selectOne
+	// 교육 세부 항목 및 파일 불러오기
 	public EduOneDto selectOne(Integer eduId) {
 		EduOneDto result = null;
-		Connection con = getConnection(true);
-		result = dao.selectOne(con, eduId);
-		close(con);
+		SqlSession session = MybatisTemplate.getSqlSession(true);
+		result = dao.selectOne(session, eduId);
+		List<EduFileDto> eduFileDtoList = dao.selectFileList(session, eduId);
+		result.setEduFileDtoList(eduFileDtoList);
 		return result;
 	}
 	

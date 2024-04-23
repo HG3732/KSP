@@ -32,12 +32,12 @@ public class LoginController extends HttpServlet {
 		String pw = request.getParameter("pw");
 		
 		pw = pe.getEncrypt(pw);
-		System.out.println("login : " + pw);
 
 		MemberLoginDto dto = new MemberLoginDto(id, pw);
-		// ajax
+
 		// 성공 : 1
 		// 실패 : 0
+		// 정지 : -1
 		int result = 0;
 		MemberInfoDto resultInfo = service.loginGetInfo(dto);
 		if(resultInfo != null) {
@@ -46,9 +46,13 @@ public class LoginController extends HttpServlet {
 				result = -1;
 			} else {
 			//성공, 정지 회원 아님
+			service.cntResetUpdate(id);
 			request.getSession().setAttribute("ssslogin", resultInfo);
 			result = 1;
 			}
+		} else {
+			result = 0;
+			service.failCntUpdate(id);
 		}
 		response.getWriter().append(String.valueOf(result));
 	

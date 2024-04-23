@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+
+import common.MybatisTemplate;
 import member.model.dao.MemberDao;
 import member.model.dto.MemberDto;
 import member.model.dto.MemberInfoDto;
@@ -97,6 +100,23 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+	
+	//비밀번호 틀리면 횟수 count
+	public int failCntUpdate(String mem_id) {
+		int result = 0;
+		SqlSession session = MybatisTemplate.getSqlSession(true);
+		result = dao.failCntUpdate(session, mem_id);
+		System.out.println("service : " + result);
+		return result;
+	}
+	
+	//비밀번호 틀린 횟수 reset
+	public void cntResetUpdate(String mem_id) {
+		SqlSession session = MybatisTemplate.getSqlSession(true);
+		dao.cntResetUpdate(session, mem_id);
+	}
+	
+	
 	//회원 개인정보 update
 	public int mypageUpdate(String mem_id, String mem_pwd, String mem_email, String mem_address, String currentId) {
 		int result = 0;

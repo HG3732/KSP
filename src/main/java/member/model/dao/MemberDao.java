@@ -7,6 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
+import common.MybatisTemplate;
+
 import static common.SemiTemplate.*;
 
 import member.model.dto.MemberDto;
@@ -210,6 +214,19 @@ public class MemberDao {
 			
 			close(pstmt);
 			return result;
+		}
+		
+		//fail_count update
+		public int failCntUpdate(SqlSession session, String mem_id) {
+			int result = 0;
+			result = session.update("member.updateFailCnt", mem_id);
+			System.out.println("dao : " + result);
+			return result;
+		}
+		
+		//fail_count reset
+		public void cntResetUpdate(SqlSession session, String mem_id) {
+			session.update("member.resetFailCnt", mem_id);
 		}
 		
 		//MypageUpdate

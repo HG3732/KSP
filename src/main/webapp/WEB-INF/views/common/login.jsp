@@ -31,7 +31,6 @@ function loginSubmitHandler() {
 		,success : function(result){
 			if(result == '-1'){
 				alert("이용이 정지된 계정입니다. 다른 계정으로 접속해주세요.")
-				console.log(result);
 			}
 			else if(result == '1'){
 				alert("반갑습니다");

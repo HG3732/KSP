@@ -44,6 +44,7 @@
 		<mapper resource="mappers/edu-mapper.xml"/>
 		<mapper resource="mappers/edubook-mapper.xml"/>
 		
+		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/weather-mapper.xml"/>
 		<!-- xxx-mapper.xml 생성 후 추가 -->
 	</mappers>

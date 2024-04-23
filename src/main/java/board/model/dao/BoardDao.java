@@ -11,6 +11,8 @@ import java.util.List;
 
 import javax.naming.spi.DirStateFactory.Result;
 
+import board.model.dto.BoardDto;
+import board.model.dto.BoardFileDto;
 import board.model.dto.BoardInsertDto;
 import board.model.dto.BoardListDto;
 import board.model.dto.BoardReplyDto;
@@ -77,15 +79,21 @@ public class BoardDao {
 	// 페이징 리스트
 	public List<BoardListDto> selectPageList(Connection conn, String searchSubject, int start, int end) {
 		List<BoardListDto> result = null;
-		String sql = "        select t2.*" + "        from (select t1.*, rownum as rn"
-				+ "        from (SELECT board_no, board_title, COUNT(file_id) AS FILE_CNT, board_writer, board_write_time, hit"
-				+ " FROM board_community "
-				+ " LEFT JOIN board_file ON b_no = board_no"
-				+ " GROUP BY board_no, board_title, board_writer, board_write_time, hit";
-		if(searchSubject != null) {
-			sql += " WHERE BOARD_TITLE LIKE '%" + searchSubject + "%' ";
-		}
-			sql += " order by 1 desc) t1 ) t2 where rn between ? and ?";
+		String sql = "SELECT t2.* " +
+	             " FROM ( " +
+	             "    SELECT t1.*, rownum AS rn " +
+	             "    FROM ( " +
+	             "        SELECT board_no, board_title, COUNT(file_id) AS FILE_CNT, board_writer, board_write_time, hit " +
+	             "        FROM board_community " +
+	             "        LEFT JOIN board_file ON b_no = board_no ";
+	if(searchSubject != null) {
+	    sql += "        WHERE BOARD_TITLE LIKE '%" + searchSubject + "%' ";
+	}
+	sql += "        GROUP BY board_no, board_title, board_writer, board_write_time, hit " +
+	       "        ORDER BY 1 DESC " +
+	       "    ) t1 " +
+	       " ) t2 " +
+	       " WHERE rn BETWEEN ? AND ?";
 //		String sql = "select t2.*"
 //				+" from (select t1.*, rownum rn" 
 //			    +" from (select board_no, board_title, file_id, board_writer, board_write_time, hit"
@@ -308,6 +316,55 @@ public class BoardDao {
 
 	}
 	
+	// update
+	public int update(Connection conn, BoardDto dto) {
+		int result = 0;
+		String sql = "UPDATE BOARD_COMMUNITY SET BOARD_TITLE=?, BOARD_CONTENT=? WHERE BOARD_NO=?";
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getBoardTitle());;
+			pstmt.setString(2, dto.getBoardContent());
+			pstmt.setInt(3, dto.getBoardNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		close(pstmt);
+		return result;
+	}
+	
+	// File Update
+	/*
+	 * public int fileUpdate(Connection conn, BoardFileDto dto) { int result = 0;
+	 * String sql =
+	 * "UPDATE BOARD_FILE SET FILE_ID=?, FILE_PATH=?, FILE_ORIGINAL_NAME WHERE B_NO"
+	 * ; PreparedStatement pstmt = null;
+	 * 
+	 * try { pstmt = conn.prepareStatement(sql); result = pstmt.executeUpdate(); }
+	 * catch (SQLException e) { e.printStackTrace(); } close(pstmt); return result;
+	 * }
+	 */
+	
+	
+	// deleteList
+	public int delete(Connection conn, Integer boardNo) {
+		int result = 0;
+		String sql = "DELETE FROM BOARD_COMMUNITY WHERE BOARD_NO = ?";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		close(pstmt);
+		return result;
+	}
+	
 	// -------board reply 댓글
 	// select list - board reply : board_id
 	public List<BoardReplyListDto> selectBoardReplyList(Connection conn, Integer boardNo){
@@ -419,5 +476,4 @@ public class BoardDao {
 	
 	// listContent
 
-	// deleteList
 }

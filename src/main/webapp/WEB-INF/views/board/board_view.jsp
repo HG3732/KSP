@@ -63,11 +63,11 @@
 								<dt>작성자</dt>
 								<dd>${dto.boardWriter }</dd>
 							</dl>
-							<dl>
+							<dl class="write-time">
 								<dt>작성일</dt>
 								<dd>${dto.boardWriteTime }</dd>
 							</dl>
-							<dl>
+							<dl class="hits">
 								<dt>조회수</dt>
 								<dd>${dto.hit }</dd>
 							</dl>
@@ -84,6 +84,18 @@
 											</li>
 										</c:forEach>
 									</ul>
+								</dd>
+							</dl>
+							<dl class="btn">
+								<dt>
+									<c:if test="${ssslogin.mem_admin > 0 || ssslogin.mem_id eq dto.boardWriter}">
+									<a href="${PageContext.request.contextPath}/star/board/update?no=${dto.boardNo }"><button type="button" class="btn-update">수정하기</button></a>
+								</c:if>
+								</dt>
+								<dd>
+									<c:if test="${ssslogin.mem_admin > 0 || ssslogin.mem_id eq dto.boardWriter}">
+									<a href="${PageContext.request.contextPath}/star/board/delete?no=${dto.boardNo }"><button type="button" class="btn-delete">삭제하기</button></a>
+									</c:if>
 								</dd>
 							</dl>
 						</div>
@@ -261,9 +273,6 @@
 				
 			}
         }
-        	
-        	 
-        	
 		$(".reply-wrap").html(htmlVal);
 		// html(새로운 내용으로 덮어쓰면 기존 event 등록이 사라짐)
 		// event 다시 등록

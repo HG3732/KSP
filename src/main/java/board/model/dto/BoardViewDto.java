@@ -29,6 +29,11 @@ public class BoardViewDto {
 
 	}
 
+	public BoardViewDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public BoardViewDto(Integer boardNo, String boardTitle, String boardWriter, String boardWriteTime, Integer hit,
 			String boardContent) {
 		super();
@@ -42,6 +47,7 @@ public class BoardViewDto {
 		this.boardContent = boardContent;
 	}
 	
+
 	public Integer getBoardNo() {
 		return boardNo;
 	}

@@ -42,7 +42,7 @@ public class MemberService {
 	}
 
 	//전체 회원 조회 및 검색
-	public Map<String, Object> selectMemberSearch(int pageSize, int pageBlockSize, int currentPageNum, String category, String keyword) {
+	public Map<String, Object> selectMemberSearch(int pageSize, int pageBlockSize, int currentPageNum, String category, String keyword, String sort, String val) {
 		Map<String, Object> result = null;
 		Connection conn = getConnection(true);
 		int start = pageSize*(currentPageNum-1)+1;
@@ -54,7 +54,19 @@ public class MemberService {
 		int startPageNum = (currentPageNum%pageBlockSize == 0) ? ((currentPageNum/pageBlockSize)-1)*pageBlockSize + 1 : ((currentPageNum/pageBlockSize))*pageBlockSize + 1;
 		int endPageNum = (startPageNum+pageBlockSize > totalPageCount) ? totalPageCount : startPageNum + pageBlockSize - 1;
 		
-		List<MemberDto> dtoList = dao.selectMemberSearch(conn, start, end, category, keyword);
+		if(val == null) {
+			val = null;
+		}
+		else if(val.equals("0")) {
+			val = "desc";
+		} else if (val.equals("1")) {
+			val = "asc";
+		}
+		
+		System.out.println("service sort : " + sort);
+		System.out.println("service val : " + val);
+		
+		List<MemberDto> dtoList = dao.selectMemberSearch(conn, start, end, category, keyword, sort, val);
 		result = new HashMap<String, Object>();
 		result.put("dtoList", dtoList);
 		result.put("totalPageCount", totalPageCount);

@@ -118,7 +118,7 @@ public class MemberDao {
 		}
 		
 		//select list - All + search
-		public List<MemberDto> selectMemberSearch(Connection conn, int start, int end, String category, String keyword) {
+		public List<MemberDto> selectMemberSearch(Connection conn, int start, int end, String category, String keyword, String sort, String val) {
 			List<MemberDto> result = null;
 			String sql = "select m2.* "
 					+ " from (select m1.*, rownum rn "
@@ -127,8 +127,14 @@ public class MemberDao {
 			if(keyword != null && keyword.trim().length() != 0) {
 				sql += " WHERE " + category + " LIKE '%" + keyword + "%'";
 			}
-			sql += " order by member_id) m1) m2 WHERE rn between ? and ?  ";			
+			sql += " order by member_id) m1) m2 WHERE rn between ? and ?  ";
+			if(sort != null) {
+				sql += " order by " + sort + " " + val;
+			}
 			
+			System.out.println("dao sort : " + sort);
+			System.out.println("dao val : " + val);
+				
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			

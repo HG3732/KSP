@@ -16,6 +16,8 @@ import member.service.MemberService;
 public class JoinController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	private PasswordEncryption pe = new PasswordEncryption();
+	
     public JoinController() {
         super();
     }
@@ -31,6 +33,11 @@ public class JoinController extends HttpServlet {
 		String memPwd = request.getParameter("pw");
 		String memEmail = request.getParameter("mail");
 		String memAddress = request.getParameter("address");
+		
+		//비밀번호 암호화
+		memPwd = pe.getEncrypt(memPwd);
+		System.out.println("join : " + memPwd);
+		
 		MemberDto dto = new MemberDto(memId, 0, memName, memPwd, memEmail, memAddress);
 		int result = new MemberService().insert(dto);
 		if(result < 0) {	//회원가입 실패 시

@@ -20,6 +20,11 @@ function loadedHandler() {
 }
 
 function loginSubmitHandler() {
+	<%
+		String referer = request.getHeader("referer");
+		if(referer == null) referer = "/";
+		System.out.println(referer);
+	%>
 	$.ajax({
 		url:"${pageContext.request.contextPath}/login"
 		,method : "post"
@@ -31,7 +36,7 @@ function loginSubmitHandler() {
 			}
 			else if(result == '1'){
 				alert("반갑습니다");
-				location.href="${pageContext.request.contextPath}/home";
+				location.href="<%=referer%>";
 			} else {
 				alert("아이디 또는 비밀번호를 확인해주세요");
 				$("[name=pwd]").val("");

@@ -38,8 +38,8 @@ public class BoardDao {
 	public int selectTotalCount(Connection conn, String searchSubject) {
 		int result = 0;
 		String sql = "SELECT COUNT(*) CNT FROM BOARD_COMMUNITY";
-		if(searchSubject != null) {
-			sql += " WHERE BOARD_TITLE LIKE '%" + searchSubject +"%' "; 
+		if (searchSubject != null) {
+			sql += " WHERE BOARD_TITLE LIKE '%" + searchSubject + "%' ";
 		}
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -57,7 +57,7 @@ public class BoardDao {
 		close(pstmt);
 		return result;
 	}
-	
+
 	// 댓글 개수 count
 	public int selectTotalReply(Connection conn, Integer boardNo) {
 		int result = 0;
@@ -74,26 +74,18 @@ public class BoardDao {
 		close(pstmt);
 		return result;
 	}
-	
 
 	// 페이징 리스트
 	public List<BoardListDto> selectPageList(Connection conn, String searchSubject, int start, int end) {
 		List<BoardListDto> result = null;
-		String sql = "SELECT t2.* " +
-	             " FROM ( " +
-	             "    SELECT t1.*, rownum AS rn " +
-	             "    FROM ( " +
-	             "        SELECT board_no, board_title, COUNT(file_id) AS FILE_CNT, board_writer, board_write_time, hit " +
-	             "        FROM board_community " +
-	             "        LEFT JOIN board_file ON b_no = board_no ";
-	if(searchSubject != null) {
-	    sql += "        WHERE BOARD_TITLE LIKE '%" + searchSubject + "%' ";
-	}
-	sql += "        GROUP BY board_no, board_title, board_writer, board_write_time, hit " +
-	       "        ORDER BY 1 DESC " +
-	       "    ) t1 " +
-	       " ) t2 " +
-	       " WHERE rn BETWEEN ? AND ?";
+		String sql = "SELECT t2.* " + " FROM ( " + "    SELECT t1.*, rownum AS rn " + "    FROM ( "
+				+ "        SELECT board_no, board_title, COUNT(file_id) AS FILE_CNT, board_writer, board_write_time, hit "
+				+ "        FROM board_community " + "        LEFT JOIN board_file ON b_no = board_no ";
+		if (searchSubject != null) {
+			sql += "        WHERE BOARD_TITLE LIKE '%" + searchSubject + "%' ";
+		}
+		sql += "        GROUP BY board_no, board_title, board_writer, board_write_time, hit "
+				+ "        ORDER BY 1 DESC " + "    ) t1 " + " ) t2 " + " WHERE rn BETWEEN ? AND ?";
 //		String sql = "select t2.*"
 //				+" from (select t1.*, rownum rn" 
 //			    +" from (select board_no, board_title, file_id, board_writer, board_write_time, hit"
@@ -129,7 +121,7 @@ public class BoardDao {
 		return result;
 
 	}
-	
+
 	// update - hit
 	public int updateHit(Connection conn, Integer boardNo) {
 		int result = 0;
@@ -145,7 +137,7 @@ public class BoardDao {
 		close(pstmt);
 		return result;
 	}
-	
+
 	// selecAllList
 //	public List<BoardListDto> selectAllList(Connection conn) {
 //		List<BoardListDto> result = null;
@@ -202,17 +194,16 @@ public class BoardDao {
 		String sql = "SELECT BOARD_NO, BOARD_TITLE, BOARD_WRITER, BOARD_WRITE_TIME, HIT, BOARD_CONTENT FROM board_community WHERE BOARD_NO = ?";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
-			System.out.println("boardDao boardNo"+boardNo);
+			System.out.println("boardDao boardNo" + boardNo);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, boardNo);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				result = new BoardViewDto(
-						rs.getInt("BOARD_NO"), rs.getString("BOARD_TITLE"), rs.getString("BOARD_WRITER"), rs.getString("BOARD_WRITE_TIME"),
-						rs.getInt("HIT"), rs.getString("BOARD_CONTENT")
-						);
+			if (rs.next()) {
+				result = new BoardViewDto(rs.getInt("BOARD_NO"), rs.getString("BOARD_TITLE"),
+						rs.getString("BOARD_WRITER"), rs.getString("BOARD_WRITE_TIME"), rs.getInt("HIT"),
+						rs.getString("BOARD_CONTENT"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -220,16 +211,17 @@ public class BoardDao {
 		close(rs);
 		close(pstmt);
 		return result;
-		
+
 	}
+
 	// file
 	// select file list
-	public List<FileDto> selectFileList(Connection conn, Integer bNo){
+	public List<FileDto> selectFileList(Connection conn, Integer bNo) {
 		List<FileDto> result = null;
 		String sql = "SELECT FILE_ID, B_NO, FILE_PATH, FILE_ORIGINAL_NAME FROM BOARD_FILE WHERE B_NO=?";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			// ? 처리
@@ -237,9 +229,9 @@ public class BoardDao {
 			rs = pstmt.executeQuery();
 			// ResultSet 처리
 			result = new ArrayList<FileDto>();
-			while(rs.next()) {
-				FileDto dto = new FileDto(rs.getInt("B_NO"), rs.getInt("FILE_ID"), 
-						rs.getString("FILE_PATH"), rs.getString("FILE_ORIGINAL_NAME"));
+			while (rs.next()) {
+				FileDto dto = new FileDto(rs.getInt("B_NO"), rs.getInt("FILE_ID"), rs.getString("FILE_PATH"),
+						rs.getString("FILE_ORIGINAL_NAME"));
 				result.add(dto);
 			}
 		} catch (SQLException e) {
@@ -249,8 +241,7 @@ public class BoardDao {
 		close(pstmt);
 		return result;
 	}
-	
-	
+
 	// select
 //	public int getSequenceNum(Connection conn) {
 //		int result = 0;
@@ -278,16 +269,16 @@ public class BoardDao {
 		System.out.println("boardDao Insert() param : " + dto);
 		int result = 0;
 		String sql = "INSERT ALL";
-			   sql += " INTO BOARD_COMMUNITY (BOARD_NO, BOARD_WRITER, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITE_TIME, HIT, MEMBER_ADMIN)";
-			   sql += " VALUES(SEQ_BOARD_ID.NEXTVAL, ?, ?, ?, DEFAULT, DEFAULT, DEFAULT)";
-			  if(dto.getFileList() != null && dto.getFileList().size()>0) {
-				  for(FileWriteDto filedto : dto.getFileList()) {
-			   sql += " INTO BOARD_FILE (B_NO, FILE_ID, FILE_PATH, FILE_ORIGINAL_NAME)"; 
-			   sql += " VALUES(SEQ_BOARD_ID.NEXTVAL, ?, ?, ?)"; 
-				  }
-			  }
-			   sql += " SELECT * FROM DUAL";
-			   System.out.println("sql : "  + sql);
+		sql += " INTO BOARD_COMMUNITY (BOARD_NO, BOARD_WRITER, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITE_TIME, HIT, MEMBER_ADMIN)";
+		sql += " VALUES(SEQ_BOARD_ID.NEXTVAL, ?, ?, ?, DEFAULT, DEFAULT, DEFAULT)";
+		if (dto.getFileList() != null && dto.getFileList().size() > 0) {
+			for (FileWriteDto filedto : dto.getFileList()) {
+				sql += " INTO BOARD_FILE (B_NO, FILE_ID, FILE_PATH, FILE_ORIGINAL_NAME)";
+				sql += " VALUES(SEQ_BOARD_ID.NEXTVAL, ?, ?, ?)";
+			}
+		}
+		sql += " SELECT * FROM DUAL";
+		System.out.println("sql : " + sql);
 		PreparedStatement pstmt = null;
 
 		try {
@@ -297,9 +288,9 @@ public class BoardDao {
 			pstmt.setString(i++, dto.getBoardWriter());
 			pstmt.setString(i++, dto.getBoardTitle());
 			pstmt.setString(i++, dto.getBoardContent());
-			if(dto.getFileList() != null && dto.getFileList().size()>0) {
+			if (dto.getFileList() != null && dto.getFileList().size() > 0) {
 				int fileId = 1;
-				for(FileWriteDto fileDto : dto.getFileList()) {
+				for (FileWriteDto fileDto : dto.getFileList()) {
 					pstmt.setInt(i++, fileId++);
 					pstmt.setString(i++, fileDto.getFilePath());
 					pstmt.setString(i++, fileDto.getFileOriginalName());
@@ -315,19 +306,20 @@ public class BoardDao {
 		return result;
 
 	}
-	
+
 	// update
 	public int update(Connection conn, BoardDto dto) {
 		int result = 0;
 		String sql = "UPDATE BOARD_COMMUNITY SET BOARD_TITLE=?, BOARD_CONTENT=? WHERE BOARD_NO=?";
 		PreparedStatement pstmt = null;
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, dto.getBoardTitle());;
+			pstmt.setString(1, dto.getBoardTitle());
+			;
 			pstmt.setString(2, dto.getBoardContent());
 			pstmt.setInt(3, dto.getBoardNo());
-			
+
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -335,7 +327,7 @@ public class BoardDao {
 		close(pstmt);
 		return result;
 	}
-	
+
 	// File Update
 	/*
 	 * public int fileUpdate(Connection conn, BoardFileDto dto) { int result = 0;
@@ -347,35 +339,58 @@ public class BoardDao {
 	 * catch (SQLException e) { e.printStackTrace(); } close(pstmt); return result;
 	 * }
 	 */
-	
-	
+
 	// deleteList
 	public int delete(Connection conn, Integer boardNo) {
 		int result = 0;
-		String sql = "DELETE FROM BOARD_COMMUNITY WHERE BOARD_NO = ?";
-		PreparedStatement pstmt = null;
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, boardNo);
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		close(pstmt);
+	    String sql = "DELETE FROM BOARD_REPLY WHERE BOARD_NO = ?";
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, boardNo);
+	        result += pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        System.out.println("dao 댓글 삭제 안됨");
+	    }
+	    
+	    String sql2 = "DELETE FROM BOARD_FILE WHERE B_NO = ?";
+	    try (PreparedStatement pstmt2 = conn.prepareStatement(sql2)) {
+	        pstmt2.setInt(1, boardNo);
+	        result += pstmt2.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        System.out.println("dao 파일 삭제 안됨");
+	    }
+	    
+	    String sql3 = "DELETE FROM BOARD_COMMUNITY WHERE BOARD_NO = ?";
+	    try (PreparedStatement pstmt3 = conn.prepareStatement(sql3)) {
+	        pstmt3.setInt(1, boardNo);
+	        result += pstmt3.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        System.out.println("dao 글 삭제 안됨");
+	    }
+//		close(pstmt3);
+//		String sql = "DELETE FROM BOARD_COMMUNITY WHERE BOARD_NO = ?";
+//		PreparedStatement pstmt = null;
+//		try {
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setInt(1, boardNo);
+//			result = pstmt.executeUpdate();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		close(pstmt);
 		return result;
 	}
-	
+
 	// -------board reply 댓글
 	// select list - board reply : board_id
-	public List<BoardReplyListDto> selectBoardReplyList(Connection conn, Integer boardNo){
+	public List<BoardReplyListDto> selectBoardReplyList(Connection conn, Integer boardNo) {
 		List<BoardReplyListDto> result = null;
-		String sql = "		select B_REPLY_ID, BOARD_NO,"
-				+ "		B_REPLY_WRITER ,B_REPLY_CONTENT,"
+		String sql = "		select B_REPLY_ID, BOARD_NO," + "		B_REPLY_WRITER ,B_REPLY_CONTENT,"
 				+ "		to_char(b_reply_write_time, 'MM.DD HH24:MI') AS B_REPLY_WRITE_TIME,"
-				+ "		B_REPLY_LEVEL, B_REPLY_REF, B_REPLY_STEP"
-				+ "		from board_reply"
-				+ "		where BOARD_NO = ? order by B_REPLY_ref desc,"
-				+ "		B_REPLY_step";
+				+ "		B_REPLY_LEVEL, B_REPLY_REF, B_REPLY_STEP" + "		from board_reply"
+				+ "		where BOARD_NO = ? order by B_REPLY_ref desc," + "		B_REPLY_step";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
@@ -385,12 +400,10 @@ public class BoardDao {
 			rs = pstmt.executeQuery();
 			// rs 처리
 			result = new ArrayList<BoardReplyListDto>();
-			while(rs.next()) {
-				BoardReplyListDto dto = new BoardReplyListDto(rs.getInt("B_REPLY_ID"),
-						rs.getString("B_REPLY_WRITER"), rs.getString("B_REPLY_CONTENT"),
-						rs.getString("B_REPLY_WRITE_TIME"), rs.getInt("B_REPLY_LEVEL"),
-						rs.getInt("B_REPLY_REF"), rs.getInt("B_REPLY_STEP")
-						);
+			while (rs.next()) {
+				BoardReplyListDto dto = new BoardReplyListDto(rs.getInt("B_REPLY_ID"), rs.getString("B_REPLY_WRITER"),
+						rs.getString("B_REPLY_CONTENT"), rs.getString("B_REPLY_WRITE_TIME"), rs.getInt("B_REPLY_LEVEL"),
+						rs.getInt("B_REPLY_REF"), rs.getInt("B_REPLY_STEP"));
 				result.add(dto);
 			}
 		} catch (SQLException e) {
@@ -398,22 +411,21 @@ public class BoardDao {
 		}
 		close(rs);
 		close(pstmt);
-		
+
 		return result;
-		
+
 	}
-	
+
 	// insert - reply 댓글 원본글
 	public int insertReply(Connection conn, BoardReplyWriteDto dto) {
 		int result = 0;
 		String sql = "INSERT INTO BOARD_REPLY VALUES ((SELECT NVL(MAX(B_REPLY_ID),0)+1 FROM BOARD_REPLY),"
-				+ " ?, ?, ?, DEFAULT, 1,"
-				+ " (SELECT NVL(MAX(B_REPLY_ID),0)+1 FROM BOARD_REPLY), 1, DEFAULT)";
+				+ " ?, ?, ?, DEFAULT, 1," + " (SELECT NVL(MAX(B_REPLY_ID),0)+1 FROM BOARD_REPLY), 1, DEFAULT)";
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			// ? 처리
-			pstmt.setInt(1,dto.getBoardNo());
+			pstmt.setInt(1, dto.getBoardNo());
 			pstmt.setString(2, dto.getBReplyWriter());
 			pstmt.setString(3, dto.getBReplyContent());
 			result = pstmt.executeUpdate();
@@ -422,15 +434,14 @@ public class BoardDao {
 		}
 		close(pstmt);
 		return result;
-		
+
 	}
-	
+
 	// insert - reply 댓글 대댓글
 	public int insertReReply(Connection conn, BoardReplyWriteDto dto) {
 		int result = 0; // 1 정상 : 0 비정상
 		String sql = "INSERT INTO BOARD_REPLY VALUES((SELECT NVL(MAX(B_REPLY_ID),0)+1 FROM BOARD_REPLY),"
-				+ " ?, ?, ?, DEFAULT,"
-				+ " (SELECT B_REPLY_LEVEL+1 FROM BOARD_REPLY WHERE B_REPLY_ID = ?) ,"
+				+ " ?, ?, ?, DEFAULT," + " (SELECT B_REPLY_LEVEL+1 FROM BOARD_REPLY WHERE B_REPLY_ID = ?) ,"
 				+ " (SELECT B_REPLY_REF FROM BOARD_REPLY WHERE B_REPLY_ID = ?) ,"
 				+ " (SELECT B_REPLY_STEP+1 FROM BOARD_REPLY WHERE B_REPLY_ID = ?), DEFAULT )";
 		PreparedStatement pstmt = null;
@@ -450,13 +461,12 @@ public class BoardDao {
 		close(pstmt);
 		return result;
 	}
-	
+
 	// update - reply step
 	public int updateReplySetp(Connection conn, Integer bReplyId) {
 		int result = -1; // 0~n 정상이므로 비정상인 경우 -1
 		String sql = "UPDATE BOARD_REPLY SET B_REPLY_STEP = B_REPLY_STEP+1 WHERE"
-				+ " B_REPLY_REF = (SELECT B_REPLY_REF FROM BOARD_REPLY WHERE B_REPLY_ID = ?)"
-				+ "	AND"
+				+ " B_REPLY_REF = (SELECT B_REPLY_REF FROM BOARD_REPLY WHERE B_REPLY_ID = ?)" + "	AND"
 				+ "	B_REPLY_STEP > (SELECT B_REPLY_STEP FROM BOARD_REPLY WHERE B_REPLY_ID = ?)";
 		PreparedStatement pstmt = null;
 		try {
@@ -470,10 +480,9 @@ public class BoardDao {
 		}
 		close(pstmt);
 		return result;
-		
+
 	}
-	
-	
+
 	// listContent
 
 }

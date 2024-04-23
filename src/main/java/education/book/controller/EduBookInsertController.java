@@ -67,17 +67,13 @@ public class EduBookInsertController extends HttpServlet {
 		Integer eduPartNum = Integer.parseInt(eduPartNumStr);
 		
 		EduOneDto eduOne = es.selectOne(eduId);
-		int maxNum = eduOne.getEduMaxNum();
-		int bookNum = eduOne.getEduBookNum();
 		int result = 0;
+		result = ebs.insert(new EduBookDto(eduBookId, eduId, eduBookPhone, eduPartLevel, eduPartName, eduPartSchool, eduPartNum));
 		
-		if((eduPartNum + eduOne.getEduBookNum()) <= maxNum) {
-			result = ebs.insert(new EduBookDto(eduBookId, eduId, eduBookPhone, eduPartLevel, eduPartName, eduPartSchool, eduPartNum));
-			if(result > 0) {
-				response.getWriter().append(String.valueOf(result));
-			}
+		if(result > 0) {
+			result = 1;
+			response.getWriter().append(String.valueOf(result));
 		}else {
-			result = -1;
 			response.getWriter().append(String.valueOf(result));
 		}
 	}

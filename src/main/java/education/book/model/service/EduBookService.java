@@ -44,25 +44,16 @@ public class EduBookService {
 	// 교육 신청
 	public int insert(EduBookDto dto) {
 		int result = 0;
-		int resultUpdate = 0;
-		SqlSession session = MybatisTemplate.getSqlSession(false);
-		resultUpdate = ebd.plusNum(session, dto);
-		if(resultUpdate > -1) {
-			result = ebd.insert(session, dto);
-		}
-		if(resultUpdate > -1 && result > 0) {
-			session.commit();
-		}else {
-			session.rollback();
-		}
+		SqlSession session = MybatisTemplate.getSqlSession(true);
+		result = ebd.insert(session, dto);
 		session.close();
 		return result;
 	}
 
-	// delete
+	// 교육 취소
 	public int delete(String mem_id, Integer eduId) {
 		int result = 0;
-		SqlSession session = MybatisTemplate.getSqlSession(true);
+		SqlSession session = MybatisTemplate.getSqlSession(false);
 		result = ebd.delete(session, mem_id, eduId);
 		session.close();
 		return result;

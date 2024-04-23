@@ -23,7 +23,7 @@ public class EduBookDao {
 		return result;
 	}
 	
-	// selectList
+	// 교육 신청 현황
 	public List<EduBookListDto> selectList(SqlSession session) {
 		System.out.println("EduBookDao selectList()");
 		List<EduBookListDto> result = null;
@@ -40,16 +40,8 @@ public class EduBookDao {
 		System.out.println("result : " + result);
 		return result;
 	}
-	// 교육 신청 시 신청 인원 갱신
-	public int plusNum(SqlSession session, EduBookDto dto) {
-		System.out.println("EduBookDao plusNum()");
-		int result = -1;
-		result = session.update("edubook.plusNum", dto);
-		System.out.println("result : " + result);
-		return result;
-	}
 	
-	// delete
+	// 교육 취소
 	public int delete(SqlSession session, String mem_id, Integer eduId) {
 		System.out.println("EduBookDao delete()");
 		int result = 0;

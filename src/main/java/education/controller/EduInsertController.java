@@ -79,7 +79,7 @@ public class EduInsertController extends HttpServlet {
 				}else {
 					System.out.println(file.length());
 				}
-				EduFileWriteDto filedto = new EduFileWriteDto(uploadPath, originalName);
+				EduFileWriteDto filedto = new EduFileWriteDto(uploadPath, originalName, fileName);
 				filelist.add(filedto);
 			}
 			String eduSubject = multiReq.getParameter("eduSubject");

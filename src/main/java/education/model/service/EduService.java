@@ -21,14 +21,6 @@ public class EduService {
 	
 	private EduDao dao = new EduDao();
 
-	// 해당 교육 글의 파일 불러오기
-	public List<EduFileDto> selectFileList(Integer boardId){
-		List<EduFileDto> result = null;
-		SqlSession session = MybatisTemplate.getSqlSession(true);
-		result = dao.selectFileList(session, boardId);
-		return result;
-	}
-	
 	// selectAllList
 	public List<EduListDto> selectAllList(){
 		List<EduListDto> result = null;

@@ -40,7 +40,6 @@ public class EduInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		loginPermission(request, response, "로그인이 필요한 페이지입니다.");
 		adminPermission(request, response, "관리자만 접근 가능합니다. 교육 목록 페이지로 이동합니다.", "/edu");
 		EduRecentDto dto = es.selectRecent();
 		Object recentEdu = (dto == null) ? "등록된 교육이 없습니다" : dto.getEduSubject();
@@ -80,7 +79,7 @@ public class EduInsertController extends HttpServlet {
 				}else {
 					System.out.println(file.length());
 				}
-				EduFileWriteDto filedto = new EduFileWriteDto(fileName, originalName);
+				EduFileWriteDto filedto = new EduFileWriteDto(uploadPath, originalName);
 				filelist.add(filedto);
 			}
 			String eduSubject = multiReq.getParameter("eduSubject");

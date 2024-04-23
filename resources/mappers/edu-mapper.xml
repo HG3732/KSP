@@ -13,11 +13,10 @@
 	<!-- 교육 등록 -->
 	<insert id="insert" parameterType="hashmap">
 	INSERT ALL 
-	INTO EDU_LIST
-	<!-- 
-	 (EDU_ID, EDU_SUBJECT, EDU_CONTENT, EDU_ADDRESS, EDU_PARTICIPANT, EDU_DAY, TO_CHAR(EDU_BOOK_START, 'YYYY-MM-DD') AS BS, TO_CHAR(EDU_BOOK_END, 'YYYY-MM-DD') AS BE, TO_CHAR(EDU_START, 'YYYY-MM-DD') AS ES, TO_CHAR(EDU_END, 'YYYY-MM-DD') AS EE, EDU_WRITE_TIME)
-	 -->  
-	VALUES ((SELECT NVL(MAX(EDU_ID), 0) + 1 FROM EDU_LIST), #{dto.eduSubject}, #{dto.eduContent}, #{dto.eduAddress}, #{dto.eduParticipant}, #{dto.eduDay}, #{dto.eduBookStart}, #{dto.eduBookEnd}, #{dto.eduStart}, #{dto.eduEnd}, DEFAULT) 
+	INTO EDU_LIST 
+	VALUES ((SELECT NVL(MAX(EDU_ID), 0) + 1 FROM EDU_LIST)
+	, #{dto.eduSubject}, #{dto.eduContent}, #{dto.eduAddress}, #{dto.eduParticipant}, #{dto.eduDay}
+	, #{dto.eduBookStart}, #{dto.eduBookEnd}, #{dto.eduStart}, #{dto.eduEnd}, DEFAULT, #{dto.eduMaxNum}, DEFAULT) 
 	<if test="filelist != null">
 		<foreach collection="filelist" item="eduFileDto" index="idx" separator=" ">
 		INTO EDU_FILE

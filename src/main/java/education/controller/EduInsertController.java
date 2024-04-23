@@ -91,14 +91,22 @@ public class EduInsertController extends HttpServlet {
 			String eduBookEnd = multiReq.getParameter("eduBookEnd");
 			String eduStart = multiReq.getParameter("eduStart");
 			String eduEnd = multiReq.getParameter("eduEnd");
-			EduOneDto dto = new EduOneDto(null, eduSubject, eduContent, eduAddress, eduParticipant, eduDay, eduBookStart, eduBookEnd, eduStart, eduEnd, null);
+			String eduMaxNumStr = multiReq.getParameter("eduMaxNum");
+			Integer eduMaxNum = Integer.parseInt(eduMaxNumStr);
+			EduOneDto dto = new EduOneDto(null, eduSubject, eduContent, eduAddress, eduParticipant, eduDay, eduBookStart, eduBookEnd, eduStart, eduEnd, null, eduMaxNum, null);
 			
-			int result = es.insert(dto, filelist);
+			int result;
+			
+			if(eduMaxNum > 0) {
+				result = es.insert(dto, filelist);
+			}else {
+				result = 0;
+			}
 			
 			if(result > 0) {
 				result = 1;
-				response.getWriter().append(String.valueOf(result));
 			}
+			response.getWriter().append(String.valueOf(result));
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 			response.sendRedirect(request.getContextPath() + "home");

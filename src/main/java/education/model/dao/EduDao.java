@@ -157,7 +157,7 @@ public class EduDao {
 		return result;
 	}
 	
-	// insert
+	// 교육 등록하기
 	public int insert(SqlSession session, EduOneDto dto, List<EduFileWriteDto> filelist) {
 		System.out.println("EduDao insert()");
 		int result = 0;

@@ -25,6 +25,8 @@ public class EduOneDto {
 	private String eduStart;
 	private String eduEnd;
 	private String eduWriteTime;
+	private Integer eduMaxNum;
+	private Integer eduBookNum;
 	private List<EduFileDto> eduFileDtoList;
 
 	@Override
@@ -32,12 +34,13 @@ public class EduOneDto {
 		return "EduOneDto [eduId=" + eduId + ", eduSubject=" + eduSubject + ", eduContent=" + eduContent
 				+ ", eduAddress=" + eduAddress + ", eduParticipant=" + eduParticipant + ", eduDay=" + eduDay
 				+ ", eduBookStart=" + eduBookStart + ", eduBookEnd=" + eduBookEnd + ", eduStart=" + eduStart
-				+ ", eduEnd=" + eduEnd + ", eduWriteTime=" + eduWriteTime + ", eduFileDtoList=" + eduFileDtoList + "]";
+				+ ", eduEnd=" + eduEnd + ", eduWriteTime=" + eduWriteTime + ", eduMaxNum=" + eduMaxNum + ", eduBookNum="
+				+ eduBookNum + ", eduFileDtoList=" + eduFileDtoList + "]";
 	}
 
 	public EduOneDto(Integer eduId, String eduSubject, String eduContent, String eduAddress, String eduParticipant,
-			String eduDay, String eduBookStart, String eduBookEnd, String eduStart, String eduEnd,
-			String eduWriteTime) {
+			String eduDay, String eduBookStart, String eduBookEnd, String eduStart, String eduEnd, String eduWriteTime,
+			Integer eduMaxNum, Integer eduBookNum) {
 		super();
 		this.eduId = eduId;
 		this.eduSubject = eduSubject;
@@ -52,6 +55,8 @@ public class EduOneDto {
 		this.eduStart = eduStart;
 		this.eduEnd = eduEnd;
 		this.eduWriteTime = eduWriteTime;
+		this.eduMaxNum = eduMaxNum;
+		this.eduBookNum = eduBookNum;
 	}
 
 	public List<EduFileDto> getEduFileDtoList() {
@@ -104,6 +109,14 @@ public class EduOneDto {
 
 	public String getEduWriteTime() {
 		return eduWriteTime;
+	}
+
+	public Integer getEduMaxNum() {
+		return eduMaxNum;
+	}
+
+	public Integer getEduBookNum() {
+		return eduBookNum;
 	}
 
 }

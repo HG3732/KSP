@@ -16,9 +16,6 @@
 	adminPermission();
     </script>
     <style>
-    	button{
-			cursor: pointer;
-		}
 		.wrap-main,
         .wrap-footer{
             margin: 10px auto;
@@ -60,7 +57,7 @@
             width: 100%;
             line-height: 3em;
         }
-        .wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table>tbody>tr>td>input
+        .wrap-main .edu-detail-content input
         , .wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table>tbody>tr>td>select{
         	background-color: transparent;
         	border: 1px solid white;
@@ -96,6 +93,14 @@
             border: 0;
             margin-top: 10px;
         }
+    	.wrap-main .btn{
+			cursor: pointer;
+			border: 0;
+			background-color: transparent;
+		}
+		#frm-eduins > div.edu-detail-content > table > tbody > tr > td > input[type=file]{
+			border: 0;
+		}
 
 
         .wrap-footer {
@@ -178,9 +183,14 @@
                                     		<option value="adult">성인</option>
                                     	</select>
                                 	</td>
+                                	<td colspan="2"></td>
+                                	<td>정원</td><td><input type="number" name="eduMaxNum" id="eduMaxNum"></td> 
                                 </tr>
                                 <tr>
                                     <td colspan="8"><textarea name="eduContent" rows="10" required></textarea></td>
+                                </tr>
+                                <tr>
+                                	<td><button type="button" class="btn file">파일추가</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -204,13 +214,35 @@
 $(loadedHandler);
 function loadedHandler(){
 	$(".btn.eduins").on("click", eduInsertHandler);
+	$(".btn.file").on("click", eduFileHandler);
+}
+// 파일 추가
+function eduFileHandler(){
+	var htmlVal = `
+	<tr>
+		<td colspan="4">
+			<input type="file" name="uploadfiles" class="uploadfiles" required><button type="button" class="btn fileCancel">취소</button>
+		</td>
+	</tr>
+	`;
+	$(this).parent().parent().after(htmlVal);
+	$(".btn.fileCancel").off("click");
+	$(".btn.fileCancel").on("click", eduFileCancelHandler);
+}
+// 파일 취소
+function eduFileCancelHandler(){
+	$(this).parent().parent().remove();
 }
 // 교육 등록 확인창
 function eduInsertHandler(){
+	var formData = new FormData($("#frm-eduins")[0]);
 	if(confirm("교육을 등록하시겠습니까?")){
 		$.ajax({
-			url : "${pageContext.request.contextPath}/edu/insert"
+			url : "${pageContext.request.contextPath}/edu/list/insert"
 			, method : "post"
+			, data : formData
+			, contentType : false
+			, processData : false
 			, error : ajaxErrorHandler
 			, success : function(result){
 				if(result == 1){

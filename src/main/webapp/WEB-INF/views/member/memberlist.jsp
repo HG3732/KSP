@@ -9,7 +9,35 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 조회</title>
-	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<jsp:include page="/WEB-INF/views/common/common_star.jsp"/>
+<script>
+$(loadedHandler)
+	function loadedHandler() {
+		$(".sort").on("click", sortHandler);
+		$(".sortname").on("click", sortNameHandler);
+	}
+	
+	function sortHandler(event){
+		var sortstate = event.target.value;
+		var sortname = event.target.name;
+		$.ajax({
+			url : "${pageContext.request.contextPath}/member/search/list.ajax"
+			, method : "get"
+			, data : { "sortby" : sortname,
+						"value" : sortstate}
+			, datatype : "json"
+			, error : ajaxErrorHandler
+			, success : function(result){
+				}
+		});
+	}
+		
+	function sortNameHandler() {
+		$(".sort-name0").toggle();
+		$(".sort-name1").toggle();
+	}
+</script>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp"%>
@@ -28,22 +56,45 @@
 		        </div>
 		        <div class="wrap-checkmember">
 		            <div class="check-head">
-		                <div>이름</div>
-		                <div>아이디</div>
-		                <div>비밀번호</div>
-		                <div>이메일 주소</div>
-		                <div>주소</div>
-		                <div>등급</div>
-		                <div>비고</div>
+		            	<form id="sort">
+			                <button type="button" class="sort sortname sort-name0" name="MEMBER_NAME" value="0">이름 ↑</button>
+			                <button type="button" class="sort sortname sort-name1" name="MEMBER_NAME" value="1" style="display: none;">이름 ↓</button>
+			                <button type="button" class="sort sortid sort-id0" name="MEMBER_ID" value="0">아이디 ↑</button>
+			                <button type="button" class="sort sortid sort-id1" name="MEMBER_ID" value="1" style="display: none;">아이디 ↓</button>
+			                <button type="button" class="sort sortpwd sort-pwd0" name="MEMBER_PWD" value="0">비밀번호 ↑</button>
+			                <button type="button" class="sort sortpwd sort-pwd1" name="MEMBER_PWD" value="1" style="display: none;">비밀번호 ↓</button>
+			                <button type="button" class="sort sortemail sort-email0" name="MEMBER_EMAIL" value="0">이메일 주소 ↑</button>
+			                <button type="button" class="sort sortemail sort-email1" name="MEMBER_EMAIL" value="1" style="display: none;">이메일 주소 ↓</button>
+			                <button type="button" class="sort sortaddress sort-address0" name="MEMBER_ADDRESS" value="0">주소 ↑</button>
+			                <button type="button" class="sort sortaddress sort-address1" name="MEMBER_ADDRESS" value="1" style="display: none;">주소 ↓</button>
+			                <button type="button" class="sort sortgrade sort-grade0" name="MEMBER_ADMIN" value="0">등급 ↑</button>
+			                <button type="button" class="sort sortgrade sort-grade1" name="MEMBER_ADMIN" value="1" style="display: none;">등급 ↓</button>
+		                	<div style="padding-top:3px;">비고</div>
+		                </form>
 		            </div>
 		        <c:choose>
 		        	<c:when test="${empty map.dtoList}">
 		        			<p style="padding: 10px; border-bottom: 2px solid white;">일치하는 회원이 없습니다.</p>
 		        	</c:when>
+		        	<c:when test="\${not empty sortMap}">
+		        			<c:forEach items="\${sortMap.dtoList }" var="membersort">
+			   				<div class="check-main">
+			   				<form class="memberlist" method="post" action="${pageContext.request.contextPath}/member/info">
+				                <div>\${membersort.mem_name}</div>
+				                <div><input type="text" name="memberid" value="\${membersort.mem_id}" readonly></div>
+				                <div>\${membersort.mem_pwd}</div>
+				                <div>\${membersort.mem_email}</div>
+				                <div>\${membersort.mem_address}</div>
+				                <div><input type="text" name="memberadmin" value="\${membersort.mem_admin}" readonly></div>
+				                <div><button type="submit" name="goinfo" class="goinfo">상세 조회</button></div>
+				            </form>
+		            		</div>
+			        	</c:forEach>
+		        	</c:when>
 		        	<c:otherwise>
 			        	<c:forEach items="${map.dtoList }" var="member">
 			   				<div class="check-main">
-			   				<form class="plz" method="post" action="${pageContext.request.contextPath}/member/info">
+			   				<form class="memberlist" method="post" action="${pageContext.request.contextPath}/member/info">
 				                <div>${member.mem_name}</div>
 				                <div><input type="text" name="memberid" value="${member.mem_id}" readonly></div>
 				                <div>${member.mem_pwd}</div>

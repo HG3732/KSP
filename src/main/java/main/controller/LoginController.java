@@ -17,6 +17,7 @@ public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private MemberService service = new MemberService();
+	private PasswordEncryption pe = new PasswordEncryption();
 	
     public LoginController() {
         super();
@@ -29,8 +30,11 @@ public class LoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
-		MemberLoginDto dto = new MemberLoginDto(id, pw);
 		
+		pw = pe.getEncrypt(pw);
+		System.out.println("login : " + pw);
+
+		MemberLoginDto dto = new MemberLoginDto(id, pw);
 		// ajax
 		// 성공 : 1
 		// 실패 : 0

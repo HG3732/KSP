@@ -21,7 +21,6 @@ public class MemberController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getSession().setAttribute("recentEdu", new EduService().selectRecent().getEduSubject());
 		int pageSize = 8;
 		int pageBlockSize = 7;
 		int currentPageNum = 1;
@@ -46,7 +45,7 @@ public class MemberController extends HttpServlet {
 		
 		request.getSession().setAttribute("searchword", "category="+category+"&search="+keyword+"&btn-search=");
 		request.setAttribute("searchStatus", searchStatus);
-		request.setAttribute("map", service.selectMemberSearch(pageSize, pageBlockSize, currentPageNum, category, keyword));
+		request.setAttribute("map", service.selectMemberSearch(pageSize, pageBlockSize, currentPageNum, category, keyword, null, null));
 		
 		request.getRequestDispatcher("/WEB-INF/views/member/memberlist.jsp").forward(request, response);
 	}

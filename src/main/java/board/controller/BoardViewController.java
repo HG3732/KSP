@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.dao.BoardDao;
+import board.model.dto.BoardViewDto;
 import board.model.service.BoardService;
+import member.model.dto.MemberInfoDto;
 
 /**
  * Servlet implementation class BoardViewController
@@ -32,6 +34,14 @@ public class BoardViewController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+//		MemberInfoDto memberInfoDto = (MemberInfoDto) request.getSession().getAttribute("ssslogin");
+//		BoardViewDto viewDto = new BoardViewDto();
+//		String reTitle = viewDto.getBoardTitle();
+//		String reContent = viewDto.getBoardContent();
+//		reContent = reContent.replaceAll("<br>", "");
+//		BoardViewDto reDto = new BoardViewDto(viewDto.getBoardNo(), reTitle, memberInfoDto.getMem_id(), viewDto.getBoardWriteTime(),viewDto.getHit(), viewDto.getBoardContent());
+//		request.setAttribute("detail", reDto);
+		
 		String boardNoStr = request.getParameter("no");
 		try {
 			int boardNo = Integer.parseInt(boardNoStr);

@@ -23,7 +23,6 @@ function loginSubmitHandler() {
 	<%
 		String referer = request.getHeader("referer");
 		if(referer == null) referer = "/";
-		System.out.println(referer);
 	%>
 	$.ajax({
 		url:"${pageContext.request.contextPath}/login"

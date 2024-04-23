@@ -55,6 +55,9 @@
 				<div class="board-view">
 					<div class="view-header">
 						<div class="title">
+						<c:if test="${detail.reDto.reTitle }">
+							<strong>${dto.boardTitle } (수정됨)</strong>
+							</c:if>
 							<strong>${dto.boardTitle }</strong>
 						</div>
 						<div class="info">
@@ -111,7 +114,7 @@
 										<h2>글을 삭제하시겠습니까?</h2>
 										<div class="modal-btn">
 											<button type="button" id="btn-delete-modalok">확인</button>
-											<button type="button" id="btn-delte-modalcancel">취소</button>
+											<button type="button" id="btn-delete-modalcancel">취소</button>
 										</div>
 									</div>
 								</div>
@@ -150,6 +153,7 @@
             $(".btn.reply").on("click", btnReplyClickHandler);
             $(".btn-delete").on("click", btnDeleteClickHandler);
             $("#btn-delete-modalok").on("click", btnDeleteOkClickHandler);
+            $("#btn-delete-modalcancel").on("click", btnDeleteCancelClickHandler);
 
             $.ajax({
                 url : "${pageContext.request.contextPath}/board/reply/read.ajax"
@@ -312,12 +316,17 @@
 			/* $(this).prev().html(""); */
 		}
        	
-       	// 모달 
+       	// 모달 오픈 
        	function btnDeleteClickHandler() {
        		console.log("모달창 오픈");
 			$(".modal.delete").css("display", "block");
 		}
        	
+       	// 모달 닫기
+       	function btnDeleteCancelClickHandler() {
+			console.log("모달창 닫기");
+			$(".modal.delete").css("display", "none");
+		}
        	
        	// 글 삭제
        	function btnDeleteOkClickHandler() {

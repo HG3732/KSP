@@ -19,7 +19,8 @@ public class MemberInfoDto {
 		return "MemberInfoDto [mem_id=" + mem_id + ", mem_admin=" + mem_admin + ", mem_name=" + mem_name
 				+ ", mem_email=" + mem_email + ", mem_address=" + mem_address + "]";
 	}
-
+	
+	
 	public MemberInfoDto(String mem_id, int mem_admin, String mem_name, String mem_email, String mem_address) {
 		super();
 		this.mem_id = mem_id;

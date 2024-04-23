@@ -40,7 +40,6 @@ public class EduBookInsertController extends HttpServlet {
 		EduRecentDto dto = es.selectRecent();
 		String recentEdu = dto.getEduSubject();
 		request.setAttribute("recentEdu", recentEdu);
-		request.setAttribute("edulist", es.selectAllList());
 		request.getRequestDispatcher("/WEB-INF/views/edu/book/edubookinsert.jsp").forward(request, response);
 	}
 

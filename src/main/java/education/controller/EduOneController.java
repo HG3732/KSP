@@ -36,8 +36,8 @@ public class EduOneController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("/edu/one doGet()");
-		loginPermission(request, response, "교육 정보를 보시려면 로그인 해주세요.");
 		try {
+			loginPermission(request, response, "교육 정보를 보시려면 로그인 해주세요.");
 			// 최근 교육 제목 출력
 			EduRecentDto dtoRecent = es.selectRecent();
 			if(dtoRecent != null) {

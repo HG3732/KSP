@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import board.model.dao.BoardDao;
+import board.model.dto.BoardDto;
 import board.model.dto.BoardInsertDto;
 import board.model.dto.BoardListDto;
 import board.model.dto.BoardReplyListDto;
@@ -131,6 +132,24 @@ public class BoardService {
 //		int sequenceNum = dao.getSequenceNum(conn);
 		result = dao.insert(conn, dto);
 		System.out.println(result);
+		close(conn);
+		return result;
+	}
+	
+	// update 
+	public int update(BoardDto dto) {
+		int result = 0;
+		Connection conn = getConnection(true);
+		result = dao.update(conn, dto);
+		close(conn);
+		return result;
+	}
+	
+	// delete 
+	public int delete(Integer boardNo) {
+		int result = 0;
+		Connection conn = getConnection(true);
+		result = dao.delete(conn, boardNo);
 		close(conn);
 		return result;
 	}

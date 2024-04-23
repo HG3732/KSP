@@ -21,14 +21,6 @@ import static common.SemiTemplate.*;
 
 public class EduDao {
 	
-	// 해당 교육 글의 파일 불러오기
-	public List<EduFileDto> selectFileList(SqlSession session, Integer boardId){
-		System.out.println("EduDao selectFileList()");
-		List<EduFileDto> result = session.selectList("edu.selectFileList", boardId);
-		System.out.println("result : " + result);
-		return result;
-	}
-	
 	// selectAllList
 	public List<EduListDto> selectAllList(SqlSession session){
 		System.out.println("EduDao selectAllList()");
@@ -144,6 +136,15 @@ public class EduDao {
 		
 		close(rs);
 		close(pstmt);
+		System.out.println("result : " + result);
+		return result;
+	}
+	
+	// 교육 글에 등록된 파일 가져오기
+	public List<EduFileDto> selectFileList(SqlSession session, Integer eduId) {
+		System.out.println("EduDao selectFileList()");
+		List<EduFileDto> result = null;
+		result = session.selectList("edu.selectFileList", eduId);
 		System.out.println("result : " + result);
 		return result;
 	}

@@ -32,7 +32,7 @@
 	
 	<!-- 교육 신청 -->
 	<insert id="insert" parameterType="EduBookDto">
-	INSERT INTO EDU_BOOK VALUES (#{eduBookId}, #{eduId}, #{eduBookPhone}, #{eduPartLevel}, #{eduPartName}, #{eduPartSchool})
+	INSERT INTO EDU_BOOK VALUES (#{eduBookId}, #{eduId}, #{eduBookPhone}, #{eduPartLevel}, #{eduPartName}, #{eduPartSchool}, #{eduPartNum})
 	</insert>
 	
 	<!-- 교육 신청 취소 -->

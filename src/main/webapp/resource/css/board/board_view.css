@@ -53,7 +53,7 @@ margin-top: -11px;
 
 .board-view .view-header .info dl dd{
     font-size: 16px;
-    padding-left: 120px;
+    /* padding-left: 120px; */
     /* color: #221f1f; */
     font-weight: bold;
 }
@@ -63,7 +63,7 @@ margin-top: -11px;
 }
 .board-view .view-header .file dl{
     display: inline-block;
-    width: 100%;
+    /* width: 100%; */
     margin-right: 0;
 }
 .board-view .view-header .file dl dt{
@@ -83,7 +83,7 @@ margin-top: -11px;
 }
 .board-view .view-header .file dl dd{
     font-size: 16px;
-    padding-left: 120px;
+    padding-left: 80px;
     color: #221f1f;
     font-weight: bold;
 }
@@ -219,3 +219,83 @@ margin-top: -11px;
 	font-weight: bold;
 	color: blue;
 }
+.board-view .view-header .info .write-time{
+	margin-left: 60;
+    width: 280;
+}
+
+.board-view .view-header .info .hits{
+	margin-left: 250px;
+    width: 100px;
+}
+.board-view .view-header .btn{
+	float: right;	
+}	
+.board-view .view-header .btn .btn-update{
+	color: black;
+	cursor: pointer;	
+}	
+.board-view .view-header .btn .btn-delete{
+	color: black;
+	cursor: pointer;	
+}	
+
+.modal {
+    position: absolute;
+    display: none;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal_body {
+    position: absolute;
+    top: 40%;
+    /*모달을 화면가운데 놓기위함. */
+    left: 41%;
+    width: 400px;
+    /*모달의 가로크기 */
+    height: 200px;
+    /*모달의 세로크기 */
+    padding: 40px;
+    text-align: center;
+    background-color: #503396;
+    /*모달창 배경색 흰색*/
+    border-radius: 10px;
+    /*테두리 */
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+    /*테두리 그림자*/
+    transform: translateY(-50%);
+    /*모듈창열었을때 위치설정 가운데로*/
+}
+
+.modal-btn {
+    margin-top: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.modal-btn #btn-delete-modalok {
+    width: 70px;
+    color : black;
+}
+
+.modal-btn #btn-delete-modalcancel {
+    width: 70px;
+    color : black;
+}
+
+.modal-btn #btn-list-modalok {
+    width: 70px;
+    color : black;
+}
+
+.modal-btn #btn-list-modalcancel {
+    width: 70px;
+    color : black;
+}
+

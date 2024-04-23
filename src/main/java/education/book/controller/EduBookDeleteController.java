@@ -24,7 +24,6 @@ public class EduBookDeleteController extends HttpServlet {
      */
     public EduBookDeleteController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -43,6 +42,9 @@ public class EduBookDeleteController extends HttpServlet {
 			String eduIdStr = request.getParameter("eduId");
 			Integer eduId = Integer.parseInt(eduIdStr);
 			int result = ebs.delete(mem_id, eduId);
+			if(result > 0) {
+				result = 1;
+			}
 			response.getWriter().append(String.valueOf(result));
 		} catch (Exception e) {
 			e.printStackTrace();

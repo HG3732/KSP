@@ -20,7 +20,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="https:/code.jquery.com/jquery-3.7.1.js"></script>
 <style>
-
 </style>
 </head>
 
@@ -63,11 +62,11 @@
 								<dt>작성자</dt>
 								<dd>${dto.boardWriter }</dd>
 							</dl>
-							<dl>
+							<dl class="write-time">
 								<dt>작성일</dt>
 								<dd>${dto.boardWriteTime }</dd>
 							</dl>
-							<dl>
+							<dl class="hits">
 								<dt>조회수</dt>
 								<dd>${dto.hit }</dd>
 							</dl>
@@ -86,6 +85,37 @@
 									</ul>
 								</dd>
 							</dl>
+							<form id="frm-edit">
+								<input type="hidden" name="boardNo" value="${dto.boardNo }">
+								<dl class="btn">
+									<dt>
+										<c:if
+											test="${ssslogin.mem_admin > 0 || ssslogin.mem_id eq dto.boardWriter}">
+											<a
+												href="${PageContext.request.contextPath}/star/board/update?no=${dto.boardNo }"><button
+													type="button" class="btn-update">수정하기</button></a>
+										</c:if>
+									</dt>
+									<dd>
+										<c:if
+											test="${ssslogin.mem_admin > 0 || ssslogin.mem_id eq dto.boardWriter}">
+											<%-- <a
+												href="${PageContext.request.contextPath}/star/board/delete?no=${dto.boardNo }"> --%>
+											<button type="button" class="btn-delete">삭제하기</button>
+											</a>
+										</c:if>
+									</dd>
+								</dl>
+								<div class="modal delete">
+									<div class="modal_body">
+										<h2>글을 삭제하시겠습니까?</h2>
+										<div class="modal-btn">
+											<button type="button" id="btn-delete-modalok">확인</button>
+											<button type="button" id="btn-delte-modalcancel">취소</button>
+										</div>
+									</div>
+								</div>
+							</form>
 						</div>
 					</div>
 					<div class="view-content">
@@ -100,7 +130,7 @@
 			<form id="frm-reply">
 				<input type="hidden" name="boardNo" value="${dto.boardNo }">
 				<div class="comment">
-					 <div>댓글 ${replydto.replyCount} </div> 
+					<div>댓글 ${replydto.replyCount}</div>
 					<div class="comment-box">
 						<input type="text" name="boardReplyContent" required>
 						<button type="button" class="btn reply">등록</button>
@@ -118,6 +148,8 @@
         $(loadedHandler);
         function loadedHandler(){
             $(".btn.reply").on("click", btnReplyClickHandler);
+            $(".btn-delete").on("click", btnDeleteClickHandler);
+            $("#btn-delete-modalok").on("click", btnDeleteOkClickHandler);
 
             $.ajax({
                 url : "${pageContext.request.contextPath}/board/reply/read.ajax"
@@ -261,9 +293,6 @@
 				
 			}
         }
-        	
-        	 
-        	
 		$(".reply-wrap").html(htmlVal);
 		// html(새로운 내용으로 덮어쓰면 기존 event 등록이 사라짐)
 		// event 다시 등록
@@ -272,55 +301,6 @@
         }
         
        	// 댓글 총 개수
-       	/* 
-       	$.ajax({
-       		url : "${pageContext.request.contextPath}/board/reply/write.ajax",
-       		method : "post",
-       		data : {boardNo:"${dto.boardNo}"},
-       		dataType : "json",
-       		success : function (result){
-       			// 댓글 총 개수를 가져와서 HTML에 표시
-       			$(".comment").html("<div>댓글 ${reply.replyCount} </div>");
-       		}
-       	});
-        */
-        // 대댓글
-/*          
-        function displayReReplyWrap(datalist) {
-        	console.log("${dto.boardNo}");
-        	var htmlVal = '';
-        	for(var idx in datalist){
-				var replydto = datalist[idx];
-        		htmlVal += `
-        		<form class="frm-rereply">
-        			<input type="hidden" name="boardNo" value="${dto.boardNo}">
-        			<input type="hidden" name="boardReplyId" value="\${replydto.bReplyId}">
-        			<input type="hidden" name="boardReplyLevel" value="\${replydto.bReplyLevel}">
-        			<input type="hidden" name="boardReplyStep" value="\${replydto.bReplyStep}">
-        			<input type="hidden" name="boardReplyRef" value="\${replydto.bReplyRef}">
-        			<div class="boardrereply grid">
-        				<div>\${replydto.bReplyId}</div>
-        				<div>\${replydto.bReplyContent}</div>
-        				<div>\${replydto.bReplyWriteTime}</div>
-        				<div>\${replydto.bReplyWriter}</div>
-        				<div><button type="button" class="btn show rereplycontent">답글</button></div>
-        				<div class="rereplycontent span">
-        					<input type="text" name="boardReplyContent">
-        					<button type="button" class="btn rereply">등록</button>
-        				</div>
-        			</div>
-        		</form>
-				`;
-			}
-         	
-    		$(".reply-wrap").html(htmlVal);
-    		// html(새로운 내용으로 덮어쓰면 기존 event 등록이 사라짐)
-    		// event 다시 등록
-    		$(".btn.rereplycontent.show").on("click",btnReReplyContentClickHandler);
-    		$(".btn.rereply").on("click", btnReReplyClickHandler);
-            }
-           */
-        
         	
         function btnReReplyContentClickHandler() {
         	if($(this).text() == "취소"){
@@ -331,6 +311,25 @@
 			$(this).parent().next().toggle();
 			/* $(this).prev().html(""); */
 		}
+       	
+       	// 모달 
+       	function btnDeleteClickHandler() {
+       		console.log("모달창 오픈");
+			$(".modal.delete").css("display", "block");
+		}
+       	
+       	
+       	// 글 삭제
+       	function btnDeleteOkClickHandler() {
+			console.log("눌림");
+			var frm = document.getElementById("frm-edit");
+			frm.method = "post";
+			// frm.enctype = "multipart/form-data"; // form 태그 내부에 input type="file"이 있다면
+			frm.action = "${pageContext.request.contextPath}/board/delete"; 
+			frm.submit();
+
+		}
+
     </script>
 </body>
 

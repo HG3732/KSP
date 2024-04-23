@@ -2,12 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu">
 
+	<!-- 교육 세부 내용 불러오기 -->
 	<select id="selectOne" parameterType="int" resultType="EduOneDto">
-	SELECT EDU_ID, EDU_SUBJECT, EDU_CONTENT, EDU_ADDRESS, EDU_PARTICIPANT, EDU_DAY, TO_CHAR(EDU_BOOK_START, 'YYYY-MM-DD'), TO_CHAR(EDU_BOOK_END, 'YYYY-MM-DD'), TO_CHAR(EDU_START, 'YYYY-MM-DD'), TO_CHAR(EDU_END, 'YYYY-MM-DD'), EDU_WRITE_TIME FROM EDU_LIST WHERE EDU_ID = #{eduId} 
+	SELECT EDU_ID, EDU_SUBJECT, EDU_CONTENT, EDU_ADDRESS, EDU_PARTICIPANT, EDU_DAY, TO_CHAR(EDU_BOOK_START, 'YYYY-MM-DD'), TO_CHAR(EDU_BOOK_END, 'YYYY-MM-DD'), TO_CHAR(EDU_START, 'YYYY-MM-DD'), TO_CHAR(EDU_END, 'YYYY-MM-DD'), EDU_WRITE_TIME, EDU_MAX_NUM, EDU_BOOK_NUM FROM EDU_LIST WHERE EDU_ID = #{eduId} 
 	</select>
-
+	<!-- 교육 세부 내용에 같이 업로드된 파일 불러오기 -->
 	<select id="selectFileList" parameterType="int" resultType="EduFileDto">
-	SELECT EDU_FILE_ID, EDU_ID, EDU_FILE_PATH, EDU_ORIGINAL_FILE_NAME FROM EDU_FILE WHERE EDU_ID = #{eduId}
+	SELECT EDU_FILE_ID, EDU_ID, EDU_FILE_PATH, EDU_ORIGINAL_FILE_NAME, EDU_SAVED_FILE_NAME FROM EDU_FILE WHERE EDU_ID = #{eduId}
 	</select>
 
 	<!-- 교육 등록 -->
@@ -23,7 +24,7 @@
 		<!-- 
 		 (EDU_FILE_ID, EDU_ID, EDU_FILE_PATH, EDU_ORIGINAL_FILE_NAME)
 		 -->  
-		VALUES ((#{idx} + 1), (SELECT NVL(MAX(EDU_ID), 0) + 1 FROM EDU_LIST), #{eduFileDto.eduFilePath}, #{eduFileDto.eduOriginalFileName}) 
+		VALUES ((#{idx} + 1), (SELECT NVL(MAX(EDU_ID), 0) + 1 FROM EDU_LIST), #{eduFileDto.eduFilePath}, #{eduFileDto.eduOriginalFileName}, #{eduFileDto.eduSavedFileName}) 
 		</foreach>
 	</if>
 	SELECT * FROM DUAL

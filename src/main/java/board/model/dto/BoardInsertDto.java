@@ -37,6 +37,8 @@ public class BoardInsertDto {
 	}
 	
 	
+	
+
 	public String getBoardWriter() {
 		return boardWriter;
 	}

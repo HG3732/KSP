@@ -1,8 +1,5 @@
 package education.book.model.service;
 
-import static common.SemiTemplate.*;
-
-import java.sql.Connection;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -44,15 +41,23 @@ public class EduBookService {
 		return result;
 	}
 
-	// insert
+	// 교육 신청
 	public int insert(EduBookDto dto) {
 		int result = 0;
-		SqlSession session = MybatisTemplate.getSqlSession(true);
-		result = ebd.insert(session, dto);
+		int resultUpdate = 0;
+		SqlSession session = MybatisTemplate.getSqlSession(false);
+		resultUpdate = ebd.plusNum(session, dto);
+		if(resultUpdate > -1) {
+			result = ebd.insert(session, dto);
+		}
+		if(resultUpdate > -1 && result > 0) {
+			session.commit();
+		}else {
+			session.rollback();
+		}
 		session.close();
 		return result;
 	}
-
 
 	// delete
 	public int delete(String mem_id, Integer eduId) {
@@ -62,14 +67,5 @@ public class EduBookService {
 		session.close();
 		return result;
 	}
-	
-//	// update
-//	public int update(EduOneDto dto) {
-//		int result = 0;
-//		Connection con = getConnection(true);
-//		result = dao.update(con, dto);
-//		close(con);
-//		return result;
-//	}
 
 }

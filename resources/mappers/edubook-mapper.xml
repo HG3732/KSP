@@ -32,11 +32,17 @@
 	
 	<!-- 교육 신청 -->
 	<insert id="insert" parameterType="EduBookDto">
-	INSERT INTO EDU_BOOK VALUES (#{eduBookId}, #{eduId}, #{eduBookPhone}, #{eduPartLevel}, #{eduPartName}, #{eduPartSchool})
+	INSERT INTO EDU_BOOK VALUES (#{eduBookId}, #{eduId}, #{eduBookPhone}, #{eduPartLevel}, #{eduPartName}, #{eduPartSchool}, #{eduPartNum})
 	</insert>
+	<update id="plusNum" parameterType="EduBookDto">
+	UPDATE EDU_LIST SET EDU_BOOK_NUM = EDU_BOOK_NUM + #{eduPartNum} WHERE EDU_ID = #{eduId}
+	</update>
 	
 	<!-- 교육 신청 취소 -->
 	<delete id="delete" parameterType="hashmap">
 	DELETE FROM EDU_BOOK WHERE EDU_BOOK_ID = #{mem_id} AND EDU_ID = #{eduId}
 	</delete>
+	<update id="minusNum" parameterType="EduBookDto">
+	UPDATE EDU_LIST SET EDU_BOOK_NUM = EDU_BOOK_NUM - #{eduPartNum} WHERE EDU_ID = #{eduId}
+	</update>
 </mapper>

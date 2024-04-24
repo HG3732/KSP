@@ -19,6 +19,10 @@
 	loginPermission();
     </script>
     <style>
+    	.wrap-body {
+    		position: relative;
+    	}
+    
         .wrap-main
         , .wrap-footer{
             margin: 10px auto;
@@ -85,11 +89,83 @@
         .wrap-footer{
             clear: both;
         }
+        
+        /* 모달 */
+        .modal-background {
+        	position: absolute;
+        	background-color : transparent;
+        	width: 100vw;
+        	height: 1300px;
+        	z-index: 10;
+        	display: none;
+        }
+        
+        .wrap-modal {
+        	position: absolute; left: 450px; top: 640px;
+        	width : 500px;
+        	background-color: rgb(34, 21, 64);
+        	display : flex;
+        	flex-direction : column;
+        	border-radius: 10px;
+        }
+		
+		.wrap-modal > .headbar {
+			background-color : #503396;
+			display: flex;
+    		justify-content: end;
+    		border-radius: 10px 10px 0 0;
+		}
+		
+		.wrap-modal > .headbar > .closemodal {
+			padding : 5px;
+			width: fit-content;
+			margin-right :  5px;
+		}
+		
+		.wrap-modal > .modal-main {
+			padding: 10px;
+		}
+		
+		.wrap-modal > .modal-main > .section-row {
+			display: grid;
+			grid-template-columns: 1fr 4fr;
+			margin : 10px 0;
+		}
+		
+		.wrap-modal > .modal-main > .section-row > div:first-child{
+			text-align: center;
+			border-right: 1px solid white;
+		}
 
+		.wrap-modal > .modal-main > .section-row > div:last-child{
+			padding-left: 10px;
+		}
+		
     </style>
 </head>
 
 <body>
+   	<div class="modal-background">
+		<div class="wrap-modal">
+			<div class="headbar">
+				<div class="closemodal">X</div>
+			</div>
+			<div class="modal-main">
+				<div class="section-row">
+					<div>부제</div>
+					<div>내용</div>
+				</div>
+				<div class="section-row">
+					<div>부제</div>
+					<div>내용</div>
+				</div>
+				<div class="section-row">
+					<div>부제</div>
+					<div>내용</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="wrap-header">
 		<%@include file="/WEB-INF/views/common/header.jsp" %>
 	</div>
@@ -126,6 +202,7 @@ $(loadedHandler);
 function loadedHandler(){
 	$(".btn.edulist").on("click", eduListHandler);
 	$(".btn.edubooklist").on("click", eduBookListHandler);
+	$(".어딘가요").on("click", modalClickHandler);
 }
 //교육 목록 페이지 이동
 function eduListHandler(){
@@ -134,6 +211,14 @@ function eduListHandler(){
 // 교육 신청 현황 페이지 이동
 function eduBookListHandler(){
 	location.href = "${pageContext.request.contextPath}/edu/book";
+}
+//모달 띄우기
+function modalClickHandler(event){
+	var clickObject = event.target;
+	var clickPoint = event.target.value;
+	$(".modal-background").prop("display", "block");
+	
+	
 }
 
 
@@ -176,5 +261,6 @@ document.addEventListener('DOMContentLoaded', function () {
     calendar.render();
 });
 </script>
+
 </body>
 </html>

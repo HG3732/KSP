@@ -30,7 +30,6 @@ function loginSubmitHandler() {
 		, method : "post"
 		, data : $("#login-form").serialize()
 		, success : function(result){
-			
 			if(result == '-1'){
 				alert("이용이 정지된 계정입니다. 다른 계정으로 접속해주세요.")
 			}

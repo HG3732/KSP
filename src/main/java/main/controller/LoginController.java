@@ -60,8 +60,6 @@ public class LoginController extends HttpServlet {
 			result = 0;
 			service.failCntUpdate(id);
 		}
-		
 		response.getWriter().append(String.valueOf(result));
-	
 	}
 }

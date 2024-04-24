@@ -223,10 +223,10 @@ public class MemberDao {
 			int result = 0;
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("mem_id", mem_id);
-			result = session.update("member.updateFailCnt", paramMap);
+			session.update("member.failCntUpdate", paramMap);
 			System.out.println("dao : " + result);
 			System.out.println("paramMap : " + paramMap);
-			result = (int)paramMap.get("memFailCount");
+			result = (int)paramMap.get("memFailCnt");
 			return result;
 		}
 		

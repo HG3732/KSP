@@ -87,10 +87,40 @@
         .wrap-main>.content>.edu-list>.edu-detail>form>.edu-book{
             text-align: center;
         }
-        .wrap-main>.content>.edu-list>.edu-detail>form>.edu-book>button{
-            background-color: transparent;
-            border: 0;
-            cursor: pointer;
+        .wrap-main .btn{
+			background-color: transparent;
+			border: 1px solid white;
+			cursor: pointer;
+			font-size: 16px;
+        }
+        .wrap-main .btn:hover{
+        	background-color: white;
+        	color: black;
+        	font-weight: bold;
+        }
+        .wrap-main .tabs{
+        	display: flex;
+        	justify-content: space-around;
+        }
+        .wrap-main .tabs>div{
+        	border: 1px solid white;
+        	width: 100%; height: 100%;
+        	text-align: center;
+        }
+        .wrap-main .tabs>div>button{
+        	border: 0;
+        	background-color: transparent;
+        	width: 100%; height: 100%;
+        	padding: 15px 0;
+        }
+        .wrap-main .tabs>div>button:hover{
+        	background-color: white;
+        	color: black;
+        }
+        .wrap-main .tabs>div>button:hover>*{
+        	background-color: white;
+        	color: black;
+        	font-weight: bold;
         }
 
 
@@ -106,8 +136,10 @@
 	</div>
     <div class="wrap-main">
         <div class="content">
-            <a href="${pageContext.request.contextPath }/edu"><h3>교육 목록</h3></a>
-            <a href="${pageContext.request.contextPath }/edu/book"><h3>교육 예약 현황</h3></a>
+    		<div class="tabs">
+	            <div class="edutab"><button type="button" class="btn edulist"><h3>교육 목록</h3></button></div>
+	            <div class="edutab"><button type="button" class="btn edubooklist"><h3>교육 예약 현황</h3></button></div>
+    		</div>
             <div class="home-menu">
                 <a href="#"><img src="https://www.jejusi.go.kr/images/star/icon/home_icon01.png"></a>
                 <div> &nbsp; | 행사 및 교육 | 행사 및 교육신청</div>
@@ -172,6 +204,8 @@
                                     		<option value="adult">성인</option>
                                     	</select>
                                 	</td>
+                                	<td colspan="2"></td>
+                                	<td>인원</td><td><input type="number" name="eduBookNum" id="eduBookNum" value="${detail.eduBookNum }" readonly></td><td>/</td><td><input type="number" name="eduMaxNum" id="eduMaxNum" min="${detail.eduBookNum }" value="${detail.eduMaxNum }"></td>
                                 </tr>
                                 <tr>
                                     <td colspan="8"><textarea name="eduContent" rows="10">${detail.eduContent }</textarea></td>
@@ -201,12 +235,22 @@
 $(loadedHandler);
 function loadedHandler(){
 	$(".btn.eduup").on("click", eduUpdateHandler);
+	$(".btn.edulist").on("click", eduListHandler);
+	$(".btn.edubooklist").on("click", eduBookListHandler);
 }
-// 교육 내용 수정 확인창
+//교육 목록 페이지 이동
+function eduListHandler(){
+	location.href = "${pageContext.request.contextPath}/edu";
+}
+// 교육 신청 현황 페이지 이동
+function eduBookListHandler(){
+	location.href = "${pageContext.request.contextPath}/edu/book";
+}
+// 교육 내용 수정하기
 function eduUpdateHandler(){
 	if(confirm("교육 내용을 수정하시겠습니까?")){
 		$.ajax({
-			url : "${pageContext.request.contextPath}/edu/update"
+			url : "${pageContext.request.contextPath}/edu/list/update"
 			, method : "post"
 			, data : $("#frm-edudetail").serialize()
 			, error : ajaxErrorHandler

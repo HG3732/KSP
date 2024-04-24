@@ -63,20 +63,46 @@
 		    justify-content: flex-end;
 		    align-items: center;
 		}
-		.wrap-main>.content>.edu-list>.edu-detail>.edu-detail-content>table>tbody>tr>td>.edu-edit-del>div>form>button
-		, .wrap-main>.content>.edu-list>.edu-detail>.edu-detail-content>table>tbody>tr>td>.edu-edit-del>div>a>button
-		, .wrap-main>.content>.edu-list>.edu-detail>.edu-detail-content>table>tbody>tr>td>.edu-edit-del>div>button{
-			background-color: transparent;
-			border: 0;
-			cursor: pointer;
-			font-size: 16px;
-		}
         .wrap-main>.content>.edu-list>.edu-detail>.edu-book{
             text-align: center;
             margin-top: 10px;
         }
-
-
+        .wrap-main .btn{
+			background-color: transparent;
+			border: 1px solid white;
+			cursor: pointer;
+			font-size: 16px;
+        }
+        .wrap-main .btn:hover{
+        	background-color: white;
+        	color: black;
+        	font-weight: bold;
+        }
+        
+        .wrap-main .tabs{
+        	display: flex;
+        	justify-content: space-around;
+        }
+        .wrap-main .tabs>div{
+        	border: 1px solid white;
+        	width: 100%; height: 100%;
+        	text-align: center;
+        }
+        .wrap-main .tabs>div>button{
+        	border: 0;
+        	background-color: transparent;
+        	width: 100%; height: 100%;
+        	padding: 15px 0;
+        }
+        .wrap-main .tabs>div>button:hover{
+        	background-color: white;
+        	color: black;
+        }
+        .wrap-main .tabs>div>button:hover>*{
+        	background-color: white;
+        	color: black;
+        	font-weight: bold;
+        }
         .wrap-footer {
             clear: both;
         }
@@ -89,8 +115,10 @@
 	</div>
     <div class="wrap-main">
         <div class="content">
-            <a href="${pageContext.request.contextPath }/edu"><h3>교육 목록</h3></a>
-            <a href="${pageContext.request.contextPath }/edu/book"><h3>교육 예약 현황</h3></a>
+    		<div class="tabs">
+	            <div class="edutab"><button type="button" class="btn edulist"><h3>교육 목록</h3></button></div>
+	            <div class="edutab"><button type="button" class="btn edubooklist"><h3>교육 예약 현황</h3></button></div>
+    		</div>
             <div class="home-menu">
                 <a href="${pageContext.request.contextPath }/home"><img src="https://www.jejusi.go.kr/images/star/icon/home_icon01.png"></a>
                 <div> &nbsp; | 행사 및 교육 | 행사 및 교육신청</div>
@@ -153,7 +181,7 @@
                                 </tr>
                                 <tr>
                                 	<td>교육대상</td>
-                                	<td colspan="7">
+                                	<td colspan="3">
                                     <c:choose>
                                     	<c:when test="${detail.eduParticipant == 'all' }">모두</c:when>
                                     	<c:when test="${detail.eduParticipant == 'element' }">초등학생</c:when>
@@ -162,6 +190,7 @@
                                     	<c:when test="${detail.eduParticipant == 'adult' }">성인</c:when>
                                     </c:choose>
                                 	</td>
+                                	<td>인원</td><td>${detail.eduBookNum }/${detail.eduMaxNum }</td>
                                 </tr>
                                 <tr id="content">
                                     <td colspan="8">${detail.eduContent }</td>
@@ -170,7 +199,7 @@
                                 <c:forEach items="${detail.eduFileDtoList }" var="file">
                                 <tr>
                                 	<td>${file.eduFileId }</td>
-                                	<td>${file.eduOriginalFileName } + 다운로드링크</td>
+                                	<td><a href="${file.eduFilePath }/${file.eduSavedFileName}" download="${file.eduOriginalFileName }">${file.eduOriginalFileName }</a></td>
                                 </tr>
                                 </c:forEach>
                                 </c:if>
@@ -178,7 +207,7 @@
                         </table>
                     </div>
                     <div class="edu-book">
-                        <a href="${pageContext.request.contextPath }/edu/form?id=${detail.eduId }">신청하기</a>
+                        <button type="button" class="btn book">신청하기</button>
                     </div>
                 </div>
             </div>
@@ -195,9 +224,25 @@
 <script>
 $(loadedHandler);
 function loadedHandler(){
+	$(".btn.book").on("click", bookClkHandler);
 	$(".btn.bookdel").on("click", bookDelHandler);
 	$(".btn.edudel").on("click", eduDelHandler);
+	$(".btn.edulist").on("click", eduListHandler);
+	$(".btn.edubooklist").on("click", eduBookListHandler);
 }
+//교육 목록 페이지 이동
+function eduListHandler(){
+	location.href = "${pageContext.request.contextPath}/edu";
+}
+// 교육 신청 현황 페이지 이동
+function eduBookListHandler(){
+	location.href = "${pageContext.request.contextPath}/edu/book";
+}
+// 교육 신청하러 가기
+function bookClkHandler(){
+	location.href = "${pageContext.request.contextPath}/edu/form?id=${detail.eduId}";
+}
+// 교육 신청 취소
 function bookDelHandler(){
 	var eduIdVal = $("#eduId").val();
 	$.ajax({
@@ -215,6 +260,7 @@ function bookDelHandler(){
 		}
 	});
 }
+// 교육 삭제
 function eduDelHandler(){
 	$.ajax({
 		url : "${pageContext.request.contextPath}/edu/delete.ajax"
@@ -237,6 +283,5 @@ function eduDelHandler(){
 	$("#content").css("border-bottom", "1px solid white");
 	$("tr:last-of-type").css("border-bottom", "1px solid white");
 })();
-
 </script>
 </html>

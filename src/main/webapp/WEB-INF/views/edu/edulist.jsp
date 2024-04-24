@@ -12,6 +12,9 @@
     <title>KimParkSeo</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <style>
+    	.wrap-main .btn{
+    		cursor:pointer;
+    	}
         .wrap-main
         , .wrap-footer{
             margin: 10px auto;
@@ -21,11 +24,15 @@
         .wrap-main>.content{
             overflow: hidden;
         }
-        .wrap-main>.content>a{
+        .wrap-main>.content>div.edutab{
             text-align: center;
 		    display: inline-block;
 		    float: left;
 		    width: 50%;
+        }
+        .wrap-main>.content>div>button{
+        	border: 1px solid white;
+        	background-color: transparent;
         }
         .wrap-main>.content>.home-menu{
             display: flex;
@@ -107,6 +114,32 @@
         .wrap-main>.content>.edu-paging>li>a{
             text-decoration: none;
         }
+        
+        .wrap-main .tabs{
+        	display: flex;
+        	justify-content: space-around;
+        }
+        .wrap-main .tabs>div{
+        	border: 1px solid white;
+        	width: 100%; height: 100%;
+        	text-align: center;
+        }
+        .wrap-main .tabs>div>button{
+        	border: 0;
+        	background-color: transparent;
+        	width: 100%; height: 100%;
+        	padding: 15px 0;
+        }
+        .wrap-main .tabs>div>button:hover{
+        	background-color: white;
+        	color: black;
+        }
+        .wrap-main .tabs>div>button:hover>*{
+        	background-color: white;
+        	color: black;
+        	font-weight: bold;
+        }
+        
         .wrap-footer{
             clear: both;
         }
@@ -120,8 +153,10 @@
 	</div>
     <div class="wrap-main">
     	<div class="content">
-            <a href="${pageContext.request.contextPath }/edu"><h3>교육 목록</h3></a>
-            <a href="${pageContext.request.contextPath }/edu/book"><h3>교육 예약 현황</h3></a>
+    		<div class="tabs">
+	            <div class="edutab"><button type="button" class="btn edulist"><h3>교육 목록</h3></button></div>
+	            <div class="edutab"><button type="button" class="btn edubooklist"><h3>교육 예약 현황</h3></button></div>
+    		</div>
             <div class="home-menu">
                 <a href="${pageContext.request.contextPath }/home"><img src="https://www.jejusi.go.kr/images/star/icon/home_icon01.png"></a>
                 <div> &nbsp; | 행사 및 교육 | 행사 및 교육신청</div>
@@ -241,10 +276,22 @@
 $(loadedHandler);
 function loadedHandler(){
 	$(".btn.search-edu").on("click", searchSubjectHandler);
+	$(".btn.edulist").on("click", eduListHandler);
+	$(".btn.edubooklist").on("click", eduBookListHandler);
 }
+// 교육 목록 페이지 이동
+function eduListHandler(){
+	location.href = "${pageContext.request.contextPath}/edu";
+}
+// 교육 신청 현황 페이지 이동
+function eduBookListHandler(){
+	location.href = "${pageContext.request.contextPath}/edu/book";
+}
+// 키워드로 제목 검색
 function searchSubjectHandler(){
 	location.href="${pageContext.request.contextPath}/edu?edu-name=" + $("#edu-name").val() ;
 }
+// 키워드로 제목 검색 시 엔터도 반응
 function searchSubjectEnterHandler(){
 	if(window.event.keyCode == 13){
 		searchSubjectHandler();

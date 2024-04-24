@@ -203,8 +203,19 @@ function loadedHandler(){
 	$(".btn.edulist").on("click", eduListHandler);
 	$(".btn.edubooklist").on("click", eduBookListHandler);
 	$(".어딘가요").on("click", modalClickHandler);
+	$(".btn.fc-event-title-container").on("click", bookConfirmHandler);
+	$(".closeModal").on("click", closeConfirmHandler);
 }
-//교육 목록 페이지 이동
+// 신청 내역 모달 띄우기
+function bookConfirmHandler(){
+	$(".modal").show();
+}
+// 신청 내역 모달 닫기
+function closeConfirmHandler(event){
+	event.click()
+	$(".modal").hide();
+}
+// 교육 목록 페이지 이동
 function eduListHandler(){
 	location.href = "${pageContext.request.contextPath}/edu";
 }

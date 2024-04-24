@@ -14,6 +14,7 @@ public class MemberDto {
 	private String mem_pwd;
 	private String mem_email;
 	private String mem_address;
+	private Integer memFailCnt;
 
 	
 	public MemberDto() {
@@ -34,7 +35,8 @@ public class MemberDto {
 	@Override
 	public String toString() {
 		return "MemberDto [mem_id=" + mem_id + ", mem_admin=" + mem_admin + ", mem_name=" + mem_name + ", mem_pwd="
-				+ mem_pwd + ", mem_email=" + mem_email + ", mem_address=" + mem_address + "]";
+				+ mem_pwd + ", mem_email=" + mem_email + ", mem_address=" + mem_address + ", memFailCnt="
+				+ memFailCnt + "]";
 	}
 
 	public String getMem_id() {
@@ -83,6 +85,14 @@ public class MemberDto {
 
 	public void setMem_address(String mem_address) {
 		this.mem_address = mem_address;
+	}
+
+	public Integer getMemFailCnt() {
+		return memFailCnt;
+	}
+
+	public void setMemFailCnt(Integer memFailCnt) {
+		this.memFailCnt = memFailCnt;
 	}
 
 	

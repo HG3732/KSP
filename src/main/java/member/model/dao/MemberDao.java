@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -197,7 +199,7 @@ public class MemberDao {
 //			MEMBER_PWD     NOT NULL VARCHAR2(20)  
 //			MEMBER_EMAIL   NOT NULL VARCHAR2(20)  
 //			MEMBER_ADDRESS NOT NULL VARCHAR2(100) 
-			String sql = "INSERT INTO MEMBER (MEMBER_ID, MEMBER_ADMIN, MEMBER_NAME, MEMBER_PWD, MEMBER_EMAIL, MEMBER_ADDRESS) VALUES (?, DEFAULT, ?, ?, ?, ?)";
+			String sql = "INSERT INTO MEMBER (MEMBER_ID, MEMBER_ADMIN, MEMBER_NAME, MEMBER_PWD, MEMBER_EMAIL, MEMBER_ADDRESS, MEMBER_FAIL_COUNT) VALUES (?, DEFAULT, ?, ?, ?, ?, default)";
 			PreparedStatement pstmt = null;
 
 			try {
@@ -219,8 +221,12 @@ public class MemberDao {
 		//fail_count update
 		public int failCntUpdate(SqlSession session, String mem_id) {
 			int result = 0;
-			result = session.update("member.updateFailCnt", mem_id);
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("mem_id", mem_id);
+			result = session.update("member.updateFailCnt", paramMap);
 			System.out.println("dao : " + result);
+			System.out.println("paramMap : " + paramMap);
+			result = (int)paramMap.get("memFailCount");
 			return result;
 		}
 		

@@ -10,6 +10,7 @@ public class MemberLoginDto {
 //	LOG_STATUS     NOT NULL NUMBER(1) 
 	private String mem_id;
 	private String mem_pwd;
+	private Integer mem_fail_cnt;
 	
 	public MemberLoginDto() {
 		super();
@@ -23,7 +24,7 @@ public class MemberLoginDto {
 
 	@Override
 	public String toString() {
-		return "MemberLoginDto [mem_id=" + mem_id + ", mem_pwd=" + mem_pwd + "]";
+		return "MemberLoginDto [mem_id=" + mem_id + ", mem_pwd=" + mem_pwd + ", mem_fail_cnt=" + mem_fail_cnt + "]";
 	}
 
 	public String getMem_id() {
@@ -34,6 +35,10 @@ public class MemberLoginDto {
 		return mem_pwd;
 	}
 
+	public Integer getMem_fail_cnt() {
+		return mem_fail_cnt;
+	}
+
 	public void setMem_id(String mem_id) {
 		this.mem_id = mem_id;
 	}
@@ -41,7 +46,9 @@ public class MemberLoginDto {
 	public void setMem_pwd(String mem_pwd) {
 		this.mem_pwd = mem_pwd;
 	}
-	
-	
+
+	public void setMem_fail_cnt(Integer mem_fail_cnt) {
+		this.mem_fail_cnt = mem_fail_cnt;
+	}
 
 }

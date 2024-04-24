@@ -12,7 +12,6 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <jsp:include page="/WEB-INF/views/common/common_star.jsp"/>
     <script>
-    loginPermission();
 	adminPermission();
     </script>
     <style>
@@ -115,6 +114,24 @@
         	color: black;
         	font-weight: bold;
         }
+        
+        #container {
+            width: 1000px;
+            margin: 20px auto;
+        }
+        #container *{
+            background-color: transparent;
+            color: white;
+        }
+        .ck-editor__editable[role="textbox"] {
+            /* Editing area */
+            min-height: 200px;
+        }
+        .ck-content .image {
+            /* Block images */
+            max-width: 80%;
+            margin: 20px auto;
+        }
 
 
         .wrap-footer {
@@ -197,10 +214,17 @@
                                     	</select>
                                 	</td>
                                 	<td colspan="2"></td>
-                                	<td>정원</td><td><input type="number" name="eduMaxNum" id="eduMaxNum" min=0></td> 
+                                	<td>정원</td><td><input type="text" name="eduMaxNum" id="eduMaxNum"></td> 
                                 </tr>
                                 <tr>
-                                    <td colspan="8"><textarea name="eduContent" rows="10" required></textarea></td>
+                                	<td colspan="8">
+                                		<div id="container">
+                                			<textarea name="eduContent" id="editor"></textarea>
+                                		</div>
+                                	</td>
+                                	<!-- 
+                                    <td colspan="8"><textarea id="editor" name="eduContent" rows="10" required></textarea></td>
+                                     -->
                                 </tr>
                                 <tr>
                                 	<td><button type="button" class="btn file">파일추가</button></td>
@@ -223,6 +247,26 @@
             </footer>
         </div>
     </div>
+<script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
+<script>
+    const ckInstance = ClassicEditor
+        .create( document.querySelector( '#editor' ), {
+	    	language: { ui: 'ko' , content: 'ko' }
+	        //,cloudServices: {
+	         //   tokenUrl: 'https://81478.cke-cs.com/token/dev/de0d9159dc2b7ce3ecb85191c28f789217b087f58ae6880e30d89820724d',
+	         //   uploadUrl: 'https://81478.cke-cs.com/easyimage/upload/'
+        	  // uploadUrl: '${pageContext.request.contextPath}/fileupload.ajax'
+	        //}
+    		, ckfinder : { uploadUrl : '${pageContext.request.contextPath}/fileupload.ajax' }
+        } )
+		.then( a => {
+			b = a;
+		} )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
+
 <script>
 $(loadedHandler);
 function loadedHandler(){
@@ -246,14 +290,22 @@ function eduFileHandler(){
 function eduFileCancelHandler(){
 	$(this).parent().parent().remove();
 }
-// 교육 등록 확인창
+// 교육 등록하기
 function eduInsertHandler(){
+	console.log("==========");
+	console.log($("#frm-eduins").serialize());
+	$("[name=eduContent]").val(b.getData());
+	console.log($("#frm-eduins").serialize());	
 	var formData = new FormData($("#frm-eduins")[0]);
+	//var eduContent = new FormData($("#container")[0]);
+	//var eduContentVal = eduContent.html();
 	if(confirm("교육을 등록하시겠습니까?")){
 		$.ajax({
 			url : "${pageContext.request.contextPath}/edu/list/insert"
 			, method : "post"
-			, data : formData
+			//, enctype : "multipart/form-data"
+			//, data : {formData : formData, eduContent : eduContentVal}
+			, data :$("#frm-eduins").serialize()
 			, contentType : false
 			, processData : false
 			, error : ajaxErrorHandler

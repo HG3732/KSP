@@ -56,6 +56,18 @@ public class EduInsertController extends HttpServlet {
 		try {
 			// 파일 저장 기능
 			System.out.println(request.getContentType());
+			String eduSubject;
+			String eduContent;
+			String eduAddress;
+			String eduParticipant;
+			String eduDay;
+			String eduBookStart;
+			String eduBookEnd;
+			String eduStart;
+			String eduEnd;
+			String eduMaxNumStr;
+			Integer eduMaxNum;
+				
 			String uploadPath = request.getServletContext().getRealPath("/resources/uploadfile");
 			System.out.println("uploadPath : " + uploadPath);
 			File uploadPathFile = new File(uploadPath);
@@ -82,23 +94,26 @@ public class EduInsertController extends HttpServlet {
 				EduFileWriteDto filedto = new EduFileWriteDto(uploadPath, originalName, fileName);
 				filelist.add(filedto);
 			}
-			String eduSubject = multiReq.getParameter("eduSubject");
-			String eduContent = multiReq.getParameter("eduContent");
-			String eduAddress = multiReq.getParameter("eduAddress");
-			String eduParticipant = multiReq.getParameter("eduParticipant");
-			String eduDay = multiReq.getParameter("eduDay");
-			String eduBookStart = multiReq.getParameter("eduBookStart");
-			String eduBookEnd = multiReq.getParameter("eduBookEnd");
-			String eduStart = multiReq.getParameter("eduStart");
-			String eduEnd = multiReq.getParameter("eduEnd");
-			String eduMaxNumStr = multiReq.getParameter("eduMaxNum");
-			Integer eduMaxNum = Integer.parseInt(eduMaxNumStr);
+			System.out.println(multiReq.getParameter("formData"));
+			System.out.println(request.getParameter("eduContent"));
+			eduSubject = request.getParameter("eduSubject");
+			eduContent = request.getParameter("eduContent");
+			eduAddress = request.getParameter("eduAddress");
+			eduParticipant = request.getParameter("eduParticipant");
+			eduDay = request.getParameter("eduDay");
+			eduBookStart =request.getParameter("eduBookStart");
+			eduBookEnd = request.getParameter("eduBookEnd");
+			eduStart = request.getParameter("eduStart");
+			eduEnd = request.getParameter("eduEnd");
+			eduMaxNumStr = request.getParameter("eduMaxNum");
+			eduMaxNum = Integer.parseInt(eduMaxNumStr);
+			
 			EduOneDto dto = new EduOneDto(null, eduSubject, eduContent, eduAddress, eduParticipant, eduDay, eduBookStart, eduBookEnd, eduStart, eduEnd, null, eduMaxNum, null);
 			
 			int result;
 			
 			if(eduMaxNum > 0) {
-				result = es.insert(dto, filelist);
+				result = es.insert(dto);
 			}else {
 				result = 0;
 			}

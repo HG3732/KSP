@@ -30,15 +30,28 @@ function loginSubmitHandler() {
 		, method : "post"
 		, data : $("#login-form").serialize()
 		, success : function(result){
-			if(result == '-1'){
-				alert("이용이 정지된 계정입니다. 다른 계정으로 접속해주세요.")
-			}
-			else if(result == '1'){
+			switch (result) {
+			case '-1':
+				alert("이용이 정지된 계정입니다. 다른 계정으로 접속해주세요.");
+				break;
+			case '-2':
+				alert("존재하지 않는 아이디입니다.");
+				break;
+			case '0':
 				alert("반갑습니다");
 				location.href="<%=referer%>";
-			} else {
-				alert("아이디 또는 비밀번호를 확인해주세요(틀린 횟수 : )");
+				break;
+			case '5':
+				alert("로그인 실패 횟수 5회로 계정이 잠김처리되었습니다.");
+				location.href="${pageContext.request.contextPath}/home";
+				break;
+			case '1' : case '2' : case '3' : case '4' :
+				alert("아이디 또는 비밀번호를 확인해주세요(틀린 횟수 : " + result + " )");
 				$("[name=pwd]").val("");
+				break;
+			default:
+				alert("아이디 또는 비밀번호를 확인해주세요");
+				break;
 			}
 		}
 		, error : function(request, status, error) {

@@ -3,7 +3,7 @@
 <mapper namespace="member">
 	<!-- 로그인 실패 시 비밀번호 초기화 횟수 증가 -->
 	<update id="failCntUpdate" parameterType="map">
-			UPDATE MEMBER SET MEMBER_FAIL_COUNT =  (SELECT MEMBER_FAIL_COUNT + 1 FROM MEMBER WHERE MEMBER_ID = #{mem_id}) 
+			UPDATE MEMBER SET MEMBER_FAIL_COUNT =  MEMBER_FAIL_COUNT + 1
 				WHERE MEMBER_ID = #{mem_id}
 		<selectKey resultType="int" keyProperty="memFailCnt" order="AFTER">
 			SELECT MEMBER_FAIL_COUNT FROM MEMBER WHERE MEMBER_ID = #{mem_id}

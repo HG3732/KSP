@@ -106,7 +106,6 @@ public class MemberService {
 		int result = 0;
 		SqlSession session = MybatisTemplate.getSqlSession(true);
 		result = dao.failCntUpdate(session, mem_id);
-		System.out.println("service : " + result);
 		return result;
 	}
 	

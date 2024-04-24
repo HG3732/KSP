@@ -224,8 +224,6 @@ public class MemberDao {
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("mem_id", mem_id);
 			session.update("member.failCntUpdate", paramMap);
-			System.out.println("dao : " + result);
-			System.out.println("paramMap : " + paramMap);
 			result = (int)paramMap.get("memFailCnt");
 			return result;
 		}

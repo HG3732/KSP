@@ -40,13 +40,12 @@ public class LoginController extends HttpServlet {
 
 		MemberLoginDto dto = new MemberLoginDto(id, pw);
 
-		
-		// 성공 : 1
-		// 실패 : 0
+		// 성공 : 0
 		// 정지 : -1
+		// 실패 --> 실패 횟수( 1~5)
 		int result = 0;
 		MemberInfoDto resultInfo = service.loginGetInfo(dto);
-		if(resultInfo != null) {
+		if(resultInfo != null) {	//아이디 비밀번호 전부 맞췄는데
 			//성공은 했으나 정지회원일 때
 			if(resultInfo.getMem_admin() == -1) {
 				result = -1;
@@ -54,11 +53,18 @@ public class LoginController extends HttpServlet {
 			//성공, 정지 회원 아님
 			service.cntResetUpdate(id);
 			request.getSession().setAttribute("ssslogin", resultInfo);
-			result = 1;
+			result = 0;
 			}
 		} else {
-			result = 0;
-			service.failCntUpdate(id);
+			if(service.selectCheckId(id) > 0) {	//아이디는 맞추고 비밀번호는 틀렸을 때
+				result = service.failCntUpdate(id);
+				if(result == 5) {	//5회이상 로그인 실패 시 해당계정 정지
+					service.adminUpdate(id, -1);
+					result = -1;
+				}
+			} else {	//아이디도 틀렸을 때
+				result = -2;
+				}
 		}
 		response.getWriter().append(String.valueOf(result));
 	}

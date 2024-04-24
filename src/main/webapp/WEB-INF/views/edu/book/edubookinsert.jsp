@@ -54,6 +54,11 @@
         , .wrap-main>.edu-book-info>form>table>tbody>tr>td>select{
         	color: black;
         }
+        
+        .wrap-main .btn:hover{
+        	background-color: white;
+        	color: black;
+        }
 
         .wrap-footer {
             clear: both;
@@ -125,6 +130,9 @@
 	                    <tr>
 	                        <td>인솔자명</td><td><input type="text" id="book-part-name" name="book-part-name" disabled></td>
 	                        <td>학교명</td><td><input type="text" id="book-school" name="book-school" disabled></td>
+	                    </tr>
+	                    <tr>
+	                    	<td>인원</td><td><input type="number" id="book-num" name="book-num" min=1 disabled></td>
 	                    </tr>
 	                    <tr>
 	                        <td colspan="4"><button type="button" class="btn book" disabled>신청</button></td>
@@ -208,6 +216,7 @@ function successCodeHandler(){
 	$("#book-level").prop("disabled", false);
 	$("#book-part-name").prop("disabled", false);
 	$("#book-school").prop("disabled", false);
+	$("#book-num").prop("disabled", false);
 }
 // 신청 정보 입력 확인
 function checkValHandler(){
@@ -215,6 +224,7 @@ function checkValHandler(){
 			&& $("#book-level").val().trim().length != 0
 			&& $("#book-part-name").val().trim().length != 0
 			&& $("#book-school").val().trim().length != 0
+			&& $("#book-num").val() > 0
 			){
 		$(".btn.book").prop("disabled", false);
 	}
@@ -230,14 +240,18 @@ function bookMsgHandler(){
 				alert("신청이 완료되었습니다.\n교육 목록 페이지로 이동합니다.");
 				location.href="${pageContext.request.contextPath}/edu";
 			}else{
-				alert("신청 중 오류가 발생하였습니다.\n관리자에게 문의해주시기 바랍니다.\n메인 페이지로 이동합니다.");
+				alert("정원을 초과하는 인원이거나 신청 중 오류가 발생했습니다.");
 				location.href="${pageContext.request.contextPath}/home";
 			}
 		}
 		, error : function(request, status, error){
+			alert("정원을 초과하는 인원이거나 신청 중 오류가 발생했습니다.");
+			location.href="${pageContext.request.contextPath}/home";
+			/* 
 			alert("code:"  + request.status + "\n" + "message : "
 					+ request.responseText + "\n"
 					+"error : " + error);
+			 */
 		}
 	});
 }

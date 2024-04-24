@@ -43,7 +43,7 @@ public class EduUpdateController extends HttpServlet {
 			EduOneDto dto = service.selectOne(eduId);
 			String reContent = dto.getEduContent();
 			reContent = reContent.replaceAll("<br>", "");
-			EduOneDto reDto = new EduOneDto(eduId, dto.getEduSubject(), reContent, dto.getEduAddress(), dto.getEduParticipant(), dto.getEduDay(), dto.getEduBookStart(), dto.getEduBookEnd(), dto.getEduStart(), dto.getEduEnd(), dto.getEduWriteTime());
+			EduOneDto reDto = new EduOneDto(eduId, dto.getEduSubject(), reContent, dto.getEduAddress(), dto.getEduParticipant(), dto.getEduDay(), dto.getEduBookStart(), dto.getEduBookEnd(), dto.getEduStart(), dto.getEduEnd(), dto.getEduWriteTime(), dto.getEduMaxNum(), dto.getEduBookNum());
 			request.setAttribute("detail", reDto);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
@@ -68,8 +68,12 @@ public class EduUpdateController extends HttpServlet {
 		String eduStart = request.getParameter("eduStart");
 		String eduEnd = request.getParameter("eduEnd");
 		Integer eduId = Integer.parseInt(eduIdStr);
+		String eduMaxNumStr = request.getParameter("eduMaxNum");
+		Integer eduMaxNum = Integer.parseInt(eduMaxNumStr);
+		String eduBookNumStr = request.getParameter("eduBookNum");
+		Integer eduBookNum = Integer.parseInt(eduBookNumStr);
 		try {
-			EduOneDto detail = new EduOneDto(eduId, eduSubject, eduContent, eduAddress, eduParticipant, eduDay, eduBookStart, eduBookEnd, eduStart, eduEnd, service.selectOne(eduId).getEduWriteTime());
+			EduOneDto detail = new EduOneDto(eduId, eduSubject, eduContent, eduAddress, eduParticipant, eduDay, eduBookStart, eduBookEnd, eduStart, eduEnd, service.selectOne(eduId).getEduWriteTime(), eduMaxNum, eduBookNum);
 			int result = service.update(detail);
 			if(result > 0) {
 				result = 1;

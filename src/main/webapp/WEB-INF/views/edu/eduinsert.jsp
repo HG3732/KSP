@@ -89,18 +89,32 @@
             text-align: center;
         }
         .wrap-main>.content>.edu-list>.edu-detail>form>.edu-ins>button{
-            background-color: transparent;
-            border: 0;
             margin-top: 10px;
         }
-    	.wrap-main .btn{
-			cursor: pointer;
-			border: 0;
-			background-color: transparent;
-		}
-		#frm-eduins > div.edu-detail-content > table > tbody > tr > td > input[type=file]{
-			border: 0;
-		}
+    	.wrap-main .tabs{
+        	display: flex;
+        	justify-content: space-around;
+        }
+        .wrap-main .tabs>div{
+        	border: 1px solid white;
+        	width: 100%; height: 100%;
+        	text-align: center;
+        }
+        .wrap-main .tabs>div>button{
+        	border: 0;
+        	background-color: transparent;
+        	width: 100%; height: 100%;
+        	padding: 15px 0;
+        }
+        .wrap-main .tabs>div>button:hover{
+        	background-color: white;
+        	color: black;
+        }
+        .wrap-main .tabs>div>button:hover>*{
+        	background-color: white;
+        	color: black;
+        	font-weight: bold;
+        }
 
 
         .wrap-footer {
@@ -114,12 +128,11 @@
 		<%@include file="/WEB-INF/views/common/header.jsp" %>
 	</div>
     <div class="wrap-main">
-        <div>
-
-        </div>
         <div class="content">
-            <a href="${pageContext.request.contextPath }/edu"><h3>교육 목록</h3></a>
-            <a href="${pageContext.request.contextPath }/edu/book"><h3>교육 예약 현황</h3></a>
+            <div class="tabs">
+	            <div class="edutab"><button type="button" class="btn edulist"><h3>교육 목록</h3></button></div>
+	            <div class="edutab"><button type="button" class="btn edubooklist"><h3>교육 예약 현황</h3></button></div>
+    		</div>
             <div class="home-menu">
                 <a href="${pageContext.request.contextPath }/home"><img src="https://www.jejusi.go.kr/images/star/icon/home_icon01.png"></a>
                 <div> &nbsp; | 행사 및 교육 | 행사 및 교육신청</div>
@@ -184,7 +197,7 @@
                                     	</select>
                                 	</td>
                                 	<td colspan="2"></td>
-                                	<td>정원</td><td><input type="number" name="eduMaxNum" id="eduMaxNum"></td> 
+                                	<td>정원</td><td><input type="number" name="eduMaxNum" id="eduMaxNum" min=0></td> 
                                 </tr>
                                 <tr>
                                     <td colspan="8"><textarea name="eduContent" rows="10" required></textarea></td>

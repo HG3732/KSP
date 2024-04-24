@@ -1,11 +1,16 @@
 package main.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
 
 import education.model.service.EduService;
 import member.model.dto.MemberInfoDto;
@@ -35,6 +40,7 @@ public class LoginController extends HttpServlet {
 
 		MemberLoginDto dto = new MemberLoginDto(id, pw);
 
+		
 		// 성공 : 1
 		// 실패 : 0
 		// 정지 : -1
@@ -54,6 +60,7 @@ public class LoginController extends HttpServlet {
 			result = 0;
 			service.failCntUpdate(id);
 		}
+		
 		response.getWriter().append(String.valueOf(result));
 	
 	}

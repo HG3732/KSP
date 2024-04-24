@@ -26,9 +26,11 @@ function loginSubmitHandler() {
 	%>
 	$.ajax({
 		url:"${pageContext.request.contextPath}/login"
-		,method : "post"
-		,data : $("#login-form").serialize()
-		,success : function(result){
+		, async : false
+		, method : "post"
+		, data : $("#login-form").serialize()
+		, success : function(result){
+			
 			if(result == '-1'){
 				alert("이용이 정지된 계정입니다. 다른 계정으로 접속해주세요.")
 			}
@@ -36,7 +38,7 @@ function loginSubmitHandler() {
 				alert("반갑습니다");
 				location.href="<%=referer%>";
 			} else {
-				alert("아이디 또는 비밀번호를 확인해주세요");
+				alert("아이디 또는 비밀번호를 확인해주세요(틀린 횟수 : )");
 				$("[name=pwd]").val("");
 			}
 		}

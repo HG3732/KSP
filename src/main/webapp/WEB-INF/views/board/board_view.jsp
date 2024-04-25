@@ -139,8 +139,6 @@
 			</form>
 
 			<div class="reply-wrap">
-				<form id="frm-update">
-				</form>
 			</div>
 		</div>
 	</div>
@@ -283,7 +281,13 @@
         			</div>
         		</form>
 				`;
-				
+				/* 
+			<div><span class="rereply-content">ㄴ </span> \${replydto.bReplyContent}</div>
+	        				<input type="text" class="reupdatecontent" id="reupdatecontent" name="reupdatecontent">
+	        				<div class="rewritetime" id="rewritetime">\${replydto.bReplyWriteTime}</div>
+	        				<button type="button" class="btn reupdate" id="reupdateokbtn">등록</button>
+	        				<div>\${replydto.bReplyWriter}</div>
+	        				 */
 			// 대댓글
 			}else{
 				htmlVal += `
@@ -403,6 +407,34 @@
        	 */
 
        	// 댓글 수정 등록버튼
+/*        	
+       function btnReplyUpdateOkClickHandler() {
+			console.log("업데이트 등록 버튼 눌림");
+     		$.ajax({
+     		   url : "${pageContext.request.contextPath}/board/reply/update.ajax"
+                   ,method : "post"
+                   ,error : function(request, status, error) {
+   					alert("code: " + request.status + "\n" + "message: "
+   							+ request.responseText + "\n" + "error: " + error);
+                   }
+                   ,data : $("#frm-reply").serialize()
+                   ,dataType : "json"
+                   ,success : function(result){
+                       if(result == "-1"){
+                           alert("댓글이 작성되지 않았습니다.");
+                           return;
+                       }
+                       if(result == "0"){
+                           alert("댓글 등록에 실패했습니다");
+                           return;
+                       }
+                       console.log("댓글작성 result : " + result);
+                       displayReplyWrap(result);
+                   }
+               });
+		} */
+       	 
+       	
        function btnReplyUpdateOkClickHandler() {
 			console.log("업데이트 등록 버튼 눌림");
      		$.ajax({
@@ -412,13 +444,13 @@
  					alert("code: " + request.status + "\n" + "message: "
  							+ request.responseText + "\n" + "error: " + error);
                  }
-       			,data: $("frm-update").serialize()
-       			,dataType:"json"
+       			,data: $(this).parents(".frm-rereply").serialize()
+       			,dataType: "json"
        			,success: function(result) {
        				console.log("댓글 업데이트" + result);
                     if(result == "-1"){
                         alert("댓글이 작성되지 않았습니다.");
-                        location.href="${pageContext.request.contextPath}/view";
+                        location.href="${pageContext.request.contextPath}/board/community";
                         return;
                     }
                     if(result == "0"){
@@ -429,7 +461,7 @@
 				}
        		 });
 		}
-			
+			 
        	// 모달 오픈 
        	function btnDeleteClickHandler() {
        		console.log("모달창 오픈");

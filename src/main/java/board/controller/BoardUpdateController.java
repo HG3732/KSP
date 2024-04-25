@@ -83,6 +83,7 @@ public class BoardUpdateController extends HttpServlet {
 		try {
 			BoardDto detail = new BoardDto(boardNo, memberInfoDto.getMem_id(), title, content, viewDto.getBoardWriteTime(), viewDto.getHit(), null);
 			int result = service.update(detail);
+			System.out.println("글 업데이트 result : " + result);
 			if (result > 0) {
 				result = 1;
 				response.getWriter().append(String.valueOf(result));
@@ -92,7 +93,6 @@ public class BoardUpdateController extends HttpServlet {
 		}
 		System.out.println("업데이트 title : " + title);
 		System.out.println("업데이트 content : " + content);
-		
 		response.sendRedirect(request.getContextPath() + "/board/community");
 	}
 

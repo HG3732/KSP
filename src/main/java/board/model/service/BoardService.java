@@ -142,6 +142,7 @@ public class BoardService {
 		int result = 0;
 		Connection conn = getConnection(true);
 		result = dao.update(conn, dto);
+		System.out.println("서비스 게시글 업데이트 result : " + result);
 		close(conn);
 		return result;
 	}
@@ -203,6 +204,7 @@ public class BoardService {
 		int result = 0;
 		Connection conn = getConnection(true);
 		result = dao.replyUpdate(conn, dto);
+		System.out.println("서비스 댓글 업데이트 result : " + result);
 		close(conn);
 		return result;
 	}

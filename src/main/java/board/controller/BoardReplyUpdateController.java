@@ -1,13 +1,18 @@
 package board.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import board.model.dto.BoardReplyDto;
+import board.model.dto.BoardReplyListDto;
 import board.model.service.BoardService;
 import member.model.dto.MemberInfoDto;
 
@@ -45,15 +50,25 @@ public class BoardReplyUpdateController extends HttpServlet {
 		
 		String boardNoStr = request.getParameter("boardNo");
 		Integer boardNo = Integer.parseInt(boardNoStr);
+		System.out.println("댓글 수정 boardNo : " + boardNo);
+		
 		String boardReplyIdStr = request.getParameter("boardReplyId");
 		Integer boardReplyId = Integer.parseInt(boardReplyIdStr);
-		String replyContent = request.getParameter("bReplyContent");
+		String replyContent = request.getParameter("reupdatecontent");
+		System.out.println("댓글 수정 replyContent : " + replyContent);
+		System.out.println("댓글 수정 boardReplyId : " + boardReplyId);
+		
+		Gson gson = new Gson();
 		
 		try {
 			BoardReplyDto replydto = new BoardReplyDto(boardReplyId, boardNo, memberInfoDto.getMem_id(), replyContent, dto.getBReplyWriteTime(), dto.getBReplyLevel(), dto.getBReplyRef(), dto.getBReplyStep(), dto.getMemberAdmin());
 			int result = service.replyUpdate(replydto);
+			System.out.println("댓글 수정 result : " + result);
 			if (result > 0) {
-				response.getWriter().append(String.valueOf(result));
+				// result = 1;
+				System.out.println("댓글 수정 if 문 result : " + result);
+				List<BoardReplyListDto> replydtolist = service.selectBoardReplyList(boardNo);
+				response.getWriter().append(gson.toJson(replydtolist));
 			}
 		} catch (NumberFormatException e) {
 			e.printStackTrace();

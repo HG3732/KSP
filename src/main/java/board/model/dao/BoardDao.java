@@ -323,6 +323,7 @@ public class BoardDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println("DAO 게시글 업데이트 result : " + result);
 		close(pstmt);
 		return result;
 	}
@@ -484,19 +485,19 @@ public class BoardDao {
 	
 	// board update
 	public int replyUpdate(Connection conn, BoardReplyDto dto) {
-		int result = -1;
+		int result = 0;
 		String sql = "UPDATE BOARD_REPLY SET B_REPLY_CONTENT=? WHERE B_REPLY_ID=?";
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getBReplyContent());
-			pstmt.setInt(2, dto.getBoardNo());
+			pstmt.setInt(2, dto.getBReplyId());
 			
 			result = pstmt.executeUpdate();
-					
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println("DAO 댓글 업데이트 result : " + result);
 		close(pstmt);
 		return result;
 	}

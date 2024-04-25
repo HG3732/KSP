@@ -105,7 +105,6 @@
     				if(result != null){
     					alert("인증번호가 발송되었습니다.");
     					$(".code").val(result);
-    					console.log("code : " + result);
     					$(".codeinputconer").css("display", "table-row");
     				}else{
     					alert("인증번호 발송 중 오류가 발생했습니다. 나중에 다시 시도해주십시오.");
@@ -122,8 +121,6 @@
     function checkCodeHandler() {
     	var CodeVal = $(".code").val();
     	var inputCodeVal = $(".inputcode").val();
-    	console.log("CodeVal : "+ CodeVal);
-    	console.log("inputCodeVal : "+ inputCodeVal);
     	$.ajax({
     		url : "${pageContext.request.contextPath}/member/join/code/check.ajax"
     		, method : "post"

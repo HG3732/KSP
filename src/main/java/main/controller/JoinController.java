@@ -23,7 +23,6 @@ public class JoinController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getSession().setAttribute("recentEdu", new EduService().selectRecent().getEduSubject());
 		request.getRequestDispatcher("/WEB-INF/views/member/join.jsp").forward(request, response);
 	}
 

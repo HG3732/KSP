@@ -193,7 +193,7 @@ margin-top: -11px;
     color: black;
     cursor:pointer;
 }
-.boardreply.grid #reupdatecontent{
+.boardreply.grid .reupdatecontent{
 	display: none;
 	background: transparent;
 	border-width: 0 0 1px;

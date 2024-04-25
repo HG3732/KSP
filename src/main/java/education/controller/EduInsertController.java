@@ -54,59 +54,48 @@ public class EduInsertController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			// 파일 저장 기능
-			System.out.println(request.getContentType());
-			String eduSubject;
-			String eduContent;
-			String eduAddress;
-			String eduParticipant;
-			String eduDay;
-			String eduBookStart;
-			String eduBookEnd;
-			String eduStart;
-			String eduEnd;
-			String eduMaxNumStr;
-			Integer eduMaxNum;
-				
-			String uploadPath = request.getServletContext().getRealPath("/resources/uploadfile");
-			System.out.println("uploadPath : " + uploadPath);
-			File uploadPathFile = new File(uploadPath);
-			if(!uploadPathFile.exists()) {
-				uploadPathFile.mkdirs();
-			}
-			System.out.println("contentType : " + request.getContentType());
-			int uploadFileLimit = 10 * 1024 * 1024; // 10MB
-			MultipartRequest multiReq = new MultipartRequest(request, uploadPath, uploadFileLimit, "UTF-8", new DefaultFileRenamePolicy());
-			// 이 시점에 uploadPathFile 은 uploadPath 에 저장 완료
-			List<EduFileWriteDto> filelist = new ArrayList<EduFileWriteDto>();
-			// enumeration 은 list 와 같은 개념
-			Enumeration<?> fileNames = multiReq.getFileNames();
-			while(fileNames.hasMoreElements()) {
-				String name = (String) fileNames.nextElement();
-				String fileName = multiReq.getFilesystemName(name);
-				String originalName = multiReq.getOriginalFileName(name);
-				File file = multiReq.getFile(name);
-				if(file == null) {
-					System.out.println("업로드 실패");
-				}else {
-					System.out.println(file.length());
-				}
-				EduFileWriteDto filedto = new EduFileWriteDto(uploadPath, originalName, fileName);
-				filelist.add(filedto);
-			}
-			System.out.println(multiReq.getParameter("formData"));
+//			// 파일 저장 기능
+//			System.out.println(request.getContentType());
+//				
+//			String uploadPath = request.getServletContext().getRealPath("/resources/uploadfile");
+//			System.out.println("uploadPath : " + uploadPath);
+//			File uploadPathFile = new File(uploadPath);
+//			if(!uploadPathFile.exists()) {
+//				uploadPathFile.mkdirs();
+//			}
+//			System.out.println("contentType : " + request.getContentType());
+//			int uploadFileLimit = 10 * 1024 * 1024; // 10MB
+//			MultipartRequest multiReq = new MultipartRequest(request, uploadPath, uploadFileLimit, "UTF-8", new DefaultFileRenamePolicy());
+//			// 이 시점에 uploadPathFile 은 uploadPath 에 저장 완료
+//			List<EduFileWriteDto> filelist = new ArrayList<EduFileWriteDto>();
+//			// enumeration 은 list 와 같은 개념
+//			Enumeration<?> fileNames = multiReq.getFileNames();
+//			while(fileNames.hasMoreElements()) {
+//				String name = (String) fileNames.nextElement();
+//				String fileName = multiReq.getFilesystemName(name);
+//				String originalName = multiReq.getOriginalFileName(name);
+//				File file = multiReq.getFile(name);
+//				if(file == null) {
+//					System.out.println("업로드 실패");
+//				}else {
+//					System.out.println(file.length());
+//				}
+//				EduFileWriteDto filedto = new EduFileWriteDto(uploadPath, originalName, fileName);
+//				filelist.add(filedto);
+//			}
+//			System.out.println(multiReq.getParameter("formData"));
 			System.out.println(request.getParameter("eduContent"));
-			eduSubject = request.getParameter("eduSubject");
-			eduContent = request.getParameter("eduContent");
-			eduAddress = request.getParameter("eduAddress");
-			eduParticipant = request.getParameter("eduParticipant");
-			eduDay = request.getParameter("eduDay");
-			eduBookStart =request.getParameter("eduBookStart");
-			eduBookEnd = request.getParameter("eduBookEnd");
-			eduStart = request.getParameter("eduStart");
-			eduEnd = request.getParameter("eduEnd");
-			eduMaxNumStr = request.getParameter("eduMaxNum");
-			eduMaxNum = Integer.parseInt(eduMaxNumStr);
+			String eduSubject = request.getParameter("eduSubject");
+			String eduContent = request.getParameter("eduContent");
+			String eduAddress = request.getParameter("eduAddress");
+			String eduParticipant = request.getParameter("eduParticipant");
+			String eduDay = request.getParameter("eduDay");
+			String eduBookStart =request.getParameter("eduBookStart");
+			String eduBookEnd = request.getParameter("eduBookEnd");
+			String eduStart = request.getParameter("eduStart");
+			String eduEnd = request.getParameter("eduEnd");
+			String eduMaxNumStr = request.getParameter("eduMaxNum");
+			int eduMaxNum = Integer.parseInt(eduMaxNumStr);
 			
 			EduOneDto dto = new EduOneDto(null, eduSubject, eduContent, eduAddress, eduParticipant, eduDay, eduBookStart, eduBookEnd, eduStart, eduEnd, null, eduMaxNum, null);
 			

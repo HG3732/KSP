@@ -11,6 +11,7 @@ import board.model.dao.BoardDao;
 import board.model.dto.BoardDto;
 import board.model.dto.BoardInsertDto;
 import board.model.dto.BoardListDto;
+import board.model.dto.BoardReplyDto;
 import board.model.dto.BoardReplyListDto;
 import board.model.dto.BoardReplyWriteDto;
 import board.model.dto.BoardViewDto;
@@ -193,6 +194,15 @@ public class BoardService {
 		} else {
 			rollback(conn);
 		}
+		close(conn);
+		return result;
+	}
+	
+	// board update
+	public int replyUpdate(BoardReplyDto dto) {
+		int result = 0;
+		Connection conn = getConnection(true);
+		result = dao.replyUpdate(conn, dto);
 		close(conn);
 		return result;
 	}

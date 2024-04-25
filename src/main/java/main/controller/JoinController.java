@@ -36,7 +36,6 @@ public class JoinController extends HttpServlet {
 		
 		//비밀번호 암호화
 		memPwd = pe.getEncrypt(memPwd);
-		System.out.println("join : " + memPwd);
 		
 		MemberDto dto = new MemberDto(memId, 0, memName, memPwd, memEmail, memAddress, 0);
 		int result = new MemberService().insert(dto);

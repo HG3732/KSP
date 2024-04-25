@@ -238,6 +238,22 @@ label h2 {
 	margin-right: 10px;
 }
 
+button.btn-mail {
+	width: 75px;
+    height: 32px;
+    font-size: 12px;
+    margin-left: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color : #503396;
+    color: white;
+}
+
+button.btn-mail:disabled {
+	background-color: #ddd;
+    color: #666;
+}
+
 .alert {
 	display: none;
 	margin: 0 auto;

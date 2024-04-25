@@ -130,13 +130,11 @@ public class MemberDao {
 			map.put("keyword", keyword);
 			Integer result = 0;
 			result = session.selectOne("member.selectTotalCount2", map);
-			System.out.println("dao result : " + result);
 			return result;
 		}
 		
 		//select list - All + search ver.Mybatis
 		public List<MemberDto> selectMemberSearch2(SqlSession session, int currentPageNum, int pageSize, String category, String keyword, String sort, String val) {
-			System.out.println(currentPageNum +":" +pageSize);
 			int offset = (currentPageNum - 1) * pageSize;
 			RowBounds rowBounds = new RowBounds(offset, pageSize);
 			
@@ -145,10 +143,8 @@ public class MemberDao {
 			map.put("keyword", keyword);
 			map.put("sort", sort);
 			map.put("val", val);
-			System.out.println("map: "+map);
 			List<MemberDto> dtoList = null;
 			dtoList = session.selectList("member.selectMemberSearch2", map, rowBounds);
-			System.out.println("dao daoList : " + dtoList);
 			return dtoList;
 		}
 		

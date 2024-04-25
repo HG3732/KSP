@@ -10,19 +10,6 @@
 <title>회원가입</title>
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
-<!-- 	<script type="text/javascript">  
-		var myWidget = cloudinary.createUploadWidget({
-		  cloudName: 'ksp-practice', 
-		  uploadPreset: 'zad3d9ug'}, (error, result) => { 
-		    if (!error && result && result.event === "success") { 
-		      console.log('Done! Here is the image info: ', result.info); 
-		    }
-		  }
-		)
-		document.getElementById("upload_widget").addEventListener("click", function(){
-		    myWidget.open();
-		  }, false);
-	</script> -->
 <script>
     $(loadedHandler)
     
@@ -34,6 +21,8 @@
         $(".pw").on("keyup", pwAlertHandler);
         $(".pw").on("keyup", confpwAlertHandler);
         $(".confpw").on("keyup", confpwAlertHandler);
+        $(".sendmail").on("click", mailCheckHandler);
+        $(".checkcode").on("click", checkCodeHandler);
         $(".step2input").on("keyup", checkStep2);
         $(".submit2").on("click", stepForward2Handler);
         $(".submit3").on("click", stepEndHandler);
@@ -105,6 +94,60 @@
         }
     }
     
+    //메일 인증 번호 발송
+    function mailCheckHandler(){
+    	$.ajax({
+    		url : "${pageContext.request.contextPath }/member/join/code/send.ajax"
+    			, method : "post"
+    			, data : { mail : $(".mail").val()}
+    			, async : false
+    			, success : function(result){
+    				if(result != null){
+    					alert("인증번호가 발송되었습니다.");
+    					$(".code").val(result);
+    					console.log("code : " + result);
+    					$(".codeinputconer").css("display", "table-row");
+    				}else{
+    					alert("인증번호 발송 중 오류가 발생했습니다. 나중에 다시 시도해주십시오.");
+    				}
+    			}
+    			, error : function(request, status, error){
+    				alert("code : " + request.status + "\n" + "message : " + request.responseText + "\n"
+    						+ "error : " + error);
+    			}
+    	});
+    }
+    
+    //인증 번호 확인
+    function checkCodeHandler() {
+    	var CodeVal = $(".code").val();
+    	var inputCodeVal = $(".inputcode").val();
+    	console.log("CodeVal : "+ CodeVal);
+    	console.log("inputCodeVal : "+ inputCodeVal);
+    	$.ajax({
+    		url : "${pageContext.request.contextPath}/member/join/code/check.ajax"
+    		, method : "post"
+    		, data : {sendCode : CodeVal, inputCode : inputCodeVal}
+    		, async : false
+    		, success : function(result){
+    			if(result == 1){
+    				alert("인증이 완료되었습니다.");
+    				$(".mail").prop("readonly", true);
+    				$(".sendmail").prop("disabled", true);
+    				$(".inputcode").prop("readonly", true);
+    				$(".checkcode").prop("disabled", true);
+    				$(".checkcode").text("인증 완료");
+    			}else{
+    				alert("인증번호가 올바르지 않습니다.");
+    			}
+    		}
+    		, error : function(request, status, error){
+    			alert("code : " + request.status + "\n" + "message : " + request.responseText + "\n"
+    					+ "error : " + error);
+    		}
+    	});
+    }
+    
     //step2의 모든 항목을 조건에 맞게 입력해야 회원가입 버튼 활성화
     function checkStep2() {
         if(($(".name").val().trim().length != 0) &&	
@@ -113,6 +156,7 @@
             ($(".confpw").val().trim().length > 7) &&		
             ($(".mail").val().trim().length != 0) &&
             ($(".address").val().trim().length != 0) &&
+            ($(".checkcode").text() == "인증 완료") &&
             ($(".alert").css("display") == 'none') &&
             ($(".alert2").css("display") == 'none')){
                 $(".submit2").prop('disabled', false);
@@ -293,7 +337,16 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet diam in li
                                         이메일 주소
                                     </th>
                                     <td>
-                                        <input type="text" name="mail" class="mail step2input" placeholder="이메일주소를 입력해 주세요">
+                                        <input type="text" name="mail" class="mail step2input" placeholder="이메일주소를 입력해 주세요"><button type="button" class="btn-mail sendmail">메일 발송</button>
+                                    </td>
+                                </tr>
+                                <tr class="codeinputconer" style="display: none">
+	                                <th>
+	                                	인증 번호 
+	                                </th>
+                                    <td>
+                                        <input type="hidden" class="code">
+                                    	<input type="text" class="inputcode" placeholder="전송받은 인증번호를 입력해주세요"><button type="button" class="btn-mail checkcode">메일 인증</button>
                                     </td>
                                 </tr>
                                 <tr>

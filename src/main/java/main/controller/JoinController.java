@@ -38,7 +38,7 @@ public class JoinController extends HttpServlet {
 		memPwd = pe.getEncrypt(memPwd);
 		System.out.println("join : " + memPwd);
 		
-		MemberDto dto = new MemberDto(memId, 0, memName, memPwd, memEmail, memAddress);
+		MemberDto dto = new MemberDto(memId, 0, memName, memPwd, memEmail, memAddress, 0);
 		int result = new MemberService().insert(dto);
 		if(result < 0) {	//회원가입 실패 시
 			response.sendRedirect(request.getContextPath()+"/home");

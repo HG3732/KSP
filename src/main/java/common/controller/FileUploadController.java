@@ -2,12 +2,14 @@ package common.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,15 +52,21 @@ public class FileUploadController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("/fileupload.ajax post");
+		// properties 파일 불러오기
+		Properties prop = new Properties();
+		InputStream input = getClass().getClassLoader().getResourceAsStream("driver.properties");
+		prop.load(input);
+		// 내 클라우드 정보로 cloudinary 객체 생성 
 		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-				"cloud_name", "dyhtfrqz5",
-				"api_key", "656663157586394",
-				"api_secret", "fgTSiLgks-e54VDEKz6UDUW4gJ4",
+				"cloud_name", prop.getProperty("cloudinary.cloud_name"),
+				"api_key", prop.getProperty("cloudinary.api_key"),
+				"api_secret", prop.getProperty("cloudinary.api_secret"),
 				"secure", true)
 		);
+		// InputStream 닫기
+		input.close();
 		
-		
-		System.out.println("/fileupload.ajax post");
 		String result =null;
 		String savedfolder = "/resources/uploadfile";
 		String uploadPath = request.getServletContext().getRealPath("/resources/uploadfile");

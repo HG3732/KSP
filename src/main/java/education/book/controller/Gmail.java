@@ -12,13 +12,15 @@ public class Gmail extends Authenticator {
 	protected PasswordAuthentication getPasswordAuthentication() {
 		InputStream input = getClass().getClassLoader().getResourceAsStream("driver.properties");
 		Properties prop = new Properties();
+		PasswordAuthentication result = null;
 		try {
 			prop.load(input);
-			System.out.println(prop.getProperty("gmail.email"));
+			result = new PasswordAuthentication(prop.getProperty("gmail.email"), prop.getProperty("gmail.password"));
+			input.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return new PasswordAuthentication(prop.getProperty("gmail.email"), prop.getProperty("gmail.password"));
+		return result;
 //		return new PasswordAuthentication("구글 이메일", "앱 비밀번호");
 	}
 }

@@ -15,6 +15,7 @@
 		<typeAlias type="education.book.model.dto.EduBookListDto" alias="EduBookListDto"/>
 		<typeAlias type="education.model.dto.EduFileDto" alias="EduFileDto"/>
 		
+		<typeAlias type="member.model.dto.MemberDto" alias="MemberDto"/>
 		<typeAlias type="weather.model.dto.WeatherDto" alias="WeatherDto"/>
 		<typeAlias type="weather.model.dto.WeatherPTYDto" alias="WeatherPTYDto"/>
 		<typeAlias type="weather.model.dto.WeatherSKYDto" alias="WeatherSKYDto"/>

@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import common.MybatisTemplate;
@@ -100,71 +101,96 @@ public class MemberDao {
 		}
 		
 		
-		public int selectTotalCount(Connection conn, String category, String keyword) {
-			int result = 0;
-			String sql = " select count(*) C from Member ";
-			if(keyword != null && !keyword.trim().isEmpty()) {
-				sql += " WHERE " + category + " LIKE '%" + keyword + "%'";
-			}
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			
-			try {
-				pstmt = conn.prepareStatement(sql);
-				rs = pstmt.executeQuery();
-				if(rs.next()) {
-					result = rs.getInt("C");
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			close(rs);
-			close(pstmt);
+//		public int selectTotalCount(Connection conn, String category, String keyword) {
+//			int result = 0;
+//			String sql = " select count(*) C from Member ";
+//			if(keyword != null && !keyword.trim().isEmpty()) {
+//				sql += " WHERE " + category + " LIKE '%" + keyword + "%'";
+//			}
+//			PreparedStatement pstmt = null;
+//			ResultSet rs = null;
+//			
+//			try {
+//				pstmt = conn.prepareStatement(sql);
+//				rs = pstmt.executeQuery();
+//				if(rs.next()) {
+//					result = rs.getInt("C");
+//				}
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//			close(rs);
+//			close(pstmt);
+//			return result;
+//		}
+		
+		public Integer selectTotalCount2(SqlSession session, String category, String keyword) {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("category", category);
+			map.put("keyword", keyword);
+			Integer result = 0;
+			result = session.selectOne("member.selectTotalCount2", map);
 			return result;
 		}
 		
-		//select list - All + search
-		public List<MemberDto> selectMemberSearch(Connection conn, int start, int end, String category, String keyword, String sort, String val) {
-			List<MemberDto> result = null;
-			String sql = "select m2.* "
-					+ " from (select m1.*, rownum rn "
-					+ "    from (select MEMBER_ID, MEMBER_ADMIN, MEMBER_NAME, MEMBER_PWD, MEMBER_EMAIL, MEMBER_ADDRESS "
-					+ "        from MEMBER ";
-			if(keyword != null && keyword.trim().length() != 0) {
-				sql += " WHERE " + category + " LIKE '%" + keyword + "%'";
-			}
-			sql += " order by member_id) m1) m2 WHERE rn between ? and ?  ";
-			if(sort != null) {
-				sql += " order by " + sort + " " + val;
-			}
+		//select list - All + search ver.Mybatis
+		public List<MemberDto> selectMemberSearch2(SqlSession session, int currentPageNum, int pageSize, String category, String keyword, String sort, String val) {
+			int offset = (currentPageNum - 1) * pageSize;
+			RowBounds rowBounds = new RowBounds(offset, pageSize);
 			
-			System.out.println("dao sort : " + sort);
-			System.out.println("dao val : " + val);
-				
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			
-			try {
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, start);
-				pstmt.setInt(2, end);
-				rs = pstmt.executeQuery();
-				if(rs.next()) {
-					result = new ArrayList<MemberDto>();
-					do {
-						MemberDto dto = new MemberDto(rs.getString("MEMBER_ID"), rs.getInt("MEMBER_ADMIN")
-								, rs.getString("MEMBER_NAME"), rs.getString("MEMBER_PWD")
-								, rs.getString("MEMBER_EMAIL") , rs.getString("MEMBER_ADDRESS"));
-						result.add(dto);
-					} while (rs.next());
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			close(rs);
-			close(pstmt);
-			return result;
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("category", category);
+			map.put("keyword", keyword);
+			map.put("sort", sort);
+			map.put("val", val);
+			List<MemberDto> dtoList = null;
+			dtoList = session.selectList("member.selectMemberSearch2", map, rowBounds);
+			return dtoList;
 		}
+		
+//		//select list - All + search
+//		public List<MemberDto> selectMemberSearch(Connection conn, int start, int end, String category, String keyword, String sort, String val) {
+//			List<MemberDto> result = null;
+//			String sql = "select m2.* "
+//					+ " from (select m1.*, rownum rn "
+//					+ "    from (select MEMBER_ID, MEMBER_ADMIN, MEMBER_NAME, MEMBER_PWD, MEMBER_EMAIL, MEMBER_ADDRESS "
+//					+ "        from MEMBER ";
+//			if(keyword != null && keyword.trim().length() != 0) {
+//				sql += " WHERE " + category + " LIKE '%" + keyword + "%'";
+//			}
+//			sql += " order by member_id) m1) m2 WHERE rn between ? and ?  ";
+//			if(sort != null) {
+//				sql += " order by " + sort + " " + val;
+//			}
+//			
+//			System.out.println("dao sort : " + sort);
+//			System.out.println("dao val : " + val);
+//				
+//			PreparedStatement pstmt = null;
+//			ResultSet rs = null;
+//			
+//			try {
+//				pstmt = conn.prepareStatement(sql);
+//				pstmt.setInt(1, start);
+//				pstmt.setInt(2, end);
+//				rs = pstmt.executeQuery();
+//				if(rs.next()) {
+//					result = new ArrayList<MemberDto>();
+//					do {
+//						MemberDto dto = new MemberDto(rs.getString("MEMBER_ID"), rs.getInt("MEMBER_ADMIN")
+//								, rs.getString("MEMBER_NAME"), rs.getString("MEMBER_PWD")
+//								, rs.getString("MEMBER_EMAIL") , rs.getString("MEMBER_ADDRESS"), rs.getInt("MEMBER_FAIL_COUNT"));
+//						result.add(dto);
+//					} while (rs.next());
+//				}
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//			close(rs);
+//			close(pstmt);
+//			return result;
+//		}
+		
 		//select one
 		public MemberDto selectOne(Connection conn, String memId) {
 			MemberDto result = null;
@@ -180,7 +206,7 @@ public class MemberDao {
 				// result 처리
 				if(rs.next()) {
 					result = new MemberDto(rs.getString("MEMBER_ID"), rs.getInt("MEMBER_ADMIN"), rs.getString("MEMBER_NAME"), rs.getString("MEMBER_PWD"), rs.getString("MEMBER_EMAIL")
-							, rs.getString("MEMBER_ADDRESS"));
+							, rs.getString("MEMBER_ADDRESS"), rs.getInt("MEMBER_FAIL_COUNT"));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

@@ -23,7 +23,6 @@ public class JoinController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getSession().setAttribute("recentEdu", new EduService().selectRecent().getEduSubject());
 		request.getRequestDispatcher("/WEB-INF/views/member/join.jsp").forward(request, response);
 	}
 
@@ -36,9 +35,8 @@ public class JoinController extends HttpServlet {
 		
 		//비밀번호 암호화
 		memPwd = pe.getEncrypt(memPwd);
-		System.out.println("join : " + memPwd);
 		
-		MemberDto dto = new MemberDto(memId, 0, memName, memPwd, memEmail, memAddress);
+		MemberDto dto = new MemberDto(memId, 0, memName, memPwd, memEmail, memAddress, 0);
 		int result = new MemberService().insert(dto);
 		if(result < 0) {	//회원가입 실패 시
 			response.sendRedirect(request.getContextPath()+"/home");

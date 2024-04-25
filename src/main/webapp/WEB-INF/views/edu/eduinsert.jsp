@@ -248,6 +248,7 @@
         </div>
     </div>
 <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
+<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 <script>
     const ckInstance = ClassicEditor
         .create( document.querySelector( '#editor' ), {
@@ -306,8 +307,8 @@ function eduInsertHandler(){
 			//, enctype : "multipart/form-data"
 			//, data : {formData : formData, eduContent : eduContentVal}
 			, data :$("#frm-eduins").serialize()
-			, contentType : false
-			, processData : false
+			//, contentType : false
+			//, processData : false
 			, error : ajaxErrorHandler
 			, success : function(result){
 				if(result == 1){

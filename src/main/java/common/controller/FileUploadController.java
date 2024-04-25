@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.oreilly.servlet.MultipartRequest;
@@ -48,9 +50,17 @@ public class FileUploadController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+				"cloud_name", "dyhtfrqz5",
+				"api_key", "656663157586394",
+				"api_secret", "fgTSiLgks-e54VDEKz6UDUW4gJ4",
+				"secure", true)
+		);
+		
+		
 		System.out.println("/fileupload.ajax post");
 		String result =null;
-		String savedfollder = "/resources/uploadfile";
+		String savedfolder = "/resources/uploadfile";
 		String uploadPath = request.getServletContext().getRealPath("/resources/uploadfile");
 		System.out.println("uploadPath : " + uploadPath);
 		File uploadPathFile = new File(uploadPath);
@@ -58,7 +68,7 @@ public class FileUploadController extends HttpServlet {
 			uploadPathFile.mkdirs();
 		}
 		System.out.println("contentType : " + request.getContentType());
-		int uploadFileLimit = 10 * 1024 * 1024; // 10MB
+		int uploadFileLimit = 50 * 1024 * 1024; // 50MB
 		MultipartRequest multiReq = new MultipartRequest(request, uploadPath, uploadFileLimit, "UTF-8", new DefaultFileRenamePolicy());
 		// 이 시점에 uploadPathFile 은 uploadPath 에 저장 완료
 		
@@ -81,8 +91,9 @@ public class FileUploadController extends HttpServlet {
 			Map<String, Object> map1 = new HashMap<String, Object>();
 			map1.put("uploaded", 1);
 			map1.put("fileName", originalName);
-			map1.put("url", request.getContextPath()+savedfollder+"/"+fileName);
-			
+			Map<String, Object> uploadResult = cloudinary.uploader().upload(new File(uploadPath+"/"+fileName), ObjectUtils.emptyMap());  
+			map1.put("url", uploadResult.get("url"));
+			System.out.println(uploadResult.get("url"));
 			Gson gson = new GsonBuilder().create();
 			result = gson.toJson(map1);
 		}

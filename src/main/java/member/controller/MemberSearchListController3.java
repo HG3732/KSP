@@ -13,13 +13,13 @@ import com.google.gson.Gson;
 
 import member.service.MemberService;
 
-@WebServlet("/member/search/list.ajax")
-public class MemberSearchListController extends HttpServlet {
+@WebServlet("/member/list3")
+public class MemberSearchListController3 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private MemberService service = new MemberService();
        
-    public MemberSearchListController() {
+    public MemberSearchListController3() {
         super();
     }
 
@@ -32,12 +32,9 @@ public class MemberSearchListController extends HttpServlet {
 		String pageNum = request.getParameter("page");
 
 		String category = request.getParameter("category");
-		String keyword = request.getParameter("keyword");
-		String sort = request.getParameter("sortby");
-		String val = request.getParameter("value");
-		System.out.println(category);
-		System.out.println(sort);
-		System.out.println(val);
+		String keyword = request.getParameter("search");
+		String sortby = request.getParameter("sortby");
+		String value = request.getParameter("value");
 		
 		if(pageNum != null && !pageNum.equals("")) {
 			try {
@@ -47,11 +44,7 @@ public class MemberSearchListController extends HttpServlet {
 			}
 		}
 		
-		Map<String, Object> sortMap = service.selectMemberSearch(pageSize, pageBlockSize, currentPageNum, category, keyword, sort, val);
-		
-		
-		//request.setAttribute("map", service.selectMemberSearch(pageSize, pageBlockSize, currentPageNum, category, keyword, sort, val));
-		//request.getRequestDispatcher("/WEB-INF/views/home/memberlist.jsp").forward(request, response);
+		Map<String, Object> sortMap = service.selectMemberSearch(pageSize, pageBlockSize, currentPageNum, category, keyword, sortby, value);
 		response.getWriter().append(gson.toJson(sortMap));
 	}
 

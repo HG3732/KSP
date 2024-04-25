@@ -48,6 +48,7 @@ public class BoardReplyWriteController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("/board/reply/write.ajax doPost()");
 		
+		
 		String boardReplyIdStr = request.getParameter("boardReplyId");
 		System.out.println("boardReplyId : "+request.getParameter("boardReplyId"));
 		int boardReplyId = 0;

@@ -34,10 +34,10 @@ public class BoardViewController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		MemberInfoDto memberInfoDto = (MemberInfoDto) request.getSession().getAttribute("ssslogin");
+		MemberInfoDto memberInfoDto = (MemberInfoDto) request.getSession().getAttribute("ssslogin");
 //		BoardViewDto viewDto = new BoardViewDto();
 //		String reTitle = viewDto.getBoardTitle();
-//		String reContent = viewDto.getBoardContent();
+//		String reContent = viewDto.getBoardContent(); 
 //		reContent = reContent.replaceAll("<br>", "");
 //		BoardViewDto reDto = new BoardViewDto(viewDto.getBoardNo(), reTitle, memberInfoDto.getMem_id(), viewDto.getBoardWriteTime(),viewDto.getHit(), viewDto.getBoardContent());
 //		request.setAttribute("detail", reDto);
@@ -62,6 +62,7 @@ public class BoardViewController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		/*
 		 * int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		 * 

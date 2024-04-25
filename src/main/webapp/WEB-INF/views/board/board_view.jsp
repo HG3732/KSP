@@ -102,10 +102,7 @@
 									<dd>
 										<c:if
 											test="${ssslogin.mem_admin > 0 || ssslogin.mem_id eq dto.boardWriter}">
-											<%-- <a
-												href="${PageContext.request.contextPath}/star/board/delete?no=${dto.boardNo }"> --%>
 											<button type="button" class="btn-delete">삭제하기</button>
-											</a>
 										</c:if>
 									</dd>
 								</dl>
@@ -212,6 +209,8 @@
 		
         // 대댓글
         function btnReReplyClickHandler() {
+        	console.log("${replydto.bReplyId}");
+        	
             // login 확인
          if($(this).parents(".frm-rereply").find("[name=boardReplyContent]").val().trim().length == 0){
         	 
@@ -247,6 +246,7 @@
         }
          
         // 댓글
+        // TODO 본인댓글에만 수정 삭제 버튼 표시
         function displayReplyWrap(datalist) {
         	console.log("${dto.boardNo}");
         	var htmlVal = '';
@@ -264,7 +264,11 @@
         				<div>\${replydto.bReplyContent}</div>
         				<div>\${replydto.bReplyWriteTime}</div>
         				<div>\${replydto.bReplyWriter}</div>
-        				<div><button type="button" class="btn show rereplycontent">답글</button></div>
+        				<div class="btn-show">
+        					<button type="button" class="btn show rereplyupdate" id="reply-update">수정</button>
+        					<button type="button" class="btn show rereplydelete">삭제</button>
+        					<button type="button" class="btn show rereplycontent">답글</button>
+        				</div>
         				<div class="rereplycontent span">
         					<input type="text" name="boardReplyContent">
         					<button type="button" class="btn rereply">등록</button>
@@ -286,7 +290,11 @@
 	        				<div><span class="rereply-content">ㄴ </span> \${replydto.bReplyContent}</div>
 	        				<div>\${replydto.bReplyWriteTime}</div>
 	        				<div>\${replydto.bReplyWriter}</div>
-	        				<div><button type="button" class="btn show rereplycontent">답글</button></div>
+	        				<div class="btn-show">
+        						<button type="button" class="btn show rereplyupdate">수정</button>
+        						<button type="button" class="btn show rereplydelete">삭제</button>
+        						<button type="button" class="btn show rereplycontent">답글</button>
+        					</div>
 	        				<div class="rereplycontent span">
 	        					<input type="text" name="boardReplyContent">
 	        					<button type="button" class="btn rereply">등록</button>
@@ -303,6 +311,29 @@
 		$(".btn.rereplycontent.show").on("click",btnReReplyContentClickHandler);
 		$(".btn.rereply").on("click", btnReReplyClickHandler);
         }
+        
+        // 댓글 수정
+        // $("#reply-update").on("click", btnReplyUpdateClickHandler);
+        (function() {
+            // AJAX 요청
+            $.ajax({
+                url: "${pageContext.request.contextPath}/board/reply/update.ajax"
+                method: "post",
+                dataType: "json",
+                success: function(data) {
+                    // 성공적으로 데이터를 받았을 때 실행할 코드
+                    console.log(data);
+                },
+                error: function(xhr, status, error) {
+                    // 오류가 발생했을 때 실행할 코드
+                    console.error("Error:", error);
+                }
+            });
+
+            // reply-update 버튼 클릭 핸들러 등록
+            $("#reply-update").on("click", btnReplyUpdateClickHandler);
+        })();
+
         
        	// 댓글 총 개수
         	

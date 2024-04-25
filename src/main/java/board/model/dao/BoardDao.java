@@ -316,7 +316,6 @@ public class BoardDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getBoardTitle());
-			;
 			pstmt.setString(2, dto.getBoardContent());
 			pstmt.setInt(3, dto.getBoardNo());
 
@@ -482,6 +481,27 @@ public class BoardDao {
 		return result;
 
 	}
+	
+	// board update
+	public int replyUpdate(Connection conn, BoardReplyDto dto) {
+		int result = -1;
+		String sql = "UPDATE BOARD_REPLY SET B_REPLY_CONTENT=? WHERE B_REPLY_ID=?";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getBReplyContent());
+			pstmt.setInt(2, dto.getBoardNo());
+			
+			result = pstmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		close(pstmt);
+		return result;
+	}
+	
+	// board delete
 
 	// listContent
 

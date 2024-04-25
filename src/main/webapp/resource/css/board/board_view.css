@@ -166,8 +166,22 @@ margin-top: -11px;
 
 .boardreply.grid .btn.show.rereplycontent {
 	border: none;
-    margin-left: 100px;
+    margin-left: 10px;
     width: 53px;
+    color: black;
+    cursor:pointer;
+} 
+.boardreply.grid .btn.show.rereplyupdate {
+	border: none;
+    margin-left: 30px;
+    width: 53px;
+    color: black;
+    cursor:pointer;
+} 
+.boardreply.grid .btn.show.rereplydelete {
+	border: none;
+    width: 53px;
+    margin-left: 10px;
     color: black;
     cursor:pointer;
 } 
@@ -196,9 +210,30 @@ margin-top: -11px;
 .boardrereply.grid > div:first-child{
 	margin-left : 100px;
 }  
+
+.reply-wrap .boardreply.grid .btn-show{
+	display: flex;
+}
+.reply-wrap .boardrereply.grid .btn-show{
+	display: flex;
+}
 .boardrereply.grid .btn.show.rereplycontent {
 	border: none;
-    margin-left: 100px;
+    margin-left: 10px;
+    width: 53px;
+    color: black;
+    
+} 
+.boardrereply.grid .btn.show.rereplyupdate {
+	border: none;
+    margin-left: 30px;
+    width: 53px;
+    color: black;
+    
+} 
+.boardrereply.grid .btn.show.rereplydelete {
+	border: none;
+    margin-left: 10px;
     width: 53px;
     color: black;
     

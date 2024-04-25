@@ -193,6 +193,21 @@ margin-top: -11px;
     color: black;
     cursor:pointer;
 }
+.boardreply.grid #reupdatecontent{
+	display: none;
+	background: transparent;
+	border-width: 0 0 1px;
+	border-color: white;
+	color: white;
+}
+.boardreply.grid .btn.reupdate {
+	display: none;
+	border: none;
+    margin-left: 53px;
+    width: 53px;
+    color: black;
+    cursor:pointer;
+}
 .boardrereply.grid {
 	display: grid;
 	grid-template-columns: 5fr 2fr 1fr 1fr;

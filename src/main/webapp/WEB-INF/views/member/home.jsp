@@ -25,8 +25,8 @@
             </div>
         </div>
     	<div class="buttonsection">
-	        <div class="direction left"><a href="#" class="goleft">좌측</a></div>
-	        <div class="direction right"><a href="#" class="goright">우측</a></div>
+	        <div class="direction left"><button type="button" class="goleft">좌측</button></div>
+	        <div class="direction right"><button type="button" class="goright">우측</button></div>
         </div>
     </div>
     

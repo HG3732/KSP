@@ -13,21 +13,22 @@ body {
 }
 
 .buttonsection > .direction{
-    text-indent: -9999px;
     width: 5%;
 }
 
-.buttonsection a{
+.buttonsection button{
+    text-indent: -9999px;
 	opacity : 30%;
-
+	border: none;
+    background-color: transparent;
 }
 
-.buttonsection a:hover {
+.buttonsection button:hover {
 	opacity : 100%;
 	transition: all 0.5s;
 }
 
-.buttonsection > .left > a {
+.buttonsection > .left > button {
     width: 25px;
     height: 40px;
     background-image: url("../../image/left-arrow2.png");
@@ -36,7 +37,7 @@ body {
     display: block;
 }
 
-.buttonsection > .right > a {
+.buttonsection > .right > button {
     width: 25px;
     height: 40px;
     background-image: url("../../image/right-arrow2.png");

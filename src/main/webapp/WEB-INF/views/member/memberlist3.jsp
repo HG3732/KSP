@@ -223,14 +223,14 @@ infomap.set("page", 1); */
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp"%>
 
- 	<%-- 	    	<c:choose>
-	<c:when test="${ssslogin.mem_admin < 2 }">
-		<div class="alert">열람 권한이 없습니다.</div>
-	</c:when>
-	<c:when test="${empty ssslogin}">
-		<div class="alert">열람 권한이 없습니다.</div>
-	</c:when>
-		<c:otherwise> --%>
+ 	<c:choose>
+		<c:when test="${ssslogin.mem_admin < 2 }">
+			<div class="alert">열람 권한이 없습니다.</div>
+		</c:when>
+		<c:when test="${empty ssslogin}">
+			<div class="alert">열람 권한이 없습니다.</div>
+		</c:when>
+		<c:otherwise>
 		    <section class="search-member">
 		    <div class="searchbar">
 		            <form id="searchmem-keyword" >
@@ -271,7 +271,7 @@ infomap.set("page", 1); */
 		        <div class="pagenum">
 		        </div>
 		    </section>
-<%-- 	    </c:otherwise>
-    </c:choose> --%>
+		</c:otherwise>
+    </c:choose>
 </body>
 </html>

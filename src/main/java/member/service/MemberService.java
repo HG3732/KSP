@@ -43,14 +43,13 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
-
+	
 	//전체 회원 조회 및 검색
+	
 	public Map<String, Object> selectMemberSearch(int pageSize, int pageBlockSize, int currentPageNum, String category, String keyword, String sort, String val) {
 		Map<String, Object> result = null;
-		Connection conn = getConnection(true);
-		int start = pageSize*(currentPageNum-1)+1;
-		int end = pageSize*currentPageNum;
-		int totalCount = dao.selectTotalCount(conn, category, keyword);
+		SqlSession session = MybatisTemplate.getSqlSession(true);
+		int totalCount = dao.selectTotalCount2(session, category, keyword);
 		int totalPageCount = (totalCount%pageSize == 0) ? totalCount/pageSize : totalCount/pageSize + 1;
 		
 		
@@ -61,27 +60,24 @@ public class MemberService {
 			val = null;
 		}
 		else if(val.equals("0")) {
-			val = "desc";
+			val = "DESC";
 		} else if (val.equals("1")) {
-			val = "asc";
+			val = "ASC";
 		}
 		
-		System.out.println("service sort : " + sort);
-		System.out.println("service val : " + val);
-		
-		List<MemberDto> dtoList = dao.selectMemberSearch(conn, start, end, category, keyword, sort, val);
+		List<MemberDto> dtoList = dao.selectMemberSearch2(session, currentPageNum, pageSize, category, keyword, sort, val);
 		result = new HashMap<String, Object>();
 		result.put("dtoList", dtoList);
 		result.put("totalPageCount", totalPageCount);
 		result.put("startPageNum", startPageNum);
 		result.put("endPageNum", endPageNum);
-		result.put("currentPageNum", currentPageNum);
+		result.put("category", category);
+		result.put("keyword", keyword);
+		result.put("sort", sort);
+		result.put("val", val);
 		
-		close(conn);
 		return result;
 	}
-	//select one's applied edu
-//	public Map<String, Object> selectMemberEduList()
 	
 	//select one
 	public MemberDto selectOne(String memId) {

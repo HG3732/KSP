@@ -22,7 +22,7 @@ public class MemberDto {
 	}
 
 	public MemberDto(String mem_id, int mem_admin, String mem_name, String mem_pwd, String mem_email,
-			String mem_address) {
+			String mem_address, Integer memFailCnt) {
 		super();
 		this.mem_id = mem_id;
 		this.mem_admin = mem_admin;
@@ -30,6 +30,7 @@ public class MemberDto {
 		this.mem_pwd = mem_pwd;
 		this.mem_email = mem_email;
 		this.mem_address = mem_address;
+		this.memFailCnt = memFailCnt;
 	}
 
 	@Override

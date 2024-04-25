@@ -59,7 +59,7 @@ $(loadedHandler)
 		                </form>
 		                <div><a href="#" class="mypage" target="_blank">${ssslogin.mem_name}님의 페이지</a></div>
 		                <c:if test="${ssslogin.mem_admin == 2}">
-		                	<div><a href="${pageContext.request.contextPath}/member/list" class="memberlist" style="color: yellow;">회원 관리</a></div>
+		                	<div><a href="${pageContext.request.contextPath}/member/list3" class="memberlist" style="color: yellow;">회원 관리</a></div>
 		                </c:if>
 	                </c:otherwise>
 	            </c:choose>

@@ -22,7 +22,7 @@ $(loadedHandler)
 		var sortstate = event.target.value;
 		var sortname = event.target.name;
 		$.ajax({
-			url : "${pageContext.request.contextPath}/member/search/list.ajax"
+			url : "${pageContext.request.contextPath}/member/list3"
 			, method : "get"
 			, data : { "sortby" : sortname,
 						"value" : sortstate}
@@ -76,25 +76,10 @@ $(loadedHandler)
 		        	<c:when test="${empty map.dtoList}">
 		        			<p style="padding: 10px; border-bottom: 2px solid white;">일치하는 회원이 없습니다.</p>
 		        	</c:when>
-		        	<c:when test="\${not empty sortMap}">
-		        			<c:forEach items="\${sortMap.dtoList }" var="membersort">
-			   				<div class="check-main">
-			   				<form class="memberlist" method="post" action="${pageContext.request.contextPath}/member/info">
-				                <div>\${membersort.mem_name}</div>
-				                <div><input type="text" name="memberid" value="\${membersort.mem_id}" readonly></div>
-				                <div>\${membersort.mem_pwd}</div>
-				                <div>\${membersort.mem_email}</div>
-				                <div>\${membersort.mem_address}</div>
-				                <div><input type="text" name="memberadmin" value="\${membersort.mem_admin}" readonly></div>
-				                <div><button type="submit" name="goinfo" class="goinfo">상세 조회</button></div>
-				            </form>
-		            		</div>
-			        	</c:forEach>
-		        	</c:when>
 		        	<c:otherwise>
 			        	<c:forEach items="${map.dtoList }" var="member">
 			   				<div class="check-main">
-			   				<form class="memberlist" method="post" action="${pageContext.request.contextPath}/member/info">
+			   				<form class="memberlist" method="post" action="${pageContext.request.contextPath}/member/info" target="_blank">
 				                <div>${member.mem_name}</div>
 				                <div><input type="text" name="memberid" value="${member.mem_id}" readonly></div>
 				                <div>${member.mem_pwd}</div>
@@ -147,7 +132,7 @@ $(loadedHandler)
 		        </c:otherwise>
 		        </c:choose>
 		        <div class="searchbar">
-		            <form id="searchmem-keyword" method="get" action="${pageContext.request.contextPath}/member/list">
+		            <form id="searchmem-keyword" method="get" action="${pageContext.request.contextPath}/member/list3">
 		                <select class="category" name="category">
 		                    <option value="MEMBER_NAME" selected>이름</option>
 		                    <option value="MEMBER_ID">아이디</option>

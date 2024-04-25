@@ -106,10 +106,23 @@ button.goinfo:hover {
     flex-direction: row;
     justify-content: center;
     padding: 10px;
+    font-size : 24px;
 }
 
 .pagenum > div {
     margin: 5px 10px;
+}
+
+.pagenum button {
+	font-size: 24px;
+    border: none;
+    background-color: transparent;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.goprepage, .gonextpage {
+    cursor: pointer;
 }
 
 /* 검색 */

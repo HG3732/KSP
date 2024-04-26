@@ -55,8 +55,8 @@
 				<div class="board-view">
 					<div class="view-header">
 						<div class="title">
-						<c:if test="${detail.reDto.reTitle }">
-							<strong>${dto.boardTitle } (수정됨)</strong>
+							<c:if test="${detail.reDto.reTitle }">
+								<strong>${dto.boardTitle } (수정됨)</strong>
 							</c:if>
 							<strong>${dto.boardTitle }</strong>
 						</div>
@@ -139,6 +139,9 @@
 			</form>
 
 			<div class="reply-wrap">
+				<!-- 				<div class="test-id">
+				
+				</div> -->
 			</div>
 		</div>
 	</div>
@@ -256,10 +259,13 @@
         	for(var idx in datalist){
 				var replydto = datalist[idx];
 				if(replydto.bReplyLevel == 1){
-					var updatebtn = ssslogin.mem_id === dto.boardWriter ? 
-						    `<button type="button" class="btn show rereplyupdate" id="reply-update">수정</button>` 
-						    : '';
-
+					var buttonHtml = '';
+		            if(ssslogin.mem_admin > 0 || ssslogin.mem_id === dto.boardWriter) {
+		                buttonHtml = `
+		                    <button type="button" class="btn show rereplyupdate" id="reply-update">수정</button>
+		                    <button type="button" class="btn show rereplydelete">삭제</button>
+		                `;
+		            }
         		htmlVal += `
         		<form class="frm-rereply">
         			<input type="hidden" name="boardNo" value="${dto.boardNo}">
@@ -274,8 +280,6 @@
         				<button type="button" class="btn reupdate" id="reupdateokbtn">등록</button>
         				<div>\${replydto.bReplyWriter}</div>
         				<div class="btn-show">
-        					${updatebtn}
-        					<button type="button" class="btn show rereplydelete">삭제</button>
         					<button type="button" class="btn show rereplycontent">답글</button>
         				</div>
         				<div class="rereplycontent span">
@@ -308,8 +312,7 @@
         					<button type="button" class="btn reupdate" id="reupdateokbtn">등록</button>
         				<div>\${replydto.bReplyWriter}</div>
 	        				<div class="btn-show">
-        						<button type="button" class="btn show rereplyupdate2" id="reply-update">수정</button>
-        						<button type="button" class="btn show rereplydelete">삭제</button>
+	        				${buttonHtml}
         						<button type="button" class="btn show rereplycontent">답글</button>
         					</div>
 	        				<div class="rereplycontent span">
@@ -321,8 +324,20 @@
 					`;
 				
 			}
+				/* 
+				var htmlValTest = '';
+	        	for(var idx in datalist){
+					var replydto = datalist[idx];
+					if(replydto.bReplyLevel == 1){
+						htmlValTest += `
+							 <button type="button" class="btn show rereplyupdate" id="reply-update">수정</button>
+		                    <button type="button" class="btn show rereplydelete">삭제</button>
+		                `;
+					}
         }
+					 */
 		$(".reply-wrap").html(htmlVal);
+		// $(".test-id").html(htmlValTest);
 		// html(새로운 내용으로 덮어쓰면 기존 event 등록이 사라짐)
 		// event 다시 등록
 		$(".btn.rereplycontent.show").on("click",btnReReplyContentClickHandler);
@@ -332,7 +347,7 @@
 		$(".btn.show.rereplyupdate2").on("click", btnReplyUpdateClickHandler2);
 		$(".btn.reupdate").on("click", btnReplyUpdateOkClickHandler);
         }
-        
+        }
         // 댓글 수정
         // $("#reply-update").on("click", btnReplyUpdateClickHandler);
 /*         

@@ -258,14 +258,14 @@
         	var htmlVal = '';
         	for(var idx in datalist){
 				var replydto = datalist[idx];
+				var buttonHtml = '';
+		          if("${ssslogin.mem_admin}" > 0 || "${ssslogin.mem_id}" == "${replydto.bReplyWriter}") {
+		              buttonHtml = `
+		                  <button type="button" class="btn show rereplyupdate" id="reply-update">수정</button>
+		                  <button type="button" class="btn show rereplydelete">삭제</button>
+		              `;
+		          }
 				if(replydto.bReplyLevel == 1){
-					var buttonHtml = '';
-		            if(ssslogin.mem_admin > 0 || ssslogin.mem_id === dto.boardWriter) {
-		                buttonHtml = `
-		                    <button type="button" class="btn show rereplyupdate" id="reply-update">수정</button>
-		                    <button type="button" class="btn show rereplydelete">삭제</button>
-		                `;
-		            }
         		htmlVal += `
         		<form class="frm-rereply">
         			<input type="hidden" name="boardNo" value="${dto.boardNo}">
@@ -274,12 +274,13 @@
         			<input type="hidden" name="boardReplyStep" value="\${replydto.bReplyStep}">
         			<input type="hidden" name="boardReplyRef" value="\${replydto.bReplyRef}">
         			<div class="boardreply grid">
-        				<div class="recontent" id="recontent">\${replydto.bReplyContent}</div>
+        				<div class="recontent" id="recontent">"\${replydto.bReplyContent}"</div>
         				<input type="text" class="reupdatecontent" id="reupdatecontent" name="reupdatecontent">
-        				<div class="rewritetime" id="rewritetime">\${replydto.bReplyWriteTime}</div>
+        				<div class="rewritetime" id="rewritetime">"\${replydto.bReplyWriteTime}"</div>
         				<button type="button" class="btn reupdate" id="reupdateokbtn">등록</button>
-        				<div>\${replydto.bReplyWriter}</div>
+        				<div>"\${replydto.bReplyWriter}"</div>
         				<div class="btn-show">
+							"\${buttonHtml}"
         					<button type="button" class="btn show rereplycontent">답글</button>
         				</div>
         				<div class="rereplycontent span">
@@ -306,13 +307,13 @@
 	        			<input type="hidden" name="boardReplyStep" value="\${replydto.bReplyStep}">
 	        			<input type="hidden" name="boardReplyRef" value="\${replydto.bReplyRef}">
 	        			<div class="boardrereply grid">
-	        				<div class="rerecontent"><span class="rereply-content">ㄴ </span> \${replydto.bReplyContent}</div>
+	        				<div class="rerecontent"><span class="rereply-content">ㄴ</span>"\${replydto.bReplyContent}"</div>
         					<input type="text" class="reupdatecontent" id="reupdatecontent" name="reupdatecontent">
-        					<div class="rewritetime" id="rewritetime">\${replydto.bReplyWriteTime}</div>
+        					<div class="rewritetime" id="rewritetime">"\${replydto.bReplyWriteTime}"</div>
         					<button type="button" class="btn reupdate" id="reupdateokbtn">등록</button>
-        				<div>\${replydto.bReplyWriter}</div>
+        				<div>"\${replydto.bReplyWriter}"</div>
 	        				<div class="btn-show">
-	        				${buttonHtml}
+	        				\${buttonHtml}
         						<button type="button" class="btn show rereplycontent">답글</button>
         					</div>
 	        				<div class="rereplycontent span">

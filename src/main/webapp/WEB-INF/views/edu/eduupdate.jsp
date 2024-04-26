@@ -14,7 +14,6 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <jsp:include page="/WEB-INF/views/common/common_star.jsp"/>
     <script>
-    loginPermission();
 	adminPermission();
     </script>	
     <style>
@@ -53,39 +52,7 @@
             clear: both;
         }
         .wrap-main>.content>.edu-list>.edu-detail{
-        	padding: 30px;
-        }
-        .wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table{
-            width: 100%;
-            line-height: 3em;
-        }
-        .wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table>tbody>tr>td>input
-        , .wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table>tbody>tr>td>select{
-        	background-color: transparent;
-        	border: 0;
-        	width: 100%;
-        }
-        .wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table>tbody>tr>td>select>option{
-        	color: black;
-        }
-		.wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table>tbody>tr>td>.edu-edit-del{
-		    display: flex;
-		    float: right;
-		    column-gap: 10px;
-		    justify-content: flex-end;
-		}
-		.wrap-main .ui-datepicker-trigger{
-			display: none;
-		}
-		.wrap-main>.content>.edu-list>.edu-detail>form>.edu-detail-content>table>tbody>tr>td>textarea{
-			resize: none;
-			width: 100%;
-			background-color: transparent;
-			border: 1px solid white;
-			margin-top: 10px;
-		}
-        .wrap-main>.content>.edu-list>.edu-detail>form>.edu-book{
-            text-align: center;
+        	padding: 10px 30px;
         }
         .wrap-main .btn{
 			background-color: transparent;
@@ -122,6 +89,122 @@
         	color: black;
         	font-weight: bold;
         }
+        
+        
+        /* ckeditor */
+        .wrap-main #container {
+            width: 1000px;
+            margin: 20px auto;
+        }
+        .wrap-main #container *{
+        /* 
+            background-color: transparent;
+         */
+            color: black;
+        }
+        .wrap-main .ck-editor__editable[role="textbox"] {
+            /* Editing area */
+            min-height: 200px;
+        }
+        .wrap-main .ck-content .image {
+            /* Block images */
+            max-width: 80%;
+            margin: 20px auto;
+        }
+        /* 
+        .wrap-main .ck.ck-widget__type-around__button.ck-widget__type-around__button_before
+        , .wrap-main .ck.ck-widget__type-around__button.ck-widget__type-around__button_after{
+        	background-color: white;
+        	color: black;
+        }
+         */
+        
+        
+        
+        /* grid 부분 */
+        .wrap-main .grid.eduOne{
+            display: grid;
+            grid-template-columns: 1fr 2.5fr 1fr 2.5fr 1fr 2.5fr 1fr 2.5fr;
+            grid-row-gap: 10px;
+            grid-column-gap: 10px;
+            align-items: center;
+        }
+        .wrap-main .grid.eduOne input
+        , .wrap-main .grid.eduOne select{
+        	background-color: transparent;
+        	border: 1px solid white;
+        }
+        .wrap-main .grid.eduOne option{
+        	color: black;
+        }
+        .wrap-main .grid.item1:nth-child(1){
+            grid-column: 1/9;
+            display: grid;
+            border-bottom: 1px solid white;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        .wrap-main .grid.eduOne input[name=eduSubject]{
+        	width: 100%;
+        }
+        .wrap-main .grid.item1:nth-child(even){
+            text-align: center;
+        }
+        .wrap-main .grid.item1:nth-child(odd)
+        , .wrap-main .content .grid.item1:nth-child(4)
+        , .wrap-main .content .grid.item1:nth-child(8)
+        , .wrap-main .content .grid.item1:nth-child(18){
+            text-align: left;
+        }
+        .wrap-main .grid.item1:nth-child(18){
+            border-top: 1px solid white;
+            padding-top: 10px;
+            margin-top: 10px;
+            border-bottom: 1px solid white;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        .wrap-main .grid.item1:last-child{
+            border-top: 1px solid white;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        .wrap-main .grid.item1:nth-child(1) .grid.item2:nth-child(1){
+            display: grid;
+            grid-template-columns: 1fr 12.1fr;
+            align-items: center;
+        }
+        .wrap-main .grid.item1:nth-child(1) .grid.item2:nth-child(2){
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            text-align: center;
+        }
+        .wrap-main .grid.item1:nth-child(11)
+        , .wrap-main .grid.item1:nth-child(15){
+            grid-column: 2/5;
+        }
+        .wrap-main .grid.item1:nth-child(13)
+        , .wrap-main .grid.item1:nth-child(17){
+            grid-column: 6/9;
+        }
+        .wrap-main .grid.item1:nth-child(18){
+            grid-column: 1/9;
+        }
+        .wrap-main .grid.item1:nth-child(19){
+            grid-column: 1/9;
+        }
+        .wrap-main .grid.item1:nth-child(19) .grid.item2{
+        	grid-column: 1/9;
+        }
+        .wrap-main .grid.item1:last-child{
+            grid-column: 1/9;
+            text-align: center;
+        }
+        .wrap-main .ui-datepicker-trigger{
+        	display: none;
+        }
+        
+        
 
 
         .wrap-footer {
@@ -148,74 +231,105 @@
             <div class="edu-list">
                 <div class="edu-detail">
 					<form id="frm-edudetail">
-                    <div class="edu-detail-content">
-                	<input type="hidden" name="eduId" value="${detail.eduId }" >
-                        <table>
-                            <colgroup>
-                                <col style="width: 10%;">
-                                <col>
-                                <col>
-                                <col>
-                                <col style="width: 10%;">
-                                <col>
-                                <col>
-                                <col>
-                            </colgroup>
-                            <tbody>
-                            	<tr>
-                            		<td>교육제목</td><td colspan="7"><input type="text" name="eduSubject" value="${detail.eduSubject }" required></td>
-                            	</tr>
-                                <tr>
-                                    <td>신청기간</td>
-                                    <td><input type="text" name="eduBookStart" id="eduBookStart" class="datePicker" value="${detail.eduBookStart }" required autocomplete="off"></td>
-                                    <td>~</td>
-                                    <td><input type="text" name="eduBookEnd" id="eduBookEnd" class="datePicker" value="${detail.eduBookEnd }" required autocomplete="off"></td>
-                                    <td>운영기간</td>
-                                    <td><input type="text" name="eduStart" id="eduStart" class="datePicker" value="${detail.eduStart }" required autocomplete="off"></td>
-                                    <td>~</td>
-                                    <td><input type="text" name="eduEnd" id="eduEnd" class="datePicker" value="${detail.eduEnd }" required autocomplete="off"></td>
-                                </tr>
-                                <tr>
-                                    <td>운영요일</td>
-                                    <td>
-						                <input type="hidden" name="eduDayHidden" value="${detail.eduDay }">
-                                    	<select name="eduDay" id="eduDay">
-                                    		<option value="every">매일</option>
-                                    		<option value="mon">월</option>
-                                    		<option value="tue">화</option>
-                                    		<option value="wed">수</option>
-                                    		<option value="thu">목</option>
-                                    		<option value="fri">금</option>
-                                    	</select>
-                                    </td>
-                                    <td colspan="2"></td>
-                                    <td>교육장소</td>
-                                    <td colspan="3"><input type="text" name="eduAddress" value="${detail.eduAddress }"></td>
-                                </tr>
-                                <tr>
-                                	<td>교육대상</td>
-                                	<td>
-						           		<input type="hidden" name="eduParticipantHidden" value="${detail.eduParticipant }">
-                                		<select name="eduParticipant" id="eduParticipant">
-                                    		<option value="all">모두</option>
-                                    		<option value="element">초등학생</option>
-                                    		<option value="middle">중학생</option>
-                                    		<option value="high">고등학생</option>
-                                    		<option value="adult">성인</option>
-                                    	</select>
-                                	</td>
-                                	<td colspan="2"></td>
-                                	<td>인원</td><td><input type="number" name="eduBookNum" id="eduBookNum" value="${detail.eduBookNum }" readonly></td><td>/</td><td><input type="number" name="eduMaxNum" id="eduMaxNum" min="${detail.eduBookNum }" value="${detail.eduMaxNum }"></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="8"><textarea name="eduContent" rows="10">${detail.eduContent }</textarea></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="edu-book">
-                        <button type="button" class="btn eduup">수정하기</button>
-                    </div>
+	                    <div class="edu-detail-content">
+	                		<input type="hidden" name="eduId" value="${detail.eduId }" >
+	                        <div class="grid eduOne">
+	                            <div class="grid item1">
+	                                <div class="grid item2">
+	                                	<div class="grid item3">
+		                                	교육제목
+	                                	</div>
+	                                	<div class="grid item3">
+	                                    	<input type="text" name="eduSubject" required autocomplete="off">
+	                                	</div>
+	                                </div>
+	                                <div class="grid item2" style="display: none;">
+	                                    <div class="grid item3">
+	                                        <button type="submit" class="btn bookdel">취소</button>
+	                                    </div>
+	                                    <div class="grid item3">
+	                                        <button type="button" class="btn eduup">수정</button>
+	                                    </div>
+	                                    <div class="grid item3">
+	                                        <button type="submit" class="btn edudel">삭제</button>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div class="grid item1">
+	                                신청기간
+	                            </div>
+	                            <div class="grid item1">
+	                                <input type="text" name="eduBookStart" class="datePicker" required autocomplete="off">
+	                            </div>
+	                            <div class="grid item1">
+	                                ~
+	                            </div>
+	                            <div class="grid item1">
+	                                <input type="text" name="eduBookEnd" class="datePicker" required autocomplete="off">
+	                            </div>
+	                            <div class="grid item1">
+	                                운영기간
+	                            </div>
+	                            <div class="grid item1">
+	                                <input type="text" name="eduStart" class="datePicker" required autocomplete="off">
+	                            </div>
+	                            <div class="grid item1">
+	                                ~
+	                            </div>
+	                            <div class="grid item1">
+	                                <input type="text" name="eduEnd" class="datePicker" required autocomplete="off">
+	                            </div>
+	                            <div class="grid item1">
+	                                운영요일
+	                            </div>
+	                            <div class="grid item1">
+	                            	<select name="eduDay">
+	                            		<option value="every">매일</option>
+	                            		<option value="mon">월요일</option>
+	                            		<option value="tue">화요일</option>
+	                            		<option value="wed">수요일</option>
+	                            		<option value="thu">목요일</option>
+	                            		<option value="fri">금요일</option>
+	                            	</select>
+	                            </div>
+	                            <div class="grid item1">
+	                                교육장소
+	                            </div>
+	                            <div class="grid item1">
+	                                <input type="text" name="eduAddress" required autocomplete="off">
+	                            </div>
+	                            <div class="grid item1">
+	                                교육대상
+	                            </div>
+	                            <div class="grid item1">
+	                            	<select name="eduParticipant">
+	                            		<option value="all">모두</option>
+	                            		<option value="element">초등학생</option>
+	                            		<option value="middle">중학생</option>
+	                            		<option value="high">고등학생</option>
+	                            		<option value="adult">성인</option>
+	                            	</select>
+	                            </div>
+	                            <div class="grid item1">
+	                                정원
+	                            </div>
+	                            <div class="grid item1">
+	                                <input type="number" name="eduMaxNum" min=1 required autocomplete="off">
+	                            </div>
+	                            <div class="grid item1">
+	                            	교육내용
+	                                <div id="container">
+	                               		<textarea name="eduContent" id="editor"></textarea>
+	                               	</div>
+	                            </div>
+	                            <div class="grid item1">
+	                                첨부파일
+	                            </div>
+	                            <div class="grid item1">
+	                                <button type="button" class="btn eduup">수정하기</button>
+	                            </div>
+	                        </div>
+	                    </div>
 					</form>
                 </div>
             </div>
@@ -228,9 +342,51 @@
             </footer>
         </div>
     </div>
-    
-    
-    
+<script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/translations/ko.js"></script>
+<!-- 
+<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+ -->
+<script>
+    const ckInstance = ClassicEditor
+        .create( document.querySelector( '#editor' ), {
+	    	language: {ui : 'ko', content : 'ko'}, 
+	        //  tokenUrl: 'https://81478.cke-cs.com/token/dev/de0d9159dc2b7ce3ecb85191c28f789217b087f58ae6880e30d89820724d',
+	        //  uploadUrl: 'https://81478.cke-cs.com/easyimage/upload/'
+        	//	uploadUrl: '${pageContext.request.contextPath}/fileupload.ajax'
+    		ckfinder : { uploadUrl : '${pageContext.request.contextPath}/fileupload.ajax' }, 
+        	toolbar: {
+                items: [
+                    'undo', 'redo',
+                    '|', 'heading',
+                    '|', 'bold', 'italic',
+                    '|', 'link', 'insertImage', 'insertTable', 'mediaEmbed', 'blockQuote', 
+                    '|', 'bulletedList', 'numberedList', 'outdent', 'indent'
+                ]
+            },
+            link: {
+                // Automatically add target="_blank" and rel="noopener noreferrer" to all external links.
+                addTargetToExternalLinks: true,
+
+                // Let the users control the "download" attribute of each link.
+                decorators: [
+                    {
+                        mode: 'manual',
+                        label: 'Downloadable',
+                        attributes: {
+                            download: 'download'
+                        }
+                    }
+                ]
+            }
+        } )
+		.then( editor => {
+			editor = editor;
+		} )
+        .catch( error => {
+            console.error(error);
+        } );
+</script>
 <script>
 $(loadedHandler);
 function loadedHandler(){

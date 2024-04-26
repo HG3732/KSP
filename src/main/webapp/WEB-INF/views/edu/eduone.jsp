@@ -15,6 +15,9 @@
 	loginPermission();
     </script>
     <style>
+    	.wrap-main .btn{
+    		cursor: pointer;
+    	}
         .wrap-main,
         .wrap-footer{
             margin: 10px auto;
@@ -50,7 +53,7 @@
             clear: both;
         }
         .wrap-main>.content>.edu-list>.edu-detail{
-        	padding: 30px;
+        	padding: 10px 30px;
         }
         .wrap-main>.content>.edu-list>.edu-detail>.edu-detail-content>table{
             line-height: 3em;
@@ -63,6 +66,8 @@
 		    justify-content: flex-end;
 		    align-items: center;
 		}
+        /* 
+		 */
         .wrap-main>.content>.edu-list>.edu-detail>.edu-book{
             text-align: center;
             margin-top: 10px;
@@ -103,6 +108,106 @@
         	color: black;
         	font-weight: bold;
         }
+        
+        
+        
+        /* grid 구조 */
+        .wrap-main .grid.eduOne{
+            display: grid;
+            grid-template-columns: 1fr 2.5fr 1fr 2.5fr 1fr 2.5fr 1fr 2.5fr;
+            grid-row-gap: 10px;
+            grid-column-gap: 10px;
+            align-items: center;
+        }
+        .wrap-main .grid.eduOne input
+        , .wrap-main .grid.eduOne select{
+        	background-color: transparent;
+        	border: 1px solid white;
+        }
+        .wrap-main .grid.eduOne option{
+        	color: black;
+        }
+        .wrap-main .grid.item1:nth-child(1){
+            grid-column: 1/9;
+            display: grid;
+            grid-template-columns: 5fr 1fr;
+            border-bottom: 1px solid white;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        .wrap-main .grid.eduOne input[name=eduSubject]{
+        	width: 100%;
+        }
+        .wrap-main .grid.item1:nth-child(even){
+            text-align: center;
+        }
+        .wrap-main .grid.item1:nth-child(odd)
+        , .wrap-main .content .grid.item1:nth-child(4)
+        , .wrap-main .content .grid.item1:nth-child(8)
+        , .wrap-main .content .grid.item1:nth-child(18){
+            text-align: left;
+        }
+        .wrap-main .grid.item1:nth-child(18){
+            border-top: 1px solid white;
+            padding-top: 10px;
+            margin-top: 10px;
+            border-bottom: 1px solid white;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        .wrap-main .grid.item1:last-child{
+            border-top: 1px solid white;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        .wrap-main .grid.item1:nth-child(1) .grid.item2:nth-child(1){
+            display: grid;
+            grid-template-columns: 1fr 12.1fr;
+            align-items: center;
+        }
+        .wrap-main .grid.item1:nth-child(1) .grid.item2:nth-child(2){
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-column-gap: 10px;
+            text-align: center;
+        }
+        .wrap-main .grid.item1:nth-child(11)
+        , .wrap-main .grid.item1:nth-child(15){
+            grid-column: 2/5;
+        }
+        .wrap-main .grid.item1:nth-child(13)
+        , .wrap-main .grid.item1:nth-child(17){
+            grid-column: 6/9;
+        }
+        .wrap-main .grid.item1:nth-child(18){
+            grid-column: 1/9;
+            line-height: 3em;
+        }
+        .wrap-main .grid.item1:nth-child(19){
+            grid-column: 1/9;
+        }
+        .wrap-main .grid.item1:nth-child(19) .grid.item2{
+        	grid-column: 1/9;
+        }
+        .wrap-main .grid.item1:last-child{
+            grid-column: 1/9;
+            text-align: center;
+        }
+        
+        /* ckeditor 내용 */
+        .wrap-main table{
+        	border: 1px solid white;
+        	border-collapse: collapse;
+        }
+        .wrap-main table td{
+        	border: 1px solid white;
+        }
+        
+        
+        
+        
+        
+        
         .wrap-footer {
             clear: both;
         }
@@ -127,87 +232,94 @@
             <div class="edu-list">
                 <div class="edu-detail">
                     <div class="edu-detail-content">
-                        <table>
-                            <colgroup>
-                                <col style="width: 10%;">
-                                <col>
-                                <col>
-                                <col>
-                                <col style="width: 10%;">
-                                <col>
-                                <col>
-                                <col>
-                            </colgroup>
-                            <tbody>
-                            	<tr>
-                            		<td colspan="7">${detail.eduSubject }</td>
-                            		<td>
-	                            		<div class="edu-edit-del">
-	                            			<div>
-			                        			<input type="hidden" name="eduId" id="eduId" value="${detail.eduId }" >
-			                        			<c:if test="${cnt > 0 }">
-			                        			<button type="submit" class="btn bookdel">취소</button>
-			                        			</c:if>
-	                            			</div>
-	                            			<c:if test="${ssslogin.mem_admin > 0 }">
-	                            			<div>
-		                        				<a href="${pageContext.request.contextPath }/edu/list/update?id=${detail.eduId }"><button type="button" class="btn eduup">수정</button></a>
-	                            			</div>
-	                            			<div>
-			                        			<button type="submit" class="btn edudel">삭제</button>
-	                            			</div>
-	                            			</c:if>
-	                    				</div>
-	                    			</td>
-                            	</tr>
-                                <tr>
-                                    <td>신청기간</td><td>${detail.eduBookStart }</td><td>~</td><td>${detail.eduBookEnd }</td><td>운영기간</td><td>${detail.eduStart }</td><td>~</td><td>${detail.eduEnd }</td>
-                                </tr>
-                                <tr>
-                                    <td>운영요일</td><td colspan="3">
-                                    <c:choose>
-                                    	<c:when test="${detail.eduDay == 'every' }">매일</c:when>
-                                    	<c:when test="${detail.eduDay == 'mon' }">월요일</c:when>
-                                    	<c:when test="${detail.eduDay == 'tue' }">화요일</c:when>
-                                    	<c:when test="${detail.eduDay == 'wed' }">수요일</c:when>
-                                    	<c:when test="${detail.eduDay == 'thu' }">목요일</c:when>
-                                    	<c:when test="${detail.eduDay == 'fri' }">금요일</c:when>
-                                    </c:choose>
-                                    </td>
-                                    <td>교육장소</td>
-                                    <td colspan="3">
-                                    ${detail.eduAddress }
-                                    </td>
-                                </tr>
-                                <tr>
-                                	<td>교육대상</td>
-                                	<td colspan="3">
-                                    <c:choose>
-                                    	<c:when test="${detail.eduParticipant == 'all' }">모두</c:when>
-                                    	<c:when test="${detail.eduParticipant == 'element' }">초등학생</c:when>
-                                    	<c:when test="${detail.eduParticipant == 'middle' }">중학생</c:when>
-                                    	<c:when test="${detail.eduParticipant == 'high' }">고등학생</c:when>
-                                    	<c:when test="${detail.eduParticipant == 'adult' }">성인</c:when>
-                                    </c:choose>
-                                	</td>
-                                	<td>인원</td><td>${detail.eduBookNum }/${detail.eduMaxNum }</td>
-                                </tr>
-                                <tr id="content">
-                                    <td colspan="8">${detail.eduContent }</td>
-                                </tr>
-                                <c:if test="${not empty detail.eduFileDtoList }">
-                                <c:forEach items="${detail.eduFileDtoList }" var="file">
-                                <tr>
-                                	<td>${file.eduFileId }</td>
-                                	<td><a href="${file.eduFilePath }/${file.eduSavedFileName}" download="${file.eduOriginalFileName }">${file.eduOriginalFileName }</a></td>
-                                </tr>
-                                </c:forEach>
-                                </c:if>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="edu-book">
-                        <button type="button" class="btn book">신청하기</button>
+                        <div class="grid eduOne">
+                            <div class="grid item1">
+                                <div class="grid itmem2">
+                                    ${eduOne.eduSubject }
+                                </div>
+                                <div class="grid item2">
+                                    <div class="grid item3">
+                                    	<c:if test="${cnt > 0 }">
+                                        <button type="submit" class="btn bookdel">취소</button>
+                                    	</c:if>
+                                    </div>
+                                    <c:if test="${ssslogin.mem_admin > 0 }">
+                                    <div class="grid item3">
+                                        <button type="button" class="btn eduup">수정</button>
+                                    </div>
+                                    <div class="grid item3">
+                                        <button type="submit" class="btn edudel">삭제</button>
+                                    </div>
+                                    </c:if>
+                                </div>
+                            </div>
+                            <div class="grid item1">
+                                신청기간
+                            </div>
+                            <div class="grid item1">
+                                ${eduOne.eduBookStart }
+                            </div>
+                            <div class="grid item1">
+                                ~
+                            </div>
+                            <div class="grid item1">
+                                ${eduOne.eduBookEnd }
+                            </div>
+                            <div class="grid item1">
+                                운영기간
+                            </div>
+                            <div class="grid item1">
+                                ${eduOne.eduStart }
+                            </div>
+                            <div class="grid item1">
+                                ~
+                            </div>
+                            <div class="grid item1">
+                                ${eduOne.eduEnd }
+                            </div>
+                            <div class="grid item1">
+                                운영요일
+                            </div>
+                            <div class="grid item1">
+                            <c:choose>
+                            	<c:when test="${eduOne.eduDay == 'every' }">매일</c:when>
+                            	<c:when test="${eduOne.eduDay == 'mon' }">월요일</c:when>
+                            	<c:when test="${eduOne.eduDay == 'tue' }">화요일</c:when>
+                            	<c:when test="${eduOne.eduDay == 'wed' }">수요일</c:when>
+                            	<c:when test="${eduOne.eduDay == 'thu' }">목요일</c:when>
+                            	<c:when test="${eduOne.eduDay == 'fri' }">금요일</c:when>
+                            </c:choose>
+                            </div>
+                            <div class="grid item1">
+                                교육장소
+                            </div>
+                            <div class="grid item1">
+                                ${eduOne.eduAddress }
+                            </div>
+                            <div class="grid item1">
+                                교육대상
+                            </div>
+                            <div class="grid item1">
+                                <c:choose>
+                                	<c:when test="${eduOne.eduParticipant == 'all' }">모두</c:when>
+                                	<c:when test="${eduOne.eduParticipant == 'element' }">초등학생</c:when>
+                                	<c:when test="${eduOne.eduParticipant == 'middle' }">중학생</c:when>
+                                	<c:when test="${eduOne.eduParticipant == 'middle' }">고등학생</c:when>
+                                </c:choose>
+                            </div>
+                            <div class="grid item1">
+                                인원
+                            </div>
+                            <div class="grid item1">
+                                ${eduOne.eduBookNum }/${eduOne.eduMaxNum }
+                            </div>
+                            <div class="grid item1 eduContent">
+                                ${eduOne.eduContent }
+                            </div>
+                            <div class="grid item1">
+                                <button type="button" class="btn book">신청하기</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -226,6 +338,7 @@ $(loadedHandler);
 function loadedHandler(){
 	$(".btn.book").on("click", bookClkHandler);
 	$(".btn.bookdel").on("click", bookDelHandler);
+	$(".btn.eduup").on("click", eduUpHandler);
 	$(".btn.edudel").on("click", eduDelHandler);
 	$(".btn.edulist").on("click", eduListHandler);
 	$(".btn.edubooklist").on("click", eduBookListHandler);
@@ -238,9 +351,13 @@ function eduListHandler(){
 function eduBookListHandler(){
 	location.href = "${pageContext.request.contextPath}/edu/book";
 }
+// 교육 수정하기
+function eduUpHandler(){
+	location.href = "${pageContext.request.contextPath}/edu/list/update?id=${eduOne.eduId}";
+}
 // 교육 신청하러 가기
 function bookClkHandler(){
-	location.href = "${pageContext.request.contextPath}/edu/form?id=${detail.eduId}";
+	location.href = "${pageContext.request.contextPath}/edu/form?id=${eduOne.eduId}";
 }
 // 교육 신청 취소
 function bookDelHandler(){
@@ -265,7 +382,7 @@ function eduDelHandler(){
 	$.ajax({
 		url : "${pageContext.request.contextPath}/edu/delete.ajax"
 		, method : "post"
-		, data : "${detail.eduId}"
+		, data : "${eduOne.eduId}"
 		, error : ajaxErrorHandler
 		, success : function(result){
 			if(result == 1){

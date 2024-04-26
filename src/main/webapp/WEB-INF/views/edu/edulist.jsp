@@ -74,6 +74,11 @@
             cursor: pointer;
             color: black;
         }
+        .wrap-main>.content>.edu-list>.edu-list-search>div>a>.btn.eduIns:hover{
+            cursor: pointer;
+            background-color: black;
+            color: white;
+        }
         .wrap-main>.content>.edu-list>.edu-list-search>div>a{
         	color: black;
         	cursor: pointer;
@@ -139,6 +144,7 @@
         	color: black;
         	font-weight: bold;
         }
+        
         
         .wrap-footer{
             clear: both;

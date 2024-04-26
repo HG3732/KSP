@@ -49,7 +49,7 @@ public class EduOneController extends HttpServlet {
 			// 교육 번호에 해당하는 정보
 			String eduIdStr = request.getParameter("id");
 			Integer eduId = Integer.parseInt(eduIdStr);
-			request.setAttribute("detail", es.selectOne(eduId));
+			request.setAttribute("eduOne", es.selectOne(eduId));
 			
 			// 로그인 세션 정보
 			MemberInfoDto dto = (MemberInfoDto)request.getSession().getAttribute("ssslogin");

@@ -157,6 +157,8 @@
             $("#btn-delete-modalcancel").on("click", btnDeleteCancelClickHandler);
             $(".btn.show.rereplyupdate").on("click", btnReplyUpdateClickHandler);
             $(".btn.reupdate").on("click", btnReplyUpdateOkClickHandler);
+            $(".btn.show.rereplydelete").on("click", btnReplyDeleteClickHandler);
+            
 
             $.ajax({
                 url : "${pageContext.request.contextPath}/board/reply/read.ajax"
@@ -255,32 +257,46 @@
         // TODO 본인댓글에만 수정 삭제 버튼 표시
         function displayReplyWrap(datalist) {
         	console.log("${dto.boardNo}");
+        	console.log("${replydto.bReplyWriter}");
         	var htmlVal = '';
+			var isAdmin = ("${ssslogin}"!="" && ("${ssslogin.mem_admin}" > "0"));
+			console.log(isAdmin);
         	for(var idx in datalist){
 				var replydto = datalist[idx];
 				var buttonHtml = '';
-		          if("${ssslogin.mem_admin}" > 0 || "${ssslogin.mem_id}" == "${replydto.bReplyWriter}") {
-		              buttonHtml = `
-		                  <button type="button" class="btn show rereplyupdate" id="reply-update">수정</button>
-		                  <button type="button" class="btn show rereplydelete">삭제</button>
-		              `;
-		          }
-				if(replydto.bReplyLevel == 1){
+        		if(isAdmin || "${ssslogin.mem_id}" == replydto.bReplyWriter ) {
+		            		/* ssslogin.mem_admin > 0 || ssslogin.mem_id === replydto.bReplyWriter */
+		                buttonHtml = `
+		                    <button type="button" class="btn show rereplyupdate" id="reply-update">수정</button>
+		                    <button type="button" class="btn show rereplydelete">삭제</button>
+		                `;
+		            }
+				var buttonHtml2 = '';
+        		if(isAdmin || "${ssslogin.mem_id}" == replydto.bReplyWriter ) {
+		            		/* ssslogin.mem_admin > 0 || ssslogin.mem_id === replydto.bReplyWriter */
+		                buttonHtml2 = `
+		                    <button type="button" class="btn show rereplyupdate2" id="reply-update">수정</button>
+		                    <button type="button" class="btn show rereplydelete">삭제</button>
+		                `;
+		            }
+			if(replydto.bReplyLevel == 1){
         		htmlVal += `
         		<form class="frm-rereply">
         			<input type="hidden" name="boardNo" value="${dto.boardNo}">
         			<input type="hidden" name="boardReplyId" value="\${replydto.bReplyId}">
+        			<input type="hidden" name="boardReplyWriter" value="\${replydto.bReplyWriter}">
         			<input type="hidden" name="boardReplyLevel" value="\${replydto.bReplyLevel}">
         			<input type="hidden" name="boardReplyStep" value="\${replydto.bReplyStep}">
         			<input type="hidden" name="boardReplyRef" value="\${replydto.bReplyRef}">
         			<div class="boardreply grid">
-        				<div class="recontent" id="recontent">"\${replydto.bReplyContent}"</div>
+        				<div class="recontent" id="recontent">\${replydto.bReplyContent}</div>
         				<input type="text" class="reupdatecontent" id="reupdatecontent" name="reupdatecontent">
-        				<div class="rewritetime" id="rewritetime">"\${replydto.bReplyWriteTime}"</div>
+        				<div class="rewritetime" id="rewritetime">\${replydto.bReplyWriteTime}</div>
         				<button type="button" class="btn reupdate" id="reupdateokbtn">등록</button>
-        				<div>"\${replydto.bReplyWriter}"</div>
+        				<div>\${replydto.bReplyWriter}
+        			</div>
         				<div class="btn-show">
-							"\${buttonHtml}"
+	        				\${buttonHtml}
         					<button type="button" class="btn show rereplycontent">답글</button>
         				</div>
         				<div class="rereplycontent span">
@@ -303,17 +319,18 @@
 	        		<form class="frm-rereply">
 	        			<input type="hidden" name="boardNo" value="${dto.boardNo}">
 	        			<input type="hidden" name="boardReplyId" value="\${replydto.bReplyId}">
+	        			<input type="hidden" name="boardReplyWriter" value="\${replydto.bReplyWriter}">
 	        			<input type="hidden" name="boardReplyLevel" value="\${replydto.bReplyLevel}">
 	        			<input type="hidden" name="boardReplyStep" value="\${replydto.bReplyStep}">
 	        			<input type="hidden" name="boardReplyRef" value="\${replydto.bReplyRef}">
 	        			<div class="boardrereply grid">
-	        				<div class="rerecontent"><span class="rereply-content">ㄴ</span>"\${replydto.bReplyContent}"</div>
+	        				<div class="rerecontent"><span class="rereply-content">ㄴ </span> \${replydto.bReplyContent}</div>
         					<input type="text" class="reupdatecontent" id="reupdatecontent" name="reupdatecontent">
-        					<div class="rewritetime" id="rewritetime">"\${replydto.bReplyWriteTime}"</div>
+        					<div class="rewritetime" id="rewritetime">\${replydto.bReplyWriteTime}</div>
         					<button type="button" class="btn reupdate" id="reupdateokbtn">등록</button>
-        				<div>"\${replydto.bReplyWriter}"</div>
+        				<div>\${replydto.bReplyWriter}</div>
 	        				<div class="btn-show">
-	        				\${buttonHtml}
+	        				\${buttonHtml2}
         						<button type="button" class="btn show rereplycontent">답글</button>
         					</div>
 	        				<div class="rereplycontent span">
@@ -325,20 +342,8 @@
 					`;
 				
 			}
-				/* 
-				var htmlValTest = '';
-	        	for(var idx in datalist){
-					var replydto = datalist[idx];
-					if(replydto.bReplyLevel == 1){
-						htmlValTest += `
-							 <button type="button" class="btn show rereplyupdate" id="reply-update">수정</button>
-		                    <button type="button" class="btn show rereplydelete">삭제</button>
-		                `;
-					}
-        }
-					 */
+
 		$(".reply-wrap").html(htmlVal);
-		// $(".test-id").html(htmlValTest);
 		// html(새로운 내용으로 덮어쓰면 기존 event 등록이 사라짐)
 		// event 다시 등록
 		$(".btn.rereplycontent.show").on("click",btnReReplyContentClickHandler);
@@ -347,31 +352,9 @@
 		$(".btn.show.rereplyupdate").on("click", btnReplyUpdateClickHandler);
 		$(".btn.show.rereplyupdate2").on("click", btnReplyUpdateClickHandler2);
 		$(".btn.reupdate").on("click", btnReplyUpdateOkClickHandler);
+		$(".btn.show.rereplydelete").on("click", btnReplyDeleteClickHandler);
+        	}
         }
-        }
-        // 댓글 수정
-        // $("#reply-update").on("click", btnReplyUpdateClickHandler);
-/*         
-        (function() {
-            // AJAX 요청
-            $.ajax({
-                url: "${pageContext.request.contextPath}/board/reply/update.ajax"
-                method: "post",
-                dataType: "json",
-                success: function(data) {
-                    // 성공적으로 데이터를 받았을 때 실행할 코드
-                    console.log(data);
-                },
-                error: function(request, status, error) {
- 					alert("code: " + request.status + "\n" + "message: "
- 							+ request.responseText + "\n" + "error: " + error);
-                 }
-            });
-            // reply-update 버튼 클릭 핸들러 등록
-            $("#reply-update").on("click", btnReplyUpdateOkClickHandler);
-        })();
-
- */        
        	// 댓글 총 개수
         
        	// 답글 입력란
@@ -404,7 +387,8 @@
 	        $boardReply.find(".recontent").css("display", "none");
 	        $boardReply.find(".rewritetime").css("display", "none");
 	        var content = $boardReply.find('.recontent').val();
-	        $boardReply.find("input[name='reupdatecontent']").val($(this).closest('.boardreply').find('.recontent').text());
+            $boardReply.find("input[name='reupdatecontent']").val($(this).closest('.boardreply').find('.recontent').text());
+
 	    		}
 
 		    }
@@ -428,60 +412,12 @@
 	        $boardRereply.find(".rewritetime").css("display", "none");
 	        var content = $boardRereply.find('.recontent').val();
 	        // trim을 사용해서 'ㄴ'자 제외
-	        $boardRereply.find("input[name='reupdatecontent']").val($(this).closest('.boardrereply.grid').find('.rerecontent').text().trim());
+	        $boardRereply.find("input[name='reupdatecontent']").val($(this).closest('.boardrereply.grid').find('.rerecontent').children('.rereply-content').remove().end().text().trim());
 	    		}
 	}
-			        
-/* 			
-        	if($(this).text() == "취소"){
-        		$(this).text("수정");
-    			$(".reupdatecontent").css("display", "none");
-    			$(".btn.reupdate").css("display", "none");
-    			$(".recontent").css("display", "block");
-    			$(".rewritetime").css("display", "block");
-        	} else{
-        		$(this).text("취소");
-        		$(".reupdatecontent").css("display", "block");
-    			$(".btn.reupdate").css("display", "block");
-    			$(".recontent").css("display", "none");
-    			$(".rewritetime").css("display", "none");
-            	$(this).parent().parent().children("input[name='reupdatecontent']").first().val($(this).closest('.boardreply').find('.recontent').text());
-    			// $(this).parent().next().children("input[name='boardReplyContent']").toggle();
-    			console.log($(this).parent().parent().children("input[name='reupdatecontent']").val($(this).closest('.boardreply').find('.recontent').text()));
-    			console.log($(this).closest('.boardreply').find('.recontent').text());
-        	}
-		}
-       	 */
-
-       	// 댓글 수정 등록버튼
-/*        	
-       function btnReplyUpdateOkClickHandler() {
-			console.log("업데이트 등록 버튼 눌림");
-     		$.ajax({
-     		   url : "${pageContext.request.contextPath}/board/reply/update.ajax"
-                   ,method : "post"
-                   ,error : function(request, status, error) {
-   					alert("code: " + request.status + "\n" + "message: "
-   							+ request.responseText + "\n" + "error: " + error);
-                   }
-                   ,data : $("#frm-reply").serialize()
-                   ,dataType : "json"
-                   ,success : function(result){
-                       if(result == "-1"){
-                           alert("댓글이 작성되지 않았습니다.");
-                           return;
-                       }
-                       if(result == "0"){
-                           alert("댓글 등록에 실패했습니다");
-                           return;
-                       }
-                       console.log("댓글작성 result : " + result);
-                       displayReplyWrap(result);
-                   }
-               });
-		} */
        	 
-       	
+       // 댓글 수정 
+       
        function btnReplyUpdateOkClickHandler() {
 			console.log("업데이트 등록 버튼 눌림");
      		$.ajax({
@@ -508,6 +444,28 @@
 				}
        		 });
 		}
+       
+       // 댓글 삭제
+        
+       function btnReplyDeleteClickHandler() {
+    	   console.log("댓글 삭제 버튼 눌림");
+    	   $.ajax({
+    		   url: "${pageContext.request.contextPath}/board/reply/delete.ajax"
+    		   ,method: "post"
+    		   ,error: 
+    			   function(request, status, error) {
+					alert("code: " + request.status + "\n" + "message: "
+							+ request.responseText + "\n" + "error: " + error);
+    		   }
+    		   ,data: $(this).parents(".frm-rereply").serialize()
+    		   ,dataType: "json"
+    		   ,success: function(result) {
+    			   alert("삭제됨")
+    		   displayReplyWrap(result);
+    		   }
+    	   });
+		
+	}
 			 
        	// 모달 오픈 
        	function btnDeleteClickHandler() {

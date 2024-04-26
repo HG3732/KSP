@@ -200,11 +200,21 @@ public class BoardService {
 	}
 	
 	// board update
-	public int replyUpdate(BoardReplyDto dto) {
+	public int replyUpdate(BoardReplyListDto dto) {
 		int result = 0;
 		Connection conn = getConnection(true);
 		result = dao.replyUpdate(conn, dto);
 		System.out.println("서비스 댓글 업데이트 result : " + result);
+		close(conn);
+		return result;
+	}
+	
+	// delete = board delete
+	public int replyDelete(Integer bRpleyId){
+		int result = 0;
+		Connection conn = getConnection(true);
+		result = dao.replyDelete(conn, bRpleyId);
+		System.out.println("서비스 댓글 삭제 result : " + result);
 		close(conn);
 		return result;
 	}

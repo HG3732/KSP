@@ -1,6 +1,8 @@
 package board.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,21 +13,23 @@ import org.apache.catalina.ant.jmx.JMXAccessorQueryTask;
 
 import com.google.gson.Gson;
 
+import board.model.dto.BoardReplyDto;
+import board.model.dto.BoardReplyListDto;
 import board.model.service.BoardService;
 import member.model.dto.MemberInfoDto;
 
 /**
- * Servlet implementation class BoardReplyReadController
+ * Servlet implementation class BoardReplyDeleteController
  */
-@WebServlet("/board/reply/read.ajax")
-public class BoardReplyReadController extends HttpServlet {
+@WebServlet("/board/reply/delete.ajax")
+public class BoardReplyDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private BoardService service = new BoardService();
+	BoardService service = new BoardService();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardReplyReadController() {
+    public BoardReplyDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,20 +46,31 @@ public class BoardReplyReadController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+		System.out.println("보드 댓글 삭제 컨트롤러 doPost");
 		MemberInfoDto memberInfoDto = (MemberInfoDto) request.getSession().getAttribute("ssslogin");
-		String boardNostr = request.getParameter("boardNo");
-//		String boardReplyWriter = request.getParameter("bReplyWriter");
-		String boardReplyWriter = memberInfoDto.getMem_id();
+		BoardReplyDto dto = new BoardReplyDto();
 		
-		System.out.println("보드 리플라이 리드 에이작스 컨트롤러 boardNoStr : " + boardNostr);
-		System.out.println("보드 리플라이 리드 에이작스 컨트롤러 bReplyWriter : " + boardReplyWriter);
+		String boardNoStr = request.getParameter("boardNo");
+		int boardNo = Integer.parseInt(boardNoStr);
+		String baordReplyWriter = memberInfoDto.getMem_id();
+		String boardReplyIdStr = request.getParameter("boardReplyId");
+		int boardReplyId = Integer.parseInt(boardReplyIdStr);
+		
+		Gson gson = new Gson();
+		int result = service.replyDelete(boardReplyId);
+		
 		try {
-			int boardNo = Integer.parseInt(boardNostr);
-			response.getWriter().append(new Gson().toJson(service.selectBoardReplyList(boardNo)));
+			if(result > 0) {
+				response.getWriter().append(gson.toJson(dto));
+				response.sendRedirect(request.getContextPath() + "/board/view=?" + boardNo);
+//				response.sendRedirect(request.getContextPath() + "/board/community");
+			}
 		} catch (Exception e) {
-			System.out.println("댓글 리드 컨트롤러 넘버포멧익세셉세베");
-			response.sendRedirect(request.getContextPath() + "/board/view");
+			// TODO: handle exception
 		}
+		
+		
 	}
-
 }

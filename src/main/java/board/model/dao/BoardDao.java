@@ -21,6 +21,7 @@ import board.model.dto.BoardReplyWriteDto;
 import board.model.dto.BoardViewDto;
 import board.model.dto.FileDto;
 import board.model.dto.FileWriteDto;
+import oracle.jdbc.proxy.annotation.Pre;
 
 //이름               널?       유형             
 //---------------- -------- -------------- 
@@ -483,8 +484,8 @@ public class BoardDao {
 
 	}
 	
-	// board update
-	public int replyUpdate(Connection conn, BoardReplyDto dto) {
+	// board reply update
+	public int replyUpdate(Connection conn, BoardReplyListDto dto) {
 		int result = 0;
 		String sql = "UPDATE BOARD_REPLY SET B_REPLY_CONTENT=? WHERE B_REPLY_ID=?";
 		PreparedStatement pstmt = null;
@@ -498,6 +499,23 @@ public class BoardDao {
 			e.printStackTrace();
 		}
 		System.out.println("DAO 댓글 업데이트 result : " + result);
+		close(pstmt);
+		return result;
+	}
+	
+	// board reply delete
+	public int replyDelete(Connection conn, Integer bReplyId) {
+		int result = 0;
+		String sql = "DELETE FROM BOARD_REPLY WHERE B_REPLY_ID=?";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bReplyId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		close(pstmt);
 		return result;
 	}

@@ -30,9 +30,9 @@ public class BoardDeleteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/views/star/board/board_community.jsp").forward(request, response);
 		System.out.println("연결 확인 두 겟");
 		AlertController.loginPermission(request, response, "로그인 후 글 작성이 가능합니다.");
+		request.getRequestDispatcher("/WEB-INF/views/star/board/board_community.jsp").forward(request, response);
 	}
 
 	/**

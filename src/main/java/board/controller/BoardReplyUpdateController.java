@@ -52,16 +52,19 @@ public class BoardReplyUpdateController extends HttpServlet {
 		Integer boardNo = Integer.parseInt(boardNoStr);
 		System.out.println("댓글 수정 boardNo : " + boardNo);
 		
+//		String bReplyWriter = request.getParameter("boardReplyWriter");
+		String bReplyWriter = memberInfoDto.getMem_id();
 		String boardReplyIdStr = request.getParameter("boardReplyId");
 		Integer boardReplyId = Integer.parseInt(boardReplyIdStr);
 		String replyContent = request.getParameter("reupdatecontent");
+		System.out.println("댓글 수정 replyWriter : " + bReplyWriter);
 		System.out.println("댓글 수정 replyContent : " + replyContent);
 		System.out.println("댓글 수정 boardReplyId : " + boardReplyId);
 		
 		Gson gson = new Gson();
 		
 		try {
-			BoardReplyDto replydto = new BoardReplyDto(boardReplyId, boardNo, memberInfoDto.getMem_id(), replyContent, dto.getBReplyWriteTime(), dto.getBReplyLevel(), dto.getBReplyRef(), dto.getBReplyStep(), dto.getMemberAdmin());
+			BoardReplyListDto replydto = new BoardReplyListDto(boardReplyId, bReplyWriter, replyContent, dto.getBReplyWriteTime(), dto.getBReplyLevel(), dto.getBReplyRef(), dto.getBReplyStep());
 			int result = service.replyUpdate(replydto);
 			System.out.println("댓글 수정 result : " + result);
 			if (result > 0) {

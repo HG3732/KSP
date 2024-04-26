@@ -45,7 +45,6 @@ public class BoardDeleteController extends HttpServlet {
 		int result = service.delete(boardNo);
 		System.out.println("result : " + result + " boardNo : " + boardNo);
 		
-		
 		if (result > 0) {
 			response.sendRedirect(request.getContextPath() + "/board/community");
 		}else {

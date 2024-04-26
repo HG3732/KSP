@@ -25,52 +25,38 @@ import member.model.dto.MemberInfoDto;
 public class BoardReplyDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	BoardService service = new BoardService();
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public BoardReplyDeleteController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	public BoardReplyDeleteController() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
+
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		System.out.println("보드 댓글 삭제 컨트롤러 doPost");
-		MemberInfoDto memberInfoDto = (MemberInfoDto) request.getSession().getAttribute("ssslogin");
-		BoardReplyDto dto = new BoardReplyDto();
-		
+
 		String boardNoStr = request.getParameter("boardNo");
 		int boardNo = Integer.parseInt(boardNoStr);
-		String baordReplyWriter = memberInfoDto.getMem_id();
+//		String baordReplyWriter = memberInfoDto.getMem_id();
 		String boardReplyIdStr = request.getParameter("boardReplyId");
 		int boardReplyId = Integer.parseInt(boardReplyIdStr);
-		
+
 		Gson gson = new Gson();
 		int result = service.replyDelete(boardReplyId);
-		
-		try {
-			if(result > 0) {
-				response.getWriter().append(gson.toJson(dto));
-				response.sendRedirect(request.getContextPath() + "/board/view=?" + boardNo);
-//				response.sendRedirect(request.getContextPath() + "/board/community");
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
+		if (result > 0) {
+			List<BoardReplyListDto> replydtolist = service.selectBoardReplyList(boardNo);
+			response.getWriter().append(gson.toJson(replydtolist));
+		} else {
+			response.getWriter().append(gson.toJson(null));
 		}
-		
-		
+
 	}
 }

@@ -430,7 +430,9 @@
        			,data: $(this).parents(".frm-rereply").serialize()
        			,dataType: "json"
        			,success: function(result) {
-       				console.log("댓글 업데이트" + result);
+       				console.log("댓글 업데이트" );
+    			   console.log(result);
+      				
                     if(result == "-1"){
                         alert("댓글이 작성되지 않았습니다.");
                         location.href="${pageContext.request.contextPath}/board/community";
@@ -452,20 +454,23 @@
     	   $.ajax({
     		   url: "${pageContext.request.contextPath}/board/reply/delete.ajax"
     		   ,method: "post"
-    		   ,error: 
-    			   function(request, status, error) {
-					alert("code: " + request.status + "\n" + "message: "
-							+ request.responseText + "\n" + "error: " + error);
-    		   }
+   			   ,error: function(request, status, error) {
+   					alert("code: " + request.status + "\n" + "message: "
+   							+ request.responseText + "\n" + "error: " + error);
+               }
     		   ,data: $(this).parents(".frm-rereply").serialize()
     		   ,dataType: "json"
-    		   ,success: function(result) {
-    			   alert("삭제됨")
-    		   displayReplyWrap(result);
+    		   ,success: function(result){
+    			   console.log("댓글delete result ");
+    			   console.log(result);
+                   if(result == null){
+                       alert("댓글이 삭제되지 않았습니다. 1");
+                       return;
+                   }
+	    		   displayReplyWrap(result);
     		   }
     	   });
-		
-	}
+		}
 			 
        	// 모달 오픈 
        	function btnDeleteClickHandler() {

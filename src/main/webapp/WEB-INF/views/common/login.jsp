@@ -3,7 +3,7 @@
     <link href="${pageContext.request.contextPath}/resource/css/common/login.css" rel="stylesheet">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +14,31 @@
     <script>
 $(loadedHandler)
 function loadedHandler() {
+	const cookieString = document.cookie;
+	const cookies = cookieString.split('; ');
+	var savedMemberId = null;
+	for(let cookie of cookies) {
+		const [cookieName, cookieValue] = cookie.split('=');
+		 
+		if (cookieName === "rememberedId") {
+	        savedMemberId = cookieValue;
+	 		}
+	}
+	
+	/* 불러올 아이디가 있다면 아이디 기억 체크상태로 */
+	if(savedMemberId != null){
+			$(".remember-id").attr('checked', true);
+	} else {
+			$(".remember-id").attr('checked', false);
+	}
+	
+	/* 아이디 기억이 체크되어있다면 input.id 채우기 */
+	var checknum = document.querySelectorAll('input.remember-id:checked');
+	console.log(checknum.length);
+	if(checknum.length > 0){
+		$(".id").attr('value', savedMemberId);
+	}
+		
 	$("#login-form .login-submit").on("click", loginSubmitHandler);
 	$(".login").on("keyup", loginBtnHandler);
 	$(".join").on("click", joinHandler);
@@ -80,6 +105,8 @@ function joinHandler(){
 </script>
 </head>
 <body>
+
+
 	<body>
     <div class="wrap-main">
         <div class="login-box">
@@ -89,7 +116,8 @@ function joinHandler(){
             <form id="login-form">
                 <div class="main-login">
                     <input type="text" name="id" class="login id" placeholder="아이디">
-                    <input type="password" name="pw" class="login pw" placeholder="비밀번호">
+                    <input type="password" name="pw" class="login pw" placeholder="비밀번호" autocomplete="false">
+                    <div><input type="checkbox" name="remember-id" class="remember-id" value="remember"> <span>ID 기억하기</span></div>
                     <input type="button" class="login-submit" value="로그인" disabled>
                 </div>
             </form>

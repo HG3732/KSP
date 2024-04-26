@@ -256,6 +256,10 @@
         	for(var idx in datalist){
 				var replydto = datalist[idx];
 				if(replydto.bReplyLevel == 1){
+					var updatebtn = ssslogin.mem_id === dto.boardWriter ? 
+						    `<button type="button" class="btn show rereplyupdate" id="reply-update">수정</button>` 
+						    : '';
+
         		htmlVal += `
         		<form class="frm-rereply">
         			<input type="hidden" name="boardNo" value="${dto.boardNo}">
@@ -270,7 +274,7 @@
         				<button type="button" class="btn reupdate" id="reupdateokbtn">등록</button>
         				<div>\${replydto.bReplyWriter}</div>
         				<div class="btn-show">
-        					<button type="button" class="btn show rereplyupdate" id="reply-update">수정</button>
+        					${updatebtn}
         					<button type="button" class="btn show rereplydelete">삭제</button>
         					<button type="button" class="btn show rereplycontent">답글</button>
         				</div>
@@ -298,11 +302,13 @@
 	        			<input type="hidden" name="boardReplyStep" value="\${replydto.bReplyStep}">
 	        			<input type="hidden" name="boardReplyRef" value="\${replydto.bReplyRef}">
 	        			<div class="boardrereply grid">
-	        				<div><span class="rereply-content">ㄴ </span> \${replydto.bReplyContent}</div>
-	        				<div>\${replydto.bReplyWriteTime}</div>
-	        				<div>\${replydto.bReplyWriter}</div>
+	        				<div class="rerecontent"><span class="rereply-content">ㄴ </span> \${replydto.bReplyContent}</div>
+        					<input type="text" class="reupdatecontent" id="reupdatecontent" name="reupdatecontent">
+        					<div class="rewritetime" id="rewritetime">\${replydto.bReplyWriteTime}</div>
+        					<button type="button" class="btn reupdate" id="reupdateokbtn">등록</button>
+        				<div>\${replydto.bReplyWriter}</div>
 	        				<div class="btn-show">
-        						<button type="button" class="btn show rereplyupdate" id="reply-update">수정</button>
+        						<button type="button" class="btn show rereplyupdate2" id="reply-update">수정</button>
         						<button type="button" class="btn show rereplydelete">삭제</button>
         						<button type="button" class="btn show rereplycontent">답글</button>
         					</div>
@@ -323,6 +329,7 @@
 		$(".btn.rereply").on("click", btnReReplyClickHandler);
 		// 수정 버튼 활성화
 		$(".btn.show.rereplyupdate").on("click", btnReplyUpdateClickHandler);
+		$(".btn.show.rereplyupdate2").on("click", btnReplyUpdateClickHandler2);
 		$(".btn.reupdate").on("click", btnReplyUpdateOkClickHandler);
         }
         
@@ -363,7 +370,7 @@
 		}
        	
        	// 댓글 수정란
-		// 수정 버튼 클릭 시
+		// 댓글 수정 버튼 클릭 시
 	function btnReplyUpdateClickHandler() {
 	    console.log("수정버튼 눌림");
 	    // 현재 클릭된 수정 버튼에 대해서만 작업 수행
@@ -383,7 +390,31 @@
 	        var content = $boardReply.find('.recontent').val();
 	        $boardReply.find("input[name='reupdatecontent']").val($(this).closest('.boardreply').find('.recontent').text());
 	    		}
+
 		    }
+       	
+    	// 대댓글 수정 버튼 클릭시 
+	function btnReplyUpdateClickHandler2() {
+	    console.log("수정버튼 눌림");
+	    // 현재 클릭된 수정 버튼에 대해서만 작업 수행
+	    var $boardRereply = $(this).closest('.boardrereply.grid');
+	    if ($(this).text() == "취소") {
+	        $(this).text("수정");
+	        $boardRereply.find(".reupdatecontent").css("display", "none");
+	        $boardRereply.find(".btn.reupdate").css("display", "none");
+	        $boardRereply.find(".rerecontent").css("display", "block");
+	        $boardRereply.find(".rewritetime").css("display", "block");
+	    } else {
+	        $(this).text("취소");
+	        $boardRereply.find(".reupdatecontent").css("display", "block");
+	        $boardRereply.find(".btn.reupdate").css("display", "block");
+	        $boardRereply.find(".rerecontent").css("display", "none");
+	        $boardRereply.find(".rewritetime").css("display", "none");
+	        var content = $boardRereply.find('.recontent').val();
+	        // trim을 사용해서 'ㄴ'자 제외
+	        $boardRereply.find("input[name='reupdatecontent']").val($(this).closest('.boardrereply.grid').find('.rerecontent').text().trim());
+	    		}
+	}
 			        
 /* 			
         	if($(this).text() == "취소"){

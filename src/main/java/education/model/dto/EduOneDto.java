@@ -44,7 +44,7 @@ public class EduOneDto {
 		super();
 		this.eduId = eduId;
 		this.eduSubject = eduSubject;
-		eduContent = eduContent.replaceAll("\\n", "<br>");
+//		eduContent = eduContent.replaceAll("\\n", "<br>");
 //		eduContent = eduContent.replaceAll(" ", "&nbsp;");
 		this.eduContent = eduContent;
 		this.eduAddress = eduAddress;

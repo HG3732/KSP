@@ -12,42 +12,73 @@
 </head>
 <body>
     <div class="wrap-main">
+    <div style="padding: 10px 0;">*세부 시간대에 따라 위치가 조금 다를 수 있습니다.</div>
         <div class="portrait">
-            <div class="universe">
-                <div class="sky1">
-                    <div class="item item1">1</div>
-                    <div class="item item3">3</div>
-                </div>
-                <div class="sky2">
-                    <div class="item item2">2</div>
-                    <div class="item item4">4</div>
-                </div>
+        	<div class="wrap-universe">
+        	<img src="${pageContext.request.contextPath}/resource/image/star_map_cover.png" class="star-cover">
+	            <div class="universe">
+					<img src="${pageContext.request.contextPath}/resource/image/star_map.png">
+				</div>
             </div>
         </div>
     	<div class="buttonsection">
-	        <div class="direction left"><button type="button" class="goleft">좌측</button></div>
-	        <div class="direction right"><button type="button" class="goright">우측</button></div>
+	        <div class="direction left"><button type="button" class="go goleft">좌측</button></div>
+	        <div class="direction right"><button type="button" class="go goright">우측</button></div>
         </div>
     </div>
-    
-    
+    <img src="${pageContext.request.contextPath}/resource/image/constellation_map.png" class="compass">
+    <div class="season">겨울(1월)</div>
 <script>
-	let leftButton = document.querySelector('.goleft');
-	let rightButton = document.querySelector('.goright');
-	let rotationAngle = 0;
+$(loadedHandler)
+
+	function loadedHandler() {
+		$(".go").on("click", changeSeasonHandler);
 	
-	leftButton.addEventListener('click', function(){
-	    rotationAngle += 90;
-	    rotateRevolve(rotationAngle);
-	});
-	
-	rightButton.addEventListener('click', function(){
-	    rotationAngle -= 90;
-	    rotateRevolve(rotationAngle); 
-	});
-	
-	function rotateRevolve(angle) {
-	    document.querySelector('.universe').style.transform = 'rotate(' + angle + 'deg)';
+		let leftButton = document.querySelector('.goleft');
+		let rightButton = document.querySelector('.goright');
+		let rotationAngle = 0;
+		var seasonDirection = 0;
+		
+		leftButton.addEventListener('click', function(){
+		    rotationAngle += 90;
+		    rotateRevolve(rotationAngle);
+		    seasonDirection++;
+		    if(seasonDirection > 3) {
+		    	seasonDirection = 0;
+		    }
+		});
+		
+		rightButton.addEventListener('click', function(){
+		    rotationAngle -= 90;
+		    rotateRevolve(rotationAngle);
+		    seasonDirection--;
+		    if(seasonDirection < 0) {
+		    	seasonDirection = 3;
+		    }
+		});
+		
+		function rotateRevolve(angle) {
+		    document.querySelector('.universe').style.transform = 'rotate(' + angle + 'deg)';
+		}
+		
+		function changeSeasonHandler() {
+			switch (seasonDirection) {
+			case 0:
+				$(".season").text("봄(4월)");
+				break;
+			case 1:
+				$(".season").text("겨울(1월)");
+				break;
+			case 2:
+				$(".season").text("가을(10월)");
+				break;
+			case 3:
+				$(".season").text("여름(7월)");
+				break;
+			default:
+				break;
+			}
+		}
 	}
 </script>
 </body>

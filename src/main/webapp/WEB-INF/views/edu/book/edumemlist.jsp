@@ -1,5 +1,6 @@
 <link href="${pageContext.request.contextPath}/resource/css/reset.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resource/css/core.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resource/css/common/header.css" rel="stylesheet">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -13,7 +14,6 @@
     <jsp:include page="/WEB-INF/views/common/common_star.jsp"/>
     <script>
 	loginPermission();
-	adminPermission();
     </script>
     <style>
         .wrap-main
@@ -171,31 +171,9 @@
     </div>
     <div class="wrap-footer">
         <footer>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae voluptatum magni sit officia ad id explicabo adipisci distinctio expedita, voluptas laborum minima labore, animi maxime soluta! Deleniti vel nostrum dicta.
+            <%@include file="/WEB-INF/views/common/footer.jsp" %>
         </footer>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
 $(loadedHandler);
 function loadedHandler(){

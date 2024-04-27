@@ -143,9 +143,7 @@
         </div>
         <div class="wrap-footer">
             <footer>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae voluptatum magni sit officia ad id
-                explicabo adipisci distinctio expedita, voluptas laborum minima labore, animi maxime soluta! Deleniti
-                vel nostrum dicta.
+                <%@include file="/WEB-INF/views/common/footer.jsp" %>
             </footer>
         </div>
     </div>
@@ -216,7 +214,6 @@ function successCodeHandler(){
 	$("#book-level").prop("disabled", false);
 	$("#book-part-name").prop("disabled", false);
 	$("#book-school").prop("disabled", false);
-	$("#book-num").prop("disabled", false);
 }
 // 신청 정보 입력 확인
 function checkValHandler(){
@@ -224,7 +221,6 @@ function checkValHandler(){
 			&& $("#book-level").val().trim().length != 0
 			&& $("#book-part-name").val().trim().length != 0
 			&& $("#book-school").val().trim().length != 0
-			&& $("#book-num").val() > 0
 			){
 		$(".btn.book").prop("disabled", false);
 	}

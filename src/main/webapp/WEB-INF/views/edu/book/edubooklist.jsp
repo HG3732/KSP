@@ -22,7 +22,9 @@
     	.wrap-body {
     		position: relative;
     	}
-    
+    	.wrap-main .btn{
+    		cursor: pointer;
+    	}
         .wrap-main
         , .wrap-footer{
             margin: 10px auto;
@@ -85,7 +87,6 @@
         	color: black;
         	font-weight: bold;
         }
-
         .wrap-footer{
             clear: both;
         }
@@ -194,7 +195,7 @@
     </div>
     <div class="wrap-footer">
         <footer>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae voluptatum magni sit officia ad id explicabo adipisci distinctio expedita, voluptas laborum minima labore, animi maxime soluta! Deleniti vel nostrum dicta.
+            <%@include file="/WEB-INF/views/common/footer.jsp" %>
         </footer>
     </div>
 <script>

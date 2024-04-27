@@ -254,21 +254,6 @@
             grid-column: 1/9;
             text-align: center;
         }
-        
-        /* ckeditor 내용 */
-        .wrap-main table{
-        	border: 1px solid white;
-        	border-collapse: collapse;
-        }
-        .wrap-main table td{
-        	border: 1px solid white;
-        }
-        
-        
-        
-        
-        
-        
         .wrap-footer {
             clear: both;
         }
@@ -394,9 +379,7 @@
         </div>
         <div class="wrap-footer">
             <footer>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae voluptatum magni sit officia ad id
-                explicabo adipisci distinctio expedita, voluptas laborum minima labore, animi maxime soluta! Deleniti
-                vel nostrum dicta.
+                <%@include file="/WEB-INF/views/common/footer.jsp" %>
             </footer>
         </div>
     </div>
@@ -691,7 +674,8 @@
             // readonly 모드 시 툴바 제거
             const toolbarElement = a.ui.view.toolbar.element;
 			toolbarElement.style.display = 'none';
-            a.setData('${eduOne.eduContent}');
+			var content = '${eduOne.eduContent}';
+            a.setData(content);
             // Example implementation to switch between different types of annotations according to the window size.
             // https://ckeditor.com/docs/ckeditor5/latest/features/collaboration/annotations/annotations-display-mode.html
             const annotationsUIs = a.plugins.get( 'AnnotationsUIs' );

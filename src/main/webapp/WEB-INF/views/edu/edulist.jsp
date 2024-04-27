@@ -253,31 +253,9 @@
     </div>
     <div class="wrap-footer">
         <footer>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae voluptatum magni sit officia ad id explicabo adipisci distinctio expedita, voluptas laborum minima labore, animi maxime soluta! Deleniti vel nostrum dicta.
+            <%@include file="/WEB-INF/views/common/footer.jsp" %>
         </footer>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
 $(loadedHandler);
 function loadedHandler(){

@@ -1,6 +1,6 @@
 <%-- 
- --%>
 <link href="${pageContext.request.contextPath}/resource/css/reset.css" rel="stylesheet">
+ --%>
 <link href="${pageContext.request.contextPath}/resource/css/core.css" rel="stylesheet">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -94,32 +94,64 @@
         	font-weight: bold;
         }
         
-        .wrap-main #container {
-            width: 1000px;
-            margin: 20px auto;
+        
+        
+        /* ckeditor */
+        /* Set the minimum height of Classic editor */
+        .wrap-main .ck.ck-editor__editable_inline:not(.ck-editor__nested-editable) {
+            min-height: 400px;
+            width: 100%;
         }
-        .wrap-main #container *{
-        /* 
-            background-color: transparent;
-         */
-            color: black;
+        /* Styles to render an editor with a sidebar for comments & suggestions */
+        .wrap-main .container {
+            display: flex;
+            flex-direction: row;
         }
-        .wrap-main .ck-editor__editable[role="textbox"] {
-            /* Editing area */
-            min-height: 200px;
+        .wrap-main .document-outline-container {
+            background-color: #f3f7fb;
+            width: 200px;
         }
-        .wrap-main .ck-content .image {
-            /* Block images */
-            max-width: 80%;
-            margin: 20px auto;
+        .wrap-main .sidebar {
+            width: 320px;
         }
-        /* 
-        .wrap-main .ck.ck-widget__type-around__button.ck-widget__type-around__button_before
-        , .wrap-main .ck.ck-widget__type-around__button.ck-widget__type-around__button_after{
-        	background-color: white;
+        .wrap-main #editor-container .ck.ck-editor {
+            width: 100%;
+        }
+        .wrap-main #editor-container .sidebar {
+            margin-left: 20px;
+        }
+        .wrap-main #editor-container .sidebar.narrow {
+            width: 30px;
+        }
+        /* Keep the automatic height of the editor for adding comments */
+        .wrap-main .ck-annotation-wrapper .ck.ck-editor__editable_inline {
+            min-height: auto;
+        }
+        /* Styles for viewing revision history */
+        .wrap-main #revision-viewer-container {
+            display: none;
+        }
+        .wrap-main #revision-viewer-container .ck.ck-editor {
+            width: 860px;
+        }
+        .wrap-main #revision-viewer-container .ck.ck-content {
+            min-height: 400px;
+        }
+        .wrap-main #revision-viewer-container .sidebar {
+            border: 1px #c4c4c4 solid;
+            margin-left: -1px;
+            width: 320px;
+        }
+        .wrap-main #revision-viewer-container .ck.ck-revision-history-sidebar__header {
+            height: 39px;
+            background: #FAFAFA;
+        }
+        .wrap-main .hidden {
+            display: none!important;
+        }
+        .ck.ckbox-wrapper *{
         	color: black;
         }
-         */
         
         
         /* grid 부분 */
@@ -191,11 +223,8 @@
         .wrap-main .grid.item1:nth-child(18){
             grid-column: 1/9;
         }
-        .wrap-main .grid.item1:nth-child(19){
+        .wrap-main .grid.item1.file{
             grid-column: 1/9;
-        }
-        .wrap-main .grid.item1:nth-child(19) .grid.item2{
-        	grid-column: 1/9;
         }
         .wrap-main .grid.item1:last-child{
             grid-column: 1/9;
@@ -204,8 +233,12 @@
         .wrap-main .ui-datepicker-trigger{
         	display: none;
         }
-        
-        
+        .wrap-main input[name=eduAddress]{
+        	width: 100%;
+        }
+        .wrap-main .grid.item1.eduContent *{
+        	color: black;
+        }
         
         
         
@@ -323,14 +356,32 @@
 	                            <div class="grid item1">
 	                                <input type="number" name="eduMaxNum" min=1 required autocomplete="off">
 	                            </div>
-	                            <div class="grid item1">
-	                            	교육내용
-	                                <div id="container">
-                                		<textarea name="eduContent" id="editor"></textarea>
-                                	</div>
+	                            <div class="grid item1 eduContent">
+	                            	<!-- 
+	                            	<div id="presence-list-container"></div>
+	                            	 -->
+                                    <div id="editor-container">
+									    <div class="container">
+									        <!-- 
+									         -->
+									        <div id="outline" class="document-outline-container" style="display: none;"></div>
+									        <textarea name="eduContent" id="editor"></textarea>
+									        <!-- 
+									        <div class="sidebar" id="sidebar"></div>
+									         -->
+									    </div>
+									</div>
+									<!-- 
+									<div id="revision-viewer-container">
+									    <div class="container">
+									        <div id="revision-viewer-editor"></div>
+									        <div class="sidebar" id="revision-viewer-sidebar"></div>
+									    </div>
+									</div>
+									 -->
 	                            </div>
-	                            <div class="grid item1">
-	                                첨부파일
+	                            <div class="grid item1 file">
+	                                첨부파일<button type="button" class="btn file">추가</button>
 	                            </div>
 	                            <div class="grid item1">
 	                                <button type="button" class="btn eduins">등록하기</button>
@@ -349,50 +400,343 @@
             </footer>
         </div>
     </div>
-<script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/translations/ko.js"></script>
+<script src="https://cdn.ckbox.io/CKBox/2.4.0/ckbox.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/41.2.0/super-build/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/41.2.0/super-build/translations/ko.js"></script>
 <!-- 
 <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
  -->
 <script>
-    const ckInstance = ClassicEditor
-        .create( document.querySelector( '#editor' ), {
-	    	language: {ui : 'ko', content : 'ko'}, 
-	        //  tokenUrl: 'https://81478.cke-cs.com/token/dev/de0d9159dc2b7ce3ecb85191c28f789217b087f58ae6880e30d89820724d',
-	        //  uploadUrl: 'https://81478.cke-cs.com/easyimage/upload/'
-        	//	uploadUrl: '${pageContext.request.contextPath}/fileupload.ajax'
-    		ckfinder : { uploadUrl : '${pageContext.request.contextPath}/fileupload.ajax' }, 
-        	toolbar: {
-                items: [
-                    'undo', 'redo',
-                    '|', 'heading',
-                    '|', 'bold', 'italic',
-                    '|', 'link', 'insertImage', 'insertTable', 'mediaEmbed', 'blockQuote', 
-                    '|', 'bulletedList', 'numberedList', 'outdent', 'indent'
-                ]
-            },
-            link: {
-                // Automatically add target="_blank" and rel="noopener noreferrer" to all external links.
-                addTargetToExternalLinks: true,
-
-                // Let the users control the "download" attribute of each link.
-                decorators: [
-                    {
-                        mode: 'manual',
-                        label: 'Downloadable',
-                        attributes: {
-                            download: 'download'
-                        }
-                    }
-                ]
+    const ckInstance = CKEDITOR.ClassicEditor
+    .create( document.querySelector( '#editor' ), {
+        // https://ckeditor.com/docs/ckeditor5/latest/features/toolbar/toolbar.html#extended-toolbar-configuration-format
+        toolbar: {
+            items: [
+                'aiCommands', 'aiAssistant', '|',
+                'ckbox', 'uploadImage', '|',
+                'exportPDF','exportWord', '|',
+                'comment', 'trackChanges', 'revisionHistory', '|',
+                'findAndReplace', 'selectAll', 'formatPainter', '|',
+                'undo', 'redo',
+                '-',
+                'bold', 'italic', 'strikethrough', 'underline', 'removeFormat', '|',
+                'bulletedList', 'numberedList', 'todoList', '|',
+                'outdent', 'indent', '|',
+                'alignment', '|',
+                '-',
+                'heading', '|',
+                'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
+                'link', 'blockQuote', 'insertTable', 'mediaEmbed', 'codeBlock', 'htmlEmbed', 'tableOfContents', 'insertTemplate', '|',
+                'specialCharacters', 'horizontalLine', 'pageBreak', '|',
+                // Intentionally skipped buttons to keep the toolbar smaller, feel free to enable them:
+                // 'code', 'subscript', 'superscript', 'textPartLanguage', '|',
+                // ** To use source editing remember to disable real-time collaboration plugins **
+                // 'sourceEditing'
+            ],
+            shouldNotGroupWhenFull: true
+        },
+        // Changing the language of the interface requires loading the language file using the <script> tag.
+        // language: 'es',
+        list: {
+            properties: {
+                styles: true,
+                startIndex: true,
+                reversed: true
             }
+        },
+        // https://ckeditor.com/docs/ckeditor5/latest/features/headings.html#configuration
+        heading: {
+            options: [
+                { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+                { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' },
+                { model: 'heading5', view: 'h5', title: 'Heading 5', class: 'ck-heading_heading5' },
+                { model: 'heading6', view: 'h6', title: 'Heading 6', class: 'ck-heading_heading6' }
+            ]
+        },
+        // https://ckeditor.com/docs/ckeditor5/latest/features/font.html#configuring-the-font-family-feature
+        fontFamily: {
+            options: [
+                'default',
+                'Arial, Helvetica, sans-serif',
+                'Courier New, Courier, monospace',
+                'Georgia, serif',
+                'Lucida Sans Unicode, Lucida Grande, sans-serif',
+                'Tahoma, Geneva, sans-serif',
+                'Times New Roman, Times, serif',
+                'Trebuchet MS, Helvetica, sans-serif',
+                'Verdana, Geneva, sans-serif'
+            ],
+            supportAllValues: true
+        },
+        // https://ckeditor.com/docs/ckeditor5/latest/features/font.html#configuring-the-font-size-feature
+        fontSize: {
+            options: [ 10, 12, 14, 'default', 18, 20, 22 ],
+            supportAllValues: true
+        },
+        // Be careful with the setting below. It instructs CKEditor to accept ALL HTML markup.
+        // https://ckeditor.com/docs/ckeditor5/latest/features/general-html-support.html#enabling-all-html-features
+        // htmlSupport: {
+        // 	allow: [
+        // 		{
+        // 			name: /.*/,
+        // 			attributes: true,
+        // 			classes: true,
+        // 			styles: true
+        // 		}
+        // 	]
+        // },
+        // Be careful with enabling previews
+        // https://ckeditor.com/docs/ckeditor5/latest/features/html-embed.html#content-previews
+        htmlEmbed: {
+            showPreviews: true
+        },
+        // https://ckeditor.com/docs/ckeditor5/latest/features/mentions.html#configuration
+        mention: {
+            feeds: [
+                {
+                    marker: '@',
+                    feed: [
+                        '@apple', '@bears', '@brownie', '@cake', '@cake', '@candy', '@canes', '@chocolate', '@cookie', '@cotton', '@cream',
+                        '@cupcake', '@danish', '@donut', '@dragée', '@fruitcake', '@gingerbread', '@gummi', '@ice', '@jelly-o',
+                        '@liquorice', '@macaroon', '@marzipan', '@oat', '@pie', '@plum', '@pudding', '@sesame', '@snaps', '@soufflé',
+                        '@sugar', '@sweet', '@topping', '@wafer'
+                    ],
+                    minimumCharacters: 1
+                }
+            ]
+        },
+        template: {
+            definitions: [
+                {
+                    title: 'The title of the template',
+                    description: 'A longer description of the template',
+                    data: '<p>Data inserted into the content</p>'
+                },
+                {
+                    title: 'Annual financial report',
+                    description: 'A report that spells out the company\'s financial condition.',
+                    data: `<figure class="table">
+						<table style="border:2px solid hsl(0, 0%, 0%);">
+							<thead>
+								<tr>
+									<th style="text-align:center;" rowspan="2">Metric name</th>
+									<th style="text-align:center;" colspan="4">Year</th>
+								</tr>
+								<tr>
+									<th style="background-color:hsl(90, 75%, 60%);text-align:center;">2019</th>
+									<th style="background-color:hsl(90, 75%, 60%);text-align:center;">2020</th>
+									<th style="background-color:hsl(90, 75%, 60%);text-align:center;">2021</th>
+									<th style="background-color:hsl(90, 75%, 60%);text-align:center;">2022</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th><strong>Revenue</strong></th>
+									<td>$100,000.00</td>
+									<td>$120,000.00</td>
+									<td>$130,000.00</td>
+									<td>$180,000.00</td>
+								</tr>
+								<tr>
+									<th style="background-color:hsl(0, 0%, 90%);"><strong>Operating expenses</strong></th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th><strong>Interest</strong></th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th style="background-color:hsl(0, 0%, 90%);"><strong>Net profit</strong></th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+							</tbody>
+						</table>
+					</figure>`
+                },
+            ]
+        },
+        // https://ckeditor.com/docs/ckeditor5/latest/features/editor-placeholder.html#using-the-editor-configuration
+        placeholder: '교육 세부 내용을 입력해주세요.',
+        // Used by real-time collaboration
+        cloudServices: {
+            // Be careful - do not use the development token endpoint on production systems!
+            tokenUrl: 'https://108971.cke-cs.com/token/dev/LWvcqjSdY8J1orf2B1bT0an5x6qP8mxfseAP?limit=10',
+            webSocketUrl: 'wss://108971.cke-cs.com/ws',
+            uploadUrl: '${pageContext.request.contextPath}/fileupload.ajax'
+        },
+        collaboration: {
+            // Modify the channelId to simulate editing different documents
+            // https://ckeditor.com/docs/ckeditor5/latest/features/collaboration/real-time-collaboration/real-time-collaboration-integration.html#the-channelid-configuration-property
+            channelId: 'document-id-7'
+        },
+        // https://ckeditor.com/docs/ckeditor5/latest/features/collaboration/annotations/annotations-custom-configuration.html#sidebar-configuration
+        /* 
+        sidebar: {
+            container: document.querySelector( '#sidebar' )
+        },
+         */
+        documentOutline: {
+            container: document.querySelector( '#outline'),
+            showEmptyHeadings: true
+        },
+        // https://ckeditor.com/docs/ckeditor5/latest/features/collaboration/real-time-collaboration/users-in-real-time-collaboration.html#users-presence-list
+        /* presenceList: {
+            container: document.querySelector( '#presence-list-container' )
+        }, */
+        // Add configuration for the comments editor if the Comments plugin is added.
+        // https://ckeditor.com/docs/ckeditor5/latest/features/collaboration/annotations/annotations-custom-configuration.html#comment-editor-configuration
+        comments: {
+            editorConfig: {
+                extraPlugins: CKEDITOR.ClassicEditor.builtinPlugins.filter( plugin => {
+                    // Use e.g. Ctrl+B in the comments editor to bold text.
+                    return [ 'Bold', 'Italic', 'Underline', 'List', 'Autoformat', 'Mention' ].includes( plugin.pluginName );
+                } ),
+                // Combine mentions + Webhooks to notify users about new comments
+                // https://ckeditor.com/docs/cs/latest/guides/webhooks/events.html
+                mention: {
+                    feeds: [
+                        {
+                            marker: '@',
+                            feed: [
+                                '@Baby Doe', '@Joe Doe', '@Jane Doe', '@Jane Roe', '@Richard Roe'
+                            ],
+                            minimumCharacters: 1
+                        }
+                    ]
+                },
+            }
+        },
+        // Do not include revision history configuration if you do not want to integrate it.
+        // Remember to remove the 'revisionHistory' button from the toolbar in such a case.
+        /* revisionHistory: {
+            editorContainer: document.querySelector( '#editor-container' ),
+            viewerContainer: document.querySelector( '#revision-viewer-container' ),
+            viewerEditorElement: document.querySelector( '#revision-viewer-editor' ),
+            viewerSidebarContainer: document.querySelector( '#revision-viewer-sidebar' ),
+        }, */
+        // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/ckbox.html
+        ckbox: {
+            // Be careful - do not use the development token endpoint on production systems!
+            tokenUrl: 'https://108971.cke-cs.com/token/dev/480089465bf9c72a98d5caf3add530c0df7042cea25ad2bc740dac8fd8d3?limit=10'
+        },
+        ai: {
+            // AI Assistant feature configuration.
+            // https://ckeditor.com/docs/ckeditor5/latest/features/ai-assistant.html
+            aiAssistant: {
+                contentAreaCssClass: "formatted"
+            },
+            // Configure one of the supported AI integration: OpenAI, Azure OpenAI, Amazon Bedrock
+            // https://ckeditor.com/docs/ckeditor5/latest/features/ai-assistant/ai-assistant-integration.html#integration
+            openAI: {
+                // apiUrl: 'https://url.to.your.application/ai'
+            }
+        },
+        style: {
+            definitions: [
+                {
+                    name: 'Article category',
+                    element: 'h3',
+                    classes: [ 'category' ]
+                },
+                {
+                    name: 'Info box',
+                    element: 'p',
+                    classes: [ 'info-box' ]
+                },
+            ]
+        },
+        // License key is required only by the Pagination plugin and non-realtime Comments/Track changes.
+        licenseKey: 'NGN3bHZtUjJWZjk4Zis1N0xmUGhqQ2Q5RjFWVU1MZVNGM1h6L1FBRnVpNE0xV0I5THdTTkptOFpqaUtKLU1qQXlOREExTWpZPQ==',
+        removePlugins: [
+            // Before enabling Pagination plugin, make sure to provide proper configuration and add relevant buttons to the toolbar
+            // https://ckeditor.com/docs/ckeditor5/latest/features/pagination/pagination.html
+            'Pagination',
+            // Intentionally disabled, file uploads are handled by CKBox
+            'Base64UploadAdapter',
+            // Intentionally disabled, file uploads are handled by CKBox
+            'CKFinder',
+            // Intentionally disabled, file uploads are handled by CKBox
+            'EasyImage',
+            // Requires additional license key
+            'WProofreader',
+            // Incompatible with real-time collaboration
+            'SourceEditing',
+            // Careful, with the Mathtype plugin CKEditor will not load when loading this sample
+            // from a local file system (file://) - load this site via HTTP server if you enable MathType
+            'MathType',
+            // If you would like to adjust enabled collaboration features:
+            'RealTimeCollaborativeComments',
+            'RealTimeCollaborativeTrackChanges',
+            'RealTimeCollaborativeRevisionHistory',
+            'PresenceList',
+            'sidebar', 
+            'documentOutline', 
+            // 'Comments',
+            // 'TrackChanges',
+            // 'TrackChangesData',
+            'RevisionHistory'
+        ]
+    } )
+        .then( b => {
+            a = b;
+            // Example implementation to switch between different types of annotations according to the window size.
+            // https://ckeditor.com/docs/ckeditor5/latest/features/collaboration/annotations/annotations-display-mode.html
+            const annotationsUIs = a.plugins.get( 'AnnotationsUIs' );
+            /* 
+            const sidebarElement = document.querySelector( '.sidebar' );
+             */
+            let currentWidth;
+
+            function refreshDisplayMode() {
+                // Check the window width to avoid the UI switching when the mobile keyboard shows up.
+                if ( window.innerWidth === currentWidth ) {
+                    return;
+                }
+                currentWidth = window.innerWidth;
+
+                if ( currentWidth < 1000 ) {
+                    /* 
+                	sidebarElement.classList.remove( 'narrow' );
+                    sidebarElement.classList.add( 'hidden' );
+                     */
+                    annotationsUIs.switchTo( 'inline' );
+                }
+                else if ( currentWidth < 1300 ) {
+                    /* 
+                	sidebarElement.classList.remove( 'hidden' );
+                    sidebarElement.classList.add( 'narrow' );
+                     */
+                    annotationsUIs.switchTo( 'narrowSidebar' );
+                }
+                else {
+                    /* 
+                	sidebarElement.classList.remove( 'hidden', 'narrow' );
+                     */
+                	annotationsUIs.switchTo( 'wideSidebar' );
+                }
+            }
+			/* 
+            a.ui.view.listenTo( window, 'resize', refreshDisplayMode );
+            refreshDisplayMode();
+			 */
+            return a;
         } )
-		.then( b => {
-			a = b;
-		} )
         .catch( error => {
-            console.error(error);
+            console.error( 'There was a problem initializing the editor.', error );
         } );
+    
 </script>
 
 <script>

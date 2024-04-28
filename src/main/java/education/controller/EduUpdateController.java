@@ -43,7 +43,7 @@ public class EduUpdateController extends HttpServlet {
 			String reContent = dto.getEduContent();
 			reContent = reContent.replaceAll("<br>", "");
 			EduOneDto reDto = new EduOneDto(eduId, dto.getEduSubject(), reContent, dto.getEduAddress(), dto.getEduParticipant(), dto.getEduDay(), dto.getEduBookStart(), dto.getEduBookEnd(), dto.getEduStart(), dto.getEduEnd(), dto.getEduWriteTime(), dto.getEduMaxNum(), dto.getEduBookNum());
-			request.setAttribute("detail", reDto);
+			request.setAttribute("eduOne", reDto);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 			response.sendRedirect(request.getContextPath() + "home");

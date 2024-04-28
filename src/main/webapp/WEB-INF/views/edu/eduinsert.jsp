@@ -1,5 +1,6 @@
 <link href="${pageContext.request.contextPath}/resource/css/reset.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resource/css/core.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resource/css/common/header.css" rel="stylesheet">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -355,28 +356,12 @@
 	                                <input type="number" name="eduMaxNum" min=1 required autocomplete="off">
 	                            </div>
 	                            <div class="grid item1 eduContent">
-	                            	<!-- 
-	                            	<div id="presence-list-container"></div>
-	                            	 -->
                                     <div id="editor-container">
 									    <div class="container">
-									        <!-- 
-									         -->
 									        <div id="outline" class="document-outline-container" style="display: none;"></div>
 									        <textarea name="eduContent" id="editor"></textarea>
-									        <!-- 
-									        <div class="sidebar" id="sidebar"></div>
-									         -->
 									    </div>
 									</div>
-									<!-- 
-									<div id="revision-viewer-container">
-									    <div class="container">
-									        <div id="revision-viewer-editor"></div>
-									        <div class="sidebar" id="revision-viewer-sidebar"></div>
-									    </div>
-									</div>
-									 -->
 	                            </div>
 	                            <div class="grid item1 file">
 	                                첨부파일<button type="button" class="btn file">추가</button>
@@ -399,9 +384,6 @@
 <script src="https://cdn.ckbox.io/CKBox/2.4.0/ckbox.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/41.2.0/super-build/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/41.2.0/super-build/translations/ko.js"></script>
-<!-- 
-<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
- -->
 <script>
     const ckInstance = CKEDITOR.ClassicEditor
     .create( document.querySelector( '#editor' ), {

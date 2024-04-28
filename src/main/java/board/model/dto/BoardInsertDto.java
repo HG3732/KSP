@@ -18,9 +18,10 @@ public class BoardInsertDto {
 	private String boardTitle;
 	private String boardContent;
 	private List<FileWriteDto> fileList;
+	private Integer memberAdmin;
 	@Override
 	public String toString() {
-		return "BoardInsertDto [boardWriter=" + boardWriter + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent + ", fileList=" + fileList+"]";
+		return "BoardInsertDto [boardWriter=" + boardWriter + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent + ", fileList=" + fileList+", memberAdmin=" + memberAdmin + "]";
 	}
 	
 	public BoardInsertDto() {
@@ -28,12 +29,13 @@ public class BoardInsertDto {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public BoardInsertDto(String boardWriter, String boardTitle, String boardContent, List<FileWriteDto> fileList) {
+	public BoardInsertDto(String boardWriter, String boardTitle, String boardContent, List<FileWriteDto> fileList, Integer memberAdmin) {
 		super();
 		this.boardWriter = boardWriter;
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
 		this.fileList = fileList;
+		this.memberAdmin = memberAdmin;
 	}
 	
 	
@@ -63,6 +65,9 @@ public class BoardInsertDto {
 		return fileList;
 	}
 	
+	public Integer getMemberAdmin() {
+		return memberAdmin;
+	}
 }
 
 

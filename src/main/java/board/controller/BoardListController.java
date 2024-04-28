@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import board.model.dto.BoardInsertDto;
 import board.model.service.BoardService;
 import common.controller.AlertController;
 import education.model.service.EduService;
@@ -35,13 +36,13 @@ public class BoardListController extends HttpServlet {
 		System.out.println("연결 확인 두 겟");
 		AlertController.loginPermission(request, response, "로그인 후 글 작성이 가능합니다.");
 		MemberInfoDto memberInfoDto = (MemberInfoDto) request.getSession().getAttribute("ssslogin");
-//		request.getSession().setAttribute("recentEdu", new EduService().selectRecent().getEduSubject());
+		BoardInsertDto insertdto = new BoardInsertDto();
 		String searchSubject = request.getParameter("search-list");
 		request.getSession().setAttribute("ssSearch", searchSubject);
 		System.out.println("컨트롤러 serachSubject : " + searchSubject);
 		
 //		한페이지당 글 수 10개
-		int pageSize = 10;
+		int pageSize = 7;
 //		하단에 나타탤 페이지 버튼 수
 		int pageBlockSize = 5;
 //		현재 페이지
@@ -55,7 +56,7 @@ public class BoardListController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-	
+		
 		request.setAttribute("map",service.selectPageList(searchSubject, pageSize, pageBlockSize, currentPageNum));
 //		System.out.println("셀렉트페이지리스트 : " + service.selectPageList(searchSubject, pageSize, pageBlockSize, currentPageNum));
 //		request.setAttribute("dtolist", service.selectAllList());

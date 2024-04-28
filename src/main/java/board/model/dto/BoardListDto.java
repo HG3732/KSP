@@ -20,12 +20,13 @@ public class BoardListDto {
 	private String boardWriter;
 	private String boardWriteTime;
 	private Integer hit;
+	private Integer memberAdmin;
 	@Override
 	public String toString() {
 		return "BoardListDto [boardNo=" + boardNo + ", boardTitle=" + boardTitle +  ", fileId=" + fileId + ", boardWriter=" + boardWriter
-				+ ", boardWriteTime=" + boardWriteTime + ", hit=" + hit + "]";
+				+ ", boardWriteTime=" + boardWriteTime + ", hit=" + hit + ", memberAdmin=" + memberAdmin +"]";
 	}
-	public BoardListDto(Integer boardNo, String boardTitle, Integer fileId,  String boardWriter, String boardWriteTime, Integer hit) {
+	public BoardListDto(Integer boardNo, String boardTitle, Integer fileId,  String boardWriter, String boardWriteTime, Integer hit, Integer memberAdmin) {
 		super();
 		this.boardNo = boardNo;
 		this.boardTitle = boardTitle;
@@ -33,6 +34,7 @@ public class BoardListDto {
 		this.boardWriter = boardWriter;
 		this.boardWriteTime = boardWriteTime;
 		this.hit = hit;
+		this.memberAdmin = memberAdmin;
 	}
 	public Integer getBoardNo() {
 		return boardNo;
@@ -51,5 +53,8 @@ public class BoardListDto {
 	}
 	public Integer getHit() {
 		return hit;
+	}
+	public Integer getMemberAdmin() {
+		return memberAdmin;
 	}
 }

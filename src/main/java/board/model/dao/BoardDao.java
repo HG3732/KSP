@@ -79,25 +79,33 @@ public class BoardDao {
 	// 페이징 리스트
 	public List<BoardListDto> selectPageList(Connection conn, String searchSubject, int start, int end) {
 		List<BoardListDto> result = null;
-		String sql = "SELECT t2.* " + " FROM ( " + "    SELECT t1.*, rownum AS rn " + "    FROM ( "
-				+ "        SELECT board_no, board_title, COUNT(file_id) AS FILE_CNT, board_writer, board_write_time, hit "
-				+ "        FROM board_community " + "        LEFT JOIN board_file ON b_no = board_no ";
+//		String sqlAdmin =
+		
+		
+		String sql = "SELECT * FROM (" + 
+	             "    SELECT BOARD_NO, BOARD_TITLE, COUNT(FILE_ID) AS FILE_CNT, BOARD_WRITER, BOARD_WRITE_TIME, HIT, MEMBER_ADMIN," + 
+	             "           ROW_NUMBER() OVER (PARTITION BY MEMBER_ADMIN ORDER BY BOARD_NO DESC) AS RN" + 
+	             "    FROM BOARD_COMMUNITY LEFT JOIN BOARD_FILE ON B_NO = BOARD_NO ";
 		if (searchSubject != null) {
-			sql += "        WHERE BOARD_TITLE LIKE '%" + searchSubject + "%' ";
-		}
-		sql += "        GROUP BY board_no, board_title, board_writer, board_write_time, hit "
-				+ "        ORDER BY 1 DESC " + "    ) t1 " + " ) t2 " + " WHERE rn BETWEEN ? AND ?";
-//		String sql = "select t2.*"
-//				+" from (select t1.*, rownum rn" 
-//			    +" from (select board_no, board_title, file_id, board_writer, board_write_time, hit"
-//			    +" from board_community left join board_file on b_no = board_no order by 1 desc) t1 ) t2"
-//			    +" where rn between ?   and ?"
-//			    ;
+			   sql += "    WHERE BOARD_TITLE LIKE '%" + searchSubject + "%' ";
+			}
+			   sql += "    GROUP BY BOARD_NO, BOARD_TITLE, BOARD_WRITER, BOARD_WRITE_TIME, HIT, MEMBER_ADMIN " + 
+					  "    ORDER BY MEMBER_ADMIN DESC, BOARD_NO DESC) T1 " + 
+					  "    WHERE (MEMBER_ADMIN = 1 AND RN <= 3) OR (MEMBER_ADMIN <> 1 AND MEMBER_ADMIN <> 2) AND RN BETWEEN ? AND ?";
 
-//				"SELECT T2.* FROM (SELECT T1.*ROWNUM RN FROM"
-//				+ " (SELECT board_no, board_title, file_id, board_writer, board_write_time, hit "
-//				+ " from board_community left join board_file on b_no = board_no order by 1 desc)T1)T2 "
-//				+ " WHERE RN BETWEEN ? AND ?";
+
+
+		
+//		String sql = "SELECT t2.* FROM "
+//				+ " (SELECT t1.*, rownum AS rn "
+//				+ " FROM (SELECT board_no, board_title, COUNT(file_id) AS FILE_CNT, board_writer, board_write_time, hit, MEMBER_ADMIN "
+//				+ "        FROM board_community LEFT JOIN board_file ON b_no = board_no ";
+//		if (searchSubject != null) {
+//			sql += "        WHERE BOARD_TITLE LIKE '%" + searchSubject + "%' ";
+//				}
+//			sql += " GROUP BY board_no, board_title, board_writer, board_write_time, hit, MEMBER_ADMIN "
+//				+ " ORDER BY 1 DESC) t1) t2 WHERE rn BETWEEN ? AND ?";
+
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
@@ -111,7 +119,7 @@ public class BoardDao {
 			while (rs.next()) {
 				BoardListDto dto = new BoardListDto(rs.getInt("BOARD_NO"), rs.getString("BOARD_TITLE"),
 						rs.getInt("FILE_CNT"), rs.getString("BOARD_WRITER"), rs.getString("BOARD_WRITE_TIME"),
-						rs.getInt("HIT"));
+						rs.getInt("HIT"), rs.getInt("MEMBER_ADMIN"));
 				result.add(dto);
 			}
 		} catch (SQLException e) {
@@ -138,56 +146,6 @@ public class BoardDao {
 		close(pstmt);
 		return result;
 	}
-
-	// selecAllList
-//	public List<BoardListDto> selectAllList(Connection conn) {
-//		List<BoardListDto> result = null;
-////		String sql = "SELECT BOARD_NO, BOARD_TITLE, BOARD_WRITER, BOARD_WRITE_TIME, HIT FROM BOARD_COMMUNITY";
-//		String sql = "select board_no, board_title, file_id, board_writer, board_write_time, hit"
-//				+ " from board_community left join board_file on b_no = board_no order by 1 desc";
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		try {
-//			pstmt = conn.prepareStatement(sql);
-//			rs = pstmt.executeQuery();
-//			// ResultSet 처리
-//			result = new ArrayList<>();
-//			while (rs.next()) {
-//				BoardListDto dto = new BoardListDto(rs.getInt("BOARD_NO"), rs.getString("BOARD_TITLE"),
-//						rs.getInt("FILE_ID"), rs.getString("BOARD_WRITER"), rs.getString("BOARD_WRITE_TIME"),
-//						rs.getInt("HIT"));
-//				result.add(dto);
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			close(rs);
-//			close(pstmt);
-//		}
-//		return result;
-//	}
-
-//		try {
-//			pstmt = conn.prepareStatement(sql);
-//			rs = pstmt.executeQuery();
-//			// ResultSet 처리
-//			if (rs.next()) {
-//				result = new ArrayList<BoardListDto>();
-//				do {
-//					BoardListDto dto = new BoardListDto(rs.getInt("BOARD_NO"), rs.getString("BOARD_TITLE"),
-//							rs.getString("BOARD_WRITER"), rs.getString("BOARD_WRITE_TIME"), rs.getInt("HIT"));
-//					result.add(dto);
-//				} while (rs.next());
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//
-//		close(rs);
-//		close(pstmt);
-//		return result;
-//
-//	}
 
 	// selectOne
 	public BoardViewDto selectOne(Connection conn, Integer boardNo) {
@@ -243,35 +201,13 @@ public class BoardDao {
 		return result;
 	}
 
-	// select
-//	public int getSequenceNum(Connection conn) {
-//		int result = 0;
-//		String sql = "SELECT SEQ_BOARD_ID.nextval FROM DUAL";
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		try {
-//			pstmt = conn.prepareStatement(sql);
-//			// ? 처리
-//			rs = pstmt.executeQuery();
-//			// ResetSet처리
-//			if (rs.next()) {
-//				result = rs.getInt(1);
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		close(rs);
-//		close(pstmt);
-//		return result;
-//	}
-
 	// insertList
 	public int insert(Connection conn, BoardInsertDto dto) {
 		System.out.println("boardDao Insert() param : " + dto);
 		int result = 0;
 		String sql = "INSERT ALL";
 		sql += " INTO BOARD_COMMUNITY (BOARD_NO, BOARD_WRITER, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITE_TIME, HIT, MEMBER_ADMIN)";
-		sql += " VALUES(SEQ_BOARD_ID.NEXTVAL, ?, ?, ?, DEFAULT, DEFAULT, DEFAULT)";
+		sql += " VALUES(SEQ_BOARD_ID.NEXTVAL, ?, ?, ?, DEFAULT, DEFAULT, ?)";
 		if (dto.getFileList() != null && dto.getFileList().size() > 0) {
 			for (FileWriteDto filedto : dto.getFileList()) {
 				sql += " INTO BOARD_FILE (B_NO, FILE_ID, FILE_PATH, FILE_ORIGINAL_NAME)";
@@ -289,6 +225,7 @@ public class BoardDao {
 			pstmt.setString(i++, dto.getBoardWriter());
 			pstmt.setString(i++, dto.getBoardTitle());
 			pstmt.setString(i++, dto.getBoardContent());
+			pstmt.setInt(i++, dto.getMemberAdmin());
 			if (dto.getFileList() != null && dto.getFileList().size() > 0) {
 				int fileId = 1;
 				for (FileWriteDto fileDto : dto.getFileList()) {
@@ -370,17 +307,6 @@ public class BoardDao {
 	        e.printStackTrace();
 	        System.out.println("dao 글 삭제 안됨");
 	    }
-//		close(pstmt3);
-//		String sql = "DELETE FROM BOARD_COMMUNITY WHERE BOARD_NO = ?";
-//		PreparedStatement pstmt = null;
-//		try {
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setInt(1, boardNo);
-//			result = pstmt.executeUpdate();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		close(pstmt);
 		return result;
 	}
 

@@ -103,7 +103,7 @@ public class BoardWriteController extends HttpServlet {
 		System.out.println("컨트롤러 title : " + title);
 		System.out.println("컨트롤러 content : " + content);
 		
-		BoardInsertDto dto = new BoardInsertDto(memberInfoDto.getMem_id(), title, content, fileList);
+		BoardInsertDto dto = new BoardInsertDto(memberInfoDto.getMem_id(), title, content, fileList, memberInfoDto.getMem_admin());
 //		BoardInsertDto dto = new BoardInsertDto(mdto.getMem_id(), title, content, fileList);
 		int result = service.insert(dto);
 //		int sequenceNum = service.insert(dto);

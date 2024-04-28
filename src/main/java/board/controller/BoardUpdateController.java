@@ -105,7 +105,8 @@ public class BoardUpdateController extends HttpServlet {
 		}
 		System.out.println("업데이트 title : " + title);
 		System.out.println("업데이트 content : " + content);
-		response.sendRedirect(request.getContextPath() + "/board/community");
+//		response.sendRedirect(request.getContextPath() + "/board/community");
+		response.sendRedirect(request.getContextPath() + "/board/view?no=" + boardNo);
 	}
 
 }

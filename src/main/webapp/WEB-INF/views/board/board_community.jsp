@@ -25,12 +25,14 @@
 </style>
 </head>
 <body>
+
 	[[ 로그인 정보 : ${ssslogin} ]]
 	<br> [[ map : ${map.dtolist }]]
 	<br> [[ totalPageCount : ${map.totalPageCount }]]
 	<br> [[ startPageNum : ${map.startPageNum }]]
 	<br> [[ endPageNum : ${map.endPageNum }]]
 	<br> [[ 조회수 : ${hit }]]
+	 
 	<div class="wrap-header">
 		<header>
 			<%@include file="/WEB-INF/views/common/header.jsp"%>
@@ -94,16 +96,27 @@
 						<tbody class="table-body">
 							<c:forEach items="${map.dtolist }" var="vo" varStatus="vs">
 								<tr>
-									<td>${vo.boardNo }</td>
-									<td><a
-										href="${pgaeContext.request.contextPath}/star/board/view?no=${vo.boardNo }">
-											${vo.boardTitle }</a></td>
+								 
+								 <c:choose>
+									<c:when test="${ssslogin.mem_admin > 0}">
+										<td>공지</td>
+									</c:when>
+									
+									<c:otherwise>
+										<td>${vo.boardNo }</td>
+									</c:otherwise>	
+								</c:choose>										
+										<td><a
+											href="${pgaeContext.request.contextPath}/star/board/view?no=${vo.boardNo }">
+												${vo.boardTitle }</a>
+										</td>
+								
 									<c:choose>
 										<c:when test="${vo.fileId == null || vo.fileId == 0}">
 											<td>X</td>
 										</c:when>
 										<c:when test="${vo.fileId != null || vo.fileId != 0}">
-											<td>${vo.fileId }</td>
+											<td><img src="${pageContext.request.contextPath}/resource/image/file.png"></td>
 										</c:when>
 									</c:choose>
 									<%-- <td>${vo.fileId }</td> --%>
@@ -147,7 +160,9 @@
 		</div>
 	</div>
 	<div class="wrap-footer">
-		<footer> </footer>
+		<footer>
+		<%@include file="/WEB-INF/views/common/footer.jsp" %>
+		 </footer>
 	</div>
 
 <script>

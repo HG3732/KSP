@@ -93,8 +93,8 @@ body {
 
 .compass {
 	position: absolute;
-    bottom: -80px;
-    left: 70px;
+    bottom: 10px;
+    left: 10px;
     z-index: 1;
 }
 

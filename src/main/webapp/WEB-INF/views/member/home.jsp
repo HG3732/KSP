@@ -20,13 +20,13 @@
 					<img src="${pageContext.request.contextPath}/resource/image/star_map.png">
 				</div>
             </div>
+    		<img src="${pageContext.request.contextPath}/resource/image/constellation_map.png" class="compass">
         </div>
     	<div class="buttonsection">
 	        <div class="direction left"><button type="button" class="go goleft">좌측</button></div>
 	        <div class="direction right"><button type="button" class="go goright">우측</button></div>
         </div>
     </div>
-    <img src="${pageContext.request.contextPath}/resource/image/constellation_map.png" class="compass">
     <div class="season">겨울(1월)</div>
 <script>
 $(loadedHandler)

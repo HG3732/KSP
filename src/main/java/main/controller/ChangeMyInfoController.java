@@ -16,6 +16,7 @@ public class ChangeMyInfoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	MemberService service = new MemberService();
+	PasswordEncryption pe = new PasswordEncryption();
        
     public ChangeMyInfoController() {
         super();
@@ -28,9 +29,10 @@ public class ChangeMyInfoController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MemberInfoDto currentDto = (MemberInfoDto)request.getSession().getAttribute("ssslogin");
 		String id = request.getParameter("id");
-		String pwd = request.getParameter("pwd");
+		String pwdStr = request.getParameter("pwd");
 		String email = request.getParameter("email");
 		String address = request.getParameter("address");
+		String pwd = pe.getEncrypt(pwdStr);
 		
 		// ajax
 		// 성공 > 0

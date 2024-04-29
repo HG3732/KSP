@@ -17,6 +17,7 @@ public class MyPageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	MemberService service = new MemberService();
+	private PasswordEncryption pe = new PasswordEncryption();
        
     public MyPageController() {
         super(); 
@@ -28,7 +29,9 @@ public class MyPageController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String pwd = request.getParameter("pw");
+		String pwdStr = request.getParameter("pw");
+		String pwd = pe.getEncrypt(pwdStr);
+		
 		//새 로그인 객체 생성 후 전달받은 비밀번호 입력
 		MemberLoginDto dto = new MemberLoginDto();
 		dto.setMem_pwd(pwd);

@@ -122,7 +122,7 @@ $(loadedHandler)
                         E-mail    
                     </td>
                     <td>
-                        <input type="text" name="email" class="changeable email" value="${ssslogin.mem_email}" disabled>
+                        <input type="text" name="email" class="email" value="${ssslogin.mem_email}" disabled>
                     </td>
                 </tr>
                 <tr>

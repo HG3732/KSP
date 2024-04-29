@@ -104,10 +104,10 @@
 			 		</when>
 			 	</choose>
 			 	<choose>
-					<when test='val != null and val.equals("DESC")'>
+					<when test="val != null and val.equals('DESC')">
 						DESC
 					</when>
-					<when test='val != null and val.equals("ASC")'>
+					<when test="val != null and val.equals('ASC')">
 						ASC
 					</when>
 				 </choose>

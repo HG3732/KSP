@@ -34,7 +34,6 @@ function loadedHandler() {
 	
 	/* 아이디 기억이 체크되어있다면 input.id 채우기 */
 	var checknum = document.querySelectorAll('input.remember-id:checked');
-	console.log(checknum.length);
 	if(checknum.length > 0){
 		$(".id").attr('value', savedMemberId);
 	}

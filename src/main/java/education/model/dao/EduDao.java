@@ -13,7 +13,6 @@ import org.apache.ibatis.session.SqlSession;
 
 import education.model.dto.EduOneDto;
 import education.model.dto.EduFileDto;
-import education.model.dto.EduFileWriteDto;
 import education.model.dto.EduListDto;
 import education.model.dto.EduRecentDto;
 
@@ -140,7 +139,7 @@ public class EduDao {
 		return result;
 	}
 	
-	// 교육 글에 등록된 파일 가져오기
+	// 교육 조회시 파일 읽기
 	public List<EduFileDto> selectFileList(SqlSession session, Integer eduId) {
 		System.out.println("EduDao selectFileList()");
 		List<EduFileDto> result = null;
@@ -149,7 +148,7 @@ public class EduDao {
 		return result;
 	}
 	
-	// 교육 글 세부 정보 읽어오기
+	// 교육 조회시 정보 읽기
 	public EduOneDto selectOne(SqlSession session, Integer eduId) {
 		System.out.println("EduDao selectOne()");
 		EduOneDto result = null;
@@ -158,8 +157,8 @@ public class EduDao {
 		return result;
 	}
 	
-	// 교육 등록하기
-	public int insert(SqlSession session, EduOneDto dto, List<EduFileWriteDto> filelist) {
+	// 교육 등록
+	public int insert(SqlSession session, EduOneDto dto, List<EduFileDto> filelist) {
 		System.out.println("EduDao insert()");
 		int result = 0;
 		Map<String, Object> map = new HashMap<String, Object>();

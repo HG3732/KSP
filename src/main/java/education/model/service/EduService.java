@@ -13,7 +13,6 @@ import common.MybatisTemplate;
 import education.model.dao.EduDao;
 import education.model.dto.EduOneDto;
 import education.model.dto.EduFileDto;
-import education.model.dto.EduFileWriteDto;
 import education.model.dto.EduListDto;
 import education.model.dto.EduRecentDto;
 
@@ -67,7 +66,7 @@ public class EduService {
 		return result;
 	}
 		
-	// 교육 세부 항목 및 파일 불러오기
+	// 교육 정보 및 파일 읽기
 	public EduOneDto selectOne(Integer eduId) {
 		EduOneDto result = null;
 		SqlSession session = MybatisTemplate.getSqlSession(true);
@@ -78,10 +77,10 @@ public class EduService {
 	}
 	
 	// 교육 등록하기
-	public int insert(EduOneDto dto, List<EduFileWriteDto> filelist) {
+	public int insert(EduOneDto dto, List<EduFileDto> eduFileDtoList) {
 		int result = 0;
 		SqlSession session = MybatisTemplate.getSqlSession(true);
-		result = dao.insert(session, dto, filelist);
+		result = dao.insert(session, dto, eduFileDtoList);
 		session.close();
 		return result;
 	}

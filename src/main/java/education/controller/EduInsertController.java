@@ -25,6 +25,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import com.cloudinary.*;
 import com.cloudinary.utils.ObjectUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.oreilly.servlet.MultipartRequest;
 
 import static common.controller.AlertController.*;
 
@@ -78,62 +79,94 @@ public class EduInsertController extends HttpServlet {
 					"secure", true)
 			);
 			
-			// response.setContentType("text/html; charset=UTF-8");
-			String charset = "UTF-8";
-			request.setCharacterEncoding(charset);
-			
-			DiskFileItemFactory dfif = new DiskFileItemFactory();
-			int fileUploadLimit = 50 * 1024 * 1024; // 50MB
-			dfif.setSizeThreshold(fileUploadLimit);
-			ServletFileUpload fileUpload = new ServletFileUpload(dfif);
-			
-			List<FileItem> items = fileUpload.parseRequest(request);
-			List<EduFileWriteDto> filelist = new ArrayList<EduFileWriteDto>();
-			for(FileItem item : items) {
-				if(item.isFormField()) {
-					System.out.printf("name : %s, value : %s, \n", item.getFieldName(), item.getString(charset));
-				}else {
-					System.out.printf("name : %s, value : %s, size : %s bytes \n", item.getFieldName(), item.getName(), item.getSize());
-					if(item.getSize() > 0) {
-						String fileName = item.getName();
-						File uploadFile = new File(fileName);
-						item.write(uploadFile);
-						System.out.println("fileName : " + fileName);
-						cloudinary.uploader().unsignedUpload(uploadFile, "do6kl7ck", ObjectUtils.asMap("resource_type", "auto"));
-						StringBuilder urlBuilder = new StringBuilder("https://api.cloudinary.com/v1_1/"+prop.getProperty("cloudinary.cloud_name")+"/upload"); /*URL*/
-						URL url = new URL(urlBuilder.toString());
-						HttpURLConnection con = (HttpURLConnection) url.openConnection();
-						con.setRequestMethod("POST");
-						con.setRequestProperty("Content-type", "application/json");
-						BufferedReader rd;
-						if(con.getResponseCode() >= 200 && con.getResponseCode() <= 300) {
-							rd = new BufferedReader(new InputStreamReader(con.getInputStream()));
-						} else {
-							rd = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-						}
-						StringBuilder sb = new StringBuilder();
-						String line;
-						while ((line = rd.readLine()) != null) {
-							sb.append(line);
-						}
-						rd.close();
-						con.disconnect();
-						String cloudResp = sb.toString();
-						System.out.println("cloudResp : " + cloudResp);
-						ObjectMapper om = new ObjectMapper();
-						Map<String, Object> map = om.readValue(cloudResp, Map.class);
-						String eduSavedFileName = (String) map.get("public_id");
-						System.out.println("eduSavedFileName : " + eduSavedFileName);
-						String eduOriginalFileName = (String) map.get("original_filename");
-						String format = (String) map.get("format");
-						String mapUrl = (String) map.get("url");
-						String uploadPath = map.get("url").toString().substring(0, mapUrl.length() - eduSavedFileName.length() - format.length() - 2);
-						EduFileWriteDto dto = new EduFileWriteDto(uploadPath, eduOriginalFileName+"."+format, eduSavedFileName+"."+format);
-						System.out.println("uploadPath : " + uploadPath);
-						filelist.add(dto);
-					}
-				}
+			int uploadFileLimit = 50 * 1024 * 1024; // 50MB
+			StringBuilder urlBuilder = new StringBuilder("https://api.cloudinary.com/v1_1/"+prop.getProperty("cloudinary.cloud_name")+"/upload"); /*URL*/
+			URL url = new URL(urlBuilder.toString());
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("POST");
+			con.setRequestProperty("Content-type", "application/json");
+			BufferedReader rd;
+			if(con.getResponseCode() >= 200 && con.getResponseCode() <= 300) {
+				rd = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			} else {
+				rd = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 			}
+			StringBuilder sb = new StringBuilder();
+			String line;
+			while ((line = rd.readLine()) != null) {
+				sb.append(line);
+			}
+			rd.close();
+			con.disconnect();
+			String cloudResp = sb.toString();
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+//			// response.setContentType("text/html; charset=UTF-8");
+//			String charset = "UTF-8";
+//			request.setCharacterEncoding(charset);
+//			
+//			DiskFileItemFactory dfif = new DiskFileItemFactory();
+//			int fileUploadLimit = 50 * 1024 * 1024; // 50MB
+//			dfif.setSizeThreshold(fileUploadLimit);
+//			ServletFileUpload fileUpload = new ServletFileUpload(dfif);
+//			
+//			List<FileItem> items = fileUpload.parseRequest(request);
+//			List<EduFileWriteDto> filelist = new ArrayList<EduFileWriteDto>();
+//			for(FileItem item : items) {
+//				if(item.isFormField()) {
+//					System.out.printf("name : %s, value : %s, \n", item.getFieldName(), item.getString(charset));
+//				}else {
+//					System.out.printf("name : %s, value : %s, size : %s bytes \n", item.getFieldName(), item.getName(), item.getSize());
+//					if(item.getSize() > 0) {
+//						String fileName = item.getName();
+//						File uploadFile = new File(fileName);
+//						item.write(uploadFile);
+//						System.out.println("fileName : " + fileName);
+//						cloudinary.uploader().unsignedUpload(uploadFile, "do6kl7ck", ObjectUtils.asMap("resource_type", "auto"));
+//						StringBuilder urlBuilder = new StringBuilder("https://api.cloudinary.com/v1_1/"+prop.getProperty("cloudinary.cloud_name")+"/upload"); /*URL*/
+//						URL url = new URL(urlBuilder.toString());
+//						HttpURLConnection con = (HttpURLConnection) url.openConnection();
+//						con.setRequestMethod("POST");
+//						con.setRequestProperty("Content-type", "application/json");
+//						BufferedReader rd;
+//						if(con.getResponseCode() >= 200 && con.getResponseCode() <= 300) {
+//							rd = new BufferedReader(new InputStreamReader(con.getInputStream()));
+//						} else {
+//							rd = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+//						}
+//						StringBuilder sb = new StringBuilder();
+//						String line;
+//						while ((line = rd.readLine()) != null) {
+//							sb.append(line);
+//						}
+//						rd.close();
+//						con.disconnect();
+//						String cloudResp = sb.toString();
+//						System.out.println("cloudResp : " + cloudResp);
+//						ObjectMapper om = new ObjectMapper();
+//						Map<String, Object> map = om.readValue(cloudResp, Map.class);
+//						String eduSavedFileName = (String) map.get("public_id");
+//						System.out.println("eduSavedFileName : " + eduSavedFileName);
+//						String eduOriginalFileName = (String) map.get("original_filename");
+//						String format = (String) map.get("format");
+//						String mapUrl = (String) map.get("url");
+//						String uploadPath = map.get("url").toString().substring(0, mapUrl.length() - eduSavedFileName.length() - format.length() - 2);
+//						EduFileWriteDto dto = new EduFileWriteDto(uploadPath, eduOriginalFileName+"."+format, eduSavedFileName+"."+format);
+//						System.out.println("uploadPath : " + uploadPath);
+//						filelist.add(dto);
+//					}
+//				}
+//			}
 			
 			
 	        
@@ -160,7 +193,7 @@ public class EduInsertController extends HttpServlet {
 			
 			if(eduMaxNum > 0) {
 				result = 1;
-				es.insert(dto, filelist);
+//				es.insert(dto, eduFileDtoList);
 			}else {
 				result = 0;
 			}

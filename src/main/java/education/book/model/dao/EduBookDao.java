@@ -1,7 +1,5 @@
 package education.book.model.dao;
 
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +9,6 @@ import org.apache.ibatis.session.SqlSession;
 import education.book.model.dto.EduBookDto;
 import education.book.model.dto.EduBookInfoDto;
 import education.book.model.dto.EduBookListDto;
-import oracle.sql.DATE;
 
 public class EduBookDao {
 	
@@ -37,11 +34,11 @@ public class EduBookDao {
 	}
 	
 	// 교육 신청 정보 출력
-	public EduBookInfoDto selectBookInfo(SqlSession session, String eduBookSchool, String eduStart) {
+	public EduBookInfoDto selectBookInfo(SqlSession session, String eduPartSchool, String eduStart) {
 		System.out.println("EduBookDao selectBookInfo()");
 		EduBookInfoDto result = null;
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("eduBookSchool", eduBookSchool);
+		map.put("eduPartSchool", eduPartSchool);
 		map.put("eduStart", eduStart);
 		result = session.selectOne("edubook.selectBookInfo", map);
 		System.out.println("result : " + result);

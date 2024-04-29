@@ -87,60 +87,73 @@
         	color: black;
         	font-weight: bold;
         }
+        .wrap-main .fc-event-title-container{
+        	cursor: pointer;
+        	z-index: 9;
+        }
+        .wrap-main .fc-event-title.fc-sticky{
+        	z-index: -1;
+        }
+        
+        
         .wrap-footer{
             clear: both;
         }
         
-        /* 모달 */
+        /* modal */
+        div.hidden{
+        	display: none;
+        }
         .modal-background {
         	position: absolute;
         	background-color : transparent;
         	width: 100vw;
-        	height: 1300px;
+        	height: 100vh;
         	z-index: 10;
-        	display: none;
+        	display: block;
         }
-        
         .wrap-modal {
-        	position: absolute; left: 450px; top: 640px;
+        	position: absolute;
+        	/* 
+        	left: 450px; top: 640px;
+        	 */
         	width : 500px;
         	background-color: rgb(34, 21, 64);
         	display : flex;
         	flex-direction : column;
         	border-radius: 10px;
         }
-		
 		.wrap-modal > .headbar {
 			background-color : #503396;
 			display: flex;
     		justify-content: end;
     		border-radius: 10px 10px 0 0;
 		}
-		
 		.wrap-modal > .headbar > .closemodal {
 			padding : 5px;
 			width: fit-content;
-			margin-right :  5px;
+			margin-right : 5px;
 		}
-		
 		.wrap-modal > .modal-main {
 			padding: 10px;
 		}
-		
 		.wrap-modal > .modal-main > .section-row {
 			display: grid;
 			grid-template-columns: 1fr 4fr;
 			margin : 10px 0;
 		}
-		
 		.wrap-modal > .modal-main > .section-row > div:first-child{
-			text-align: center;
+			text-align: left;
 			border-right: 1px solid white;
 		}
-
 		.wrap-modal > .modal-main > .section-row > div:last-child{
 			padding-left: 10px;
 		}
+    	.wrap-modal .btn{
+    		cursor: pointer;
+    		background-color: transparent;
+    		border: 0;
+    	}
 		
     </style>
     <script>
@@ -149,30 +162,32 @@
     	$(".btn.edulist").on("click", eduListHandler);
     	$(".btn.edubooklist").on("click", eduBookListHandler);
     	$(".fc-event-title-container").on("click", modalClickHandler);
-    	$(".btn.fc-event-title-container").on("click", bookConfirmHandler);
-    	$(".closeModal").on("click", closeConfirmHandler);
+    	$(".btn.closemodal").on("click", closeConfirmHandler);
     }
     </script>
 </head>
-
 <body>
-   	<div class="modal-background">
+   	<div class="modal-background hidden">
 		<div class="wrap-modal">
 			<div class="headbar">
-				<div class="closemodal">X</div>
+				<button type="button" class="btn closemodal">X</button>
 			</div>
 			<div class="modal-main">
 				<div class="section-row">
-					<div>교육 제목</div>
-					<div>${eduBookInfoDto.eduSubject }</div>
+					<div>교육명</div>
+					<div id="eduSubject"></div>
+				</div>
+				<div class="section-row">
+					<div>교육장소</div>
+					<div id="eduAddress"></div>
 				</div>
 				<div class="section-row">
 					<div>인솔자명</div>
-					<div>${eduBookInfoDto.eduPartName }</div>
+					<div id="eduPartName"></div>
 				</div>
 				<div class="section-row">
 					<div>인원</div>
-					<div>${eduBookInfoDto.eduPartNum }</div>
+					<div id="eduPartNum"></div>
 				</div>
 			</div>
 		</div>
@@ -208,86 +223,78 @@
             <%@include file="/WEB-INF/views/common/footer.jsp" %>
         </footer>
     </div>
-<script>
-// 신청 내역 모달 띄우기
-function bookConfirmHandler(){
-	$(".modal").show();
-}
-// 신청 내역 모달 닫기
-function closeConfirmHandler(event){
-	$(".modal").hide();
-}
-// 교육 목록 페이지 이동
-function eduListHandler(){
-	location.href = "${pageContext.request.contextPath}/edu";
-}
-// 교육 신청 현황 페이지 이동
-function eduBookListHandler(){
-	location.href = "${pageContext.request.contextPath}/edu/book";
-}
-//모달 띄우기
-function modalClickHandler(event){
-	var clickObject$ = $(event.target);
-	console.log(clickObject$);
-	var bookSchool = clickObject$.children("div").html();
-	console.log(bookSchool);
-	var start = clickObject$.parents("td").data("date");
-	console.log(start);
-	console.log(typeof start);
-	$.ajax({
-		url : "${pageContext.request.contextPath}/edu/book/info.ajax", 
-		method : "post",
-		data : {eduPartSchool : bookSchool, eduStart : start}, 
-		error : ajaxErrorHandler, 
-		success : function(result){
+	<script>
+	// 교육 목록 페이지 이동
+	function eduListHandler(){
+		location.href = "${pageContext.request.contextPath}/edu";
+	}
+	// 교육 신청 현황 페이지 이동
+	function eduBookListHandler(){
+		location.href = "${pageContext.request.contextPath}/edu/book";
+	}
+	// 신청 내역 모달 띄우기
+	function modalClickHandler(event){
+		var clickObject$ = $(event.target);
+		var bookSchool = clickObject$.children("div").html();
+		var start = clickObject$.parents("td").data("date");
+		$.ajax({
+			url : "${pageContext.request.contextPath}/edu/book/info.ajax",  
+			method : "post", 
+			data : {eduPartSchool : bookSchool, eduStart : start}, 
+			error : ajaxErrorHandler, 
+			dataType : "json", 
+			success : function(data){
+				$("#eduSubject").html(data.eduSubject);
+				$("#eduAddress").html(data.eduAddress);
+				$("#eduPartName").html(data.eduPartName);
+				$("#eduPartNum").html(data.eduPartNum);
+			}
+		});
+		var clickPoint = event.target.value;
+		$(".wrap-modal").css("left", $(clickObject$).offset().left - 190);
+		$(".wrap-modal").css("top", $(clickObject$).offset().top + 30);
+		$(".modal-background").removeClass("hidden");
+	}
+	// 신청 내역 모달 닫기
+	function closeConfirmHandler(event){
+		$(".modal-background").addClass("hidden");
+	}
+	
+	
+	
+	document.addEventListener('DOMContentLoaded', function () {
+	    var calendarEl = document.getElementById('calendar');
+	    var calendar = new FullCalendar.Calendar(calendarEl, {
+	        // Tool Bar 목록 document : https://fullcalendar.io/docs/toolbar
+	        headerToolbar: {
+	            left: 'prev',
+	            center: 'title',
+	            right: 'next'
+	        },
+	        selectable: true,
+	        selectMirror: true,
+	        navLinks: false,
+	        editable: false,
+	        dayMaxEvents: false,
+	        events: [
+	        	<%
+		List<EduBookListDto> eduBookList = (List<EduBookListDto>)request.getAttribute("eduBook");
+		for(EduBookListDto dto : eduBookList){
+		%>
+		{
+			color : '#503396', 
+			borderColor : 'white', 
+			title : '<%=dto.getEduPartSchool()%>', 
+			start : '<%=dto.getEduStart()%>', 
+			end : '<%=dto.getEduEnd()%>'
+		},
+		<%
 		}
+	 	%>
+	        ]
+	    });
+	    calendar.render();
 	});
-	var clickPoint = event.target.value;
-	$(".modal-background").prop("display", "block");
-	
-	
-}
-
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        // Tool Bar 목록 document : https://fullcalendar.io/docs/toolbar
-        headerToolbar: {
-            left: 'prev',
-            center: 'title',
-            right: 'next'
-        },
-        selectable: true,
-        selectMirror: true,
-        navLinks: false,
-        editable: false,
-        dayMaxEvents: false,
-        events: [
-        	<%
-	List<EduBookListDto> eduBookList = (List<EduBookListDto>)request.getAttribute("eduBook");
-	for(EduBookListDto dto : eduBookList){
-%>
-{
-	color : '#503396'
-	, borderColor : 'white'
-	, title : '<%=dto.getEduPartSchool()%>'
-	, start : '<%=dto.getEduStart()%>'
-	, end : '<%=dto.getEduEnd()%>'
-},
-<%
-}
- 	%>
-        	{
-        		title : 'preventNull'
-        		, start : '1900-01-01'
-        	}
-        ]
-    });
-    calendar.render();
-});
-</script>
-
+	</script>
 </body>
 </html>

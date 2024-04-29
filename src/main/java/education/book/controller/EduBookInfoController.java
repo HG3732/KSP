@@ -46,6 +46,7 @@ public class EduBookInfoController extends HttpServlet {
 		request.setAttribute("eduBookInfoDto", dto);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("eduSubject", dto.getEduSubject());
+		map.put("eduAddress", dto.getEduAddress());
 		map.put("eduPartName", dto.getEduPartName());
 		map.put("eduPartNum", dto.getEduPartNum());
 		response.getWriter().append(new Gson().toJson(map));

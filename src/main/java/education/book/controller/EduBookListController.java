@@ -35,13 +35,17 @@ public class EduBookListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AlertController.loginPermission(request, response, "신청 내역을 보시려면 로그인 해주세요.");
-		EduRecentDto dto = es.selectRecent();
-		Object recentEdu = (dto != null) ? dto.getEduSubject() : "등록된 교육이 없습니다";
-		request.setAttribute("recentEdu", recentEdu);
-		
-		List<EduBookListDto> eduBookList = ebs.selectList();
-		request.setAttribute("eduBook", eduBookList);
+		try {
+			AlertController.loginPermission(request, response, "신청 내역을 보시려면 로그인 해주세요.");
+			EduRecentDto dto = es.selectRecent();
+			Object recentEdu = (dto != null) ? dto.getEduSubject() : "등록된 교육이 없습니다";
+			request.setAttribute("recentEdu", recentEdu);
+			
+			List<EduBookListDto> eduBookList = ebs.selectList();
+			request.setAttribute("eduBook", eduBookList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		request.getRequestDispatcher("/WEB-INF/views/edu/book/edubooklist.jsp").forward(request, response);
 	}
 

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import static common.controller.AlertController.*;
 
 import education.book.model.service.EduBookService;
+import education.model.dto.EduOneDto;
 import education.model.dto.EduRecentDto;
 import education.model.service.EduService;
 import member.model.dto.MemberInfoDto;
@@ -50,6 +51,8 @@ public class EduOneController extends HttpServlet {
 			String eduIdStr = request.getParameter("id");
 			Integer eduId = Integer.parseInt(eduIdStr);
 			request.setAttribute("eduOne", es.selectOne(eduId));
+			EduOneDto eduOneDto = (EduOneDto) request.getAttribute("eduOne");
+			System.out.println(eduOneDto.getEduContent());
 			
 			// 로그인 세션 정보
 			MemberInfoDto dto = (MemberInfoDto)request.getSession().getAttribute("ssslogin");

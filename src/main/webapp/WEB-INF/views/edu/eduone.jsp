@@ -1,3 +1,4 @@
+<%@page import="education.model.dto.EduOneDto"%>
 <link href="${pageContext.request.contextPath}/resource/css/reset.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resource/css/core.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resource/css/common/header.css" rel="stylesheet">
@@ -363,13 +364,23 @@
                             <div class="grid item1 eduContent">
                             	<div id="editor-container">
 								    <div class="container">
-								        <!-- 
-								         -->
 								        <div id="outline" class="document-outline-container" style="display: none;"></div>
 								        <textarea name="eduContent" id="editor"></textarea>
 								    </div>
 								</div>
                             </div>
+                            <div class="grid item1 file">
+                            	<div class="grid item2">
+                                	첨부파일
+                            	</div>
+	                            <c:if test="${eduOne.eduFileDtoList} != null">
+                            	<c:forEach items="${eduOne.eduFileDtoList }" var="file">
+                           		<div class="grid item2 file">
+                           			${file.eduFileId }<a href="${file.eduFilePath }/${file.eduSavedFileName}" download>${file.eduOriginalFileName }</a>
+                           		</div>
+                            	</c:forEach>
+	                            </c:if>
+	                        </div>
                             <div class="grid item1">
                                 <button type="button" class="btn book">신청하기</button>
                             </div>
@@ -675,7 +686,11 @@
             // readonly 모드 시 툴바 제거
             const toolbarElement = a.ui.view.toolbar.element;
 			toolbarElement.style.display = 'none';
-			var content = '${eduOne.eduContent}';
+			/* 
+			var content = document.getElementById("eduCon");
+            a.setData(content.value);
+             */
+            var content = '${eduOne.eduContent}';
             a.setData(content);
             // Example implementation to switch between different types of annotations according to the window size.
             // https://ckeditor.com/docs/ckeditor5/latest/features/collaboration/annotations/annotations-display-mode.html

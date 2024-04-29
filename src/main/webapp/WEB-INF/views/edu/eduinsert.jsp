@@ -93,8 +93,6 @@
         	font-weight: bold;
         }
         
-        
-        
         /* ckeditor */
         /* Set the minimum height of Classic editor */
         .wrap-main .ck.ck-editor__editable_inline:not(.ck-editor__nested-editable) {
@@ -151,7 +149,6 @@
         .ck.ckbox-wrapper *{
         	color: black;
         }
-        
         
         /* grid 부분 */
         .wrap-main .grid.eduOne{
@@ -224,6 +221,8 @@
         }
         .wrap-main .grid.item1.file{
             grid-column: 1/9;
+            display: grid;
+            grid-row-gap: 10px;
         }
         .wrap-main .grid.item1:last-child{
             grid-column: 1/9;
@@ -239,7 +238,12 @@
         	color: black;
         }
         
-        
+        .wrap-main .btn.file{
+        	margin-left: 10px;
+        }
+		.wrap-main #frm-eduins > div > div > div.grid.item1.file > div > input{
+			border: 0;
+		}        
         
         
         
@@ -364,7 +368,13 @@
 									</div>
 	                            </div>
 	                            <div class="grid item1 file">
-	                                첨부파일<button type="button" class="btn file">추가</button>
+	                            	<div class="grid item2">
+	                                	첨부파일
+	                                	<button type="button" class="btn file">추가</button>
+	                                	<!-- 
+	                                	<button id="upload_widget" class="btn cloudinary">추가</button>
+	                                	 -->
+	                            	</div>
 	                            </div>
 	                            <div class="grid item1">
 	                                <button type="button" class="btn eduins">등록하기</button>
@@ -381,6 +391,7 @@
             </footer>
         </div>
     </div>
+<!-- ckeditor -->
 <script src="https://cdn.ckbox.io/CKBox/2.4.0/ckbox.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/41.2.0/super-build/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/41.2.0/super-build/translations/ko.js"></script>
@@ -718,6 +729,25 @@
     
 </script>
 
+<!-- cloudinary -->
+<!-- 
+<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+<script type="text/javascript">
+var myWidget = cloudinary.createUploadWidget({
+  cloudName: 'dyhtfrqz5', 
+  uploadPreset: ''}, (error, result) => { 
+    if (!error && result && result.event === "success") { 
+      console.log('Done! Here is the image info: ', result.info); 
+    }
+  }
+)
+
+document.getElementById("upload_widget").addEventListener("click", function(){
+    myWidget.open();
+  }, false);
+</script>
+ -->
+
 <script>
 $(loadedHandler);
 function loadedHandler(){
@@ -737,19 +767,17 @@ function eduBookListHandler(){
 // 파일 추가
 function eduFileHandler(){
 	var htmlVal = `
-	<tr>
-		<td colspan="4">
-			<input type="file" name="uploadfiles" class="uploadfiles" required><button type="button" class="btn fileCancel">취소</button>
-		</td>
-	</tr>
+	<div class="grid item2 file">
+		<input type="file" name="uploadfiles" class="uploadfiles" required><button type="button" class="btn fileCancel">취소</button>
+	</div>
 	`;
-	$(this).parent().parent().after(htmlVal);
+	$(this).parent().after(htmlVal);
 	$(".btn.fileCancel").off("click");
 	$(".btn.fileCancel").on("click", eduFileCancelHandler);
 }
 // 파일 취소
 function eduFileCancelHandler(){
-	$(this).parent().parent().remove();
+	$(this).parent().remove();
 }
 // 교육 등록하기
 function eduInsertHandler(){
@@ -764,11 +792,11 @@ function eduInsertHandler(){
 		$.ajax({
 			url : "${pageContext.request.contextPath}/edu/list/insert"
 			, method : "post"
-			//, enctype : "multipart/form-data"
+			// , enctype : "multipart/form-data"
 			//, data : {formData : formData, eduContent : eduContentVal}
-			, data :$("#frm-eduins").serialize()
-			//, contentType : false
-			//, processData : false
+			, data : formData
+			, contentType : false
+			, processData : false
 			, error : ajaxErrorHandler
 			, success : function(result){
 				if(result == 1){

@@ -52,7 +52,7 @@ public class FileUploadController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("/fileupload.ajax post");
+		System.out.println("/fileupload.ajax doPost()");
 		// properties 파일 불러오기
 		Properties prop = new Properties();
 		InputStream input = getClass().getClassLoader().getResourceAsStream("driver.properties");
@@ -67,14 +67,16 @@ public class FileUploadController extends HttpServlet {
 		// InputStream 닫기
 		input.close();
 		
+		
 		String result =null;
 		String savedfolder = "/resources/uploadfile";
-		String uploadPath = request.getServletContext().getRealPath("/resources/uploadfile");
+//		String uploadPath = request.getServletContext().getRealPath("/resources/uploadfile");
+		String uploadPath = cloudinary.uploader().getUploadUrl(ObjectUtils.emptyMap());
 		System.out.println("uploadPath : " + uploadPath);
 		File uploadPathFile = new File(uploadPath);
-		if(!uploadPathFile.exists()) {
-			uploadPathFile.mkdirs();
-		}
+//		if(!uploadPathFile.exists()) {
+//			uploadPathFile.mkdirs();
+//		}
 		System.out.println("contentType : " + request.getContentType());
 		int uploadFileLimit = 50 * 1024 * 1024; // 50MB
 		MultipartRequest multiReq = new MultipartRequest(request, uploadPath, uploadFileLimit, "UTF-8", new DefaultFileRenamePolicy());

@@ -78,10 +78,10 @@ public class EduService {
 	}
 	
 	// 교육 등록하기
-	public int insert(EduOneDto dto) {
+	public int insert(EduOneDto dto, List<EduFileWriteDto> filelist) {
 		int result = 0;
 		SqlSession session = MybatisTemplate.getSqlSession(true);
-		result = dao.insert(session, dto);
+		result = dao.insert(session, dto, filelist);
 		session.close();
 		return result;
 	}

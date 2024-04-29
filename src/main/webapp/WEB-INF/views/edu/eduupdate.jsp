@@ -1,6 +1,7 @@
 <link href="${pageContext.request.contextPath}/resource/css/reset.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resource/css/core.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resource/css/common/header.css" rel="stylesheet">
+<%@page import="education.model.dto.EduOneDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -220,11 +221,10 @@
         .wrap-main .grid.item1:nth-child(18){
             grid-column: 1/9;
         }
-        .wrap-main .grid.item1:nth-child(19){
+        .wrap-main .grid.item1.file{
             grid-column: 1/9;
-        }
-        .wrap-main .grid.item1:nth-child(19) .grid.item2{
-        	grid-column: 1/9;
+            display: grid;
+            grid-row-gap: 10px;
         }
         .wrap-main .grid.item1:last-child{
             grid-column: 1/9;
@@ -233,7 +233,19 @@
         .wrap-main .ui-datepicker-trigger{
         	display: none;
         }
+        .wrap-main input[name=eduAddress]{
+        	width: 100%;
+        }
+        .wrap-main .grid.item1.eduContent *{
+        	color: black;
+        }
         
+        .wrap-main .btn.file{
+        	margin-left: 10px;
+        }
+		.wrap-main #frm-eduins > div > div > div.grid.item1.file > div > input{
+			border: 0;
+		}
         
 
 
@@ -347,6 +359,10 @@
 	                                <input type="number" name="eduMaxNum" value="${eduOne.eduMaxNum }" min="${eduOne.eduBookNum }" required autocomplete="off">
 	                            </div>
 	                            <div class="grid item1 eduContent">
+	                            <%
+                            	EduOneDto dto = (EduOneDto)request.getAttribute("eduOne");
+                            	%>
+                            	<input type="hidden" name="eduCon" id="eduCon" value='<%=dto.getEduContent() %>'>
                                     <div id="editor-container">
 									    <div class="container">
 									        <div id="outline" class="document-outline-container" style="display: none;"></div>
@@ -661,8 +677,8 @@
     } )
         .then( b => {
             a = b;
-            var content = '${eduOne.eduContent}';
-            a.setData(content);
+            var content = document.getElementById('eduCon');
+            a.setData(content.value);
             // Example implementation to switch between different types of annotations according to the window size.
             // https://ckeditor.com/docs/ckeditor5/latest/features/collaboration/annotations/annotations-display-mode.html
             const annotationsUIs = a.plugins.get( 'AnnotationsUIs' );

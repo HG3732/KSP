@@ -9,14 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.catalina.startup.ClassLoaderFactory.Repository;
-
 import com.google.gson.Gson;
 
 import board.model.dto.BoardReplyListDto;
 import board.model.dto.BoardReplyWriteDto;
 import board.model.service.BoardService;
-import common.controller.AlertController;
 import member.model.dto.MemberInfoDto;
 
 /**
@@ -39,8 +36,9 @@ public class BoardReplyWriteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+//		 TODO Auto-generated method stub
+		System.out.println("왜 두겟으로 오냐??");
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
 //		AlertController.loginPermission(request, response, "로그인 후 겟글 작성이 가능합니다.");
 	}
 
@@ -50,7 +48,7 @@ public class BoardReplyWriteController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("/board/reply/write.ajax doPost()");
 		
-		AlertController.loginPermission(request, response, "로그인 후 댓글 작성이 가능합니다.");
+//		AlertController.loginPermission(request, response, "로그인 후 댓글 작성이 가능합니다.");
 		
 		String boardReplyIdStr = request.getParameter("boardReplyId");
 		System.out.println("boardReplyId : "+request.getParameter("boardReplyId"));

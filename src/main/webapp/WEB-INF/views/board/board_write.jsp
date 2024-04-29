@@ -205,20 +205,22 @@
 
 		// 클라우디너리
 	</script>
-	  <!--
+
+	  
     https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/ckbox.html
--->
+
     <script src="https://cdn.ckbox.io/CKBox/2.4.0/ckbox.js"></script>
-    <!--
+    
     The "super-build" of CKEditor 5 served via CDN contains a large set of plugins and multiple editor types.
     See https://ckeditor.com/docs/ckeditor5/latest/installation/getting-started/quick-start.html#running-a-full-featured-editor-from-cdn
--->
+
     <script src="https://cdn.ckeditor.com/ckeditor5/41.2.0/super-build/ckeditor.js"></script>
-    <!--
+    
     Uncomment to load the Spanish translation
 <script src="https://cdn.ckeditor.com/ckeditor5/41.2.0/super-build/translations/es.js"></script>
--->
+
     <script>
+    
 	// ck 에디터
         // This sample still does not showcase all CKEditor 5 features (!)
         // Visit https://ckeditor.com/docs/ckeditor5/latest/features/index.html to browse all the features.

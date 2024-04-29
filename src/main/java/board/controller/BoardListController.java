@@ -35,7 +35,7 @@ public class BoardListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("연결 확인 두 겟");
 		AlertController.loginPermission(request, response, "로그인 후 글 작성이 가능합니다.");
-//		MemberInfoDto memberInfoDto = (MemberInfoDto) request.getSession().getAttribute("ssslogin");
+		MemberInfoDto memberInfoDto = (MemberInfoDto) request.getSession().getAttribute("ssslogin");
 		
 		String searchSubject = request.getParameter("search-list");
 		request.getSession().setAttribute("ssSearch", searchSubject);

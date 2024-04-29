@@ -41,14 +41,14 @@ public class BoardUpdateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		String noStr = request.getParameter("no");
-//		try {
-//			int no = Integer.parseInt(noStr);
-//			request.setAttribute("detail", service.selectOne(no));
-//			request.getRequestDispatcher("/WEB-INF/views/board/board_update.jsp").forward(request, response);
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
+		String noStr = request.getParameter("no");
+		try {
+			int no = Integer.parseInt(noStr);
+			request.setAttribute("detail", service.selectOne(no));
+			request.getRequestDispatcher("/WEB-INF/views/board/board_update.jsp").forward(request, response);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
 		try {
 			AlertController.loginPermission(request, response, "로그인 후 글 작성이 가능합니다.");
@@ -69,7 +69,7 @@ public class BoardUpdateController extends HttpServlet {
 			e.printStackTrace();
 			response.sendRedirect(request.getContextPath() + "home");
 		}
-		request.getRequestDispatcher("/WEB-INF/views/board/board_update.jsp").forward(request, response);
+//		request.getRequestDispatcher("/WEB-INF/views/board/board_update.jsp").forward(request, response);
 
 	}
 
@@ -105,7 +105,6 @@ public class BoardUpdateController extends HttpServlet {
 		}
 		System.out.println("업데이트 title : " + title);
 		System.out.println("업데이트 content : " + content);
-//		response.sendRedirect(request.getContextPath() + "/board/community");
 		response.sendRedirect(request.getContextPath() + "/board/view?no=" + boardNo);
 	}
 

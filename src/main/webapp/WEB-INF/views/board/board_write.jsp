@@ -90,7 +90,7 @@
 											 -->
 									<!-- ck 에디터 -->
 									<td>
-                                        <div id="presence-list-container" style="display: none;"></div>
+                                        <!-- <div id="presence-list-container" style="display: none;"></div> -->
                                         <div id="editor-container">
                                             <div class="container-ck">
                                                 <div id="outline" class="document-outline-container" style="display:none;"></div>
@@ -168,6 +168,7 @@
 
 		function btnUpModalClickHandler() {
 			console.log("모달창 오픈");
+			$("textarea").val(b.getData());
 			if ($("[name=title]").val().trim().lenght == 0
 					|| $("[name=content]").val().trim().length == 0) {
 				alert("공백란 없이 입력해주세요.");
@@ -178,7 +179,6 @@
 		}
 		function btnUpModalOkClickHandler() {
 			console.log("눌림");
-			$("[name=content]").val(editor.getData());
 			var frm = document.getElementById("frm-write");
 			frm.method = "post";
 			frm.enctype = "multipart/form-data"; // form 태그 내부에 input type="file"이 있다면
@@ -396,16 +396,16 @@
                 channelId: 'document-id-7'
             },
             // https://ckeditor.com/docs/ckeditor5/latest/features/collaboration/annotations/annotations-custom-configuration.html#sidebar-configuration
-            sidebar: {
+            /* sidebar: {
                 container: document.querySelector('#sidebar')
-            },
+            }, */
             documentOutline: {
                 container: document.querySelector('#outline')
             },
             // https://ckeditor.com/docs/ckeditor5/latest/features/collaboration/real-time-collaboration/users-in-real-time-collaboration.html#users-presence-list
-            presenceList: {
+            /* presenceList: {
                 container: document.querySelector('#presence-list-container')
-            },
+            }, */
             // Add configuration for the comments editor if the Comments plugin is added.
             // https://ckeditor.com/docs/ckeditor5/latest/features/collaboration/annotations/annotations-custom-configuration.html#comment-editor-configuration
             comments: {
@@ -431,12 +431,12 @@
             },
             // Do not include revision history configuration if you do not want to integrate it.
             // Remember to remove the 'revisionHistory' button from the toolbar in such a case.
-            revisionHistory: {
+            /* revisionHistory: {
                 editorContainer: document.querySelector('#editor-container'),
                 viewerContainer: document.querySelector('#revision-viewer-container'),
                 viewerEditorElement: document.querySelector('#revision-viewer-editor'),
                 viewerSidebarContainer: document.querySelector('#revision-viewer-sidebar'),
-            },
+            }, */
             // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/ckbox.html
             ckbox: {
                 // Be careful - do not use the development token endpoint on production systems!
@@ -486,25 +486,25 @@
                 'SourceEditing',
                 // Careful, with the Mathtype plugin CKEditor will not load when loading this sample
                 // from a local file system (file://) - load this site via HTTP server if you enable MathType
-                'MathType'
+                'MathType', 
                 // If you would like to adjust enabled collaboration features:
-                // 'RealTimeCollaborativeComments',
-                // 'RealTimeCollaborativeTrackChanges',
-                // 'RealTimeCollaborativeRevisionHistory',
-                // 'PresenceList',
+                'RealTimeCollaborativeComments',
+                'RealTimeCollaborativeTrackChanges',
+                'RealTimeCollaborativeRevisionHistory',
+                'PresenceList',
                 // 'Comments',
                 // 'TrackChanges',
                 // 'TrackChangesData',
-                // 'RevisionHistory',
+                'RevisionHistory'
             ]
         })
-            .then(editor => {
-                window.editor = editor;
+            .then(a => {
+                b = a;
 
                 // Example implementation to switch between different types of annotations according to the window size.
                 // https://ckeditor.com/docs/ckeditor5/latest/features/collaboration/annotations/annotations-display-mode.html
-                const annotationsUIs = editor.plugins.get('AnnotationsUIs');
-                const sidebarElement = document.querySelector('.sidebar');
+                const annotationsUIs = b.plugins.get('AnnotationsUIs');
+                // const sidebarElement = document.querySelector('.sidebar');
                 let currentWidth;
 
                 function refreshDisplayMode() {
@@ -515,25 +515,25 @@
                     currentWidth = window.innerWidth;
 
                     if (currentWidth < 1000) {
-                        sidebarElement.classList.remove('narrow');
-                        sidebarElement.classList.add('hidden');
+                        // sidebarElement.classList.remove('narrow');
+                        // sidebarElement.classList.add('hidden');
                         annotationsUIs.switchTo('inline');
                     }
                     else if (currentWidth < 1300) {
-                        sidebarElement.classList.remove('hidden');
-                        sidebarElement.classList.add('narrow');
+                        // sidebarElement.classList.remove('hidden');
+                        // sidebarElement.classList.add('narrow');
                         annotationsUIs.switchTo('narrowSidebar');
                     }
                     else {
-                        sidebarElement.classList.remove('hidden', 'narrow');
+                        // sidebarElement.classList.remove('hidden', 'narrow');
                         annotationsUIs.switchTo('wideSidebar');
                     }
                 }
 
-                editor.ui.view.listenTo(window, 'resize', refreshDisplayMode);
-                refreshDisplayMode();
+                // editor.ui.view.listenTo(window, 'resize', refreshDisplayMode);
+                // refreshDisplayMode();
 
-                return editor;
+                return b;
             })
             .catch(error => {
                 // console.error('There was a problem initializing the editor.', error);

@@ -18,12 +18,6 @@ var prekeyword = null;
 var presortby = null;
 var prevalue = null;
 var currentpage = 1;
-/* let infomap = new Map();
-infomap.set("category", null);
-infomap.set("keyword", null);
-infomap.set("sortby", null);
-infomap.set("value", null);
-infomap.set("page", 1); */
 
 	function loadedHandler() {
 		

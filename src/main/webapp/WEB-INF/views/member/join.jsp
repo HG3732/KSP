@@ -10,6 +10,7 @@
 <title>회원가입</title>
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+	
 <script>
     $(loadedHandler)
     
@@ -44,6 +45,7 @@
     //개별 체크박스 모두 체크시 전체체크박스 체크 + 버튼활성화
     function checkHandler(){
         var checknum = document.querySelectorAll('input.check:checked');
+        console.log(checknum.length);
         if(checknum.length == 2){
             $("#checkAll").prop('checked', true);
             $(".submit1").prop('disabled', false);
@@ -205,13 +207,43 @@
     }
     
     //파일 첨부
-    function uploadHandler() {
-	    var form = $('#uploadfile')[0];
+    
+    
+    	
+    	
+    function uploadHandler(event) {
+    	const fileInput = $("#profilepicture");
+    	const files = fileInput.prop('files');
+    	
+    	if (files.length > 0) {
+            const file = files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+
+            $.ajax({
+                url: '${pageContext.request.contextPath}/member/profile.ajax',
+                method: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    console.log('File uploaded to Cloudinary:', response);
+                },
+                error: function(error) {
+                    console.error('Error uploading file:', error);
+                }
+            });
+        } else {
+            console.error("No file selected.");
+        }
+        
+	}
+    	
+    	
+/*    	    var form = $('#uploadfile')[0];
 	    var formdata = new FormData(form);
-	    /* frm.method = "post";
-	    frm.action = "${pageContext.request.contextPath}/member/profile";
-	    frm.enctype = "multipart/form-data";
-	    frm.submit(); */
+	    console.log(form);
+	    console.log(formdata);
 	    $.ajax({
 	    	url: '${pageContext.request.contextPath}/member/profile.ajax'
 	    	, type: 'post'
@@ -222,10 +254,7 @@
 	    		
 	    	}
 	    	, error : ajaxErrorHandler
-	    });
-	    
-    }
-    
+	    }); */
 </script>
 </head>
 <body>
@@ -280,11 +309,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet diam in li
                     <p>&nbsp;회원정보를 입력해주세요.</p>
                     <div class="wrap-form">
                     	<!-- <form id="uploadfile" method="post" action="https://api.cloudinary.com/v1_1/ksp-practice/image/upload"> -->
-                    	<form id="uploadfile">
+                    	<form id="uploadfile" enctype="multipart/form-data">
                             <div class="wrap-file">
                         		<div>사진 첨부</div>
                         		<div>
-                        			<input type="file" name="uploadfiles" class="profilepicture" style="border: none;"><button type="button" name="upload" class="upload">첨부</button>
+                        			<input type="file" accept="image/*" name="uploadfiles" class="profilepicture" id="profilepicture" style="border: none;"><button type="button" name="upload" class="upload">첨부</button>
                        			</div>
                             </div>
                         </form>

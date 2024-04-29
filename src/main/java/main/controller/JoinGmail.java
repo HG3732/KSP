@@ -14,8 +14,6 @@ public class JoinGmail extends Authenticator {
 		Properties prop = new Properties();
 		try {
 			prop.load(input);
-			System.out.println("mailId : " + prop.getProperty("google.mail"));
-			System.out.println("apppwd : " + prop.getProperty("google.apppwd"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

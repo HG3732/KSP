@@ -21,11 +21,12 @@ public class BoardViewDto {
 //	private String fileOriginalName;
 	private String boardContent;
 	private List<FileDto> filedtolist;
+	private Integer memberAdmin;
 
 	@Override
 	public String toString() {
 		return "BoardViewDto [boardNo=" + boardNo + ",boardTitle=" + boardTitle + ", boardWriter=" + boardWriter + ", boardWriteTime="
-				+ boardWriteTime + ", hit=" + hit + ", boardContent=" + boardContent + ",filedtolist=" + filedtolist + "]";
+				+ boardWriteTime + ", hit=" + hit + ", boardContent=" + boardContent + ",filedtolist=" + filedtolist + ", memberAdmin=" + memberAdmin + "]";
 
 	}
 
@@ -35,7 +36,7 @@ public class BoardViewDto {
 	}
 
 	public BoardViewDto(Integer boardNo, String boardTitle, String boardWriter, String boardWriteTime, Integer hit,
-			String boardContent) {
+			String boardContent, Integer memberAdmin) {
 		super();
 		this.boardNo = boardNo;
 		this.boardTitle = boardTitle;
@@ -45,6 +46,7 @@ public class BoardViewDto {
 		boardContent = boardContent.replaceAll("\\r?\\n", "<br>");
 		boardContent = boardContent.replaceAll(" ", "&nbsp;");
 		this.boardContent = boardContent;
+		this.memberAdmin = memberAdmin;
 	}
 	
 
@@ -80,4 +82,7 @@ public class BoardViewDto {
 		this.filedtolist = filedtolist;
 	}
 	
+	public Integer getMemberAdmin() {
+		return memberAdmin;
+	}
 }

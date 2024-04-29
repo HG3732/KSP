@@ -150,7 +150,7 @@ public class BoardDao {
 	// selectOne
 	public BoardViewDto selectOne(Connection conn, Integer boardNo) {
 		BoardViewDto result = null;
-		String sql = "SELECT BOARD_NO, BOARD_TITLE, BOARD_WRITER, BOARD_WRITE_TIME, HIT, BOARD_CONTENT FROM board_community WHERE BOARD_NO = ?";
+		String sql = "SELECT BOARD_NO, BOARD_TITLE, BOARD_WRITER, BOARD_WRITE_TIME, HIT, BOARD_CONTENT, MEMBER_ADMIN FROM board_community WHERE BOARD_NO = ?";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
@@ -162,7 +162,7 @@ public class BoardDao {
 			if (rs.next()) {
 				result = new BoardViewDto(rs.getInt("BOARD_NO"), rs.getString("BOARD_TITLE"),
 						rs.getString("BOARD_WRITER"), rs.getString("BOARD_WRITE_TIME"), rs.getInt("HIT"),
-						rs.getString("BOARD_CONTENT"));
+						rs.getString("BOARD_CONTENT"),rs.getInt("MEMBER_ADMIN"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

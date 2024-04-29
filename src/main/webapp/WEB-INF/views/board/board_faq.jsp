@@ -223,11 +223,11 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	</div>
 	<div class="wrap-footer">
 		<footer> 
+		<%@include file="/WEB-INF/views/common/footer.jsp" %>
 		</footer>
+	</div>
 	</div>
 	<script>
 		$(document).ready(function() {$(".open.active").click(function() {

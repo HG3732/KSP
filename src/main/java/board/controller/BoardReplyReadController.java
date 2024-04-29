@@ -45,10 +45,10 @@ public class BoardReplyReadController extends HttpServlet {
 		MemberInfoDto memberInfoDto = (MemberInfoDto) request.getSession().getAttribute("ssslogin");
 		String boardNostr = request.getParameter("boardNo");
 //		String boardReplyWriter = request.getParameter("bReplyWriter");
-		String boardReplyWriter = memberInfoDto.getMem_id();
+//		String boardReplyWriter = memberInfoDto.getMem_id();
 		
 		System.out.println("보드 리플라이 리드 에이작스 컨트롤러 boardNoStr : " + boardNostr);
-		System.out.println("보드 리플라이 리드 에이작스 컨트롤러 bReplyWriter : " + boardReplyWriter);
+//		System.out.println("보드 리플라이 리드 에이작스 컨트롤러 bReplyWriter : " + boardReplyWriter);
 		try {
 			int boardNo = Integer.parseInt(boardNostr);
 			response.getWriter().append(new Gson().toJson(service.selectBoardReplyList(boardNo)));

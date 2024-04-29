@@ -16,6 +16,7 @@ import board.model.dto.BoardReplyListDto;
 import board.model.dto.BoardReplyWriteDto;
 import board.model.dto.BoardViewDto;
 import board.model.dto.FileDto;
+import board.model.dto.FileWriteDto;
 
 public class BoardService {
 
@@ -191,6 +192,7 @@ public class BoardService {
 		close(conn);
 		return result;
 	}
+
 
 	// listContent
 

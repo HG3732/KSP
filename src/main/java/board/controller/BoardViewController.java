@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.dao.BoardDao;
+import board.model.dto.BoardInsertDto;
 import board.model.dto.BoardViewDto;
 import board.model.service.BoardService;
+import common.controller.AlertController;
 import member.model.dto.MemberInfoDto;
 
 /**
@@ -34,12 +36,13 @@ public class BoardViewController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		MemberInfoDto memberInfoDto = (MemberInfoDto) request.getSession().getAttribute("ssslogin");
+		AlertController.loginPermission(request, response, "로그인 후 뷰글 작성이 가능합니다.");
+//		MemberInfoDto memberInfoDto = (MemberInfoDto) request.getSession().getAttribute("ssslogin");
 //		BoardViewDto viewDto = new BoardViewDto();
 //		String reTitle = viewDto.getBoardTitle();
 //		String reContent = viewDto.getBoardContent(); 
 //		reContent = reContent.replaceAll("<br>", "");
-//		BoardViewDto reDto = new BoardViewDto(viewDto.getBoardNo(), reTitle, memberInfoDto.getMem_id(), viewDto.getBoardWriteTime(),viewDto.getHit(), viewDto.getBoardContent());
+//		BoardViewDto reDto = new BoardViewDto(viewDto.getBoardNo(), reTitle, memberInfoDto.getMem_id(), viewDto.getBoardWriteTime(),viewDto.getHit(), viewDto.getBoardContent(), viewDto.getMemberAdmin());
 //		request.setAttribute("detail", reDto);
 		
 		String boardNoStr = request.getParameter("no");
@@ -56,19 +59,8 @@ public class BoardViewController extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		/*
-		 * int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		 * 
-		 * int replyCount = service.selectReplyCount(boardNo);
-		 * response.getWriter().write("{\"count\":" + replyCount.getCount() + "}");
-		 */
 	}
 
 }

@@ -19,20 +19,27 @@
 <title>Board Community</title>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="https:/code.jquery.com/jquery-3.7.1.js"></script>
-<jsp:include page="/WEB-INF/views/common/common_star.jsp"/>
+<jsp:include page="/WEB-INF/views/common/common_star.jsp" />
 <%-- /KSP/src/main/webapp/WEB-INF/views/common/common_star.jsp --%>
 <style>
+body {
+	background-size: cover;
+}
+
+.table-body .notice-admin {
+	color: red;
+}
 </style>
 </head>
 <body>
-
+	<%-- 
 	[[ 로그인 정보 : ${ssslogin} ]]
 	<br> [[ map : ${map.dtolist }]]
 	<br> [[ totalPageCount : ${map.totalPageCount }]]
 	<br> [[ startPageNum : ${map.startPageNum }]]
 	<br> [[ endPageNum : ${map.endPageNum }]]
 	<br> [[ 조회수 : ${hit }]]
-	 
+ --%>
 	<div class="wrap-header">
 		<header>
 			<%@include file="/WEB-INF/views/common/header.jsp"%>
@@ -96,31 +103,31 @@
 						<tbody class="table-body">
 							<c:forEach items="${map.dtolist }" var="vo" varStatus="vs">
 								<tr>
-								 
-								 <c:choose>
-									<c:when test="${ssslogin.mem_admin > 0}">
-										<td>공지</td>
-									</c:when>
-									
-									<c:otherwise>
-										<td>${vo.boardNo }</td>
-									</c:otherwise>	
-								</c:choose>										
-										<td><a
-											href="${pgaeContext.request.contextPath}/star/board/view?no=${vo.boardNo }">
-												${vo.boardTitle }</a>
-										</td>
-								
+
+									<c:choose>
+										<c:when test="${vo.memberAdmin > 0}">
+											<td class="notice-admin">공지</td>
+										</c:when>
+
+										<c:otherwise>
+											<td>${vo.boardNo }</td>
+										</c:otherwise>
+									</c:choose>
+									<td><a
+										href="${pgaeContext.request.contextPath}/star/board/view?no=${vo.boardNo }">
+											${vo.boardTitle }</a></td>
+
 									<c:choose>
 										<c:when test="${vo.fileId == null || vo.fileId == 0}">
 											<td>X</td>
 										</c:when>
 										<c:when test="${vo.fileId != null || vo.fileId != 0}">
-											<td><img src="${pageContext.request.contextPath}/resource/image/file.png"></td>
+											<td><img
+												src="${pageContext.request.contextPath}/resource/image/file.png"></td>
 										</c:when>
 									</c:choose>
 									<%-- <td>${vo.fileId }</td> --%>
-									<td>${vo.boardWriter }</td>
+									<td name="board-writer">${vo.boardWriter }</td>
 									<td>${vo.boardWriteTime }</td>
 									<td>${vo.hit }</td>
 								</tr>
@@ -158,14 +165,14 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="wrap-footer">
-		<footer>
-		<%@include file="/WEB-INF/views/common/footer.jsp" %>
-		 </footer>
+		<div class="wrap-footer">
+			<footer>
+				<%@include file="/WEB-INF/views/common/footer.jsp"%>
+			</footer>
+		</div>
 	</div>
 
-<script>
+	<script>
 $(loadedHandler);
 function loadedHandler(){
 	$(".btn.write").on("click", loginPermission);

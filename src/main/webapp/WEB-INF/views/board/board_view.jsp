@@ -19,6 +19,7 @@
 <title>Board View</title>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="https:/code.jquery.com/jquery-3.7.1.js"></script>
+<jsp:include page="/WEB-INF/views/common/common_star.jsp" />
 <style>
 </style>
 </head>
@@ -63,7 +64,7 @@
 						<div class="info">
 							<dl>
 								<dt>작성자</dt>
-								<dd>${dto.boardWriter }</dd>
+								<dd id="board-writer">${dto.boardWriter }</dd>
 							</dl>
 							<dl class="write-time">
 								<dt>작성일</dt>
@@ -138,19 +139,18 @@
 				</div>
 			</form>
 
-			<div class="reply-wrap">
-				<!-- 				<div class="test-id">
-				
-				</div> -->
-			</div>
+			<div class="reply-wrap"></div>
 		</div>
-	</div>
-	<div class="wrap-footer">
-		<footer> </footer>
+		<div class="wrap-footer">
+			<footer>
+				<%@include file="/WEB-INF/views/common/footer.jsp"%>
+			</footer>
+		</div>
 	</div>
 	<script>
         $(loadedHandler);
         function loadedHandler(){
+            //$(".btn.reply").on("click", loginPermission);
             $(".btn.reply").on("click", btnReplyClickHandler);
             $(".btn-delete").on("click", btnDeleteClickHandler);
             $("#btn-delete-modalok").on("click", btnDeleteOkClickHandler);
@@ -179,8 +179,15 @@
 		// 댓글
         function btnReplyClickHandler() {
         	console.log("댓글 등록버튼 눌림");
-            // 로그인 페이지로 이동
-
+            // 로그인 확인
+        	if(${ssslogin != null}){
+        	    location.href = "${pageContext.request.contextPath}/board/reply/write.ajax";
+        	    return;
+        		}else{
+        			alert("로그인 창으로 이동");
+        			location.href = "${pageContext.request.contextPath}/login";
+        			return;
+        		}
             // 공란 테스트
             if($("#frm-reply [name=boardReplyContent]").val().trim().length == 0){
                 alert("댓글을 입력해 주세요.");
@@ -220,6 +227,10 @@
         	console.log("${replydto.bReplyId}");
         	
             // login 확인
+        	if(${ssslogin != null}){
+        	    location.href = "${pageContext.request.contextPath}/board/reply/write.ajax";
+        		}
+            
          if($(this).parents(".frm-rereply").find("[name=boardReplyContent]").val().trim().length == 0){
         	 
         	 alert("대댓글 댓글이 작성되지 않았습니다");

@@ -112,9 +112,11 @@
 				</div>
 			</div>
 		</div>
-	</div>
 	<div class="wrap-footer">
-		<footer> </footer>
+		<footer> 
+		<%@include file="/WEB-INF/views/common/footer.jsp" %>
+		</footer>
+	</div>
 	</div>
 
 	<script>

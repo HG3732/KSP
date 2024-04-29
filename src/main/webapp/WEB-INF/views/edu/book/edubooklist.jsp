@@ -143,6 +143,16 @@
 		}
 		
     </style>
+    <script>
+    $(loadedHandler);
+    function loadedHandler(){
+    	$(".btn.edulist").on("click", eduListHandler);
+    	$(".btn.edubooklist").on("click", eduBookListHandler);
+    	$(".fc-event-title-container").on("click", modalClickHandler);
+    	$(".btn.fc-event-title-container").on("click", bookConfirmHandler);
+    	$(".closeModal").on("click", closeConfirmHandler);
+    }
+    </script>
 </head>
 
 <body>
@@ -153,16 +163,16 @@
 			</div>
 			<div class="modal-main">
 				<div class="section-row">
-					<div>부제</div>
-					<div>내용</div>
+					<div>교육 제목</div>
+					<div>${eduBookInfoDto.eduSubject }</div>
 				</div>
 				<div class="section-row">
-					<div>부제</div>
-					<div>내용</div>
+					<div>인솔자명</div>
+					<div>${eduBookInfoDto.eduPartName }</div>
 				</div>
 				<div class="section-row">
-					<div>부제</div>
-					<div>내용</div>
+					<div>인원</div>
+					<div>${eduBookInfoDto.eduPartNum }</div>
 				</div>
 			</div>
 		</div>
@@ -199,21 +209,12 @@
         </footer>
     </div>
 <script>
-$(loadedHandler);
-function loadedHandler(){
-	$(".btn.edulist").on("click", eduListHandler);
-	$(".btn.edubooklist").on("click", eduBookListHandler);
-	$(".어딘가요").on("click", modalClickHandler);
-	$(".btn.fc-event-title-container").on("click", bookConfirmHandler);
-	$(".closeModal").on("click", closeConfirmHandler);
-}
 // 신청 내역 모달 띄우기
 function bookConfirmHandler(){
 	$(".modal").show();
 }
 // 신청 내역 모달 닫기
 function closeConfirmHandler(event){
-	event.click()
 	$(".modal").hide();
 }
 // 교육 목록 페이지 이동
@@ -226,7 +227,21 @@ function eduBookListHandler(){
 }
 //모달 띄우기
 function modalClickHandler(event){
-	var clickObject = event.target;
+	var clickObject$ = $(event.target);
+	console.log(clickObject$);
+	var bookSchool = clickObject$.children("div").html();
+	console.log(bookSchool);
+	var start = clickObject$.parents("td").data("date");
+	console.log(start);
+	console.log(typeof start);
+	$.ajax({
+		url : "${pageContext.request.contextPath}/edu/book/info.ajax", 
+		method : "post",
+		data : {eduPartSchool : bookSchool, eduStart : start}, 
+		error : ajaxErrorHandler, 
+		success : function(result){
+		}
+	});
 	var clickPoint = event.target.value;
 	$(".modal-background").prop("display", "block");
 	

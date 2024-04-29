@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import common.MybatisTemplate;
 import education.book.model.dao.EduBookDao;
 import education.book.model.dto.EduBookDto;
+import education.book.model.dto.EduBookInfoDto;
 import education.book.model.dto.EduBookListDto;
 import education.model.dao.EduDao;
 import education.model.dto.EduListDto;
@@ -37,6 +38,15 @@ public class EduBookService {
 		List<EduBookListDto> result = null;
 		SqlSession session = MybatisTemplate.getSqlSession(true);
 		result = ebd.selectList(session);
+		session.close();
+		return result;
+	}
+	
+	// 교육 신청 정보 출력
+	public EduBookInfoDto selectBookInfo(String eduPartSchool, String eduStart) {
+		EduBookInfoDto result = null;
+		SqlSession session = MybatisTemplate.getSqlSession(true);
+		result = ebd.selectBookInfo(session, eduPartSchool, eduStart);
 		session.close();
 		return result;
 	}

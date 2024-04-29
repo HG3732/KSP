@@ -30,6 +30,11 @@
 	 WHERE EDU_ID IN (SELECT EDU_ID FROM EDU_BOOK EB JOIN MEMBER M ON EB.EDU_BOOK_ID = M.MEMBER_ID WHERE M.MEMBER_ID = #{mem_id})
 	</select>
 	
+	<!-- 교육 신청 정보 출력 -->
+	<select id="selectBookInfo" parameterType="hashmap" resultType="EduBookInfoDto">
+	SELECT EDU_SUBJECT, EDU_PART_NAME, EDU_PART_NUM FROM EDU_BOOK JOIN EDU_LIST USING (EDU_ID) WHERE EDU_PART_SCHOOL = #{eduPartSchool} AND EDU_START = TO_DATE(#{eduStart})
+	</select>
+	
 	<!-- 교육 신청 -->
 	<insert id="insert" parameterType="EduBookDto">
 	INSERT INTO EDU_BOOK VALUES (#{eduBookId}, #{eduId}, #{eduBookPhone}, #{eduPartLevel}, #{eduPartName}, #{eduPartSchool}, #{eduPartNum})

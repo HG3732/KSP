@@ -8,6 +8,9 @@
 <link
 	href="${pageContext.request.contextPath}/resource/css/board/board_view.css"
 	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resource/css/board/board_ck.css"
+	rel="stylesheet">		
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -119,6 +122,17 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
 										</div>
 									</div>
 								</div>
+<!-- 								
+								<div class="modal reply-delete">
+									<div class="modal_body">
+										<h2>댓글을 삭제하시겠습니까?</h2>
+										<div class="modal-btn">
+											<button type="button" class="btn-reply-delete-modalok">확인</button>
+											<button type="button" class="btn-reply-delete-modalcancel">취소</button>
+										</div>
+									</div>
+								</div>
+-->
 							</form>
 						</div>
 					</div>
@@ -146,7 +160,9 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
 				</div>
 			</form>
 
-			<div class="reply-wrap"></div>
+			<div class="reply-wrap">
+				
+			</div>
 		</div>
 		<div class="wrap-footer">
 			<footer>
@@ -158,13 +174,18 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
         $(loadedHandler);
         function loadedHandler(){
             //$(".btn.reply").on("click", loginPermission);
+            
             $(".btn.reply").on("click", btnReplyClickHandler);
             $(".btn-delete").on("click", btnDeleteClickHandler);
             $("#btn-delete-modalok").on("click", btnDeleteOkClickHandler);
             $("#btn-delete-modalcancel").on("click", btnDeleteCancelClickHandler);
+            // 댓글 수정
             $(".btn.show.rereplyupdate").on("click", btnReplyUpdateClickHandler);
             $(".btn.reupdate").on("click", btnReplyUpdateOkClickHandler);
-            $(".btn.show.rereplydelete").on("click", btnReplyDeleteClickHandler);
+            // 댓글 삭제
+            $(".btn.show.rereplydelete").on("click", btnReplyDeleteOkClickHandler);
+            // $(".btn.show.rereplydelete").on("click", btnReplyDeleteClickHandler);
+            // $(".btn-reply-delete-modalok").on("click", btnReplyDeleteOkClickHandler);
             
 
             $.ajax({
@@ -290,12 +311,14 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
 			if(replydto.bReplyLevel == 1){
         		htmlVal += `
         		<form class="frm-rereply">
+
         			<input type="hidden" name="boardNo" value="${dto.boardNo}">
         			<input type="hidden" name="boardReplyId" value="\${replydto.bReplyId}">
         			<input type="hidden" name="boardReplyWriter" value="\${replydto.bReplyWriter}">
         			<input type="hidden" name="boardReplyLevel" value="\${replydto.bReplyLevel}">
         			<input type="hidden" name="boardReplyStep" value="\${replydto.bReplyStep}">
         			<input type="hidden" name="boardReplyRef" value="\${replydto.bReplyRef}">
+        			
         			<div class="boardreply grid">
         				<div class="recontent" id="recontent">\${replydto.bReplyContent}</div>
         				<input type="text" class="reupdatecontent" id="reupdatecontent" name="reupdatecontent">
@@ -305,6 +328,15 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
         			</div>
         				<div class="btn-show">
 	        				\${buttonHtml}
+	    					<div class="modal reply-delete">
+							<div class="modal_body">
+								<h2>댓글을 삭제하시겠습니까?</h2>
+								<div class="modal-btn">
+									<button type="button" class="btn-reply-delete-modalok">확인</button>
+									<button type="button" class="btn-reply-delete-modalcancel">취소</button>
+								</div>
+							</div>
+						</div>
         					<button type="button" class="btn show rereplycontent">답글</button>
         				</div>
         				<div class="rereplycontent span">
@@ -312,12 +344,14 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
         					<button type="button" class="btn rereply">등록</button>
         				</div>
         			</div>
+       		
         		</form>
 				`;
 
 			}else{
 				htmlVal += `
 	        		<form class="frm-rereply">
+
 	        			<input type="hidden" name="boardNo" value="${dto.boardNo}">
 	        			<input type="hidden" name="boardReplyId" value="\${replydto.bReplyId}">
 	        			<input type="hidden" name="boardReplyWriter" value="\${replydto.bReplyWriter}">
@@ -331,7 +365,16 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
         					<button type="button" class="btn reupdate" id="reupdateokbtn">등록</button>
         				<div>\${replydto.bReplyWriter}</div>
 	        				<div class="btn-show">
-	        				\${buttonHtml2}
+	        					\${buttonHtml2}
+	    						<div class="modal reply-delete">
+									<div class="modal_body">
+										<h2>댓글을 삭제하시겠습니까?</h2>
+										<div class="modal-btn">
+											<button type="button" class="btn-reply-delete-modalok">확인</button>
+											<button type="button" class="btn-reply-delete-modalcancel">취소</button>
+										</div>
+									</div>
+								</div>
         						<button type="button" class="btn show rereplycontent">답글</button>
         					</div>
 	        				<div class="rereplycontent span">
@@ -339,11 +382,25 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
 	        					<button type="button" class="btn rereply">등록</button>
 	        				</div>
 	        			</div>
+        	
 	        		</form>
 					`;
 				
 			}
-
+/* 			
+			htmlVal += `
+				<div class="modal reply-delete">
+				<div class="modal_body">
+					<h2>댓글을 삭제하시겠습니까?</h2>
+					<div class="modal-btn">
+						<button type="button" id="btn-reply-delete-modalok">확인</button>
+						<button type="button" id="btn-reply-delete-modalcancel">취소</button>
+					</div>
+				</div>
+			</div>
+			`;
+				 */
+        	
 		$(".reply-wrap").html(htmlVal);
 		// html(새로운 내용으로 덮어쓰면 기존 event 등록이 사라짐)
 		// event 다시 등록
@@ -353,7 +410,10 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
 		$(".btn.show.rereplyupdate").on("click", btnReplyUpdateClickHandler);
 		$(".btn.show.rereplyupdate2").on("click", btnReplyUpdateClickHandler2);
 		$(".btn.reupdate").on("click", btnReplyUpdateOkClickHandler);
-		$(".btn.show.rereplydelete").on("click", btnReplyDeleteClickHandler);
+		
+        $(".btn.show.rereplydelete").on("click", btnReplyDeleteOkClickHandler);
+		// $(".btn.show.rereplydelete").on("click", btnReplyDeleteClickHandler);
+        // $(".btn-reply-delete-modalok").on("click", btnReplyDeleteOkClickHandler);
         	}
         }
        	// 댓글 총 개수
@@ -447,11 +507,27 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
 				}
        		 });
 		}
-       
+		
+       // 댓글 삭제 버튼 오픈
+      
+      function btnReplyDeleteClickHandler() {
+     	console.log("댓글 삭제 모달창 오픈");
+		$(".modal.reply-delete").css("display", "block");
+      }
+      
+     // 댓글 삭제 모달 닫기
+/*      
+     function btnReplyDeleteCancelClickHandler() {
+	 	console.log("댓글 삭제 모달창 닫기");
+	 	$(".modal.reply-delete").css("display", "none");
+	 }
+        */
        // 댓글 삭제
-        
-       function btnReplyDeleteClickHandler() {
+       
+       function btnReplyDeleteOkClickHandler() {
     	   console.log("댓글 삭제 버튼 눌림");
+    	   console.log($(this).parents(".frm-rereply").serialize());
+    		
     	   $.ajax({
     		   url: "${pageContext.request.contextPath}/board/reply/delete.ajax"
     		   ,method: "post"
@@ -473,13 +549,13 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
     	   });
 		}
 			 
-       	// 모달 오픈 
+       	// 글 삭제 모달 오픈 
        	function btnDeleteClickHandler() {
        		console.log("모달창 오픈");
 			$(".modal.delete").css("display", "block");
 		}
        	
-       	// 모달 닫기
+       	// 글 삭제 모달 닫기
        	function btnDeleteCancelClickHandler() {
 			console.log("모달창 닫기");
 			$(".modal.delete").css("display", "none");
@@ -497,17 +573,10 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
 		}
 		// 클라우디너리
     	</script>
-        https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/ckbox.html
    
         <script src="https://cdn.ckbox.io/CKBox/2.4.0/ckbox.js"></script>
-        
-        The "super-build" of CKEditor 5 served via CDN contains a large set of plugins and multiple editor types.
-        See https://ckeditor.com/docs/ckeditor5/latest/installation/getting-started/quick-start.html#running-a-full-featured-editor-from-cdn
-   
         <script src="https://cdn.ckeditor.com/ckeditor5/41.2.0/super-build/ckeditor.js"></script>
-        
-        Uncomment to load the Spanish translation
-    <script src="https://cdn.ckeditor.com/ckeditor5/41.2.0/super-build/translations/es.js"></script>
+	    <script src="https://cdn.ckeditor.com/ckeditor5/41.2.0/super-build/translations/ko.js"></script>
    
         <script>
     	// ck 에디터
@@ -783,6 +852,7 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
                     'RealTimeCollaborativeTrackChanges',
                     'RealTimeCollaborativeRevisionHistory',
                     'PresenceList',
+                    'sidebar',
                     // 'Comments',
                     // 'TrackChanges',
                     // 'TrackChangesData',

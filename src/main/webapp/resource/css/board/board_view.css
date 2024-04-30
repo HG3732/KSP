@@ -359,4 +359,24 @@ margin-top: -11px;
     color : black;
 }
 
+.modal-btn .btn-reply-delete-modalok {
+    width: 70px;
+    color : black;
+}
+
+.modal-btn .btn-reply-delete-modalcancel {
+    width: 70px;
+    color : black;
+}
+.modal-btn .btn-rereply-delete-modalok {
+    width: 70px;
+    color : black;
+}
+
+.modal-btn .btn-rereply-delete-modalcancel {
+    width: 70px;
+    color : black;
+}
+
+
 

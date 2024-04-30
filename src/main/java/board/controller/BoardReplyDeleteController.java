@@ -45,6 +45,7 @@ public class BoardReplyDeleteController extends HttpServlet {
 
 		String boardNoStr = request.getParameter("boardNo");
 		int boardNo = Integer.parseInt(boardNoStr);
+		System.out.println("보드 댓글 삭제 컨트롤러 boardNo : " + boardNo);
 //		String baordReplyWriter = memberInfoDto.getMem_id();
 		String boardReplyIdStr = request.getParameter("boardReplyId");
 		int boardReplyId = Integer.parseInt(boardReplyIdStr);

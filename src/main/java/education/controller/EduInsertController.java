@@ -104,10 +104,10 @@ public class EduInsertController extends HttpServlet {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("uploaded", 1);
 				map.put("fileName", originalName);
-				Map<String, Object> uploadResult = cloudinary.uploader().upload(new File(uploadPath+"/"+fileName), ObjectUtils.emptyMap());  
-				map.put("url", uploadResult.get("url"));
+				Map<String, Object> uploadResult = cloudinary.uploader().upload(new File(uploadPath+"/"+fileName), ObjectUtils.asMap("resource_type", "raw"));  
+				map.put("url", uploadResult.get("secure_url"));
 				System.out.println(uploadResult.get("url"));
-				EduFileDto dto = new EduFileDto(null, null, (String)map.get("url"), originalName, fileName, (int)fileSize);
+				EduFileDto dto = new EduFileDto(null, null, (String)map.get("url"), originalName, (int)fileSize);
 				eduFileDtoList.add(dto);
 			}
 

@@ -77,7 +77,7 @@ footer{
 	padding: 10px;
     line-height: 25px;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     gap: 10px;
     overflow: auto;
 }

@@ -56,16 +56,16 @@ $(loadedHandler)
 
 var contentbox = document.querySelector(".content-box");
 let webSocket;
+
 	function loadedHandler(){
 		
 		$(".faq").on("click", faqHandler);
-		$(".close-chat").on("click", closeChatHandler);
 	}
 	
 	function faqHandler() {
 		$(".wrap-chatbox").css("display","flex");
-		
 		$("#btn-sendmsg").on("click", socketMsgSend);
+		$(".close-chat").on("click", closeChatHandler);
 		
 		webSocketInit();
 		function webSocketInit() {
@@ -77,14 +77,10 @@ let webSocket;
 		}  
 
 		//웹소켓 연결
-		function socketOpen(event){
-			console.log("연결 완료");
-		}
-		 
 	    // WebSocket이 열렸을 때 실행
 		function socketOpen(event){
 	        //서버에 사용자 정보 전달
-	    	webSocket.send(JSON.stringify({ type: 'message', data: 'aaaa' }));
+	    	webSocket.send(JSON.stringify({ type: 'Member_Id', data: '${ssslogin.mem_id}' }));
 		    console.log("연결 완료");
 		  }
 
@@ -100,9 +96,9 @@ let webSocket;
 		       }
 		       // 세션리스트에 메시지를 송신
 		       webSocket.send(JSON.stringify(msg));
-		       //채팅창에 보낸 메세지 표시
-		       
-		       $(".content-box").append('<div class="msgbox">message : ' + $("#inputmsg").val() + '</div>');
+
+			   //채팅창에 보낸 메세지 표시
+		       $(".content-box").append('<div class="msgbox">${ssslogin.mem_id} : ' + $("#inputmsg").val() + '</div>');
 		       contentbox.scrollTop = contentbox.scrollHeight;
 		       $("#inputmsg").val("");
 			}
@@ -137,6 +133,7 @@ let webSocket;
 	}
 	
 	function closeChatHandler() {
+		//disconnect();
 		$(".wrap-chatbox").css("display","none");
 	}
 </script>

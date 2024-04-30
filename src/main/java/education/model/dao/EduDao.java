@@ -158,12 +158,12 @@ public class EduDao {
 	}
 	
 	// 교육 등록
-	public int insert(SqlSession session, EduOneDto dto, List<EduFileDto> filelist) {
+	public int insert(SqlSession session, EduOneDto dto, List<EduFileDto> eduFileDtoList) {
 		System.out.println("EduDao insert()");
 		int result = 0;
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("dto", dto);
-		map.put("filelist", filelist);
+		map.put("filelist", eduFileDtoList);
 		result = session.insert("edu.insert", map);
 		System.out.println("result : " + result);
 		return result;

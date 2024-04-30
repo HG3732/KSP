@@ -24,7 +24,7 @@
 		<!-- 
 		 (EDU_FILE_ID, EDU_ID, EDU_FILE_PATH, EDU_ORIGINAL_FILE_NAME)
 		 -->  
-		VALUES ((#{idx} + 1), (SELECT NVL(MAX(EDU_ID), 0) + 1 FROM EDU_LIST), #{eduFileDto.eduFilePath}, #{eduFileDto.eduOriginalFileName}, #{eduFileDto.eduSavedFileName}) 
+		VALUES ((#{idx} + 1), (SELECT NVL(MAX(EDU_ID), 0) + 1 FROM EDU_LIST), #{eduFileDto.eduFilePath}, #{eduFileDto.eduOriginalFileName}, #{eduFileDto.eduSavedFileName}, #{eduFileDto.eduFileSize}) 
 		</foreach>
 	</if>
 	SELECT * FROM DUAL

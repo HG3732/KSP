@@ -24,7 +24,7 @@ import com.google.gson.GsonBuilder;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import education.model.dto.EduFileWriteDto;
+import education.model.dto.EduFileDto;
 
 /**
  * Servlet implementation class FileUploadController
@@ -74,15 +74,15 @@ public class FileUploadController extends HttpServlet {
 		String uploadPath = cloudinary.uploader().getUploadUrl(ObjectUtils.emptyMap());
 		System.out.println("uploadPath : " + uploadPath);
 		File uploadPathFile = new File(uploadPath);
-//		if(!uploadPathFile.exists()) {
-//			uploadPathFile.mkdirs();
-//		}
+		if(!uploadPathFile.exists()) {
+			uploadPathFile.mkdirs();
+		}
 		System.out.println("contentType : " + request.getContentType());
 		int uploadFileLimit = 50 * 1024 * 1024; // 50MB
 		MultipartRequest multiReq = new MultipartRequest(request, uploadPath, uploadFileLimit, "UTF-8", new DefaultFileRenamePolicy());
 		// 이 시점에 uploadPathFile 은 uploadPath 에 저장 완료
 		
-		//List<EduFileWriteDto> filelist = new ArrayList<EduFileWriteDto>();
+		//List<EduFileDto> filelist = new ArrayList<EduFileDto>();
 		// enumeration 은 list 와 같은 개념
 		Enumeration<?> fileNames = multiReq.getFileNames();
 		while(fileNames.hasMoreElements()) {
@@ -95,7 +95,7 @@ public class FileUploadController extends HttpServlet {
 			}else {
 				System.out.println(file.length());
 			}
-//			EduFileWriteDto filedto = new EduFileWriteDto(uploadPath, originalName, fileName);
+//			EduFileDto filedto = new EduFileDto(uploadPath, originalName, fileName);
 //			System.out.println(filedto);
 			//filelist.add(filedto);
 			Map<String, Object> map1 = new HashMap<String, Object>();

@@ -1,5 +1,7 @@
 footer{
     background-color: rgba(0, 0, 0, .3);
+    box-sizing: border-box;
+    position: relative;
 }
 
 .wrap-footer {
@@ -21,6 +23,14 @@ footer{
     justify-content: center;
 }
 
+.wrap-footer > .companyinfo .faq {
+	font-size: 20px;
+    border: none;
+    background-color: transparent;
+    line-height: 16px;
+    cursor : pointer;
+}
+
 .wrap-footer > .bottom-box {
     display: flex;
     flex-direction: column;
@@ -32,10 +42,6 @@ footer{
 	gap: 5px;
 }
 
-.wrap-footer > .bottom-box > .ourinfo > div:last-child{
-	
-}
-
 .wrap-footer .copyright {
     font-size: 12px;
 }
@@ -43,4 +49,48 @@ footer{
 .wrap-footer .icon-box {
     display: flex;
     gap: 20px;
+}
+
+.wrap-chatbox {
+	display: none;
+	position : absolute;
+	bottom : 300px;
+	left : 500px;
+	z-index : 2;
+	width : 400px;
+	height : 500px;
+	color : black;
+	border: 2px solid white;
+	flex-direction : column;
+}
+
+.topbar {
+	background-color : blue;
+	text-align: end;
+	height: 25px;
+}
+
+.content-box {
+	background-color : rgb(120, 200, 255);
+	width : 396px;
+	height : 441px;
+	padding: 10px;
+    line-height: 25px;
+}
+
+.input-box {
+	display: flex;
+	flex-direction: row;
+	height: 30px;
+}
+
+#inputmsg {
+	color : black;
+	flex-grow: 1;
+}
+
+#btn-sendmsg {
+	color : black;
+	flex-shrink : 0;
+	width: 50px;
 }

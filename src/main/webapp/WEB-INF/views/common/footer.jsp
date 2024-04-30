@@ -38,6 +38,16 @@
                 <div><img src="${pageContext.request.contextPath}/resource/image/kakaotalk.png" width="50px"/></div>
             </div>
 		</div>
+		
+		<div class="wrap-chatbox">
+		<div class="topbar"><button type="button" class="close-chat">X</button></div>
+			<div class="content-box">
+				
+			</div>
+			<div class="input-box">
+				<input type="text" id="inputmsg"><button type="button" id="btn-sendmsg">전송</button>
+			</div>
+		</div>
 	</footer>
 </body>
 <script>
@@ -48,9 +58,14 @@ let webSocket;
 		// WebSocket 객체
 		
 		$(".faq").on("click", faqHandler);
+		$(".close-chat").on("click", closeChatHandler);
 	}
 	
 	function faqHandler() {
+		$(".wrap-chatbox").css("display","flex");
+		
+		$("#btn-sendmsg").on("click", socketMsgSend);
+		
 		webSocketInit();
 		function webSocketInit() {
 		    webSocket = new WebSocket("ws://localhost:8080/star/chat2");
@@ -77,18 +92,22 @@ let webSocket;
 	       // 메시지 포맷
 	       var msg = {
 	       	type : "message",
-	          value : "메시지입니다.",
-	          seq : $("#seq").val()
+	          value : $("#inputmsg").val()
+	          //,seq : $("#seq").val()
 	       }
-	       
 	       // 세션리스트에 메시지를 송신
-	       webSocket.send(msg)
+	       webSocket.send(JSON.stringify(msg));
+	       //채팅창에 보낸 메세지 표시
+	       $(".content-box").append("<div> message : " + $("#inputmsg").val() + "</div>");
+	       $("#inputmsg").val("");
 	    }
 	    
 	    //메시지를 수신했을 때
 	    function socketMessage(event){
 	    	  var receiveData = event.data; // 수신 data
 	        alert("수신된 msg : " + receiveData);
+	    	  //채팅창에 받은 메세지 표시
+	    	  $(".content-box").append("<div>" + receiveData + "</div>");
 	    }
 
 	    // WebSocket 연결이 닫혔을 때
@@ -108,6 +127,10 @@ let webSocket;
 	    function disconnect(){
 	    	webSocket.close();
 	    }
+	}
+	
+	function closeChatHandler() {
+		$(".wrap-chatbox").css("display","none");
 	}
 </script>
 </html>

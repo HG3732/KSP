@@ -83,7 +83,7 @@ public class BoardDao {
 		
 		
 		String sql = "SELECT * FROM (" + 
-	             "    SELECT BOARD_NO, BOARD_TITLE, COUNT(FILE_ID) AS FILE_CNT, BOARD_WRITER, BOARD_WRITE_TIME, HIT, MEMBER_ADMIN," + 
+	             "    SELECT BOARD_NO, BOARD_TITLE, COUNT(FILE_ID) AS FILE_CNT, BOARD_WRITER, to_char(BOARD_WRITE_TIME, 'MM.DD HH24:MI') AS BOARD_WRITE_TIME, HIT, MEMBER_ADMIN," + 
 	             "           ROW_NUMBER() OVER (PARTITION BY MEMBER_ADMIN ORDER BY BOARD_NO DESC) AS RN" + 
 	             "    FROM BOARD_COMMUNITY LEFT JOIN BOARD_FILE ON B_NO = BOARD_NO ";
 		if (searchSubject != null) {
@@ -314,10 +314,10 @@ public class BoardDao {
 	// select list - board reply : board_id
 	public List<BoardReplyListDto> selectBoardReplyList(Connection conn, Integer boardNo) {
 		List<BoardReplyListDto> result = null;
-		String sql = "		select B_REPLY_ID, BOARD_NO," + "		B_REPLY_WRITER ,B_REPLY_CONTENT,"
+		String sql = "		select B_REPLY_ID, BOARD_NO, B_REPLY_WRITER ,B_REPLY_CONTENT,"
 				+ "		to_char(b_reply_write_time, 'MM.DD HH24:MI') AS B_REPLY_WRITE_TIME,"
-				+ "		B_REPLY_LEVEL, B_REPLY_REF, B_REPLY_STEP" + "		from board_reply"
-				+ "		where BOARD_NO = ? order by B_REPLY_ref desc," + "		B_REPLY_step";
+				+ "		B_REPLY_LEVEL, B_REPLY_REF, B_REPLY_STEP from board_reply"
+				+ "		where BOARD_NO = ? order by B_REPLY_ref desc, B_REPLY_step";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {

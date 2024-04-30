@@ -54,7 +54,7 @@ public class BoardViewController extends HttpServlet {
 //			System.out.println("뷰 컨트롤러" + boardNo);
 		} catch (NumberFormatException e) {
 			System.out.println("===NumberFormatException");
-			response.sendRedirect(request.getContextPath() + "board/community");
+			response.sendRedirect(request.getContextPath() + "/board/community");
 		}
 	}
 

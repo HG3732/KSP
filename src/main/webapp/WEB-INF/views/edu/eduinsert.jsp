@@ -756,7 +756,7 @@
 			<input type="file" name="uploadfiles" class="uploadfiles" required><button type="button" class="btn fileCancel">취소</button>
 		</div>
 		`;
-		$(this).parent().after(htmlVal);
+		$(this).parent().parent().append(htmlVal);
 		$(".btn.fileCancel").off("click");
 		$(".btn.fileCancel").on("click", eduFileCancelHandler);
 	}

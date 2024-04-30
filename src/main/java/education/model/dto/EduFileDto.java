@@ -5,24 +5,20 @@ public class EduFileDto {
 	private Integer eduId;
 	private String eduFilePath;
 	private String eduOriginalFileName;
-	private String eduSavedFileName;
 	private Integer eduFileSize;
 
 	@Override
 	public String toString() {
 		return "EduFileDto [eduFileId=" + eduFileId + ", eduId=" + eduId + ", eduFilePath=" + eduFilePath
-				+ ", eduOriginalFileName=" + eduOriginalFileName + ", eduSavedFileName=" + eduSavedFileName
-				+ ", eduFileSize=" + eduFileSize + "]";
+				+ ", eduOriginalFileName=" + eduOriginalFileName + ", eduFileSize=" + eduFileSize + "]";
 	}
 
-	public EduFileDto(Integer eduFileId, Integer eduId, String eduFilePath, String eduOriginalFileName,
-			String eduSavedFileName, Integer eduFileSize) {
+	public EduFileDto(Integer eduFileId, Integer eduId, String eduFilePath, String eduOriginalFileName, Integer eduFileSize) {
 		super();
 		this.eduFileId = eduFileId;
 		this.eduId = eduId;
 		this.eduFilePath = eduFilePath;
 		this.eduOriginalFileName = eduOriginalFileName;
-		this.eduSavedFileName = eduSavedFileName;
 		this.eduFileSize = eduFileSize;
 	}
 
@@ -40,10 +36,6 @@ public class EduFileDto {
 
 	public String getEduOriginalFileName() {
 		return eduOriginalFileName;
-	}
-
-	public String getEduSavedFileName() {
-		return eduSavedFileName;
 	}
 
 	public Integer getEduFileSize() {

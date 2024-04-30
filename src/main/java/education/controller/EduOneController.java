@@ -36,9 +36,9 @@ public class EduOneController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		loginPermission(request, response, "교육 정보를 보시려면 로그인 해주세요.");
 		System.out.println("/edu/one doGet()");
 		try {
-			loginPermission(request, response, "교육 정보를 보시려면 로그인 해주세요.");
 			// 최근 교육 제목 출력
 			EduRecentDto dtoRecent = es.selectRecent();
 			if(dtoRecent != null) {
@@ -60,7 +60,7 @@ public class EduOneController extends HttpServlet {
 			// 해당 교육 신청했는지 여부
 			request.setAttribute("cnt", ebs.selectBookCnt(dto.getMem_id(),eduId));
 			
-		} catch (NumberFormatException | NullPointerException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		request.getRequestDispatcher("/WEB-INF/views/edu/eduone.jsp").forward(request, response);

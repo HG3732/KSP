@@ -42,7 +42,8 @@
 		<div class="wrap-chatbox">
 		<div class="topbar"><button type="button" class="close-chat">X</button></div>
 			<div class="content-box">
-				
+				<div class="msgbox"> message : 첫메세지</div>
+				<div class="receivebox">receiveData</div>
 			</div>
 			<div class="input-box">
 				<input type="text" id="inputmsg"><button type="button" id="btn-sendmsg">전송</button>
@@ -53,9 +54,9 @@
 <script>
 $(loadedHandler)
 
+var contentbox = document.querySelector(".content-box");
 let webSocket;
 	function loadedHandler(){
-		// WebSocket 객체
 		
 		$(".faq").on("click", faqHandler);
 		$(".close-chat").on("click", closeChatHandler);
@@ -89,17 +90,22 @@ let webSocket;
 
 	  //메시지를 송신할 때 사용
 	    function socketMsgSend(){
-	       // 메시지 포맷
-	       var msg = {
-	       	type : "message",
-	          value : $("#inputmsg").val()
-	          //,seq : $("#seq").val()
-	       }
-	       // 세션리스트에 메시지를 송신
-	       webSocket.send(JSON.stringify(msg));
-	       //채팅창에 보낸 메세지 표시
-	       $(".content-box").append("<div> message : " + $("#inputmsg").val() + "</div>");
-	       $("#inputmsg").val("");
+	       
+		  if($("#inputmsg").val().trim() != ""){
+			  // 메시지 포맷
+		       var msg = {
+		       	type : "message",
+		          value : $("#inputmsg").val()
+		          //,seq : $("#seq").val()
+		       }
+		       // 세션리스트에 메시지를 송신
+		       webSocket.send(JSON.stringify(msg));
+		       //채팅창에 보낸 메세지 표시
+		       
+		       $(".content-box").append('<div class="msgbox">message : ' + $("#inputmsg").val() + '</div>');
+		       contentbox.scrollTop = contentbox.scrollHeight;
+		       $("#inputmsg").val("");
+			}
 	    }
 	    
 	    //메시지를 수신했을 때
@@ -107,7 +113,8 @@ let webSocket;
 	    	  var receiveData = event.data; // 수신 data
 	        alert("수신된 msg : " + receiveData);
 	    	  //채팅창에 받은 메세지 표시
-	    	  $(".content-box").append("<div>" + receiveData + "</div>");
+	    	  $(".content-box").append('<div class="receivebox">' + receiveData + "</div>");
+	    	  contentbox.scrollTop = contentbox.scrollHeight;
 	    }
 
 	    // WebSocket 연결이 닫혔을 때

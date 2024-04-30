@@ -76,6 +76,29 @@ footer{
 	height : 441px;
 	padding: 10px;
     line-height: 25px;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 10px;
+    overflow: auto;
+}
+
+.content-box > .msgbox {
+	background-color : yellow;
+	border-radius: 10px;
+	color: black;
+	padding: 0 5px;
+	width: fit-content;
+	word-break: break-all;
+	align-self: end;
+}
+
+.content-box > .receivebox {
+	background-color : lawngreen;
+	border-radius: 10px;
+	color: black;
+	padding: 0 5px;
+	width: fit-content;
+	word-break: break-all;
 }
 
 .input-box {

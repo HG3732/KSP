@@ -40,9 +40,6 @@ var currentpage = 1;
 			, dataType : "json"
 			, error : ajaxErrorHandler
 			, success : function(result){
-/* 				console.log(result);
-				console.log(result.dtoList);
-				console.log(result.keyword); */
 				if(result.keyword){
 					$("[name=search]").val(result.keyword);
 				}
@@ -86,9 +83,6 @@ var currentpage = 1;
 			var totalPageCount = datalist.totalPageCount;
 			var startPageNum = datalist.startPageNum;
 			var endPageNum = datalist.endPageNum;
-/* 			console.log(totalPageCount);
-			console.log(startPageNum);
-			console.log(endPageNum); */
 			var htmlVal = '';
 			
 			if(startPageNum > 1) {

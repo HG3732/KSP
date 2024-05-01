@@ -29,4 +29,9 @@
 	</if>
 	SELECT * FROM DUAL
 	</insert>
+	
+	<!-- 교육 삭제 -->
+	<delete id="delete" parameterType="int">
+	DELETE FROM EDU_LIST WHERE EDU_ID = #{eduId}
+	</delete>
 </mapper>

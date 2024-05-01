@@ -52,7 +52,23 @@ public class EduOneController extends HttpServlet {
 			Integer eduId = Integer.parseInt(eduIdStr);
 			request.setAttribute("eduOne", es.selectOne(eduId));
 			EduOneDto eduOneDto = (EduOneDto) request.getAttribute("eduOne");
-			System.out.println(eduOneDto.getEduContent());
+//			String content = eduOneDto.getEduContent();
+//			int contentLen = eduOneDto.getEduContent().length();
+//			int contentNum = ((contentLen/20000) == 0) ? (contentLen/20000) : (contentLen/20000)+1 ;
+//			int test = 0;
+//			request.setAttribute("contentNum", contentNum);
+//			for(int i = 0; i < contentNum; i++) {
+//				if((20000*(i+1)-1)>=(contentLen-1)) {
+//					request.setAttribute("eduContent"+i, content.substring(20000*i, contentLen-1));
+//					System.out.println("=============="+content.substring(20000*i, contentLen-1));
+//					test += content.substring(20000*i, contentLen-1).length();
+//				}else {
+//					request.setAttribute("eduContent"+i, content.substring(20000*i, 20000*(i+1)-1));
+//					System.out.println("=============="+content.substring(20000*i, 20000*(i+1)-1));
+//					test += content.substring(20000*i, 20000*(i+1)-1).length();
+//				}
+//			}
+//			System.out.println("test : " + test);
 			
 			// 로그인 세션 정보
 			MemberInfoDto dto = (MemberInfoDto)request.getSession().getAttribute("ssslogin");

@@ -94,12 +94,12 @@ public class EduService {
 		return result;
 	}
 	
-	// delete
+	// 교육 삭제
 	public int delete(Integer eduId) {
 		int result = 0;
-		Connection con = getConnection(true);
-		result = dao.delete(con, eduId);
-		close(con);
+		SqlSession session = MybatisTemplate.getSqlSession(true);
+		result = dao.delete(session, eduId);
+		session.close();
 		return result;
 	}
 }

@@ -201,24 +201,11 @@ public class EduDao {
 		return result;
 	}
 	
-	// delete
-	public int delete(Connection con, Integer eduId) {
+	// 교육 삭제
+	public int delete(SqlSession session, Integer eduId) {
 		System.out.println("EduDao delete()");
 		int result = 0;
-		String sql = "DELETE FROM EDU_LIST WHERE EDU_ID = ?";
-		PreparedStatement pstmt = null;
-		
-		try {
-			pstmt = con.prepareStatement(sql);
-			// ? 자리
-			pstmt.setInt(1, eduId);
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		close(pstmt);
+		result = session.delete("edu.delete", eduId);
 		System.out.println("result : " + result);
 		return result;
 	}

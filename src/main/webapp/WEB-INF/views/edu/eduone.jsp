@@ -379,7 +379,18 @@
                             	<div id="editor-container">
 								    <div class="container">
 								        <div id="outline" class="document-outline-container" style="display: none;"></div>
-								        <textarea name="eduContent" id="editor"></textarea>
+								        <textarea id="editor"></textarea>
+								        <%-- 
+								        <input type="hidden" name="eduContent" id="eduContent" value="${eduOne.eduContent }">
+								        <%
+								        int contentNum = (int)request.getAttribute("contentNum");
+								        for(int i = 0; i < contentNum; i++){
+								        	String contentVal = (String)request.getAttribute("eduContent"+i);%>
+								        	<input type='hidden' id='eduContent<%=i%>' value='<%=contentVal%>'>
+								        <%
+								        }
+								        %>
+								         --%>
 								    </div>
 								</div>
                             </div>
@@ -704,8 +715,13 @@
 				var content = document.getElementById("eduCon");
 	            a.setData(content.value);
 	             */
-	            var content = '${eduOne.eduContent}';
-	            a.setData(content);
+	            /* 
+	            var content;
+	            for(var i = 0; i < ${contentNum}; i++){
+	            	content += document.getElementById('eduContent'+i).value;
+	            }
+	             */
+	            a.setData('${eduOne.eduContent}');
 	            // Example implementation to switch between different types of annotations according to the window size.
 	            // https://ckeditor.com/docs/ckeditor5/latest/features/collaboration/annotations/annotations-display-mode.html
 	            const annotationsUIs = a.plugins.get( 'AnnotationsUIs' );
@@ -792,7 +808,7 @@
 			$.ajax({
 				url : "${pageContext.request.contextPath}/edu/delete.ajax"
 				, method : "post"
-				, data : "${eduOne.eduId}"
+				, data : {eduId : '${eduOne.eduId}'}
 				, error : ajaxErrorHandler
 				, success : function(result){
 					if(result == 1){

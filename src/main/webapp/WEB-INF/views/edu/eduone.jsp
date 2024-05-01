@@ -805,20 +805,22 @@
 		}
 		// 교육 삭제
 		function eduDelHandler(){
-			$.ajax({
-				url : "${pageContext.request.contextPath}/edu/delete.ajax"
-				, method : "post"
-				, data : {eduId : '${eduOne.eduId}'}
-				, error : ajaxErrorHandler
-				, success : function(result){
-					if(result == 1){
-						alert("교육이 삭제되었습니다.");
-						location.href = "${pageContext.request.contextPath}/edu";
-					}else{
-						alert("교육 삭제 중 오류가 발생했습니다.");
+			if(confirm("교육을 삭제하시겠습니까?")){
+				$.ajax({
+					url : "${pageContext.request.contextPath}/edu/delete.ajax"
+					, method : "post"
+					, data : {eduId : '${eduOne.eduId}'}
+					, error : ajaxErrorHandler
+					, success : function(result){
+						if(result == 1){
+							alert("교육이 삭제되었습니다.");
+							location.href = "${pageContext.request.contextPath}/edu";
+						}else{
+							alert("교육 삭제 중 오류가 발생했습니다.");
+						}
 					}
-				}
-			});
+				});
+			}
 		}
 		(function border(){
 			$("tr:first-of-type").css("border-bottom", "1px solid white");

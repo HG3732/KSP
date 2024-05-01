@@ -41,7 +41,6 @@ public class EduDeleteController extends HttpServlet {
 			result = 1;
 			response.getWriter().append(String.valueOf(result));
 		}
-		response.sendRedirect(request.getContextPath() + "/edu");
 	}
 
 }

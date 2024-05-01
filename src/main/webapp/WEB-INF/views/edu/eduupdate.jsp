@@ -325,7 +325,8 @@
 	                                운영요일
 	                            </div>
 	                            <div class="grid item1">
-	                            	<select name="eduDay">
+	                            	<input type="hidden" name="eduDayHidden" value="${eduOne.eduDay }">
+	                            	<select name="eduDay" id="eduDay">
 	                            		<option value="every">매일</option>
 	                            		<option value="mon">월요일</option>
 	                            		<option value="tue">화요일</option>
@@ -344,7 +345,8 @@
 	                                교육대상
 	                            </div>
 	                            <div class="grid item1">
-	                            	<select name="eduParticipant">
+	                            	<input type="hidden" name="eduParticipantHidden" value="${eduOne.eduParticipant }">
+	                            	<select name="eduParticipant" id="eduParticipant">
 	                            		<option value="all">모두</option>
 	                            		<option value="element">초등학생</option>
 	                            		<option value="middle">중학생</option>
@@ -403,7 +405,7 @@
                 'undo', 'redo',
                 '-',
                 'bold', 'italic', 'strikethrough', 'underline', 'removeFormat', '|',
-                'bulletedList', 'numberedList', 'todoList', '|',
+                // 'bulletedList', 'numberedList', 'todoList', '|',
                 'outdent', 'indent', '|',
                 'alignment', '|',
                 '-',

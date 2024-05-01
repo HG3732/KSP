@@ -437,7 +437,7 @@
 	                'undo', 'redo',
 	                '-',
 	                'bold', 'italic', 'strikethrough', 'underline', 'removeFormat', '|',
-	                'bulletedList', 'numberedList', 'todoList', '|',
+	                // 'bulletedList', 'numberedList', 'todoList', '|',
 	                'outdent', 'indent', '|',
 	                'alignment', '|',
 	                '-',

@@ -25,6 +25,14 @@ header div.wrap-header {
     color: #ccc;
 }
 
+.wrap-header > .top-bar .chat {
+	border: none;
+    background-color: transparent;
+    color: #ccc;
+    line-height: 12px;
+    cursor : pointer;
+}
+
 /*  로고 영역   */
 div.logo{
     width: fit-content;
@@ -81,4 +89,72 @@ div.logo a{
 .wrap-header > .bottom-info > .weather-box {
 	overflow: hidden;
 	line-height: 25px;
+}
+
+/* 오픈 채팅방 */
+.wrap-chatbox {
+	display: none;
+	position : absolute;
+	bottom : 300px;
+	left : 500px;
+	z-index : 2;
+	width : 400px;
+	height : 500px;
+	color : black;
+	border: 2px solid white;
+	flex-direction : column;
+}
+
+.topbar {
+	background-color : blue;
+	text-align: end;
+	height: 25px;
+}
+
+.content-box {
+	background-color : rgb(120, 200, 255);
+	width : 396px;
+	height : 441px;
+	padding: 10px;
+    line-height: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: auto;
+}
+
+.content-box > .msgbox {
+	background-color : yellow;
+	border-radius: 10px;
+	color: black;
+	padding: 0 5px;
+	width: fit-content;
+	word-break: break-all;
+	align-self: end;
+}
+
+.content-box > .receivebox {
+	background-color : lawngreen;
+	border-radius: 10px;
+	color: black;
+	padding: 0 5px;
+	width: fit-content;
+	word-break: break-all;
+}
+
+.input-box {
+	display: flex;
+	flex-direction: row;
+	height: 30px;
+}
+
+#inputmsg {
+	color : black;
+	flex-grow: 1;
+}
+
+#btn-sendmsg {
+	color : black;
+	flex-shrink : 0;
+	width: 50px;
 }

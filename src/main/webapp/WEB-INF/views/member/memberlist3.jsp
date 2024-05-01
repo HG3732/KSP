@@ -204,6 +204,12 @@ var currentpage = 1;
 		$(".sort-grade1").toggle();
 	}
 	
+	function entersearch() {
+		if (window.event.keyCode == 13) {
+	    	document.getElementById('btn-search').click();
+	    }
+	}
+	
 	
 
 </script>
@@ -230,8 +236,8 @@ var currentpage = 1;
 		                    <option value="MEMBER_ADDRESS">주소</option>
 		                    <option value="MEMBER_ADMIN">등급</option>
 		                </select>
-		                <input type="text" name="search" class="search">
-		                <button type="button" name="btn-search" class="btn-search">검색</button>
+		                <input type="text" name="search" class="search" onkeyup="entersearch()">
+		                <button type="button" name="btn-search" class="btn-search" id="btn-search">검색</button>
 		            </form>
 		        </div>
 		        <div class="check-title">

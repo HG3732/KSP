@@ -93,6 +93,7 @@ public class WeatherDao {
         			String category = eElement.getElementsByTagName("category").item(0).getTextContent();
         			if(category.equals("PTY")) {
         				String fcstDate = eElement.getElementsByTagName("fcstDate").item(0).getTextContent();
+        				fcstDate = fcstDate.substring(2);
         				String fcstTimeStr = eElement.getElementsByTagName("fcstTime").item(0).getTextContent();
         				String fcstTime = fcstTimeStr.substring(0, 2);
         				String value = eElement.getElementsByTagName("fcstValue").item(0).getTextContent();
@@ -130,6 +131,7 @@ public class WeatherDao {
         				session.insert("weather.insertPty", wp);
         			} else if (category.equals("SKY")) {
         				String fcstDate = eElement.getElementsByTagName("fcstDate").item(0).getTextContent();
+        				fcstDate = fcstDate.substring(2);
         				String fcstTimeStr = eElement.getElementsByTagName("fcstTime").item(0).getTextContent();
         				String fcstTime = fcstTimeStr.substring(0, 2);
         				String value = eElement.getElementsByTagName("fcstValue").item(0).getTextContent();
@@ -153,6 +155,7 @@ public class WeatherDao {
         			} else if (category.equals("T1H"))
         				{
         				String fcstDate = eElement.getElementsByTagName("fcstDate").item(0).getTextContent();
+        				fcstDate = fcstDate.substring(2);
         				String fcstTimeStr = eElement.getElementsByTagName("fcstTime").item(0).getTextContent();
         				String fcstTime = fcstTimeStr.substring(0, 2);
         				String value = eElement.getElementsByTagName("fcstValue").item(0).getTextContent();

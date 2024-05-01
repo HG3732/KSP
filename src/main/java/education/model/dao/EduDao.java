@@ -169,34 +169,11 @@ public class EduDao {
 		return result;
 	}
 	
-	// update
-	public int update(Connection con, EduOneDto dto) {
+	// 교육 수정
+	public int update(SqlSession session, EduOneDto dto) {
 		System.out.println("EduDao update()");
 		int result = 0;
-		String sql = "UPDATE EDU_LIST SET EDU_SUBJECT = ?, EDU_CONTENT = ?, EDU_ADDRESS = ?, EDU_PARTICIPANT = ?, "
-				+ " EDU_DAY = ?, EDU_BOOK_START = ?, EDU_BOOK_END = ?, EDU_START = ?, EDU_END = ? WHERE EDU_ID = ? ";
-		PreparedStatement pstmt = null;
-		
-		try {
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, dto.getEduSubject());
-			pstmt.setString(2, dto.getEduContent());
-			pstmt.setString(3, dto.getEduAddress());
-			pstmt.setString(4, dto.getEduParticipant());
-			pstmt.setString(5, dto.getEduDay());
-			pstmt.setString(6, dto.getEduBookStart());
-			pstmt.setString(7, dto.getEduBookEnd());
-			pstmt.setString(8, dto.getEduStart());
-			pstmt.setString(9, dto.getEduEnd());
-			pstmt.setInt(10, dto.getEduId());
-			
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		close(pstmt);
+		result = session.update("edu.update", dto);
 		System.out.println("result : " + result);
 		return result;
 	}

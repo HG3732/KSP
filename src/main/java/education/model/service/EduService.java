@@ -85,12 +85,12 @@ public class EduService {
 		return result;
 	}
 	
-	// update
+	// 교육 수정
 	public int update(EduOneDto dto) {
 		int result = 0;
-		Connection con = getConnection(true);
-		result = dao.update(con, dto);
-		close(con);
+		SqlSession session = MybatisTemplate.getSqlSession(true);
+		result = dao.update(session, dto);
+		session.close();
 		return result;
 	}
 	

@@ -356,13 +356,10 @@
 	                                정원
 	                            </div>
 	                            <div class="grid item1">
+	                            	<input type="hidden" name="eduBookNum" value="${eduOne.eduBookNum }">
 	                                <input type="number" name="eduMaxNum" value="${eduOne.eduMaxNum }" min="${eduOne.eduBookNum }" required autocomplete="off">
 	                            </div>
 	                            <div class="grid item1 eduContent">
-	                            <%
-                            	EduOneDto dto = (EduOneDto)request.getAttribute("eduOne");
-                            	%>
-                            	<input type="hidden" name="eduCon" id="eduCon" value='<%=dto.getEduContent() %>'>
                                     <div id="editor-container">
 									    <div class="container">
 									        <div id="outline" class="document-outline-container" style="display: none;"></div>
@@ -677,8 +674,7 @@
     } )
         .then( b => {
             a = b;
-            var content = document.getElementById('eduCon');
-            a.setData(content.value);
+            a.setData('${eduOne.eduContent}');
             // Example implementation to switch between different types of annotations according to the window size.
             // https://ckeditor.com/docs/ckeditor5/latest/features/collaboration/annotations/annotations-display-mode.html
             const annotationsUIs = a.plugins.get( 'AnnotationsUIs' );
@@ -743,6 +739,7 @@ function eduBookListHandler(){
 }
 // 교육 내용 수정하기
 function eduUpdateHandler(){
+	$("[name=eduContent]").val(a.getData());
 	if(confirm("교육 내용을 수정하시겠습니까?")){
 		$.ajax({
 			url : "${pageContext.request.contextPath}/edu/list/update"
@@ -752,7 +749,7 @@ function eduUpdateHandler(){
 			, success : function(result){
 				if(result == 1){
 					alert("교육 수정이 완료되었습니다.");
-					location.href = "${pageContext.request.contextPath}/edu/one?id=" + $("input[name=eduId]").val();
+					location.href = "${pageContext.request.contextPath}/edu/one?id=" + '${eduOne.eduId}';
 				}else{
 					alert("교육 수정 중 오류가 발생했습니다.\n관리자에게 문의해주시기 바랍니다.");
 				}

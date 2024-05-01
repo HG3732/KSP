@@ -34,4 +34,9 @@
 	<delete id="delete" parameterType="int">
 	DELETE FROM EDU_LIST WHERE EDU_ID = #{eduId}
 	</delete>
+	
+	<!-- 교육 수정 -->
+	<update id="update" parameterType="EduOneDto">
+	UPDATE EDU_LIST SET EDU_SUBJECT = #{eduSubject}, EDU_CONTENT = #{eduContent}, EDU_ADDRESS = #{eduAddress}, EDU_PARTICIPANT = #{eduParticipant}, EDU_DAY = #{eduDay}, EDU_BOOK_START = #{eduBookStart}, EDU_BOOK_END = #{eduBookEnd}, EDU_START = #{eduStart}, EDU_END = #{eduEnd} WHERE EDU_ID = #{eduId} 
+	</update>
 </mapper>

@@ -48,7 +48,7 @@ let webSocket;
 		
 		webSocketInit();
 		function webSocketInit() {
-		    webSocket = new WebSocket("ws://localhost:8080/star/chat2");
+		    webSocket = new WebSocket("ws://192.168.10.41:8080/star/chat2");
 			webSocket.onopen = function(event) { socketOpen(event);};
 			webSocket.onclose = function(event) { socketClose(event);};
 			webSocket.onmessage = function(event) { socketMessage(event);};

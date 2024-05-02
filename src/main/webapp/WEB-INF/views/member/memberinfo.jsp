@@ -40,18 +40,7 @@
 	       <form method="post" action="${pageContext.request.contextPath}/member/delete">
 	       		<button type="submit" name="delete-mem" class="change" value="${mem_id}" style="background-color: red;">회원 삭제</button>
 	       </form>
-	       <button type="button" name="apply-edu-list" class="change apply-edu-list">신청 교육 목록</button>
        </div>
     </div>
-<script>
-$(loadedHandler);
-	function loadedHandler() {
-		$(".apply-edu-list").on("click", eduListClickHandler);
-	}
-	
-	function eduListClickHandler(){
-		location.href="${pageContext.request.contextPath}/edu/mem/list";
-	}
-</script>
 </body>
 </html>

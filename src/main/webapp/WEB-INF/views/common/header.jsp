@@ -41,6 +41,7 @@ let webSocket;
 	}
  	
  	function faqHandler() {
+ 		
 		$(".wrap-chatbox").css("display","flex");
 		$("#btn-sendmsg").on("click", socketMsgSend);
 		$(".close-chat").on("click", closeChatHandler);

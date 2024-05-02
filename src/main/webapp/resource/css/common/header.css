@@ -94,9 +94,10 @@ div.logo a{
 /* 오픈 채팅방 */
 .wrap-chatbox {
 	display: none;
-	position : absolute;
-	bottom : 300px;
-	left : 500px;
+	position : fixed;
+	top : 71%;
+	left : 87%;
+	transform: translate(-50%, -50%);
 	z-index : 2;
 	width : 400px;
 	height : 500px;
@@ -109,6 +110,10 @@ div.logo a{
 	background-color : blue;
 	text-align: end;
 	height: 25px;
+}
+
+.topbar > .close-chat {
+	line-height : 18px;
 }
 
 .content-box {

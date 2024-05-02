@@ -67,9 +67,7 @@
 </head>
 
 <body>
-	<div class="wrap-header">
-		<%@include file="/WEB-INF/views/common/header.jsp" %>
-	</div>
+	<%@include file="/WEB-INF/views/common/header.jsp" %>
     <div class="wrap-main">
         <div class="edu-book-info">
         	<input type="hidden" name="email" class="email" value="${ssslogin.mem_email }">
@@ -172,12 +170,8 @@
                 </table>
             </form>
         </div>
-        <div class="wrap-footer">
-            <footer>
-                <%@include file="/WEB-INF/views/common/footer.jsp" %>
-            </footer>
-        </div>
     </div>
+    <%@include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 <script>
 $(loadedHandler);

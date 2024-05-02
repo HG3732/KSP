@@ -256,9 +256,7 @@
 </head>
 
 <body>
-	<div class="wrap-header">
-		<%@include file="/WEB-INF/views/common/header.jsp" %>
-	</div>
+	<%@include file="/WEB-INF/views/common/header.jsp" %>
     <div class="wrap-main">
         <div class="content">
     		<div class="tabs">
@@ -381,12 +379,8 @@
                 </div>
             </div>
         </div>
-        <div class="wrap-footer">
-            <footer>
-				<%@include file="/WEB-INF/views/common/footer.jsp" %>
-            </footer>
-        </div>
     </div>
+	<%@include file="/WEB-INF/views/common/footer.jsp" %>
 <script src="https://cdn.ckbox.io/CKBox/2.4.0/ckbox.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/41.2.0/super-build/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/41.2.0/super-build/translations/ko.js"></script>

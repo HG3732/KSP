@@ -192,9 +192,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="wrap-header">
-		<%@include file="/WEB-INF/views/common/header.jsp" %>
-	</div>
+	<%@include file="/WEB-INF/views/common/header.jsp" %>
     <div class="wrap-main">
         <div class="content">
             <div class="tabs">
@@ -218,11 +216,7 @@
             </c:choose>
         </div>
     </div>
-    <div class="wrap-footer">
-        <footer>
-            <%@include file="/WEB-INF/views/common/footer.jsp" %>
-        </footer>
-    </div>
+    <%@include file="/WEB-INF/views/common/footer.jsp" %>
 	<script>
 	// 교육 목록 페이지 이동
 	function eduListHandler(){

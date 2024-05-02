@@ -150,7 +150,7 @@ let webSocket;
 	                </c:otherwise>
 	            </c:choose>
             </div>
-	        <div class="logo"><a href="${pageContext.request.contextPath}/home">김서박</a></div>
+	        <div class="logo"><a href="${pageContext.request.contextPath}/home" class="logo">김서박</a></div>
 	        <div class="nav">
 	            <div><a href="${pageContext.request.contextPath}/edu" class="edu">교육 신청</a></div>
 	            <div><a href="${pageContext.request.contextPath}/board/community" class="board">게시판</a></div>

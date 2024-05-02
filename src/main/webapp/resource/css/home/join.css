@@ -25,10 +25,12 @@ header > div.top {
 
 header > div.top > a {
     display: block;
-    width: 140px;
-    height: 47px;
     margin: 0 auto;
-    padding: 0;
+    background-image: url('../../image/logo.png');
+    background-repeat: no-repeat;
+    text-indent: -9999px;
+    width: 180px;
+    height: 96px;
 }
 
 /* 메인 */

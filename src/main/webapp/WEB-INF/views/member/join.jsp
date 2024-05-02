@@ -262,7 +262,7 @@
     <div class="wrap-signUp">
         <header>
             <div class="top">
-                <a href="${pageContext.request.contextPath}/home" target="_blank"></a>
+                <a href="${pageContext.request.contextPath}/home" target="_blank">김서박</a>
             </div>
         </header>
         <main>

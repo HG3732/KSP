@@ -35,13 +35,18 @@ header div.wrap-header {
 
 /*  로고 영역   */
 div.logo{
-    width: fit-content;
+    width: 180px;
     margin: 0 auto;
     padding: 30px;
     font-weight: bold;
 }
-div.logo a{
-    font-size: 40px;
+div.logo > a{
+	display: inline-block;
+    background-image: url('../../image/logo.png');
+    background-repeat: no-repeat;
+    text-indent: -9999px;
+    width: 180px;
+    height: 85px;
 }
 
 /*  nav메뉴 영역    */

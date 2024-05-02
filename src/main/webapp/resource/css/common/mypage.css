@@ -60,9 +60,15 @@ body {
 	margin-top: 25px;
 }
 
-#quit-info > .quit{
+#quit-info > button.quit{
 	position: absolute;
 	left: 43px;
+	background-color: red;
+}
+
+#quit-info > button.quit:disabled{
+    background-color: #aaa;
+    color: white;
 }
 
 .viewedu {

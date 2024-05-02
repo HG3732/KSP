@@ -66,7 +66,6 @@ public class EduBookInsertController extends HttpServlet {
 		String eduPartNumStr = request.getParameter("book-num");
 		Integer eduPartNum = Integer.parseInt(eduPartNumStr);
 		
-		EduOneDto eduOne = es.selectOne(eduId);
 		int result = 0;
 		result = ebs.insert(new EduBookDto(eduBookId, eduId, eduBookPhone, eduPartLevel, eduPartName, eduPartSchool, eduPartNum));
 		

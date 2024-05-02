@@ -214,6 +214,7 @@ function successCodeHandler(){
 	$("#book-level").prop("disabled", false);
 	$("#book-part-name").prop("disabled", false);
 	$("#book-school").prop("disabled", false);
+	$("#book-num").prop("disabled", false);
 }
 // 신청 정보 입력 확인
 function checkValHandler(){

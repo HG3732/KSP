@@ -16,6 +16,7 @@ $(loadedHandler)
 			$(".checkpw").on("click", sendPwdHandler);
 			$(".change").on("click", changeInfoHandler);
 			$(".quit").on("click", quitHandler);
+			$(".viewedu").on("click", viewEduHandler);
 	}	
 	
 	function sendPwdHandler() {
@@ -87,6 +88,11 @@ $(loadedHandler)
 				}
 			})
 		}
+	
+	function viewEduHandler() {
+		opener.location.href= "${pageContext.request.contextPath}/edu/mem/list";
+		self.close();
+	}
 </script>    
 </head>
 <body>
@@ -156,6 +162,7 @@ $(loadedHandler)
 	       		<input type="hidden" name="member_id" value="${ssslogin.mem_id}">
 	      		<button type="button" name="quit" class="quit" style="background-color: red;">회원 탈퇴</button>
 		   </form>
+	      		<button type="button" name="viewedu" class="viewedu">신청 교육 조회</button>
 	   </div>
     </div>
 </body>

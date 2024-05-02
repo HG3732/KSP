@@ -14,8 +14,10 @@ body {
     color: white;
     font-size: 24px;
     width: 700px;
+    height: 450px;
     background-color: rgba(255,255,255, .2);
     padding-bottom: 20px;
+    position: relative;
 }
 
 .wrap-mypage table {
@@ -54,6 +56,18 @@ body {
 	text-align: center;
 }
 
-button.quit {
-	margin: 15px auto;
+.wrap-quit {
+	margin-top: 25px;
 }
+
+#quit-info > .quit{
+	position: absolute;
+	left: 43px;
+}
+
+.viewedu {
+ 	position: absolute;
+    right: 56px;
+}
+
+

@@ -60,6 +60,7 @@ public class BoardUpdateController extends HttpServlet {
 			BoardViewDto viewDto = service.selectOne(boardNo);
 			String reTitle = viewDto.getBoardTitle();
 			String reContent = viewDto.getBoardContent();
+//			reContent = reContent.replaceAll("<br>", "");
 			BoardViewDto reDto = new BoardViewDto(boardNo, reTitle, memberInfoDto.getMem_id(),
 												  viewDto.getBoardWriteTime(), viewDto.getHit(), reContent, viewDto.getMemberAdmin());
 			request.setAttribute("detail", reDto);

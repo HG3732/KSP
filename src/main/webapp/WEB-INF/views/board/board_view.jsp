@@ -858,6 +858,7 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
                     // readonly 모드 시 툴바 제거
                     const toolbarElement = b.ui.view.toolbar.element;
                     toolbarElement.style.display='none';
+                    // 글의 내용을 setData에 대입
                     var content = '${dto.boardContent}';
                     b.setData(content);
                     // Example implementation to switch between different types of annotations according to the window size.

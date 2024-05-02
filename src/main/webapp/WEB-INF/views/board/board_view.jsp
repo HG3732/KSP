@@ -210,7 +210,7 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
         	console.log("댓글 등록버튼 눌림");
             // 로그인 확인
             // $ssslogin === null || ssslogin === undefined || ssslogin === ''
-			if("${empty ssslogin}"){
+			if("${ssslogin}" == null || "${ssslogin}" === ''){
 				alert("로그인 후 댓글 작성이 가능합니다.");
 				location.href="${pageContext.request.contextPath}/login";
 	            return;

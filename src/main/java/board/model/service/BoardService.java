@@ -100,6 +100,7 @@ public class BoardService {
 		Connection conn = getConnection(true);
 		result = dao.selectTotalReply(conn, boardNo);
 		close(conn);
+		System.out.println("댓글 개수 카운팅 : " + result);
 		return result;
 	}
 

@@ -50,7 +50,7 @@ public class BoardReplyReadController extends HttpServlet {
 //		System.out.println("댓글 리드 컨트롤러 replyCount : " + service.selectReplyCount(boardNo));
 		try {
 			int boardNo = Integer.parseInt(boardNostr);
-//			request.setAttribute("replycount", service.selectReplyCount(boardNo));
+			request.setAttribute("replycount", service.selectReplyCount(boardNo));
 			response.getWriter().append(new Gson().toJson(service.selectBoardReplyList(boardNo)));
 		} catch (Exception e) {
 			System.out.println("댓글 리드 컨트롤러 넘버포멧익세셉세베");

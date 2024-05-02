@@ -41,6 +41,8 @@ public class BoardUpdateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		AlertController.loginPermission(request, response, "로그인 후 글 작성이 가능합니다.");
+		
 		String noStr = request.getParameter("no");
 		try {
 			int no = Integer.parseInt(noStr);
@@ -51,7 +53,6 @@ public class BoardUpdateController extends HttpServlet {
 		}
 
 		try {
-			AlertController.loginPermission(request, response, "로그인 후 글 작성이 가능합니다.");
 			MemberInfoDto memberInfoDto = (MemberInfoDto) request.getSession().getAttribute("ssslogin");
 
 			String boardNoStr = request.getParameter("no");
@@ -67,7 +68,7 @@ public class BoardUpdateController extends HttpServlet {
 			System.out.println("업데이트 doGet boardNo : " + boardNo);
 		} catch (Exception e) {
 			e.printStackTrace();
-			response.sendRedirect(request.getContextPath() + "home");
+			response.sendRedirect(request.getContextPath() + "/login");
 		}
 //		request.getRequestDispatcher("/WEB-INF/views/board/board_update.jsp").forward(request, response);
 

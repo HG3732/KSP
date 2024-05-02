@@ -140,9 +140,10 @@ rel="stylesheet">
 
 	<script>
 	// 로그인상태 확인
-	(function () {
+	(function() {
 		loginPermission();
-	})(); //
+	})();
+	//
 		$(loadedHandler);
 		function loadedHandler() {
 			/* $("#btn-list-modalok").on("click", loginPermission); */

@@ -2,6 +2,7 @@ package board.model.service;
 
 import static common.SemiTemplate.*;
 
+import java.beans.beancontext.BeanContextChildComponentProxy;
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.List;
@@ -64,11 +65,14 @@ public class BoardService {
 		close(conn);
 
 		result = new HashMap<String, Object>();
+		result.put("totalCount", totalCount);
 		result.put("dtolist", dtolist);
 		result.put("totalPageCount", totalPageCount);
 		result.put("startPageNum", startPageNum);
 		result.put("endPageNum", endPageNum);
 		result.put("currentPageNum", currentPageNum);
+		System.out.println("글 전체 개수 : " + totalCount);
+		System.out.println("글 페이지 개수 totalCount / pageSize: " + totalCount + "/" + pageSize + "=" + totalPageCount);
 //		System.out.println("selectPageList() : "+result);
 //		System.out.println("여긴 서비스"+dtolist);
 		return result;
@@ -95,7 +99,6 @@ public class BoardService {
 		int result = 0;
 		Connection conn = getConnection(true);
 		result = dao.selectTotalReply(conn, boardNo);
-		
 		close(conn);
 		return result;
 	}
@@ -132,13 +135,13 @@ public class BoardService {
 
 	// -------board reply 댓글
 	// select reply list - list
-	public List<BoardReplyListDto> selectReplyList() {
-		List<BoardReplyListDto> result = null;
-		Connection conn = getConnection(true);
-		result = dao.selectBoardReplyList(conn, null);
-		close(conn);
-		return result;
-	}
+//	public List<BoardReplyListDto> selectReplyList() {
+//		List<BoardReplyListDto> result = null;
+//		Connection conn = getConnection(true);
+//		result = dao.selectBoardReplyList(conn, null);
+//		close(conn);
+//		return result;
+//	}
 
 	// select list -
 	public List<BoardReplyListDto> selectBoardReplyList(Integer boardNo) {
@@ -146,6 +149,14 @@ public class BoardService {
 		Connection conn = getConnection(true);
 		result = dao.selectBoardReplyList(conn, boardNo);
 		close(conn);
+		return result;
+	}
+	
+	public int selectTotalReply(Integer boardNo) {
+		int result = 0;
+		Connection conn = getConnection(true);
+		autocommit(conn, false);
+		result = dao.selectTotalReply(conn, boardNo);
 		return result;
 	}
 

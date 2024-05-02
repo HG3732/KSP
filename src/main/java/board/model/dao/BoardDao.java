@@ -41,7 +41,11 @@ public class BoardDao {
 		String sql = "SELECT COUNT(*) CNT FROM BOARD_COMMUNITY";
 		if (searchSubject != null) {
 			sql += " WHERE BOARD_TITLE LIKE '%" + searchSubject + "%' ";
+			sql += " AND MEMBER_ADMIN = 0";
+		}else {
+			sql += " WHERE MEMBER_ADMIN = 0";
 		}
+		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
@@ -49,7 +53,7 @@ public class BoardDao {
 			rs = pstmt.executeQuery();
 			// ResetSet 처리
 			if (rs.next()) {
-				result = rs.getInt("cnt");
+				result = rs.getInt("CNT");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -79,8 +83,6 @@ public class BoardDao {
 	// 페이징 리스트
 	public List<BoardListDto> selectPageList(Connection conn, String searchSubject, int start, int end) {
 		List<BoardListDto> result = null;
-//		String sqlAdmin =
-		
 		
 		String sql = "SELECT * FROM (" + 
 	             "    SELECT BOARD_NO, BOARD_TITLE, COUNT(FILE_ID) AS FILE_CNT, BOARD_WRITER, to_char(BOARD_WRITE_TIME, 'MM.DD HH24:MI') AS BOARD_WRITE_TIME, HIT, MEMBER_ADMIN," + 
@@ -92,19 +94,6 @@ public class BoardDao {
 			   sql += "    GROUP BY BOARD_NO, BOARD_TITLE, BOARD_WRITER, BOARD_WRITE_TIME, HIT, MEMBER_ADMIN " + 
 					  "    ORDER BY MEMBER_ADMIN DESC, BOARD_NO DESC) T1 " + 
 					  "    WHERE (MEMBER_ADMIN = 1 AND RN <= 3) OR (MEMBER_ADMIN <> 1 AND MEMBER_ADMIN <> 2) AND RN BETWEEN ? AND ?";
-
-
-
-		
-//		String sql = "SELECT t2.* FROM "
-//				+ " (SELECT t1.*, rownum AS rn "
-//				+ " FROM (SELECT board_no, board_title, COUNT(file_id) AS FILE_CNT, board_writer, board_write_time, hit, MEMBER_ADMIN "
-//				+ "        FROM board_community LEFT JOIN board_file ON b_no = board_no ";
-//		if (searchSubject != null) {
-//			sql += "        WHERE BOARD_TITLE LIKE '%" + searchSubject + "%' ";
-//				}
-//			sql += " GROUP BY board_no, board_title, board_writer, board_write_time, hit, MEMBER_ADMIN "
-//				+ " ORDER BY 1 DESC) t1) t2 WHERE rn BETWEEN ? AND ?";
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

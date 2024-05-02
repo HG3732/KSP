@@ -35,11 +35,13 @@ body {
 	<%-- 
 	[[ 로그인 정보 : ${ssslogin} ]]
 	<br> [[ map : ${map.dtolist }]]
-	<br> [[ totalPageCount : ${map.totalPageCount }]]
 	<br> [[ startPageNum : ${map.startPageNum }]]
 	<br> [[ endPageNum : ${map.endPageNum }]]
 	<br> [[ 조회수 : ${hit }]]
+	<br> [[ totalPageCount : ${map.totalPageCount }]]
+	<br> [[ totalCount : ${map.totalCount }]]
  --%>
+ 
 	<div class="wrap-header">
 		<header>
 			<%@include file="/WEB-INF/views/common/header.jsp"%>
@@ -82,7 +84,7 @@ body {
 				</form>
 			</div>
 			<div class="count-write">
-				<span>436건</span>
+				<span>${map.totalCount }건</span>
 				<div class="community-btn">
 					<button type="button"
 						<%-- onclick="location.href='${pageContext.request.contextPath}/board/write'" --%>

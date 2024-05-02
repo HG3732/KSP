@@ -31,6 +31,7 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
 </head>
 
 <body>
+[[ 로그인 정보 : ${ssslogin} ]]
 	<div class="wrap-header">
 		<header>
 			<%@include file="/WEB-INF/views/common/header.jsp"%>
@@ -152,7 +153,7 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
 			<form id="frm-reply">
 				<input type="hidden" name="boardNo" value="${dto.boardNo }">
 				<div class="comment">
-					<div>댓글 ${replydto.replyCount}</div>
+					<div>댓글 ${replycount.replyCount}</div>
 					<div class="comment-box">
 						<input type="text" name="boardReplyContent" required>
 						<button type="button" class="btn reply">등록</button>
@@ -208,11 +209,15 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
         function btnReplyClickHandler() {
         	console.log("댓글 등록버튼 눌림");
             // 로그인 확인
-
+            // $ssslogin === null || ssslogin === undefined || ssslogin === ''
+			if("${empty ssslogin}"){
+				alert("로그인 후 댓글 작성이 가능합니다.");
+				location.href="${pageContext.request.contextPath}/login";
+	            return;
+			}
             // 공란 테스트
             if($("#frm-reply [name=boardReplyContent]").val().trim().length == 0){
                 alert("댓글을 입력해 주세요.");
-                return;
             }
             
             console.log($("#frm-reply").serialize());
@@ -387,19 +392,6 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
 					`;
 				
 			}
-/* 			
-			htmlVal += `
-				<div class="modal reply-delete">
-				<div class="modal_body">
-					<h2>댓글을 삭제하시겠습니까?</h2>
-					<div class="modal-btn">
-						<button type="button" id="btn-reply-delete-modalok">확인</button>
-						<button type="button" id="btn-reply-delete-modalcancel">취소</button>
-					</div>
-				</div>
-			</div>
-			`;
-				 */
         	
 		$(".reply-wrap").html(htmlVal);
 		// html(새로운 내용으로 덮어쓰면 기존 event 등록이 사라짐)

@@ -51,7 +51,6 @@ public class BoardDeleteController extends HttpServlet {
 			System.out.println("삭제안됨 " + result);
 		}
 		
-		
 	}
 
 }

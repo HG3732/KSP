@@ -60,10 +60,10 @@ public class EduBookService {
 		return result;
 	}
 
-	// 교육 취소
+	// 교육 신청 취소
 	public int delete(String mem_id, Integer eduId) {
 		int result = 0;
-		SqlSession session = MybatisTemplate.getSqlSession(false);
+		SqlSession session = MybatisTemplate.getSqlSession(true);
 		result = ebd.delete(session, mem_id, eduId);
 		session.close();
 		return result;

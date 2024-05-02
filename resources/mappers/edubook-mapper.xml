@@ -41,7 +41,7 @@
 	</insert>
 	
 	<!-- 교육 신청 취소 -->
-	<delete id="delete" parameterType="hashmap">
+	<delete id="delete" parameterType="map">
 	DELETE FROM EDU_BOOK WHERE EDU_BOOK_ID = #{mem_id} AND EDU_ID = #{eduId}
 	</delete>
 </mapper>

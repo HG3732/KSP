@@ -787,21 +787,22 @@
 		}
 		// 교육 신청 취소
 		function bookDelHandler(){
-			var eduIdVal = $("#eduId").val();
-			$.ajax({
-				url : "${pageContext.request.contextPath}/edu/book/delete.ajax"
-				, method : "post"
-				, data : {eduId : eduIdVal}
-				, error : ajaxErrorHandler
-				, success : function(result){
-					if(result == 1){
-						alert("교육 신청 취소가 완료되었습니다.");
-						location.reload();
-					}else{
-						alert("교육 신청 취소 중 오류가 발생했습니다.");
+			if(confirm("교육 신청을 취소하시겠습니까?")){
+				$.ajax({
+					url : "${pageContext.request.contextPath}/edu/book/delete.ajax"
+					, method : "post"
+					, data : {eduId : '${eduOne.eduId}'}
+					, error : ajaxErrorHandler
+					, success : function(result){
+						if(result == 1){
+							alert("교육 신청 취소가 완료되었습니다.");
+							location.reload();
+						}else{
+							alert("교육 신청 취소 중 오류가 발생했습니다.");
+						}
 					}
-				}
-			});
+				});
+			}
 		}
 		// 교육 삭제
 		function eduDelHandler(){

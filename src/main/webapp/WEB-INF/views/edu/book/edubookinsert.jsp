@@ -103,6 +103,36 @@
 	                        <td>참여대상</td>
 	                        <td>
 	                            <select name="book-level" id="book-level" disabled>
+	                            	<c:if test="${detail.eduParticipant == 'element' }">
+	                                <optgroup label="초등">
+	                                    <option value="e1">초등1</option>
+	                                    <option value="e2">초등2</option>
+	                                    <option value="e3">초등3</option>
+	                                    <option value="e4">초등4</option>
+	                                    <option value="e5">초등5</option>
+	                                    <option value="e6">초등6</option>
+	                                </optgroup>
+	                            	</c:if>
+	                            	<c:if test="${detail.eduParticipant == 'middle' }">
+	                                <optgroup label="중등">
+	                                    <option value="m1">중등1</option>
+	                                    <option value="m2">중등2</option>
+	                                    <option value="m3">중등3</option>
+	                                </optgroup>
+	                            	</c:if>
+	                            	<c:if test="${detail.eduParticipant == 'high' }">
+	                                <optgroup label="고등">
+	                                    <option value="h1">고등1</option>
+	                                    <option value="h2">고등2</option>
+	                                    <option value="h3">고등3</option>
+	                                </optgroup>
+	                            	</c:if>
+	                            	<c:if test="${detail.eduParticipant == 'adult' }">
+	                                <optgroup label="기타">
+	                                    <option value="adult">성인</option>
+	                                </optgroup>
+	                            	</c:if>
+	                            	<c:if test="${detail.eduParticipant == 'all' }">
 	                                <optgroup label="초등">
 	                                    <option value="e1">초등1</option>
 	                                    <option value="e2">초등2</option>
@@ -124,6 +154,7 @@
 	                                <optgroup label="기타">
 	                                    <option value="adult">성인</option>
 	                                </optgroup>
+	                            	</c:if>
 	                            </select>
 	                        </td>
 	                    </tr>

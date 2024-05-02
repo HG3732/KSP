@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="wrap-main">
-    <div style="padding: 10px 0;">*세부 시간대에 따라 위치가 조금 다를 수 있습니다.</div>
+    <div style="padding: 10px 0; color: yellow;">*세부 시간대에 따라 위치가 조금 다를 수 있습니다.</div>
         <div class="portrait">
         	<div class="wrap-universe">
         	<img src="${pageContext.request.contextPath}/resource/image/star_map_cover.png" class="star-cover">

@@ -151,12 +151,17 @@
         }
 
     </style>
+    <script>
+		$(loadedHandler);
+		function loadedHandler(){
+			$(".btn.search-edu").on("click", searchSubjectHandler);
+			$(".btn.edulist").on("click", eduListHandler);
+			$(".btn.edubooklist").on("click", eduBookListHandler);
+		}
+    </script>
 </head>
-
 <body>
-	<div class="wrap-header">
-		<%@include file="/WEB-INF/views/common/header.jsp" %>
-	</div>
+	<%@include file="/WEB-INF/views/common/header.jsp" %>
     <div class="wrap-main">
     	<div class="content">
     		<div class="tabs">
@@ -251,36 +256,26 @@
             </div>
         </div>
     </div>
-    <div class="wrap-footer">
-        <footer>
-            <%@include file="/WEB-INF/views/common/footer.jsp" %>
-        </footer>
-    </div>
-<script>
-$(loadedHandler);
-function loadedHandler(){
-	$(".btn.search-edu").on("click", searchSubjectHandler);
-	$(".btn.edulist").on("click", eduListHandler);
-	$(".btn.edubooklist").on("click", eduBookListHandler);
-}
-// 교육 목록 페이지 이동
-function eduListHandler(){
-	location.href = "${pageContext.request.contextPath}/edu";
-}
-// 교육 신청 현황 페이지 이동
-function eduBookListHandler(){
-	location.href = "${pageContext.request.contextPath}/edu/book";
-}
-// 키워드로 제목 검색
-function searchSubjectHandler(){
-	location.href="${pageContext.request.contextPath}/edu?edu-name=" + $("#edu-name").val() ;
-}
-// 키워드로 제목 검색 시 엔터도 반응
-function searchSubjectEnterHandler(){
-	if(window.event.keyCode == 13){
-		searchSubjectHandler();
-	}
-}
-</script>
+    <%@include file="/WEB-INF/views/common/footer.jsp" %>
+	<script>
+		// 교육 목록 페이지 이동
+		function eduListHandler(){
+			location.href = "${pageContext.request.contextPath}/edu";
+		}
+		// 교육 신청 현황 페이지 이동
+		function eduBookListHandler(){
+			location.href = "${pageContext.request.contextPath}/edu/book";
+		}
+		// 키워드로 제목 검색
+		function searchSubjectHandler(){
+			location.href="${pageContext.request.contextPath}/edu?edu-name=" + $("#edu-name").val() ;
+		}
+		// 키워드로 제목 검색 시 엔터도 반응
+		function searchSubjectEnterHandler(){
+			if(window.event.keyCode == 13){
+				searchSubjectHandler();
+			}
+		}
+	</script>
 </body>
 </html>

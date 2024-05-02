@@ -12,18 +12,22 @@
 	<link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<jsp:include page="/WEB-INF/views/common/common_star.jsp"/>
 <script>
 $(loadedHandler)
 
 let webSocket;
 
 	function loadedHandler() {
+		locWeatherHandler();
 		$(".logout").on("click", logoutHandler);
 		$(".mypage").on("click", myPageHandler);
+		$(".btn-location").on("click", locWeatherHandler);
 		
 		$(".chat").on("click", faqHandler);
 	}
 	
+	/* 로그아웃 */
 	function logoutHandler() {
 		alert("안녕히가십시오");
 		
@@ -33,6 +37,7 @@ let webSocket;
 		frmlogout.submit();
 	}
 	
+	/* 내 정보 조회 */
  	function myPageHandler(){
 		
  		let options = "width=600, height=500, menubar=no, toolbar=no, scrollbars=no, resizable=no";
@@ -40,6 +45,7 @@ let webSocket;
  		
 	}
  	
+	/* 채팅 */
  	function faqHandler() {
  		
 		$(".wrap-chatbox").css("display","flex");
@@ -109,6 +115,41 @@ let webSocket;
 		}
 		
 	}
+	
+	/* 지역 선택에 따른 기상 정보 */
+	function locWeatherHandler() {
+		var loc = $(".location option:selected").val();
+		
+		$.ajax({
+			url:"${pageContext.request.contextPath}/location/weather.ajax"
+			, method : "post"
+			, data : { loc : loc }
+			, dataType : "json"
+			, error : ajaxErrorHandler
+			, success : function(result) {
+				if(result != null && result != ""){
+					$(".marquee").empty();
+					displayWeather(result);
+				}
+			}
+		});
+	}
+	
+	/* 기상 정보 표시 */
+	function displayWeather(datalist1) {
+		var htmlVal = '';
+		if(!datalist1) {
+			htmlVal = "날씨 정보를 불러오는데 실패하였습니다.";
+		} else {
+			for(var idx in datalist1) {
+				var datalist = datalist1[idx];
+				htmlVal += `
+	   				<span>\${datalist.fcstDate}</span> &nbsp; <span>\${datalist.fcstHour}시</span> &nbsp; <span>기온 : \${datalist.t1h}도</span> &nbsp; <span>하늘 상태 : \${datalist.sky}</span> &nbsp; <span>강수 : \${datalist.pty}</span> &nbsp; | &nbsp;
+	   				`;
+			}
+			$(".marquee").append(htmlVal);
+		}
+	}
  	
 	function entermsg() {
 		if (window.event.keyCode == 13) {
@@ -167,20 +208,35 @@ let webSocket;
 	        		</c:otherwise>
 	        	</c:choose>
                 <div class="weather-box">
-                   <c:choose>
+                	<MARQUEE behavior="scroll" scrollamount="12" class="marquee">
+                   <%-- <c:choose>
                    		<c:when test="${empty weatherInfo }">
 							날씨 데이터를 불러오는데 실패하였습니다.	                   		
                    		</c:when>
                    		<c:otherwise>
-                   			<MARQUEE behavior="scroll" scrollamount="12">
 	                   			<c:forEach items="${weatherInfo}" var="weatherinfo">
 	                   				<span>${weatherinfo.fcstDate}</span> &nbsp; <span>${weatherinfo.fcstHour}시</span> &nbsp; <span>기온 : ${weatherinfo.t1h}도</span> &nbsp; <span>하늘 상태 : ${weatherinfo.sky}</span> &nbsp; <span>강수 : ${weatherinfo.pty}</span> &nbsp; | &nbsp;
 	                   			</c:forEach>
-                   			</MARQUEE>
                    		</c:otherwise>
-                   </c:choose>
+                   </c:choose> --%>
+                   </MARQUEE>
                 </div>
             </div>
+        <div class="loc-box">
+	        <select class="location" name="location">
+	            <option value="1" selected>서울</option>
+	            <option value="2">인천</option>
+	            <option value="3">강릉</option>
+	            <option value="4">춘천</option>
+	            <option value="5">안동</option>
+	            <option value="6">대전</option>
+	            <option value="7">대구</option>
+	            <option value="8">광주</option>
+	            <option value="9">부산</option>
+	            <option value="10">제주</option>
+	      	</select>
+       		<button name="btn-location" class="btn-location">조회</button>
+        </div>
 	    </div>
     </header>
 </body>

@@ -160,9 +160,9 @@ $(loadedHandler)
        <div class="wrap-quit">
 	       <form id="quit-info" method="post" action="${pageContext.request.contextPath}/quit/member">
 	       		<input type="hidden" name="member_id" value="${ssslogin.mem_id}">
-	      		<button type="button" name="quit" class="quit" style="background-color: red;">회원 탈퇴</button>
+	      		<button type="button" name="quit" class="changeable quit" disabled>회원 탈퇴</button>
 		   </form>
-	      		<button type="button" name="viewedu" class="viewedu">신청 교육 조회</button>
+	      		<button type="button" name="viewedu" class="changeable viewedu" disabled>신청 교육 조회</button>
 	   </div>
     </div>
 </body>

@@ -13,7 +13,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KimParkSeo</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.11/index.global.min.js"></script>
     <jsp:include page="/WEB-INF/views/common/common_star.jsp"/>
     <script>
 	loginPermission();
@@ -192,9 +191,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="wrap-header">
-		<%@include file="/WEB-INF/views/common/header.jsp" %>
-	</div>
+	<%@include file="/WEB-INF/views/common/header.jsp" %>
     <div class="wrap-main">
         <div class="content">
             <div class="tabs">
@@ -218,11 +215,8 @@
             </c:choose>
         </div>
     </div>
-    <div class="wrap-footer">
-        <footer>
-            <%@include file="/WEB-INF/views/common/footer.jsp" %>
-        </footer>
-    </div>
+    <%@include file="/WEB-INF/views/common/footer.jsp" %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.11/index.global.min.js"></script>
 	<script>
 	// 교육 목록 페이지 이동
 	function eduListHandler(){
@@ -278,6 +272,7 @@
 	    var calendarEl = document.getElementById('calendar');
 	    var calendar = new FullCalendar.Calendar(calendarEl, {
 	        // Tool Bar 목록 document : https://fullcalendar.io/docs/toolbar
+	        locale: "ko", 
 	        headerToolbar: {
 	            left: 'prev',
 	            center: 'title',

@@ -125,46 +125,46 @@
     	<div class="content">
             <div class="edu-list">
 	            <c:choose>
-	            	<c:when test="${empty edulist }">
-	            		등록된 교육이 없습니다.
-	            	</c:when>
-		            <c:otherwise>
-			            <div class="edu-list-detail">
-			            	<c:forEach items="${edulist }" var="edu" varStatus="vs">
-				                    <div>
-				                        <a href="${pageContext.request.contextPath }/edu/one?id=${edu.eduId}">
-				                        	<div class="edu-content">
-					                            <table style="line-height: 4em; padding-right: 10px;">
-					                                <colgroup>
-					                                    <col style="width: 33%;">
-					                                    <col>
-					                                </colgroup>
-					                                <thead>
-						                                <tr>
-						                                    <td class="edu-title" colspan="2"><div>${edu.eduSubject }</div></td>
-						                                </tr>
-					                                </thead>
-					                                <tbody>
-					                                    <tr>
-					                                        <td>진행기간</td>
-					                                        <td><div>${edu.eduStart }</div>~<div>${edu.eduEnd }</div></td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>신청기간</td>
-					                                        <td><div>${edu.eduBookStart }</div>~<div>${edu.eduBookEnd }</div></td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>모집대상</td>
-					                                        <td><div>${edu.eduParticipant }</div></td>
-					                                    </tr>
-					                                </tbody>
-					                            </table>
-				                        	</div> 
-				                        </a>
-				                    </div>
-			            	</c:forEach>
-				        </div>
-		            </c:otherwise>
+            	<c:when test="${empty edulist }">
+            		신청한 교육이 없습니다.
+            	</c:when>
+	            <c:otherwise>
+	            <div class="edu-list-detail">
+	            	<c:forEach items="${edulist }" var="edu" varStatus="vs">
+                    <div>
+                        <a href="${pageContext.request.contextPath }/edu/one?id=${edu.eduId}">
+                        	<div class="edu-content">
+	                            <table style="line-height: 4em; padding-right: 10px;">
+	                                <colgroup>
+	                                    <col style="width: 33%;">
+	                                    <col>
+	                                </colgroup>
+	                                <thead>
+		                                <tr>
+		                                    <td class="edu-title" colspan="2"><div>${edu.eduSubject }</div></td>
+		                                </tr>
+	                                </thead>
+	                                <tbody>
+	                                    <tr>
+	                                        <td>진행기간</td>
+	                                        <td><div>${edu.eduStart }</div>~<div>${edu.eduEnd }</div></td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>신청기간</td>
+	                                        <td><div>${edu.eduBookStart }</div>~<div>${edu.eduBookEnd }</div></td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>모집대상</td>
+	                                        <td><div>${edu.eduParticipant }</div></td>
+	                                    </tr>
+	                                </tbody>
+	                            </table>
+                        	</div> 
+                        </a>
+                    </div>
+	            	</c:forEach>
+		        </div>
+	            </c:otherwise>
 	            </c:choose>
         	</div>
         </div>

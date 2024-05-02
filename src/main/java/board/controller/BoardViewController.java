@@ -35,14 +35,6 @@ public class BoardViewController extends HttpServlet {
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		AlertController.loginPermission(request, response, "로그인 후 뷰글 작성이 가능합니다.");
-//		MemberInfoDto memberInfoDto = (MemberInfoDto) request.getSession().getAttribute("ssslogin");
-//		BoardViewDto viewDto = new BoardViewDto();
-//		String reTitle = viewDto.getBoardTitle();
-//		String reContent = viewDto.getBoardContent(); 
-//		reContent = reContent.replaceAll("<br>", "");
-//		BoardViewDto reDto = new BoardViewDto(viewDto.getBoardNo(), reTitle, memberInfoDto.getMem_id(), viewDto.getBoardWriteTime(),viewDto.getHit(), viewDto.getBoardContent(), viewDto.getMemberAdmin());
-//		request.setAttribute("detail", reDto);
 		
 		String boardNoStr = request.getParameter("no");
 		try {

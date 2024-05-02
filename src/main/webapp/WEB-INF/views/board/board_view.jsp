@@ -31,7 +31,9 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
 </head>
 
 <body>
+<%-- 
 [[ 로그인 정보 : ${ssslogin} ]]
+ --%>
 	<div class="wrap-header">
 		<header>
 			<%@include file="/WEB-INF/views/common/header.jsp"%>
@@ -740,7 +742,8 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
                     // Be careful - do not use the development token endpoint on production systems!
                     tokenUrl: 'https://108971.cke-cs.com/token/dev/LWvcqjSdY8J1orf2B1bT0an5x6qP8mxfseAP?limit=10',
                     webSocketUrl: 'wss://108971.cke-cs.com/ws',
-                    uploadUrl: 'https://108971.cke-cs.com/easyimage/upload/'
+                    // uploadUrl: 'https://108971.cke-cs.com/easyimage/upload/'
+                    uploadUrl: '${pageContext.request.contextPath}/fileupload.ajax'
                 },
                 collaboration: {
                     // Modify the channelId to simulate editing different documents

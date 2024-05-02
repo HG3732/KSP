@@ -161,7 +161,7 @@
     function loadedHandler(){
     	$(".btn.edulist").on("click", eduListHandler);
     	$(".btn.edubooklist").on("click", eduBookListHandler);
-    	$(".fc-event-title-container").on("click", modalClickHandler);
+    	//$(".fc-event-title-container").on("click", modalClickHandler);
     	$(".btn.closemodal").on("click", closeConfirmHandler);
     }
     </script>
@@ -192,9 +192,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="wrap-header">
-		<%@include file="/WEB-INF/views/common/header.jsp" %>
-	</div>
+	<%@include file="/WEB-INF/views/common/header.jsp" %>
     <div class="wrap-main">
         <div class="content">
             <div class="tabs">
@@ -218,11 +216,7 @@
             </c:choose>
         </div>
     </div>
-    <div class="wrap-footer">
-        <footer>
-            <%@include file="/WEB-INF/views/common/footer.jsp" %>
-        </footer>
-    </div>
+    <%@include file="/WEB-INF/views/common/footer.jsp" %>
 	<script>
 	// 교육 목록 페이지 이동
 	function eduListHandler(){
@@ -234,9 +228,18 @@
 	}
 	// 신청 내역 모달 띄우기
 	function modalClickHandler(event){
-		var clickObject$ = $(event.target);
-		var bookSchool = clickObject$.children("div").html();
-		var start = clickObject$.parents("td").data("date");
+		console.log(event.el.fcSeg.eventRange.def.title);
+		var startYear = event.event._instance.range.start.getFullYear();
+		var startMonth = event.event._instance.range.start.getMonth()+1;
+		var startDate = event.event._instance.range.start.getDate();
+		var start;
+		if(startMonth < 10){
+			start = startYear + '-0' + startMonth + '-' + startDate;
+		}else{
+			start = startYear + '-' + startMonth + '-' + startDate;
+		}
+		var bookSchool = event.el.fcSeg.eventRange.def.title;
+		console.log(start);
 		$.ajax({
 			url : "${pageContext.request.contextPath}/edu/book/info.ajax",  
 			method : "post", 
@@ -250,14 +253,17 @@
 				$("#eduPartNum").html(data.eduPartNum);
 			}
 		});
-		var clickPoint = event.target.value;
-		$(".wrap-modal").css("left", $(clickObject$).offset().left - 190);
-		$(".wrap-modal").css("top", $(clickObject$).offset().top + 30);
+		var clickPoint$ = $(event.el);
+		console.log(clickPoint$);
+		$(".wrap-modal").css("left", clickPoint$.offset().left);
+		$(".wrap-modal").css("top", clickPoint$.offset().top + 30);
 		$(".modal-background").removeClass("hidden");
+		return;
 	}
 	// 신청 내역 모달 닫기
 	function closeConfirmHandler(event){
 		$(".modal-background").addClass("hidden");
+		return;
 	}
 	
 	
@@ -275,6 +281,7 @@
 	        selectMirror: true,
 	        navLinks: false,
 	        editable: false,
+	        eventClick : modalClickHandler, 
 	        dayMaxEvents: false,
 	        events: [
 	        	<%

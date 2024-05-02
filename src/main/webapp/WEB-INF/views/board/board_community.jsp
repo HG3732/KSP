@@ -121,7 +121,7 @@ body {
 
 									<c:choose>
 										<c:when test="${vo.fileId == null || vo.fileId == 0}">
-											<td>X</td>
+											<td></td>
 										</c:when>
 										<c:when test="${vo.fileId != null || vo.fileId != 0}">
 											<td><img

@@ -116,11 +116,8 @@
 
     </style>
 </head>
-
 <body>
-	<div class="wrap-header">
-		<%@include file="/WEB-INF/views/common/header.jsp" %>
-	</div>
+	<%@include file="/WEB-INF/views/common/header.jsp" %>
     <div class="wrap-main">
     	<div class="content">
             <div class="edu-list">
@@ -169,11 +166,7 @@
         	</div>
         </div>
     </div>
-    <div class="wrap-footer">
-        <footer>
-            <%@include file="/WEB-INF/views/common/footer.jsp" %>
-        </footer>
-    </div>
+    <%@include file="/WEB-INF/views/common/footer.jsp" %>
 <script>
 $(loadedHandler);
 function loadedHandler(){

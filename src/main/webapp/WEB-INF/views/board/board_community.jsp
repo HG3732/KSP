@@ -105,12 +105,10 @@ body {
 						<tbody class="table-body">
 							<c:forEach items="${map.dtolist }" var="vo" varStatus="vs">
 								<tr>
-
 									<c:choose>
 										<c:when test="${vo.memberAdmin > 0}">
 											<td class="notice-admin">공지</td>
 										</c:when>
-
 										<c:otherwise>
 											<td>${vo.boardNo }</td>
 										</c:otherwise>
@@ -118,7 +116,6 @@ body {
 									<td><a
 										href="${pgaeContext.request.contextPath}/star/board/view?no=${vo.boardNo }">
 											${vo.boardTitle }</a></td>
-
 									<c:choose>
 										<c:when test="${vo.fileId == null || vo.fileId == 0}">
 											<td></td>

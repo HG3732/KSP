@@ -78,10 +78,7 @@ rel="stylesheet">
 								</tr>
 								<tr>
 									<th>내용</th>
-									<%-- 
-									<td><textarea name="content" id="write-content" cols="15"
-											rows="5" title="내용 입력">${detail.boardContent}</textarea></td>
-											 --%>
+
 									<td>
 										<div id="editor-container">
                                             <div class="container-ck">
@@ -90,6 +87,7 @@ rel="stylesheet">
                                             </div>
                                         </div>
 									</td>
+									
 								</tr>
 								<tr>
 									<th>첨부파일</th>

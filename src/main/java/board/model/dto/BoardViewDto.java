@@ -43,8 +43,8 @@ public class BoardViewDto {
 		this.boardWriter = boardWriter;
 		this.boardWriteTime = boardWriteTime;
 		this.hit = hit;
-		boardContent = boardContent.replaceAll("\\r?\\n", "<br>");
-		boardContent = boardContent.replaceAll(" ", "&nbsp;");
+//		boardContent = boardContent.replaceAll("\\r?\\n", "<br>");
+//		boardContent = boardContent.replaceAll(" ", "&nbsp;");
 		this.boardContent = boardContent;
 		this.memberAdmin = memberAdmin;
 	}

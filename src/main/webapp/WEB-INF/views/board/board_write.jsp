@@ -84,13 +84,8 @@
 								</tr>
 								<tr>
 									<th>내용</th>
-									<!-- 
-									<td><textarea name="content" id="write-content" cols="15"
-											rows="5" title="내용 입력"></textarea></td>
-											 -->
 									<!-- ck 에디터 -->
 									<td>
-                                        <!-- <div id="presence-list-container" style="display: none;"></div> -->
                                         <div id="editor-container">
                                             <div class="container-ck">
                                                 <div id="outline" class="document-outline-container" style="display:none;"></div>

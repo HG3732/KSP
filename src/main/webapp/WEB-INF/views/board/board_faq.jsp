@@ -60,7 +60,7 @@
 						<dl>
 							<dt>
 								<div class="text">
-									<span class="icon"> <img src="" alt="Q">
+									<span class="icon"> <img src="${pageContext.request.contextPath}/resource/image/stars.png" alt="Q">
 									</span> <span class="title"> <a href="#">별은 왜 망원경으로 봐도 점으로
 											보이나요?</a>
 									</span> <span class="open active">ㅜ</span>
@@ -80,7 +80,7 @@
 						<dl>
 							<dt>
 								<div class="text">
-									<span class="icon"> <img src="" alt="Q">
+									<span class="icon"> <img src="${pageContext.request.contextPath}/resource/image/stars.png" alt="Q">
 									</span> <span class="title"> <a href="#">별은 왜 망원경으로 봐도 점으로
 											보이나요?</a>
 									</span> <span class="open active">ㅜ</span>
@@ -100,7 +100,7 @@
 						<dl>
 							<dt>
 								<div class="text">
-									<span class="icon"> <img src="" alt="Q">
+									<span class="icon"> <img src="${pageContext.request.contextPath}/resource/image/stars.png" alt="Q">
 									</span> <span class="title"> <a href="#">별은 왜 망원경으로 봐도 점으로
 											보이나요?</a>
 									</span> <span class="open active">ㅜ</span>
@@ -120,7 +120,7 @@
 						<dl>
 							<dt>
 								<div class="text">
-									<span class="icon"> <img src="" alt="Q">
+									<span class="icon"> <img src="${pageContext.request.contextPath}/resource/image/stars.png" alt="Q">
 									</span> <span class="title"> <a href="#">별은 왜 망원경으로 봐도 점으로
 											보이나요?</a>
 									</span> <span class="open active">ㅜ</span>
@@ -140,7 +140,7 @@
 						<dl>
 							<dt>
 								<div class="text">
-									<span class="icon"> <img src="" alt="Q">
+									<span class="icon"> <img src="${pageContext.request.contextPath}/resource/image/stars.png" alt="Q">
 									</span> <span class="title"> <a href="#">별은 왜 망원경으로 봐도 점으로
 											보이나요?</a>
 									</span> <span class="open active">ㅜ</span>
@@ -160,7 +160,7 @@
 						<dl>
 							<dt>
 								<div class="text">
-									<span class="icon"> <img src="" alt="Q">
+									<span class="icon"> <img src="${pageContext.request.contextPath}/resource/image/stars.png" alt="Q">
 									</span> <span class="title"> <a href="#">별은 왜 망원경으로 봐도 점으로
 											보이나요?</a>
 									</span> <span class="open active">ㅜ</span>
@@ -180,7 +180,7 @@
 						<dl>
 							<dt>
 								<div class="text">
-									<span class="icon"> <img src="" alt="Q">
+									<span class="icon"> <img src="${pageContext.request.contextPath}/resource/image/stars.png" alt="Q">
 									</span> <span class="title"> <a href="#">별은 왜 망원경으로 봐도 점으로
 											보이나요?</a>
 									</span> <span class="open active">ㅜ</span>
@@ -200,7 +200,7 @@
 						<dl>
 							<dt>
 								<div class="text">
-									<span class="icon"> <img src="" alt="Q">
+									<span class="icon"> <img src="${pageContext.request.contextPath}/resource/image/stars.png" alt="Q">
 									</span> <span class="title"> <a href="#">별은 왜 망원경으로 봐도 점으로
 											보이나요?</a>
 									</span> <span class="open active">ㅜ</span>

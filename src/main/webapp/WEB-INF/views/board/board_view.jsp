@@ -176,8 +176,6 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
 	<script>
         $(loadedHandler);
         function loadedHandler(){
-            //$(".btn.reply").on("click", loginPermission);
-            
             $(".btn.reply").on("click", btnReplyClickHandler);
             $(".btn-delete").on("click", btnDeleteClickHandler);
             $("#btn-delete-modalok").on("click", btnDeleteOkClickHandler);
@@ -221,9 +219,6 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
             if($("#frm-reply [name=boardReplyContent]").val().trim().length == 0){
                 alert("댓글을 입력해 주세요.");
             }
-            
-            console.log($("#frm-reply").serialize());
-
             $.ajax({
             	url: "${pageContext.request.contextPath}/board/reply/write.ajax"
                 ,method : "post"
@@ -300,6 +295,7 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
         	for(var idx in datalist){
 				var replydto = datalist[idx];
 				var buttonHtml = '';
+				
         		if(isAdmin || "${ssslogin.mem_id}" == replydto.bReplyWriter ) {
 		            		/* ssslogin.mem_admin > 0 || ssslogin.mem_id === replydto.bReplyWriter */
 		                buttonHtml = `
@@ -307,6 +303,7 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
 		                    <button type="button" class="btn show rereplydelete">삭제</button>
 		                `;
 		            }
+        		
 				var buttonHtml2 = '';
         		if(isAdmin || "${ssslogin.mem_id}" == replydto.bReplyWriter ) {
 		            		/* ssslogin.mem_admin > 0 || ssslogin.mem_id === replydto.bReplyWriter */
@@ -856,7 +853,6 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
             })
                 .then(a => {
                     b = a;
-					
                     // readonly로 변경
                     b.enableReadOnlyMode( 'feature-id' );
                     // readonly 모드 시 툴바 제거

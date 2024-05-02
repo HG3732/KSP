@@ -63,6 +63,7 @@ public class BoardReplyWriteController extends HttpServlet {
 		
 		Gson gson = new Gson();
 		System.out.println("/board/reply/write.ajax boardNoStr : " + request.getParameter("boardNo"));
+		
 		// 글 번호가 없을 경우
 		if (boardNoStr == null || boardNoStr.equals("")) {
 			response.getWriter().append("-1");
@@ -94,16 +95,14 @@ public class BoardReplyWriteController extends HttpServlet {
 		}
 		
 		
-		
 		BoardReplyWriteDto dto = new BoardReplyWriteDto(boardReplyId, boardNo, boardReplyWriter, boardReplyContent, boardReplyWriteTime);
 		System.out.println("댓글 작성 컨트롤러 dto : " + dto);
 		System.out.println("댓글 작성 컨트롤러 dto : " + dto);
+		
 		int result = service.insertReply(dto);
 		if (result > 0) {
 			List<BoardReplyListDto> replydtolist = service.selectBoardReplyList(boardNo);
-			
 			response.getWriter().append(gson.toJson(replydtolist));
-			
 		}
 	}
 

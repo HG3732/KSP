@@ -85,7 +85,8 @@ public class BoardDao {
 		List<BoardListDto> result = null;
 		
 		String sql = "SELECT * FROM (" + 
-	             "    SELECT BOARD_NO, BOARD_TITLE, COUNT(FILE_ID) AS FILE_CNT, BOARD_WRITER, to_char(BOARD_WRITE_TIME, 'MM.DD HH24:MI') AS BOARD_WRITE_TIME, HIT, MEMBER_ADMIN," + 
+	             "    SELECT BOARD_NO, BOARD_TITLE, COUNT(FILE_ID) AS FILE_CNT, BOARD_WRITER, " +
+	             " to_char(BOARD_WRITE_TIME, 'MM.DD HH24:MI') AS BOARD_WRITE_TIME, HIT, MEMBER_ADMIN," + 
 	             "           ROW_NUMBER() OVER (PARTITION BY MEMBER_ADMIN ORDER BY BOARD_NO DESC) AS RN" + 
 	             "    FROM BOARD_COMMUNITY LEFT JOIN BOARD_FILE ON B_NO = BOARD_NO ";
 		if (searchSubject != null) {

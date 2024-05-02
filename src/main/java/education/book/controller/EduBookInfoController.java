@@ -40,6 +40,7 @@ public class EduBookInfoController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("/edu/book/info.ajax doPost()");
 		String eduPartSchool = request.getParameter("eduPartSchool");
 		String eduStart = request.getParameter("eduStart");
 		EduBookInfoDto dto = ebs.selectBookInfo(eduPartSchool, eduStart);
@@ -49,6 +50,7 @@ public class EduBookInfoController extends HttpServlet {
 		map.put("eduAddress", dto.getEduAddress());
 		map.put("eduPartName", dto.getEduPartName());
 		map.put("eduPartNum", dto.getEduPartNum());
+		System.out.println(map);
 		response.getWriter().append(new Gson().toJson(map));
 	}
 

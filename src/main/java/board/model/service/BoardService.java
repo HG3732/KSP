@@ -134,16 +134,6 @@ public class BoardService {
 		return result;
 	}
 
-	// -------board reply 댓글
-	// select reply list - list
-//	public List<BoardReplyListDto> selectReplyList() {
-//		List<BoardReplyListDto> result = null;
-//		Connection conn = getConnection(true);
-//		result = dao.selectBoardReplyList(conn, null);
-//		close(conn);
-//		return result;
-//	}
-
 	// select list -
 	public List<BoardReplyListDto> selectBoardReplyList(Integer boardNo) {
 		List<BoardReplyListDto> result = null;

@@ -246,6 +246,10 @@
 		}        
         
         
+        #ui-datepicker-div > div > div *
+        , #ui-datepicker-div > div > div{
+        	color: black;
+        }
         
         
 

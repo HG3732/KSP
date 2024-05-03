@@ -75,7 +75,6 @@ public class EduInsertController extends HttpServlet {
 					"secure", true)
 			);
 			
-			String savedfolder = "/resources/uploadfile";
 			String uploadPath = request.getServletContext().getRealPath("/resources/uploadfile");
 			System.out.println("uploadPath : " + uploadPath);
 			File uploadPathFile = new File(uploadPath);

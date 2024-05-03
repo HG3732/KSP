@@ -228,6 +228,7 @@
                 processData: false,
                 success: function(response) {
                     console.log('File uploaded to Cloudinary:', response);
+                    $("#face").prop("src", response);
                 },
                 error: function(error) {
                     console.error('Error uploading file:', error);
@@ -309,11 +310,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet diam in li
                     <p>&nbsp;회원정보를 입력해주세요.</p>
                     <div class="wrap-form">
                     	<!-- <form id="uploadfile" method="post" action="https://api.cloudinary.com/v1_1/ksp-practice/image/upload"> -->
-                    	<form id="uploadfile" enctype="multipart/form-data">
+                    	<form id="uploadfile">
                             <div class="wrap-file">
                         		<div>사진 첨부</div>
                         		<div>
                         			<input type="file" accept="image/*" name="uploadfiles" class="profilepicture" id="profilepicture" style="border: none;"><button type="button" name="upload" class="upload">첨부</button>
+                       			</div>
+                       			<div>
+                       				<img src="" alt="사진 첨부해주세요" id="face">
                        			</div>
                             </div>
                         </form>

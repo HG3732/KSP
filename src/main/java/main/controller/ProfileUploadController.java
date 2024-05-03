@@ -1,7 +1,10 @@
 package main.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
@@ -15,6 +18,8 @@ import javax.servlet.http.Part;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 @WebServlet("/member/profile.ajax")
 @MultipartConfig
@@ -42,43 +47,39 @@ public class ProfileUploadController extends HttpServlet {
 		prop.load(input);
 		// 내 클라우드 정보로 cloudinary 객체 생성 
 		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-				"cloud_name", prop.getProperty("cloudinary.name"),
-				"api_key", prop.getProperty("cloudinary.api.key"),
-				"api_secret", prop.getProperty("cloudinary.api.secret"),
+				"cloud_name", prop.getProperty("cloudinary.cloud_name"),
+				"api_key", prop.getProperty("cloudinary.api_key"),
+				"api_secret", prop.getProperty("cloudinary.api_secret"),
 				"secure", true)
 				);
 		// InputStream 닫기
 		input.close();
 		
-		// 요청에서 파일을 추출
-        Part filePart = request.getPart("file");
-        
-        if (filePart != null) {
-            try {
-                // 파일을 Cloudinary에 업로드
-                Map<String, Object> uploadResult = cloudinary.uploader().upload(filePart.getInputStream(), ObjectUtils.emptyMap());
-                
-                // 업로드 결과에서 파일 URL을 추출
-                String fileUrl = (String) uploadResult.get("secure_url");
-                
-                // 클라이언트에 응답
-                response.setContentType("application/json");
-                response.getWriter().write("{\"fileUrl\": \"" + fileUrl + "\"}");
-            } catch (Exception e) {
-                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                response.getWriter().write("{\"error\": \"" + e.getMessage() + "\"}");
-            } finally {
-                // 파일의 InputStream을 닫기
-                filePart.getInputStream().close();
-                // 파일 삭제 시도
-                filePart.delete();
-                
-            }
-        } else {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("{\"error\": \"No file uploaded\"}");
-        }
+		String uploadPath = request.getServletContext().getRealPath("/resources/uploadfile");
+		File uploadPathFile = new File(uploadPath);
+		if(!uploadPathFile.exists()) {
+			uploadPathFile.mkdirs();
+		}
 		
+		int uploadFileLimit = 10 * 1024 * 1024;
+		MultipartRequest multiReq = new MultipartRequest(request, uploadPath, uploadFileLimit, "UTF-8", new DefaultFileRenamePolicy());
+		
+		Map<String, Object> uploadResult = null;
+		Enumeration<?> faces = multiReq.getFileNames();
+		while(faces.hasMoreElements()) {
+			String name = (String) faces.nextElement();
+			String fileName = multiReq.getFilesystemName(name);
+			File file = multiReq.getFile(name);
+			if(file == null) {
+				System.out.println("실패");
+			}else {
+				System.out.println(file.length());
+			}
+			Map<String, Object> map = new HashMap<String, Object>();
+			uploadResult = cloudinary.uploader().upload(new File(uploadPath+"/"+fileName), ObjectUtils.emptyMap());
+			map.put("url", uploadResult.get("secure_url"));
+		}
+		response.getWriter().append((String)uploadResult.get("url"));
 		
 		
 //		common.jar 방법 2		

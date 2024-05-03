@@ -209,16 +209,6 @@ let webSocket;
 	        	</c:choose>
                 <div class="weather-box">
                 	<MARQUEE behavior="scroll" scrollamount="12" class="marquee">
-                   <%-- <c:choose>
-                   		<c:when test="${empty weatherInfo }">
-							날씨 데이터를 불러오는데 실패하였습니다.	                   		
-                   		</c:when>
-                   		<c:otherwise>
-	                   			<c:forEach items="${weatherInfo}" var="weatherinfo">
-	                   				<span>${weatherinfo.fcstDate}</span> &nbsp; <span>${weatherinfo.fcstHour}시</span> &nbsp; <span>기온 : ${weatherinfo.t1h}도</span> &nbsp; <span>하늘 상태 : ${weatherinfo.sky}</span> &nbsp; <span>강수 : ${weatherinfo.pty}</span> &nbsp; | &nbsp;
-	                   			</c:forEach>
-                   		</c:otherwise>
-                   </c:choose> --%>
                    </MARQUEE>
                 </div>
             </div>

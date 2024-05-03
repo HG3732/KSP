@@ -254,3 +254,4 @@
 </ul>
 
 <h2>4. 최종 발표자료</h2>
+<a href="https://docs.google.com/presentation/d/1LZxCTfkxJLnl15KEInHlCQOLTWOx6VquwBnAKwt9hPs/edit?usp=drive_link">https://docs.google.com/presentation/d/1LZxCTfkxJLnl15KEInHlCQOLTWOx6VquwBnAKwt9hPs/edit?usp=drive_link</href>

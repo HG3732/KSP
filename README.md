@@ -254,4 +254,4 @@
 </ul>
 
 <h2>4. 최종 발표자료</h2>
-<a href="https://docs.google.com/presentation/d/1LZxCTfkxJLnl15KEInHlCQOLTWOx6VquwBnAKwt9hPs/edit?usp=drive_link">최종 발표자료</href>
+<a href="https://github.com/seojw0730/KSP/blob/main/resources/KSP%20%EC%B5%9C%EC%A2%85%20%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pdf">최종 발표자료</href>

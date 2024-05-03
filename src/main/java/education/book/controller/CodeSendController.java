@@ -61,7 +61,14 @@ public class CodeSendController extends HttpServlet {
 		String to = dto.getMem_email();
 		System.out.println(to);
 		String subject = "KSP 교육 신청 인증번호";
-		String content = "인증번호 : " + code;
+		String content = ""; 
+//		content += "인증번호 : " + code;
+		content += "<div style='background-image: url(https://ckbox.cloud/omR8K3z6N1mf6AxIcAwH/assets/IDZ5OfgR7grD/images/1280.jpeg); width: 400px; height: 160px; display: grid; background-repeat: round; align-items: center; border-radius: 150px;'>";
+		content += "<div style='margin: 0 auto; color: white; display: grid; justify-items: center;'>";
+		content += "<h1>KSP 인증코드입니다.</h1>";
+		content += "<h2>" + code + "</h2>";
+		content += "</div>";
+		content += "</div>";
 		
 		// 이메일 전송 : SMTP 이용을 위함
 		Properties p = new Properties();

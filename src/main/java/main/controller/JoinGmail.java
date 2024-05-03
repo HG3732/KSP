@@ -19,6 +19,6 @@ public class JoinGmail extends Authenticator {
 		}
 		
 		//구글 메일, 앱 비밀번호 입력
-		return new PasswordAuthentication(prop.getProperty("google.mail"), prop.getProperty("google.apppwd"));
+		return new PasswordAuthentication(prop.getProperty("gmail.email"), prop.getProperty("gmail.password"));
 	}
 }

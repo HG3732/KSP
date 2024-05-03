@@ -52,7 +52,7 @@ public class JoinCodeSendController extends HttpServlet {
 		
 		//회원 인증 이메일 발송 내용
 		//발송인
-		String from = prop.getProperty("google.mail");
+		String from = prop.getProperty("gmail.email");
 		//수신인
 		String to = request.getParameter("mail");
 		//메일 제목

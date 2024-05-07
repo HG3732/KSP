@@ -15,10 +15,19 @@ public class MemberDto {
 	private String mem_email;
 	private String mem_address;
 	private Integer memFailCnt;
+	private String thumbnail;
 
 	
 	public MemberDto() {
 		super();
+	}
+	
+	
+
+	public MemberDto(String mem_id, String thumbnail) {
+		super();
+		this.mem_id = mem_id;
+		this.thumbnail = thumbnail;
 	}
 
 	public MemberDto(String mem_id, int mem_admin, String mem_name, String mem_pwd, String mem_email,
@@ -96,5 +105,11 @@ public class MemberDto {
 		this.memFailCnt = memFailCnt;
 	}
 
-	
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
 }

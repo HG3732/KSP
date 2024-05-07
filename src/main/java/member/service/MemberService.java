@@ -97,6 +97,14 @@ public class MemberService {
 		return result;
 	}
 	
+	//회원 썸네일 insert
+	public int insert(MemberDto dto, String url) {
+		int result = 0;
+		Connection conn = getConnection(true);
+		result = dao.insertThumbnail(conn, dto, url);
+		return result;
+	}
+	
 	//비밀번호 틀리면 횟수 count
 	public int failCntUpdate(String mem_id) {
 		int result = 0;
@@ -125,6 +133,14 @@ public class MemberService {
 		int result = 0;
 		Connection conn = getConnection(true);
 		result = dao.adminUpdate(conn, mem_id, admin);
+		close(conn);
+		return result;
+	}
+	//썸네일 변경
+	public int thumbnailUpdate(String mem_id, String url) {
+		int result = 0;
+		Connection conn = getConnection(true);
+		result = dao.updateThumbnail(conn, mem_id, url);
 		close(conn);
 		return result;
 	}

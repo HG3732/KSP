@@ -47,9 +47,9 @@ public class ProfileUploadController extends HttpServlet {
 		prop.load(input);
 		// 내 클라우드 정보로 cloudinary 객체 생성 
 		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-				"cloud_name", prop.getProperty("cloudinary.cloud_name"),
-				"api_key", prop.getProperty("cloudinary.api_key"),
-				"api_secret", prop.getProperty("cloudinary.api_secret"),
+				"cloud_name", prop.getProperty("cloudinary.name"),
+				"api_key", prop.getProperty("cloudinary.api.key"),
+				"api_secret", prop.getProperty("cloudinary.api.secret"),
 				"secure", true)
 				);
 		// InputStream 닫기

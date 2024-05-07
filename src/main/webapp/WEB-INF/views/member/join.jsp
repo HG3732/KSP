@@ -316,7 +316,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet diam in li
                         		<div>
                         			<input type="file" accept="image/*" name="uploadfiles" class="profilepicture" id="profilepicture" style="border: none;"><button type="button" name="upload" class="upload">첨부</button>
                        			</div>
-                       			<div>
+                       			<div class="thumbnail-box">
                        				<img src="" alt="사진 첨부해주세요" id="face">
                        			</div>
                             </div>

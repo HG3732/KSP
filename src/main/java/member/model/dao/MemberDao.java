@@ -244,6 +244,39 @@ public class MemberDao {
 			return result;
 		}
 		
+		//thumbnail insert
+		public int insertThumbnail(Connection conn, MemberDto dto, String url) {
+			int result = 0;
+			String sql = "INSERT INTO THUMBNAIL (MEMBER_ID, URL) VALUES (?, ?)";
+			PreparedStatement pstmt = null;
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, dto.getMem_id());
+				pstmt.setString(2, url);
+				result = pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return result;
+		}
+		
+		public int updateThumbnail(Connection conn, String mem_id, String url) {
+			int result = 0;
+			String sql = "UPDATE THUMBNAIL SET URL = ? WHERE MEMBER_ID = ?";
+			PreparedStatement pstmt = null;
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, mem_id);
+				pstmt.setString(2, url);
+				result = pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return result;
+		}
+		
 		//fail_count update
 		public int failCntUpdate(SqlSession session, String mem_id) {
 			int result = 0;

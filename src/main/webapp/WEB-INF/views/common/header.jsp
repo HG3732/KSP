@@ -124,6 +124,7 @@ let webSocket;
 			url:"${pageContext.request.contextPath}/location/weather.ajax"
 			, method : "post"
 			, data : { loc : loc }
+			, async : false
 			, dataType : "json"
 			, error : ajaxErrorHandler
 			, success : function(result) {

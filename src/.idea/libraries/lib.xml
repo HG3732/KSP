@@ -1,0 +1,24 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/main/webapp/WEB-INF/lib/mail.jar!/" />
+      <root url="jar://$PROJECT_DIR$/main/webapp/WEB-INF/lib/activation.jar!/" />
+      <root url="jar://$PROJECT_DIR$/main/webapp/WEB-INF/lib/javax.mail-1.6.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/main/webapp/WEB-INF/lib/cloudinary-core-1.32.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/main/webapp/WEB-INF/lib/cos-2022.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/main/webapp/WEB-INF/lib/commons-logging-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/main/webapp/WEB-INF/lib/httpmime-4.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/main/webapp/WEB-INF/lib/httpcore-4.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/main/webapp/WEB-INF/lib/jstl-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/main/webapp/WEB-INF/lib/ojdbc11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/main/webapp/WEB-INF/lib/mybatis-3.5.15.jar!/" />
+      <root url="jar://$PROJECT_DIR$/main/webapp/WEB-INF/lib/commons-codec-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/main/webapp/WEB-INF/lib/cloudinary-http44-1.32.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/main/webapp/WEB-INF/lib/gson-2.10.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/main/webapp/WEB-INF/lib/httpclient-4.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/main/webapp/WEB-INF/lib/commons-lang3-3.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

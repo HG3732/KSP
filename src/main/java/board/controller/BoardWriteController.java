@@ -106,8 +106,7 @@ public class BoardWriteController extends HttpServlet {
 		
 		BoardInsertDto dto = new BoardInsertDto(memberInfoDto.getMem_id(), title, content, fileList, memberInfoDto.getMem_admin());
 		System.out.println("글 작성 컨트롤러 : " + dto);
-//		BoardInsertDto dto = new BoardInsertDto(mdto.getMem_id(), title, content, fileList);
-		int result = service.insert(dto);
+		service.insert(dto);
 //		int sequenceNum = service.insert(dto);
 		response.sendRedirect(request.getContextPath() + "/board/community");
 		System.out.println("되냐고");

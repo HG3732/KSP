@@ -52,24 +52,24 @@ public class BoardUpdateController extends HttpServlet {
 			// TODO: handle exception
 		}
 
-		try {
-			MemberInfoDto memberInfoDto = (MemberInfoDto) request.getSession().getAttribute("ssslogin");
-
-			String boardNoStr = request.getParameter("no");
-			Integer boardNo = Integer.parseInt(boardNoStr);
-			BoardViewDto viewDto = service.selectOne(boardNo);
-			String reTitle = viewDto.getBoardTitle();
-			String reContent = viewDto.getBoardContent();
-//			reContent = reContent.replaceAll("<br>", "");
-			BoardViewDto reDto = new BoardViewDto(boardNo, reTitle, memberInfoDto.getMem_id(),
-												  viewDto.getBoardWriteTime(), viewDto.getHit(), reContent, viewDto.getMemberAdmin());
-			request.setAttribute("detail", reDto);
-
-			System.out.println("업데이트 doGet boardNo : " + boardNo);
-		} catch (Exception e) {
-			e.printStackTrace();
-			response.sendRedirect(request.getContextPath() + "/login");
-		}
+//		try {
+//			MemberInfoDto memberInfoDto = (MemberInfoDto) request.getSession().getAttribute("ssslogin");
+//
+//			String boardNoStr = request.getParameter("no");
+//			Integer boardNo = Integer.parseInt(boardNoStr);
+//			BoardViewDto viewDto = service.selectOne(boardNo);
+//			String reTitle = viewDto.getBoardTitle();
+//			String reContent = viewDto.getBoardContent();
+////			reContent = reContent.replaceAll("<br>", "");
+//			BoardViewDto reDto = new BoardViewDto(boardNo, reTitle, memberInfoDto.getMem_id(),
+//												  viewDto.getBoardWriteTime(), viewDto.getHit(), reContent, viewDto.getMemberAdmin());
+//			request.setAttribute("detail", reDto);
+//
+//			System.out.println("업데이트 doGet boardNo : " + boardNo);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			response.sendRedirect(request.getContextPath() + "/login");
+//		}
 //		request.getRequestDispatcher("/WEB-INF/views/board/board_update.jsp").forward(request, response);
 
 	}
@@ -85,7 +85,7 @@ public class BoardUpdateController extends HttpServlet {
 		BoardViewDto viewDto = new BoardViewDto();
 		String boardNoStr = request.getParameter("boardNo");
 		Integer boardNo = Integer.parseInt(boardNoStr);
-		request.setAttribute("dto", service.selectOne(boardNo));
+//		request.setAttribute("dto", service.selectOne(boardNo));
 
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");

@@ -75,7 +75,7 @@
 							<table>
 								<tr>
 									<th>작성자</th>
-									<td id="board-writer" name="board-writer">${ssslogin.mem_id }</td>
+									<td id="board-writer">${ssslogin.mem_id }</td>
 								</tr>
 								<tr>
 									<th>제목</th>

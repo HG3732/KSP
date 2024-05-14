@@ -417,7 +417,6 @@ body > div.wrap-main > div.container > div.contents > div > div.view-content > d
         		$(this).text("취소");
         	}
 			$(this).parent().next().toggle();
-			/* $(this).prev().html(""); */
 		}
        	
        	// 댓글 수정란

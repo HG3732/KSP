@@ -94,7 +94,7 @@ public class BoardReplyWriteController extends HttpServlet {
 			boardReplyId = 0;
 		}
 		
-		
+		System.out.println("여기 통과");
 		BoardReplyWriteDto dto = new BoardReplyWriteDto(boardReplyId, boardNo, boardReplyWriter, boardReplyContent, boardReplyWriteTime);
 		System.out.println("댓글 작성 컨트롤러 dto : " + dto);
 		System.out.println("댓글 작성 컨트롤러 dto : " + dto);

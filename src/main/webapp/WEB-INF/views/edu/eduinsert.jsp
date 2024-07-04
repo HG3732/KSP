@@ -568,11 +568,12 @@
 	        placeholder: '교육 세부 내용을 입력해주세요.',
 	        // Used by real-time collaboration
 	        cloudServices: {
-	            // Be careful - do not use the development token endpoint on production systems!
-	            tokenUrl: 'https://108971.cke-cs.com/token/dev/LWvcqjSdY8J1orf2B1bT0an5x6qP8mxfseAP?limit=10',
-	            webSocketUrl: 'wss://108971.cke-cs.com/ws',
-	            uploadUrl: '${pageContext.request.contextPath}/fileupload.ajax'
-	        },
+				// Be careful - do not use the development token endpoint on production systems!
+				tokenUrl: 'https://110380.cke-cs.com/token/dev/ALTCWJbpBbcPjffRdzRes4WagIzLqxcv7h9J?limit=10',
+				webSocketUrl: 'wss://110380.cke-cs.com/ws',
+				//uploadUrl: 'https://110380.cke-cs.com/easyimage/upload/'
+				 uploadUrl: '${pageContext.request.contextPath}/fileupload.ajax'
+			},
 	        collaboration: {
 	            // Modify the channelId to simulate editing different documents
 	            // https://ckeditor.com/docs/ckeditor5/latest/features/collaboration/real-time-collaboration/real-time-collaboration-integration.html#the-channelid-configuration-property
@@ -624,10 +625,7 @@
 	            viewerSidebarContainer: document.querySelector( '#revision-viewer-sidebar' ),
 	        }, */
 	        // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/ckbox.html
-	        ckbox: {
-	            // Be careful - do not use the development token endpoint on production systems!
-	            tokenUrl: 'https://108971.cke-cs.com/token/dev/480089465bf9c72a98d5caf3add530c0df7042cea25ad2bc740dac8fd8d3?limit=10'
-	        },
+	        
 	        ai: {
 	            // AI Assistant feature configuration.
 	            // https://ckeditor.com/docs/ckeditor5/latest/features/ai-assistant.html
@@ -655,7 +653,7 @@
 	            ]
 	        },
 	        // License key is required only by the Pagination plugin and non-realtime Comments/Track changes.
-	        licenseKey: 'NGN3bHZtUjJWZjk4Zis1N0xmUGhqQ2Q5RjFWVU1MZVNGM1h6L1FBRnVpNE0xV0I5THdTTkptOFpqaUtKLU1qQXlOREExTWpZPQ==',
+	        licenseKey: 'NHBPRmY2NVd2Zld4dUpFK2Y5VkNSakYzdHBHZWg1bVRuUTJYc0s2U09iY2MxL1RmMjlvY3psWnNzTmJLSVE9PS1NakF5TkRBM01qWT0=',
 	        removePlugins: [
 	            // Before enabling Pagination plugin, make sure to provide proper configuration and add relevant buttons to the toolbar
 	            // https://ckeditor.com/docs/ckeditor5/latest/features/pagination/pagination.html
